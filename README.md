@@ -7,13 +7,11 @@ This software is intended to help the student build his portfolio, engage with E
 # Our Team
 This Project would not be complete without the help of this two young programmers:
 
-Back-end
-
-Cesar Moura Leite Westphal
-
 Front-end
-
 Vinicius Junqueira
+
+Back-end
+Cesar Moura Leite Westphal
 
 Link to first version - https://github.com/Cesar-mlw/Gamification-Plataform
 
