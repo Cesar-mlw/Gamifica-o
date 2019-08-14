@@ -10,6 +10,7 @@ This Project would not be complete without the help of this two young programmer
 Back-end
 
 Cesar Moura Leite Westphal
+
 Front-end
 
 Vinicius Junqueira
