@@ -4,32 +4,38 @@ import GeradorHash = require("../utils/geradorHash")
 export = class AchievementUsuario {
 
     public id_achievement_usuario: number;
-    public fk_achievement_id: number;
-    public fk_usuario_id: number;
-    public dt_semestre_achievement: number;
+    public id_achievement: number;
+    public ra_usuario: number;
+    public dt_achievement: number;
 
 
-    public static validar(a: AchievementUsuario): string {
+    public static validate(a: AchievementUsuario): string {
         let resp: string
+        if(a.id_achievement == null)
+            resp = "ID do achievement não pode ser nulo\n"
+        if(a.ra_usuario == null)
+            resp += "RA do usuário não pode ser nulo"
+        if(a.dt_achievement == null)
+            resp += "data do achievement não pode ser nulo"
         return resp
     }
 
-    public static async listar(): Promise<string> {
-        let lista: string = null;
+    public static async list(): Promise<AchievementUsuario[]> {
+        let lista: AchievementUsuario[] = null;
 
         await Sql.conectar(async (sql: Sql) => {
-            lista = JSON.stringify(await sql.query("select a.id_achievement, a.nome_achievement, a.criterio_achievement from achievement a, achievement_usuario u where a.id_achievement = u.fk_achievement_id"))
+            lista = await sql.query("select a.id_achievement, a.nome_achievement, a.criterio_achievement from achievement a, achievement_usuario u where a.id_achievement = u.fk_achievement_id") as AchievementUsuario[]
         })
 
         return lista
     }
 
-    public static async criar(a: AchievementUsuario): Promise<string> {
+    public static async create(a: AchievementUsuario): Promise<string> {
         let res: string;
 
         await Sql.conectar(async (sql: Sql) => {
             try {
-                await sql.query("insert into achievement (fk_achievement_id, fk_usuario_id, dt_semestre_achievement) values (?, ?, ?)", [a.fk_achievement_id, a.fk_achievement_id, a.dt_semestre_achievement])
+                await sql.query("insert into achievement_usuario (id_achievement, ra_usuario, dt_achievement) values (?, ?, ?)", [a.id_achievement, a.ra_usuario, a.dt_achievement])
             } catch (e) {
                 if (e.code && e.code === "ER_DUP_ENTRY")
                     res = `já está em uso`
@@ -41,24 +47,40 @@ export = class AchievementUsuario {
         return res
     }
 
-    public static async obterCompletado(ra: number): Promise<string> {
-        let lista: string = null
+    public static async read(ra: number): Promise<AchievementUsuario[]> {
+        let lista: AchievementUsuario[] = null
 
         await Sql.conectar(async (sql: Sql) => {
-            lista = JSON.stringify(await sql.query("select a.id_achievement, a.nome_achievement, a.criterio_achievement, a.area_achievement from achievement a, achievement_usuario u where fk_usuario_id = ? and a.id_achievement = u.fk_achievement_id", [ra]))
+            lista = await sql.query("select a.id_achievement, a.nome_achievement, a.descricao_achievement, r.nome_area from achievement a, achievement_usuario u, area r where ra_usuario = ? and a.id_achievement = u.id_achievement and a.id_area = r.id_area", [ra]) as AchievementUsuario[]
         })
 
         return lista
     }
-    public static async obterNaoCompletado(ra: number): Promise<string> {
-        let lista: string = null
 
-        await Sql.conectar(async (sql: Sql) => {
-            lista = JSON.stringify(await sql.query("select * from achievement a where a.id_achievement not in (select fk_achievement_id from achievement_usuario where fk_usuario_id = ?);", [ra]))
+    public static async update(a: AchievementUsuario): Promise<string> {
+        let res: string;
+
+        Sql.conectar(async (sql: Sql) => {
+            await sql.query("UPDATE achievement_usuario SET id_achievement = ?, dt_achievement = ? WHERE id_achievement_usuario = ?", [a.id_achievement, a.dt_achievement, a.id_achievement_usuario])
+            if(!sql.linhasAfetadas)
+                res = "Usuário não possui esse achievement"
         })
 
-        return lista
+        return res
     }
+
+    public static async delete(id: number): Promise<boolean> {
+        let res: boolean = true
+
+        Sql.conectar(async (sql:Sql) => {
+            await sql.query("DELETE FROM achievement_usuario WHERE id_achievement_usuario = ?", [id])
+            if(!sql.linhasAfetadas)
+                res = false
+        })
+
+        return res
+    }
+
 
 
 }
