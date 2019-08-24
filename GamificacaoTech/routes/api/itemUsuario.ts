@@ -1,13 +1,13 @@
-﻿import express = require("express")
+import express = require("express")
 import wrap = require("express-async-error-wrapper");
-import Projeto = require("../../models/Projeto");
+import ItemUsuario = require("../../models/ItemUsuario");
 
 const router = express.Router()
 
 
 router.post("/create", wrap(async (req: express.Request, res: express.Response) => {
-    let p = req.body as Projeto
-    let erro = await Projeto.create(p)
+    let p = req.body as ItemUsuario
+    let erro = await ItemUsuario.create(p)
     console.log(req.body)
 
     if (erro) {
@@ -15,49 +15,49 @@ router.post("/create", wrap(async (req: express.Request, res: express.Response) 
         res.json(erro)
     }
     else {
-        res.json("Projeto criado")
+        res.json("Item do usuário criado")
     }
 
 }))
 
 router.get("/list", wrap(async (req: express.Request, res: express.Response) => {
-    let lista = await Projeto.list()
+    let lista = await ItemUsuario.list()
 
     res.json(lista)
 }))
 
 router.post("/delete", wrap(async (req: express.Request, res: express.Response) => {
-    let idProjeto = req.body.idProjeto
-    let p = await Projeto.delete(idProjeto) //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
+    let idItemUsuario = req.body.idItemUsuario
+    let p = await ItemUsuario.delete(idItemUsuario) //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
     if (p == false) {
 
-        res.json("Projeto não encontrado")
+        res.json("Item do usuário não encontrado")
     }
 
     else {
-        res.json("Projeto deletado")
+        res.json("Item do usuário deletado")
     }
 }))
 
 
 router.get("/read", wrap(async (req: express.Request, res: express.Response) => {
-    let idProjeto = req.query.idProjeto
-    let p = await Projeto.read(idProjeto)
+    let idItem = req.query.idItem
+    let p = await ItemUsuario.read(idItem)
     res.json(p)
 }))
 
 router.post("/update", wrap(async (req: express.Request, res: express.Response) => {
-    let p = req.body as Projeto
-    let erro = await Projeto.update(p)
+    let p = req.body as ItemUsuario
+    let erro = await ItemUsuario.update(p)
     console.log(erro)
 
     if (erro) {
 
-        res.json("Este projeto não existe")
+        res.json("O usuário não possui o item")
     }
 
     else {
-        res.json("Projeto alterado!")
+        res.json("Item alterado!")
     }
 
 

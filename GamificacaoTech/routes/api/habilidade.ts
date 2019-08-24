@@ -1,59 +1,60 @@
-﻿import express = require("express")
+import express = require("express")
 import wrap = require("express-async-error-wrapper");
-import Achievement = require("../../models/Achievement");
+import Habilidade = require("../../models/Habilidade");
+
 const router = express.Router()
 
 
 router.post("/create", wrap(async (req: express.Request, res: express.Response) => {
-    let a = req.body as Achievement
-    let erro = await Achievement.create(a)
+    let p = req.body as Habilidade
+    let erro = await Habilidade.create(p)
 
     if (erro) {
         res.statusCode = 400
         res.json(erro)
     }
     else {
-        res.json("Achievement criado")
+        res.json("Habilidade Registrada")
     }
 
 }))
 
 router.get("/list", wrap(async (req: express.Request, res: express.Response) => {
-    let lista = await Achievement.list()
+    let lista = await Habilidade.list()
 
     res.json(lista)
 }))
 
 router.post("/delete", wrap(async (req: express.Request, res: express.Response) => {
-    let idAchievement = req.body.idAchievement
-    let a = await Achievement.delete(idAchievement)
+    let idHabilidade = req.body.idHabilidade
+    let a = await Habilidade.delete(idHabilidade)
     if (a == false) {
 
-        res.json("Achievement não encontrado")
+        res.json("Habilidade não encontrada")
     }
 
     else {
-        res.json("Achievement deletado")
+        res.json("Habilidade deletada")
     }
 }))
 
 router.get("/read", wrap(async (req: express.Request, res: express.Response) => {
-    let idAchievement = req.query.idAchievement
-    let a = await Achievement.read(idAchievement)
+    let idHabilidade = req.query.idHabilidade
+    let a = await Habilidade.read(idHabilidade)
     res.json(a)
 }))
 
 router.post("/update", wrap(async (req: express.Request, res: express.Response) => {
-    let a = req.body as Achievement
-    let erro = await Achievement.update(a)
+    let h = req.body as Habilidade
+    let erro = await Habilidade.update(h)
 
     if (erro) {
 
-        res.json("Achievement inexistente")
+        res.json("Habilidade inexistente")
     }
 
     else {
-        res.json("Achievement alterado!")
+        res.json("Habilidade alterado!")
     }
 
 

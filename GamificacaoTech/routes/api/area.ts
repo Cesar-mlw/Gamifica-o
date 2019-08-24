@@ -1,13 +1,14 @@
-﻿import express = require("express")
+import express = require("express")
 import wrap = require("express-async-error-wrapper");
-import Projeto = require("../../models/Projeto");
+import Area = require("../../models/Area");
+import { isArray } from "util";
 
 const router = express.Router()
 
 
 router.post("/create", wrap(async (req: express.Request, res: express.Response) => {
-    let p = req.body as Projeto
-    let erro = await Projeto.create(p)
+    let p = req.body as Area
+    let erro = await Area.create(p)
     console.log(req.body)
 
     if (erro) {
@@ -15,49 +16,49 @@ router.post("/create", wrap(async (req: express.Request, res: express.Response) 
         res.json(erro)
     }
     else {
-        res.json("Projeto criado")
+        res.json("Area criada")
     }
 
 }))
 
 router.get("/list", wrap(async (req: express.Request, res: express.Response) => {
-    let lista = await Projeto.list()
+    let lista = await Area.list()
 
     res.json(lista)
 }))
 
 router.post("/delete", wrap(async (req: express.Request, res: express.Response) => {
-    let idProjeto = req.body.idProjeto
-    let p = await Projeto.delete(idProjeto) //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
+    let idArea = req.body.idArea
+    let p = await Area.delete(idArea) //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
     if (p == false) {
 
-        res.json("Projeto não encontrado")
+        res.json("Area não encontrado")
     }
 
     else {
-        res.json("Projeto deletado")
+        res.json("Area deletado")
     }
 }))
 
 
 router.get("/read", wrap(async (req: express.Request, res: express.Response) => {
-    let idProjeto = req.query.idProjeto
-    let p = await Projeto.read(idProjeto)
+    let idArea = req.query.idArea
+    let p = await Area.read(idArea)
     res.json(p)
 }))
 
 router.post("/update", wrap(async (req: express.Request, res: express.Response) => {
-    let p = req.body as Projeto
-    let erro = await Projeto.update(p)
+    let p = req.body as Area
+    let erro = await Area.update(p)
     console.log(erro)
 
     if (erro) {
 
-        res.json("Este projeto não existe")
+        res.json("Esta Area não existe")
     }
 
     else {
-        res.json("Projeto alterado!")
+        res.json("Area alterado!")
     }
 
 

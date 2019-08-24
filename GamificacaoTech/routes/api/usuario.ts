@@ -3,9 +3,9 @@ import wrap = require("express-async-error-wrapper");
 import Usuario = require("../../models/Usuario");
 const router = express.Router()
 
-router.post("/criar", wrap(async (req: express.Request, res: express.Response) => {
+router.post("/create", wrap(async (req: express.Request, res: express.Response) => {
     let u = req.body as Usuario
-    let erro = await Usuario.criar(u)
+    let erro = await Usuario.create(u)
     
     if (erro) {
         res.statusCode = 400
@@ -16,17 +16,17 @@ router.post("/criar", wrap(async (req: express.Request, res: express.Response) =
     }
 }))
 
-router.get("/obter", wrap(async (req: express.Request, res: express.Response) => {
+router.get("/read", wrap(async (req: express.Request, res: express.Response) => {
     let ra = req.query.ra
-    let u = await Usuario.obter(ra)
+    let u = await Usuario.read(ra)
     res.json(u)
 }))
 
 //criar rota delete
 
-router.post("/deletar", wrap(async (req: express.Request, res: express.Response) => {
+router.post("/delete", wrap(async (req: express.Request, res: express.Response) => {
     let ra = req.body.ra
-    let u = await Usuario.deletar(ra)
+    let u = await Usuario.delete(ra)
     if (u == false) {
 
         res.json("Usuário não encontrado")
@@ -39,15 +39,15 @@ router.post("/deletar", wrap(async (req: express.Request, res: express.Response)
 
 //criar rota listar
 
-router.get("/listar", wrap(async (req: express.Request, res: express.Response) => {
-    let lista = await Usuario.listar()
+router.get("/list", wrap(async (req: express.Request, res: express.Response) => {
+    let lista = await Usuario.list()
     
     res.json(lista)
 }))
 
 //efetuar o Login
 
-router.post("/efetuarLogin", wrap(async (req: express.Request, res: express.Response) => {
+router.post("/login", wrap(async (req: express.Request, res: express.Response) => {
     let ra = parseInt(req.body.ra)
     let senha = req.body.senha
 
@@ -62,7 +62,7 @@ router.post("/efetuarLogin", wrap(async (req: express.Request, res: express.Resp
     }
 }))
 
-router.get("/efetuarLogout", wrap(async (req: express.Request, res: express.Response) => {
+router.get("/logout", wrap(async (req: express.Request, res: express.Response) => {
     res.clearCookie("logged")
     res.redirect("/")
 }))
