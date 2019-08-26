@@ -29,8 +29,8 @@ router.post("/delete", wrap(async (req, res) => {
     }
 }));
 router.get("/read", wrap(async (req, res) => {
-    let idHabilidade = req.query.idHabilidade;
-    let a = await Habilidade.read(idHabilidade);
+    let ra = req.query.ra;
+    let a = await Habilidade.read(ra);
     res.json(a);
 }));
 router.post("/update", wrap(async (req, res) => {
@@ -40,7 +40,7 @@ router.post("/update", wrap(async (req, res) => {
         res.json("Habilidade inexistente");
     }
     else {
-        res.json("Habilidade alterado!");
+        res.json("Habilidade alterada!");
     }
 }));
 module.exports = router;

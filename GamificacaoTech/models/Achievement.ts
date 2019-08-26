@@ -53,7 +53,7 @@ export = class Achievement {
         let lista: Achievement[] = null
 
         await Sql.conectar(async (sql: Sql) => {
-            lista = await sql.query("SELECT a.id_achievement, a.nome_achievement, a.descricao_achievement, a.id_area, r.nome_area FROM achievement a, area r WHERE id_achievement = ? AND r.id_achievement = a.id_achievement", [id]) as Achievement[]
+            lista = await sql.query("SELECT a.id_achievement, a.nome_achievement, a.descricao_achievement, a.id_area, r.nome_area FROM achievement a, area r WHERE id_achievement = ? AND r.id_area = a.id_area", [id]) as Achievement[]
         })
 
         return ((lista && lista[0]) || null)

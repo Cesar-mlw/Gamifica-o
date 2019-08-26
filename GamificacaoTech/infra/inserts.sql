@@ -75,13 +75,13 @@ INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, te
 
 
 -- SELECTS ALL TABLES
-select * from achievement;
-select * from achievement_usuario;
+select * from achievement; 
+select * from achievement_usuario; 
 select * from area;
 select * from curso;
-select * from habilidade;
-select * from item;
-select * from item_usuario;
+select * from habilidade; 
+select * from item; -- 
+select * from item_usuario; --
 select * from projeto;
 select * from tipo_habilidade;
 select * from tipo_projeto;

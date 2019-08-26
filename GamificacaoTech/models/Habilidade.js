@@ -33,26 +33,24 @@ module.exports = class Habilidade {
     }
     static async update(h) {
         let res;
-        if ((res = Habilidade.validate(h)))
-            return res;
         Sql.conectar(async (sql) => {
-            await sql.query("UPDATE habilidade SET nome_habilidade = ?, range_habilidade = ?, tipo_habilidade = ?", [h.nome_habilidade, h.range_habilidade, h.tipo_habilidade]);
+            await sql.query("UPDATE habilidade SET nome_habilidade = ?, range_habilidade = ?, id_tipo_habilidade = ? WHERE id_habilidade = ?", [h.nome_habilidade, h.range_habilidade, h.id_tipo_habilidade, h.id_habilidade]);
             if (!sql.linhasAfetadas)
                 res = "Habilidade Inexistente";
         });
         return res;
     }
-    static async read(id) {
+    static async read(ra) {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = await sql.query("SELECT id_habilidade, nome_habilidade, range_habilidade, ra_usuario, tipo_habiliadade FROM habilidade WHERE id_habilidade = ?", [id]);
+            lista = await sql.query("SELECT id_habilidade, nome_habilidade, range_habilidade, ra_usuario FROM habilidade WHERE ra_usuario = ?", [ra]);
         });
-        return ((lista && lista[0]) || null);
+        return lista;
     }
     static async delete(id) {
         let res = true;
         await Sql.conectar(async (sql) => {
-            await sql.query("DELETE habiliadade WHERE id_habilidade = ?", [id]);
+            await sql.query("DELETE FROM habilidade WHERE id_habilidade = ?", [id]);
             if (!sql.linhasAfetadas)
                 res = false;
         });

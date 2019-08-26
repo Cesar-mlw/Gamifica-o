@@ -1,5 +1,4 @@
 ﻿import Sql = require("../infra/sql")
-import GeradorHash = require("../utils/geradorHash")
 
 export = class AchievementUsuario {
 
@@ -24,7 +23,7 @@ export = class AchievementUsuario {
         let lista: AchievementUsuario[] = null;
 
         await Sql.conectar(async (sql: Sql) => {
-            lista = await sql.query("select a.id_achievement, a.nome_achievement, a.criterio_achievement from achievement a, achievement_usuario u where a.id_achievement = u.fk_achievement_id") as AchievementUsuario[]
+            lista = await sql.query("select u.id_achievement_usuario, u.ra_usuario, u.dt_achievement, a.id_achievement, a.nome_achievement, a.descricao_achievement from achievement a, achievement_usuario u where a.id_achievement = u.id_achievement") as AchievementUsuario[]
         })
 
         return lista
@@ -47,11 +46,21 @@ export = class AchievementUsuario {
         return res
     }
 
-    public static async read(ra: number): Promise<AchievementUsuario[]> {
+    public static async readFromUserID(ra: number): Promise<AchievementUsuario[]> {
         let lista: AchievementUsuario[] = null
 
         await Sql.conectar(async (sql: Sql) => {
-            lista = await sql.query("select a.id_achievement, a.nome_achievement, a.descricao_achievement, r.nome_area from achievement a, achievement_usuario u, area r where ra_usuario = ? and a.id_achievement = u.id_achievement and a.id_area = r.id_area", [ra]) as AchievementUsuario[]
+            lista = await sql.query("select u.id_achievement_usuario, u.ra_usuario, u.dt_achievement, a.id_achievement, a.nome_achievement, a.descricao_achievement, r.nome_area from achievement a, achievement_usuario u, area r where ra_usuario = ? and a.id_achievement = u.id_achievement and a.id_area = r.id_area", [ra]) as AchievementUsuario[]
+        })
+
+        return lista
+    }
+    
+    public static async read(id: number): Promise<AchievementUsuario[]> {
+        let lista: AchievementUsuario[] = null
+
+        await Sql.conectar(async (sql: Sql) => {
+            lista = await sql.query("select u.id_achievement_usuario, u.ra_usuario, u.dt_achievement, a.id_achievement, a.nome_achievement, a.descricao_achievement, r.nome_area from achievement a, achievement_usuario u, area r where id_achievement_usuario = ? and a.id_achievement = u.id_achievement and a.id_area = r.id_area", [id]) as AchievementUsuario[]
         })
 
         return lista

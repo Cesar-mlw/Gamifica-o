@@ -30,8 +30,8 @@ router.post("/delete", wrap(async (req, res) => {
     }
 }));
 router.get("/read", wrap(async (req, res) => {
-    let idItem = req.query.idItem;
-    let p = await ItemUsuario.read(idItem);
+    let ra = req.query.ra;
+    let p = await ItemUsuario.read(ra);
     res.json(p);
 }));
 router.post("/update", wrap(async (req, res) => {

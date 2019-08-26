@@ -19,8 +19,8 @@ router.get("/list", wrap(async (req, res) => {
     res.json(lista);
 }));
 router.post("/delete", wrap(async (req, res) => {
-    let raUsuario = req.body.raUsuario;
-    let a = await AchievementUsuario.delete(raUsuario);
+    let idAchievementUsuario = req.body.idAchievementUsuario;
+    let a = await AchievementUsuario.delete(idAchievementUsuario);
     if (a == false) {
         res.json("O usuário não possui esse achievement");
     }
@@ -29,8 +29,13 @@ router.post("/delete", wrap(async (req, res) => {
     }
 }));
 router.get("/read", wrap(async (req, res) => {
-    let idAchievement = req.query.idAchievement;
-    let a = await AchievementUsuario.read(idAchievement);
+    let idAchievementUsuario = req.query.idAchievementUsuario;
+    let a = await AchievementUsuario.read(idAchievementUsuario);
+    res.json(a);
+}));
+router.get("/readFromUserID", wrap(async (req, res) => {
+    let ra = req.query.ra;
+    let a = await AchievementUsuario.readFromUserID(ra);
     res.json(a);
 }));
 router.post("/update", wrap(async (req, res) => {

@@ -6,7 +6,7 @@ export = class Habilidade {
     public nome_habilidade: string;
     public range_habilidade: number;
     public ra_usuario: number;
-    public tipo_habilidade: number;
+    public id_tipo_habilidade: number;
 
 
 
@@ -47,12 +47,9 @@ export = class Habilidade {
 
     public static async update(h: Habilidade): Promise<string>{
         let res: string
-
-        if((res = Habilidade.validate(h)))
-            return res
         
         Sql.conectar(async (sql: Sql) => {
-            await sql.query("UPDATE habilidade SET nome_habilidade = ?, range_habilidade = ?, tipo_habilidade = ?", [h.nome_habilidade, h.range_habilidade, h.tipo_habilidade])
+            await sql.query("UPDATE habilidade SET nome_habilidade = ?, range_habilidade = ?, id_tipo_habilidade = ? WHERE id_habilidade = ?", [h.nome_habilidade, h.range_habilidade, h.id_tipo_habilidade, h.id_habilidade])
             if(!sql.linhasAfetadas)
                 res = "Habilidade Inexistente"
         })
@@ -60,21 +57,21 @@ export = class Habilidade {
         return res
     }
 
-    public static async read(id: number): Promise<Habilidade> {
+    public static async read(ra: number): Promise<Habilidade[]> {
         let lista: Habilidade[] = null
 
         await Sql.conectar(async (sql: Sql) => {
-            lista = await sql.query("SELECT id_habilidade, nome_habilidade, range_habilidade, ra_usuario, tipo_habiliadade FROM habilidade WHERE id_habilidade = ?", [id]) as Habilidade[]
+            lista = await sql.query("SELECT id_habilidade, nome_habilidade, range_habilidade, ra_usuario FROM habilidade WHERE ra_usuario = ?", [ra]) as Habilidade[]
         })
 
-        return ((lista && lista[0]) || null)
+        return lista
     }
 
     public static async delete(id: number): Promise<boolean>{
         let res: boolean = true;
 
         await Sql.conectar(async (sql: Sql) => {
-            await sql.query("DELETE habiliadade WHERE id_habilidade = ?", [id])
+            await sql.query("DELETE FROM habilidade WHERE id_habilidade = ?", [id])
             if(!sql.linhasAfetadas)
                 res = false;
         })

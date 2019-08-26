@@ -25,8 +25,8 @@ export = class ItemUsuario {
     public static async list(): Promise<ItemUsuario[]> {
         let lista: ItemUsuario[] = null
 
-        Sql.conectar(async (sql:Sql) => {
-            sql.query("SELECT id_item_usuario, ra_usuario, id_item, dt_item FROM item_usuario")
+        await Sql.conectar(async (sql:Sql) => {
+            lista = await sql.query("SELECT u.id_item_usuario, u.ra_usuario, u.id_item, u.dt_item, i.nome_item, i.img_url_item FROM item_usuario u, item i WHERE u.id_item = i.id_item") as ItemUsuario[]
         })
 
         return lista
@@ -53,7 +53,7 @@ export = class ItemUsuario {
         let lista: ItemUsuario[] = null;
 
         await Sql.conectar(async (sql: Sql) => {
-            lista = await sql.query("select i.id_item, i.nome_item, i.img_url_item, u.dt_item from item_usuario u, item i where fk_usuario_id = ? and u.fk_item_id = i.id_item", [ra]) as ItemUsuario[]
+            lista = await sql.query("select i.id_item, i.nome_item, i.img_url_item, u.dt_item, u.id_item_usuario, u.id_item from item_usuario u, item i where ra_usuario = ? and u.id_item = i.id_item", [ra]) as ItemUsuario[]
         })
         return lista
     }

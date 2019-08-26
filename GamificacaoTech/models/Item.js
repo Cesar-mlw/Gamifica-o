@@ -36,14 +36,14 @@ module.exports = class Item {
     static async read(id) {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            await sql.query("SELECT id_item, nome_item, img_url_item FROM item WHERE id_item = ?", [id]);
+            lista = await sql.query("SELECT id_item, nome_item, img_url_item FROM item WHERE id_item = ?", [id]);
         });
         return ((lista && lista[0]) || null);
     }
     static async update(t) {
         let res;
         await Sql.conectar(async (sql) => {
-            await sql.query("UPDATE item SET nome_item = ?, img_url_item WHERE id_item = ?", [t.nome_item, t.id_item]);
+            await sql.query("UPDATE item SET nome_item = ?, img_url_item = ? WHERE id_item = ?", [t.nome_item, t.img_url_item, t.id_item]);
             if (!sql.linhasAfetadas)
                 res = "Tipo de habilidade não encontrado";
         });

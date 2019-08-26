@@ -14,7 +14,7 @@ module.exports = class AchievementUsuario {
     static async list() {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = await sql.query("select a.id_achievement, a.nome_achievement, a.criterio_achievement from achievement a, achievement_usuario u where a.id_achievement = u.fk_achievement_id");
+            lista = await sql.query("select u.id_achievement_usuario, u.ra_usuario, u.dt_achievement, a.id_achievement, a.nome_achievement, a.descricao_achievement from achievement a, achievement_usuario u where a.id_achievement = u.id_achievement");
         });
         return lista;
     }
@@ -33,10 +33,17 @@ module.exports = class AchievementUsuario {
         });
         return res;
     }
-    static async read(ra) {
+    static async readFromUserID(ra) {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = await sql.query("select a.id_achievement, a.nome_achievement, a.descricao_achievement, r.nome_area from achievement a, achievement_usuario u, area r where ra_usuario = ? and a.id_achievement = u.id_achievement and a.id_area = r.id_area", [ra]);
+            lista = await sql.query("select u.id_achievement_usuario, u.ra_usuario, u.dt_achievement, a.id_achievement, a.nome_achievement, a.descricao_achievement, r.nome_area from achievement a, achievement_usuario u, area r where ra_usuario = ? and a.id_achievement = u.id_achievement and a.id_area = r.id_area", [ra]);
+        });
+        return lista;
+    }
+    static async read(id) {
+        let lista = null;
+        await Sql.conectar(async (sql) => {
+            lista = await sql.query("select u.id_achievement_usuario, u.ra_usuario, u.dt_achievement, a.id_achievement, a.nome_achievement, a.descricao_achievement, r.nome_area from achievement a, achievement_usuario u, area r where id_achievement_usuario = ? and a.id_achievement = u.id_achievement and a.id_area = r.id_area", [id]);
         });
         return lista;
     }

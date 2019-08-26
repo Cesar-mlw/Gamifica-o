@@ -39,8 +39,8 @@ router.post("/delete", wrap(async (req: express.Request, res: express.Response) 
 }))
 
 router.get("/read", wrap(async (req: express.Request, res: express.Response) => {
-    let idHabilidade = req.query.idHabilidade
-    let a = await Habilidade.read(idHabilidade)
+    let ra = req.query.ra
+    let a = await Habilidade.read(ra)
     res.json(a)
 }))
 
@@ -54,7 +54,7 @@ router.post("/update", wrap(async (req: express.Request, res: express.Response) 
     }
 
     else {
-        res.json("Habilidade alterado!")
+        res.json("Habilidade alterada!")
     }
 
 
