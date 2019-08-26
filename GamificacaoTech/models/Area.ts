@@ -9,7 +9,7 @@ export = class Area {
 
     public static validate(a: Area): string {
         let resp:string;
-        if(a.id_area == null || a.nome_area == null) resp = "ERRO"
+        if(a.nome_area == null) resp = "Nome da área não poder ser nulo"
         return resp
     }
 
@@ -72,7 +72,7 @@ export = class Area {
         let res: boolean = true;
 
         await Sql.conectar(async (sql: Sql) => {
-            await sql.query("DELETE area WHERE id_area = ?", [id])
+            await sql.query("DELETE FROM area WHERE id_area = ?", [id])
             if(!sql.linhasAfetadas)
                 res = false;
         })

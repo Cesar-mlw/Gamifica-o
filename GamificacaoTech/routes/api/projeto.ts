@@ -41,8 +41,8 @@ router.post("/delete", wrap(async (req: express.Request, res: express.Response) 
 
 
 router.get("/read", wrap(async (req: express.Request, res: express.Response) => {
-    let idProjeto = req.query.idProjeto
-    let p = await Projeto.read(idProjeto)
+    let ra = req.query.ra
+    let p = await Projeto.read(ra)
     res.json(p)
 }))
 

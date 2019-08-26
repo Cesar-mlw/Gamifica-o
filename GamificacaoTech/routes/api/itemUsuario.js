@@ -1,49 +1,49 @@
 "use strict";
 const express = require("express");
 const wrap = require("express-async-error-wrapper");
-const Projeto = require("../../models/Projeto");
+const ItemUsuario = require("../../models/ItemUsuario");
 const router = express.Router();
 router.post("/create", wrap(async (req, res) => {
     let p = req.body;
-    let erro = await Projeto.create(p);
+    let erro = await ItemUsuario.create(p);
     console.log(req.body);
     if (erro) {
         res.statusCode = 400;
         res.json(erro);
     }
     else {
-        res.json("Projeto criado");
+        res.json("Item do usuário criado");
     }
 }));
 router.get("/list", wrap(async (req, res) => {
-    let lista = await Projeto.list();
+    let lista = await ItemUsuario.list();
     res.json(lista);
 }));
 router.post("/delete", wrap(async (req, res) => {
-    let idProjeto = req.body.idProjeto;
-    let p = await Projeto.delete(idProjeto); //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
+    let idItemUsuario = req.body.idItemUsuario;
+    let p = await ItemUsuario.delete(idItemUsuario); //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
     if (p == false) {
-        res.json("Projeto não encontrado");
+        res.json("Item do usuário não encontrado");
     }
     else {
-        res.json("Projeto deletado");
+        res.json("Item do usuário deletado");
     }
 }));
 router.get("/read", wrap(async (req, res) => {
-    let ra = req.query.ra;
-    let p = await Projeto.read(ra);
+    let idItem = req.query.idItem;
+    let p = await ItemUsuario.read(idItem);
     res.json(p);
 }));
 router.post("/update", wrap(async (req, res) => {
     let p = req.body;
-    let erro = await Projeto.update(p);
+    let erro = await ItemUsuario.update(p);
     console.log(erro);
     if (erro) {
-        res.json("Este projeto não existe");
+        res.json("O usuário não possui o item");
     }
     else {
-        res.json("Projeto alterado!");
+        res.json("Item alterado!");
     }
 }));
 module.exports = router;
-//# sourceMappingURL=projeto.js.map
+//# sourceMappingURL=itemUsuario.js.map

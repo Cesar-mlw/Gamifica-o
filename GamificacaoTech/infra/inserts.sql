@@ -58,7 +58,7 @@ INSERT INTO item_usuario(ra_usuario, id_item, dt_item) VALUES (11710371, 3, "201
 -- ACHIEVEMENT_USUARIO TABLE
 -- Usuário de RA = 11710372 não possui achievements
 INSERT INTO achievement_usuario (id_achievement, ra_usuario, dt_achievement) VALUES (4, 11710370, "2017/09/15");    
-INSERT INTO achievement_usuario (id_achievement, ra_usuario, dt_achievement) VALUES (5, 11710371, "2018/07/15");    
+INSERT INTO achievement_usuario (id_achievement, ra_usuario, dt_achievement) VALUES (2  , 11710371, "2018/07/15");    
 INSERT INTO achievement_usuario (id_achievement, ra_usuario, dt_achievement) VALUES (3, 11710371, "2019/02/15");
 
 -- HABILIDADE TABLE
@@ -69,6 +69,20 @@ INSERT INTO habilidade (nome_habilidade, range_habilidade, ra_usuario, id_tipo_h
 
 -- PROJETO TABLE
 -- Usuário de RA = 11710372 não possui Projetos
-INSERT INTO PROJETO (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) VALUES (3, 11710371, 2, "2018/02/01", true, "Banco de Dados Avançado", "Matéria ministrada pelo Professor Surian","2018/06/30");
-INSERT INTO PROJETO (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) VALUES (6, 11710371, 3, "2018/08/01", true, "Conclusão semestral", "Semestre 2018.2 concluído", "2019/02/01");
-INSERT INTO PROJETO (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) VALUES (5, 11710370, 1, "2019/08/01", false, "IDTech: Gamificação aplicada ao ensino superior", "Projeto de Iniciação científica orientado por Matheus Matsuda Marangoni", null);
+INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) VALUES (3, 11710371, 2, "2018/02/01", true, "Banco de Dados Avançado", "Matéria ministrada pelo Professor Surian","2018/06/30");
+INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) VALUES (6, 11710371, 3, "2018/08/01", true, "Conclusão semestral", "Semestre 2018.2 concluído", "2019/02/01");
+INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) VALUES (5, 11710370, 1, "2019/08/01", false, "IDTech: Gamificação aplicada ao ensino superior", "Projeto de Iniciação científica orientado por Matheus Matsuda Marangoni", null);
+
+
+-- SELECTS ALL TABLES
+select * from achievement;
+select * from achievement_usuario;
+select * from area;
+select * from curso;
+select * from habilidade;
+select * from item;
+select * from item_usuario;
+select * from projeto;
+select * from tipo_habilidade;
+select * from tipo_projeto;
+select * from usuario;

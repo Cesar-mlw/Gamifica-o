@@ -21,9 +21,15 @@ app.use('/', require("./routes/home"))
 app.use('/admin', require("./routes/admin"))
 app.use("/api/usuario", require("./routes/api/usuario"))
 app.use("/api/projeto", require("./routes/api/projeto"))
-app.use("/api/usuarioHabilidade", require("./routes/api/habilidadeUsuario"))
 app.use("/api/achievement", require("./routes/api/achievement"))
-app.use("/api/informacao", require("./routes/api/informacao"))
+app.use("/api/achievementUsuario", require("./routes/api/achievementUsuario"))
+app.use("/api/item", require("./routes/api/item"))
+app.use("/api/itemUsuario", require("./routes/api/itemUsuario"))
+app.use("/api/habilidade", require("./routes/api/habilidade"))
+app.use("/api/area", require("./routes/api/area"))
+app.use("/api/curso", require("./routes/api/curso"))
+app.use("/api/tipoProjeto", require("./routes/api/tipoProjeto"))
+app.use("/api/tipoHabilidade", require("./routes/api/tipoHabilidade"))
 
 // catch 404 and forward to error handler
 // catch 404 and forward to error handler

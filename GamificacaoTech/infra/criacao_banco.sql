@@ -3,9 +3,9 @@
 	`id_curso` int NOT NULL,
 	`nome_usuario` char(90) NOT NULL,
 	`email_usuario` char(60) NOT NULL,
-	`pontos_totais` FLOAT NOT NULL,
+	`pontos_totais` FLOAT,
 	`dt_entrada_usuario` DATE NOT NULL,
-	`senha_usuario` char NOT NULL,
+	`senha_usuario` char(250) NOT NULL,
 	PRIMARY KEY (`ra_usuario`)
 );
 
@@ -22,8 +22,9 @@ CREATE TABLE `Projeto` (
 	`id_area` int NOT NULL,
 	`dt_comeco_projeto` DATE NOT NULL,
 	`terminado_projeto` bool NOT NULL,
-	`nome_projeto` char NOT NULL,
-	`descricao_projeto` char NOT NULL,
+	`nome_projeto` char(150) NOT NULL,
+	`descricao_projeto` char(250) NOT NULL,
+	`dt_termino_projeto` DATE,
 	PRIMARY KEY (`id_projeto`)
 );
 
@@ -38,7 +39,7 @@ CREATE TABLE `Item_Usuario` (
 CREATE TABLE `Item` (
 	`id_item` int NOT NULL AUTO_INCREMENT,
 	`nome_item` char(45) NOT NULL,
-	`img_url_item` char(45) NOT NULL UNIQUE,
+	`img_url_item` char(150) NOT NULL UNIQUE,
 	PRIMARY KEY (`id_item`)
 );
 

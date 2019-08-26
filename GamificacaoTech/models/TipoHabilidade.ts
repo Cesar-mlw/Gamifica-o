@@ -46,7 +46,7 @@ export = class TipoHabilidade {
         let lista: TipoHabilidade[] = null
         
         await Sql.conectar(async (sql: Sql) => {
-            await sql.query("SELECT id_tipo_habilidade, nome_tipo_habilidade FROM tipo_habilidade WHERE id_tipo_habilidade = ?", [id])
+            lista = await sql.query("SELECT id_tipo_habilidade, nome_tipo_habilidade FROM tipo_habilidade WHERE id_tipo_habilidade = ?", [id])
         })
 
         return ((lista && lista[0]) || null)

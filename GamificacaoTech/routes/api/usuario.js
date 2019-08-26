@@ -3,9 +3,9 @@ const express = require("express");
 const wrap = require("express-async-error-wrapper");
 const Usuario = require("../../models/Usuario");
 const router = express.Router();
-router.post("/criar", wrap(async (req, res) => {
+router.post("/create", wrap(async (req, res) => {
     let u = req.body;
-    let erro = await Usuario.criar(u);
+    let erro = await Usuario.create(u);
     if (erro) {
         res.statusCode = 400;
         res.json(erro);
@@ -14,15 +14,26 @@ router.post("/criar", wrap(async (req, res) => {
         res.json("Usuário criado");
     }
 }));
-router.get("/obter", wrap(async (req, res) => {
+router.post("/update", wrap(async (req, res) => {
+    let p = req.body;
+    let erro = await Usuario.update(p);
+    console.log(erro);
+    if (erro) {
+        res.json("Este usuário não existe");
+    }
+    else {
+        res.json("Usuário alterado!");
+    }
+}));
+router.get("/read", wrap(async (req, res) => {
     let ra = req.query.ra;
-    let u = await Usuario.obter(ra);
+    let u = await Usuario.read(ra);
     res.json(u);
 }));
 //criar rota delete
-router.post("/deletar", wrap(async (req, res) => {
+router.post("/delete", wrap(async (req, res) => {
     let ra = req.body.ra;
-    let u = await Usuario.deletar(ra);
+    let u = await Usuario.delete(ra);
     if (u == false) {
         res.json("Usuário não encontrado");
     }
@@ -31,12 +42,12 @@ router.post("/deletar", wrap(async (req, res) => {
     }
 }));
 //criar rota listar
-router.get("/listar", wrap(async (req, res) => {
-    let lista = await Usuario.listar();
+router.get("/list", wrap(async (req, res) => {
+    let lista = await Usuario.list();
     res.json(lista);
 }));
 //efetuar o Login
-router.post("/efetuarLogin", wrap(async (req, res) => {
+router.post("/login", wrap(async (req, res) => {
     let ra = parseInt(req.body.ra);
     let senha = req.body.senha;
     let resp = await Usuario.efetuarLogin(ra, senha);
@@ -48,7 +59,7 @@ router.post("/efetuarLogin", wrap(async (req, res) => {
         res.json(false);
     }
 }));
-router.get("/efetuarLogout", wrap(async (req, res) => {
+router.get("/logout", wrap(async (req, res) => {
     res.clearCookie("logged");
     res.redirect("/");
 }));

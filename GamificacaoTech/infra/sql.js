@@ -161,7 +161,7 @@ module.exports = (_a = class Sql {
         port: 3306,
         user: "root",
         password: "",
-        database: "gamificacaobanco"
+        database: "idtech"
     }),
     _a);
 //# sourceMappingURL=sql.js.map

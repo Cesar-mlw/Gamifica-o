@@ -16,6 +16,23 @@ router.post("/create", wrap(async (req: express.Request, res: express.Response) 
     }
 }))
 
+router.post("/update", wrap(async (req: express.Request, res: express.Response) => {
+    let p = req.body as Usuario
+    let erro = await Usuario.update(p)
+    console.log(erro)
+
+    if (erro) {
+
+        res.json("Este usuário não existe")
+    }
+
+    else {
+        res.json("Usuário alterado!")
+    }
+
+
+}))
+
 router.get("/read", wrap(async (req: express.Request, res: express.Response) => {
     let ra = req.query.ra
     let u = await Usuario.read(ra)

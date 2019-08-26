@@ -44,7 +44,7 @@ export = class Curso {
         let lista: Curso[] = null
         
         await Sql.conectar(async (sql: Sql) => {
-            await sql.query("SELECT id_curso, nome_curso FROM curso WHERE id_curso = ?", [id])
+            lista = await sql.query("SELECT id_curso, nome_curso FROM curso WHERE id_curso = ?", [id]) 
         })
 
         return ((lista && lista[0]) || null)
@@ -54,7 +54,7 @@ export = class Curso {
         let res: string;
 
         await Sql.conectar(async (sql:Sql) => {
-            await sql.query("UPDATE curso SET nome_curso = ? WHERE id_curso = ?", [c.id_curso])
+            await sql.query("UPDATE curso SET nome_curso = ? WHERE id_curso = ?", [c.nome_curso, c.id_curso])
             if(!sql.linhasAfetadas)
                 res = "Curso não encontrado"
         })

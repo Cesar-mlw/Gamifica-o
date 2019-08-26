@@ -45,11 +45,11 @@ export = class TipoProjeto {
         return res
     } 
 
-    public static async read(ra: number): Promise<TipoProjeto> {
+    public static async read(id: number): Promise<TipoProjeto> {
         let lista: TipoProjeto[] = null
         
         await Sql.conectar(async (sql: Sql) => {
-            await sql.query("SELECT id_tipo_projeto, nome_tipo_projeto, pontos_tipo_projeto FROM tipo_projeto WHERE id_tipo_projeto = ?", [ra])
+            lista = await sql.query("SELECT id_tipo_projeto, nome_tipo_projeto, pontos_tipo_projeto FROM tipo_projeto WHERE id_tipo_projeto = ?", [id])
         })
 
         return ((lista && lista[0]) || null)

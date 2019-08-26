@@ -11,7 +11,7 @@ router.get('/', wrap(async (req, res) => {
 router.get('/home', wrap(async (req, res) => {
     //itens / pontos das áreas
     if (req.cookies.logged) {
-        let alunos = await Usuario.listar();
+        let alunos = await Usuario.list();
         res.render('homeAdmin', { titulo: 'Area Logada', alu: alunos, layout: 'layoutAdmin' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
     }
     else {

@@ -27,8 +27,8 @@ router.get("/list", wrap(async (req: express.Request, res: express.Response) => 
 }))
 
 router.post("/delete", wrap(async (req: express.Request, res: express.Response) => {
-    let idProjeto = req.body.idProjeto
-    let p = await TipoProjeto.delete(idProjeto) //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
+    let idTipoProjeto = req.body.idTipoProjeto
+    let p = await TipoProjeto.delete(idTipoProjeto) //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
     if (p == false) {
 
         res.json("Tipo de projeto não encontrado")
@@ -41,8 +41,8 @@ router.post("/delete", wrap(async (req: express.Request, res: express.Response) 
 
 
 router.get("/read", wrap(async (req: express.Request, res: express.Response) => {
-    let idProjeto = req.query.idProjeto
-    let p = await TipoProjeto.read(idProjeto)
+    let idTipoProjeto = req.query.idTipoProjeto
+    let p = await TipoProjeto.read(idTipoProjeto)
     res.json(p)
 }))
 
