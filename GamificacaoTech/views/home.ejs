@@ -1,28 +1,107 @@
-﻿<img class="background" src="images/background.png">
-<img src="images/logo_branco.png" style="width: 12vw; height: 12vh; position: relative; z-index: 4; margin-top: -185vh; margin-left: 80vw;">
-    <div class="furniture">
-        <img class="desk" src="images/desk.png">
-        <img class="computer" src="images/pc.png">
-        <img class="wardrobe" src="images/wardrobe.png">
-        <img class="board" src="images/board.png">
-        <img class="shelf" src="images/shelf.png">
-        <img class="window1" src="images/window1.png">
-        <img class="window2" src="images/window2.png">
-        <img class="mug" src="images/mug.png">
-        <img class="pen" src="images/pen.png">
-        <img class="poster" src="images/poster.png">
-        <img class="lava" src="images/lava.png">
+﻿<div class="header-wrapper">
+    <div class="header">
+        <div class="header-left">
+
+            <button class="header-button" id="hamburger" type="button" onclick="showSidebar()">
+                <i class="material-icons header-icon header-menu">menu</i>
+            </button>
+            <div class="profile-wrapper">
+            
+            </div>
+            <canvas height="200" width="200" id="counter"></canvas>
+            <nav class="header-nav">
+                <button class="nav-button">Registro</button>
+                <button class="nav-button">Portfólio</button>
+                <button class="nav-button">Currículo</button>
+                <button class="nav-button">Loja</button>
+            </nav>
+        </div>
+
+        <div class="header-right">
+            <img src="../Public/images/logo_branco.png" class="id-tech-logo">
+            <img src="../Public/images/sigla_branco.png" class="id-logo">
+        </div>
     </div>
-    <div id="menu">
-        <div class="menu"></div>
-        <button class="botoes" id="registro" onclick="registroRedirect()">Registro</button>
-        <button class="botoes" id="portfolio" onclick="portifolioRedirect()">Portfólio</button>
-        <button class="botoes" id="curriculo" onclick="resumeRedirect()">Currículo</button>
-        <button class="botoes" id="loja">Loja</button>
-                <div id="circle1"></div>
-                <div id="shadowring"></div>
-                <div id="circle2"></div>
-                <canvas height="200" width="200" id="counter">    
+</div>
+
+<!--SIDEBAR-->
+<div class="sidebar-wrapper" id="sidebar">
+    <div class="sidebar">
+        <button onclick="closeOverlay()" data-micromodal-trigger="modal-1" class="nav-button">Registro</button>
+        <button onclick="closeOverlay()" class="nav-button">Portfólio</button>
+        <button onclick="closeOverlay()" class="nav-button">Currículo</button>
+        <button onclick="closeOverlay()" class="nav-button">Loja</button>
+    </div>
+</div>
+
+<!--CONTENT-->
+
+<div class="content-wrapper">
+    <div class="room-container">
+        <img src="../Public/images/background-floor.svg" alt="" class="room">
+        <img src="../Public/images/box.svg" alt="" class="room-box">
+        <div class="grid-container">
+            <div class="furniture">
+                <img src="../Public/images/desk.png" class="desk"></img>
+                <button data-micromodal-trigger="modal-1" class="furniture-button pc" onclick=""></button>
+                <button class="furniture-button estante" onclick=""></button>
+                <button class="furniture-button shelf" onclick=""></button>
+                <button class="furniture-button board" onclick=""></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODALS-->
+<div class="modal-storage">        
+    <div id="sidebar-overlay" onclick="closeOverlay()"></div>
+
+    <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal__container os-container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+                <header class="modal__header os-taskbar">
+                    <h2 class="modal__title" id="modal-1-title">
+                    Micromodal
+                    </h2>
+                    <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                </header>
+                <main class="modal__content os-desktop-wrapping" id="modal-1-content">
+                    <div class="os-desktop">
+                        <div class="icon-column">
+                            <button onclick="loadContent('/testeAjax')" class="desktop-icon">
+                                <i class="material-icons">note_add</i>
+                                <span>Registro</span>
+                            </button>
+                            <button onclick="loadContent('')" class="desktop-icon">
+                                <i class="material-icons">book</i>
+                                <span>Portfólio</span>
+                            </button>
+                            <button onclick="loadContent('')" class="desktop-icon">
+                                <i class="material-icons">assignment_ind</i>
+                                <span>Currículo</span>
+                            </button>
+                            <button onclick="loadContent('')" class="desktop-icon">
+                                <i class="material-icons">info</i>
+                                <span>Informações<br>da Faculdade</span>
+                            </button>
+                        </div>
+                        <div class="os-window-container">
+                            <div class="os-frame os-window">
+                                <div id="os-content"></div>
+                            </div>
+                            
+                            <button class="os-window-close"></button>
+                        </div>
+
+
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+
+</div> 
             <script type="application/javascript">
                 var counter = document.getElementById('counter').getContext('2d');
                 var no = 0; // Starting Point
@@ -30,7 +109,28 @@
                 var cw = counter.canvas.width;  //Return canvas width
                 var ch = counter.canvas.height; //Return canvas height
                 var diff;   // find the different between current value (no) and trageted value (100)
-                
+                var loadingContent = false;
+
+                function loadContent(url) {
+                    if (loadingContent)
+                        return;
+                    
+                    loadingContent = true;
+                    $.ajax({
+                        method: 'GET',
+                        cache: false,
+                        url: url,
+                        success: function (data) {
+                            loadingContent = false;
+                            $('#os-content').html(data);
+                        },
+                        error: function () {
+                            loadingContent = false;
+                            $('#os-content').html("<b>Ocorreu um erro ao carregar os dados do servidor :(</b>");
+                        }
+                    })
+                }
+
                 function fillCounter(){
                     diff = ((no/100) * Math.PI*2*10);
                     counter.clearRect(0,0,cw,ch);   // Clear canvas every time when function is call
@@ -56,7 +156,6 @@
                 
                 var fill = setInterval(fillCounter,50);     //call the fillCounter function after every 50MS
             </script>
-    </div>
 
 <%- contentFor("scripts")%>
 <script type="text/javascript">
@@ -71,4 +170,31 @@
     function resumeRedirect() {
         window.location.replace("/resume.html")
     }
+
+    //VINICIUS-------------------------------------------------------
+    MicroModal.init({
+        awaitCloseAnimation: true,
+    });
+
+    function showSidebar() {
+        overlayToggle();
+        var sidebar = document.querySelector('.sidebar-wrapper');
+        sidebar.classList.toggle('sidebar-wrapper-after');
+    }
+    
+    function overlayToggle() {
+        $("#sidebar-overlay").fadeIn(200);
+    }
+
+    function closeOverlay() {
+        $("#sidebar-overlay").fadeOut(200);
+        var sidebar = document.querySelector('.sidebar-wrapper');
+            sidebar.classList.remove('sidebar-wrapper-after');
+    }
+
+    $(document).ready(function(){
+        $("#account-header-button").click(function(){
+             $(".account-modal-wrapper").fadeToggle(200);
+        });
+    });
 </script>

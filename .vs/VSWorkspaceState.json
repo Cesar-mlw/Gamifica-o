@@ -2,10 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\GamificacaoTech",
-    "\\GamificacaoTech\\models",
-    "\\GamificacaoTech\\routes",
-    "\\GamificacaoTech\\routes\\api"
+    "\\GamificacaoTech\\public",
+    "\\GamificacaoTech\\public\\stylesheets",
+    "\\GamificacaoTech\\views"
   ],
-  "SelectedNode": "\\GamificacaoTech\\routes\\home.ts",
+  "SelectedNode": "\\GamificacaoTech\\public\\stylesheets\\main.css",
   "PreviewInSolutionExplorer": false
 }
