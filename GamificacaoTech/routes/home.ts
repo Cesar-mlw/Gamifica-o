@@ -41,6 +41,10 @@ router.get('/portifolio', wrap(async (req: express.Request, res: express.Respons
     res.render('portifolio', { titulo: "Portifolio"})//renderizar a tela
 }));
 
+router.get('/testeAjax', wrap(async (req: express.Request, res: express.Response) => {
+    res.render('testeAjax', { layout:'layoutVazio' })//renderizar a tela
+}));
+
 
 
 
