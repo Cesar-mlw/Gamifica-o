@@ -32,5 +32,8 @@ router.get('/formTest', wrap(async (req, res) => {
 router.get('/portifolio', wrap(async (req, res) => {
     res.render('portifolio', { titulo: "Portifolio" }); //renderizar a tela
 }));
+router.get('/testeAjax', wrap(async (req, res) => {
+    res.render('testeAjax', { layout: 'layoutVazio' }); //renderizar a tela
+}));
 module.exports = router;
 //# sourceMappingURL=home.js.map
