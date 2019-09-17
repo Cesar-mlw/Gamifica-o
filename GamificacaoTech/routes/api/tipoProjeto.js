@@ -29,8 +29,8 @@ router.post("/delete", wrap(async (req, res) => {
         res.json("Tipo de projeto deletado");
     }
 }));
-router.get("/read", wrap(async (req, res) => {
-    let idTipoProjeto = req.query.idTipoProjeto;
+router.post("/read", wrap(async (req, res) => {
+    let idTipoProjeto = req.body.idTipoProjeto;
     let p = await TipoProjeto.read(idTipoProjeto);
     res.json(p);
 }));

@@ -30,6 +30,8 @@ app.use("/api/area", require("./routes/api/area"))
 app.use("/api/curso", require("./routes/api/curso"))
 app.use("/api/tipoProjeto", require("./routes/api/tipoProjeto"))
 app.use("/api/tipoHabilidade", require("./routes/api/tipoHabilidade"))
+app.use("/api/links", require("./routes/api/links"))
+app.use("/api/tituloLinks", require("./routes/api/tituloLink"))
 
 // catch 404 and forward to error handler
 // catch 404 and forward to error handler

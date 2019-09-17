@@ -45,9 +45,9 @@ INSERT INTO tipo_habilidade (nome_tipo_habilidade) VALUES ("Framework");
 
 -- USUARIO TABLE
 
-INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, pontos_totais, dt_entrada_usuario, senha_usuario) VALUES (11710370, 1, "Cesar Moura Leite Westphal", "cesarmlwestphal@acad.espm.br", null, "2017/02/01", "Heeloo");
-INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, pontos_totais, dt_entrada_usuario, senha_usuario) VALUES (11710371, 1, "Flávio Marques Azevedo", "fmarques@acad.espm.br", null, "2018/02/01", "Heeloo");
-INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, pontos_totais, dt_entrada_usuario, senha_usuario) VALUES (11710372, 1, "Carlos Rafael", "crafael@acad.espm.br", null, "2017/06/01", "Heeloo");
+INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, pontos_totais, dt_entrada_usuario, senha_usuario, isAdmin) VALUES (11710370, 1, "Cesar Moura Leite Westphal", "cesarmlwestphal@acad.espm.br", null, "2017/02/01", "Heeloo", FALSE);
+INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, pontos_totais, dt_entrada_usuario, senha_usuario, isAdmin) VALUES (11710371, 1, "Flávio Marques Azevedo", "fmarques@acad.espm.br", null, "2018/02/01", "Heeloo", TRUE);
+INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, pontos_totais, dt_entrada_usuario, senha_usuario, isAdmin) VALUES (11710372, 1, "Carlos Rafael", "crafael@acad.espm.br", null, "2017/06/01", "Heeloo", TRUE);
 
 -- ITEM_USUARIO TABLE
 -- Usuário de RA = 11710372 não possui itens
@@ -73,6 +73,16 @@ INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, te
 INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) VALUES (6, 11710371, 3, "2018/08/01", true, "Conclusão semestral", "Semestre 2018.2 concluído", "2019/02/01");
 INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) VALUES (5, 11710370, 1, "2019/08/01", false, "IDTech: Gamificação aplicada ao ensino superior", "Projeto de Iniciação científica orientado por Matheus Matsuda Marangoni", null);
 
+-- TITULO_LINK TABLE
+INSERT INTO titulo_link (nome_titulo_link) VALUES ("GitHub");
+INSERT INTO titulo_link (nome_titulo_link) VALUES ("Linkedin");
+INSERT INTO titulo_link (nome_titulo_link) VALUES ("Instagram");
+INSERT INTO titulo_link (nome_titulo_link) VALUES ("Website Pessoal");
+
+-- LINK TABLE
+-- Usuário de RA = 11710372 não possui Projetos
+INSERT INTO links (titulo_link, txt_link, ra_usuario) VALUES (1, "github.com/flavinho", 11710371);
+INSERT INTO links (titulo_link, txt_link, ra_usuario) VALUES (1, "github.com/Cesar-mlw", 11710370);
 
 -- SELECTS ALL TABLES
 select * from achievement; 

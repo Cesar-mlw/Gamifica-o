@@ -28,8 +28,8 @@ router.post("/delete", wrap(async (req, res) => {
         res.json("Habilidade deletada");
     }
 }));
-router.get("/read", wrap(async (req, res) => {
-    let ra = req.query.ra;
+router.post("/read", wrap(async (req, res) => {
+    let ra = req.body.ra;
     let a = await Habilidade.read(ra);
     res.json(a);
 }));

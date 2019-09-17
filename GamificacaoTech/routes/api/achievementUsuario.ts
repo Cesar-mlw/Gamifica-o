@@ -37,14 +37,14 @@ router.post("/delete", wrap(async (req: express.Request, res: express.Response) 
     }
 }))
 
-router.get("/read", wrap(async (req: express.Request, res: express.Response) => {
-    let idAchievementUsuario = req.query.idAchievementUsuario
+router.post("/read", wrap(async (req: express.Request, res: express.Response) => {
+    let idAchievementUsuario = req.body.idAchievementUsuario
     let a = await AchievementUsuario.read(idAchievementUsuario)
     res.json(a)
 }))
 
-router.get("/readFromUserID", wrap(async (req: express.Request, res: express.Response) => {
-    let ra = req.query.ra
+router.post("/readFromUserID", wrap(async (req: express.Request, res: express.Response) => {
+    let ra = req.body.ra
     let a = await AchievementUsuario.readFromUserID(ra)
     res.json(a)
 }))

@@ -20,6 +20,10 @@ ALTER TABLE `Achievement_Usuario` DROP FOREIGN KEY `Achievement_Usuario_fk1`;
 
 ALTER TABLE `Achievement` DROP FOREIGN KEY `Achievement_fk0`;
 
+ALTER TABLE `Links` DROP FOREIGN KEY `Links_fk0`;
+
+ALTER TABLE `Links` DROP FOREIGN KEY `Links_fk1`;
+
 DROP TABLE IF EXISTS `Usuario`;
 
 DROP TABLE IF EXISTS `Curso`;
@@ -41,3 +45,7 @@ DROP TABLE IF EXISTS `Area`;
 DROP TABLE IF EXISTS `Tipo_Projeto`;
 
 DROP TABLE IF EXISTS `Tipo_Habilidade`;
+
+DROP TABLE IF EXISTS `Links`;
+
+DROP TABLE IF EXISTS `Titulo_Link`;

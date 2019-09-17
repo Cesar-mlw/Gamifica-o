@@ -28,8 +28,8 @@ router.post("/delete", wrap(async (req, res) => {
         res.json("Achievement deletado");
     }
 }));
-router.get("/read", wrap(async (req, res) => {
-    let idAchievement = req.query.idAchievement;
+router.post("/read", wrap(async (req, res) => {
+    let idAchievement = req.body.idAchievement;
     let a = await Achievement.read(idAchievement);
     res.json(a);
 }));

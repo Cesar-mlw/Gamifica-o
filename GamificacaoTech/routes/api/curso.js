@@ -28,8 +28,8 @@ router.post("/delete", wrap(async (req, res) => {
         res.json("Curso deletado");
     }
 }));
-router.get("/read", wrap(async (req, res) => {
-    let idCurso = req.query.idCurso;
+router.post("/read", wrap(async (req, res) => {
+    let idCurso = req.body.idCurso;
     let p = await Curso.read(idCurso);
     res.json(p);
 }));

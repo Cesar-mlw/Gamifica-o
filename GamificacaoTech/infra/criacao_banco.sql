@@ -1,17 +1,18 @@
 ﻿CREATE TABLE `Usuario` (
 	`ra_usuario` bigint NOT NULL UNIQUE,
 	`id_curso` int NOT NULL,
-	`nome_usuario` char(90) NOT NULL,
-	`email_usuario` char(60) NOT NULL,
+	`nome_usuario` varchar(90) NOT NULL,
+	`email_usuario` varchar(60) NOT NULL,
 	`pontos_totais` FLOAT,
 	`dt_entrada_usuario` DATE NOT NULL,
-	`senha_usuario` char(250) NOT NULL,
+	`senha_usuario` varchar(250) NOT NULL,
+	`isAdmin` BOOLEAN NOT NULL,
 	PRIMARY KEY (`ra_usuario`)
 );
 
 CREATE TABLE `Curso` (
 	`id_curso` int NOT NULL AUTO_INCREMENT,
-	`nome_curso` char(45) NOT NULL,
+	`nome_curso` varchar(45) NOT NULL,
 	PRIMARY KEY (`id_curso`)
 );
 
@@ -22,8 +23,8 @@ CREATE TABLE `Projeto` (
 	`id_area` int NOT NULL,
 	`dt_comeco_projeto` DATE NOT NULL,
 	`terminado_projeto` bool NOT NULL,
-	`nome_projeto` char(150) NOT NULL,
-	`descricao_projeto` char(250) NOT NULL,
+	`nome_projeto` varchar(150) NOT NULL,
+	`descricao_projeto` varchar(250) NOT NULL,
 	`dt_termino_projeto` DATE,
 	PRIMARY KEY (`id_projeto`)
 );
@@ -38,14 +39,14 @@ CREATE TABLE `Item_Usuario` (
 
 CREATE TABLE `Item` (
 	`id_item` int NOT NULL AUTO_INCREMENT,
-	`nome_item` char(45) NOT NULL,
-	`img_url_item` char(150) NOT NULL UNIQUE,
+	`nome_item` varchar(45) NOT NULL,
+	`img_url_item` varchar(150) NOT NULL UNIQUE,
 	PRIMARY KEY (`id_item`)
 );
 
 CREATE TABLE `Habilidade` (
 	`id_habilidade` bigint NOT NULL AUTO_INCREMENT,
-	`nome_habilidade` char(100) NOT NULL,
+	`nome_habilidade` varchar(100) NOT NULL,
 	`range_habilidade` FLOAT NOT NULL,
 	`ra_usuario` bigint NOT NULL,
 	`id_tipo_habilidade` int,
@@ -63,28 +64,42 @@ CREATE TABLE `Achievement_Usuario` (
 CREATE TABLE `Achievement` (
 	`id_achievement` int NOT NULL AUTO_INCREMENT,
 	`id_area` int NOT NULL,
-	`nome_achievement` char(90) NOT NULL,
-	`descricao_achievement` char(250) NOT NULL,
+	`nome_achievement` varchar(90) NOT NULL,
+	`descricao_achievement` varchar(250) NOT NULL,
 	PRIMARY KEY (`id_achievement`)
 );
 
 CREATE TABLE `Area` (
 	`id_area` int NOT NULL AUTO_INCREMENT,
-	`nome_area` char(45) NOT NULL,
+	`nome_area` varchar(45) NOT NULL,
 	PRIMARY KEY (`id_area`)
 );
 
 CREATE TABLE `Tipo_Projeto` (
 	`id_tipo_projeto` int NOT NULL AUTO_INCREMENT,
-	`nome_tipo_projeto` char(100) NOT NULL,
+	`nome_tipo_projeto` varchar(100) NOT NULL,
 	`pontos_tipo_projeto` FLOAT NOT NULL,
 	PRIMARY KEY (`id_tipo_projeto`)
 );
 
 CREATE TABLE `Tipo_Habilidade` (
 	`id_tipo_habilidade` int NOT NULL AUTO_INCREMENT,
-	`nome_tipo_habilidade` char(100) NOT NULL,
+	`nome_tipo_habilidade` varchar(100) NOT NULL,
 	PRIMARY KEY (`id_tipo_habilidade`)
+);
+
+CREATE TABLE `Links` (
+	`id_link` int NOT NULL AUTO_INCREMENT,
+	`titulo_link` int NOT NULL,
+	`txt_link` varchar(255) NOT NULL,
+	`ra_usuario` bigint NOT NULL,
+	PRIMARY KEY (`id_link`)
+);
+
+CREATE TABLE `Titulo_Link` (
+	`id_titulo_link` int NOT NULL AUTO_INCREMENT,
+	`nome_titulo_link` varchar(150) NOT NULL,
+	PRIMARY KEY (`id_titulo_link`)
 );
 
 ALTER TABLE `Usuario` ADD CONSTRAINT `Usuario_fk0` FOREIGN KEY (`id_curso`) REFERENCES `Curso`(`id_curso`);
@@ -108,3 +123,13 @@ ALTER TABLE `Achievement_Usuario` ADD CONSTRAINT `Achievement_Usuario_fk0` FOREI
 ALTER TABLE `Achievement_Usuario` ADD CONSTRAINT `Achievement_Usuario_fk1` FOREIGN KEY (`ra_usuario`) REFERENCES `Usuario`(`ra_usuario`);
 
 ALTER TABLE `Achievement` ADD CONSTRAINT `Achievement_fk0` FOREIGN KEY (`id_area`) REFERENCES `Area`(`id_area`);
+
+ALTER TABLE `Links` ADD CONSTRAINT `Links_fk0` FOREIGN KEY (`titulo_link`) REFERENCES `Titulo_Link`(`id_titulo_link`);
+
+ALTER TABLE `Links` ADD CONSTRAINT `Links_fk1` FOREIGN KEY (`ra_usuario`) REFERENCES `Usuario`(`ra_usuario`);
+
+
+
+
+
+
