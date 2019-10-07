@@ -28,8 +28,8 @@ router.post("/delete", wrap(async (req, res) => {
         res.json("Area deletada");
     }
 }));
-router.get("/read", wrap(async (req, res) => {
-    let idArea = req.query.idArea;
+router.post("/read", wrap(async (req, res) => {
+    let idArea = req.body.idArea;
     let p = await Area.read(idArea);
     res.json(p);
 }));

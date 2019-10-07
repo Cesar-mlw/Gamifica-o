@@ -30,8 +30,8 @@ router.post("/delete", wrap(async (req, res) => {
         res.json("Projeto deletado");
     }
 }));
-router.get("/read", wrap(async (req, res) => {
-    let ra = req.query.ra;
+router.post("/read", wrap(async (req, res) => {
+    let ra = req.body.ra;
     let p = await Projeto.read(ra);
     res.json(p);
 }));

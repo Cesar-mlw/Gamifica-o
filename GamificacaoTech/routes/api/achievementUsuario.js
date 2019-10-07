@@ -28,13 +28,13 @@ router.post("/delete", wrap(async (req, res) => {
         res.json("Achievement do usuário deletado");
     }
 }));
-router.get("/read", wrap(async (req, res) => {
-    let idAchievementUsuario = req.query.idAchievementUsuario;
+router.post("/read", wrap(async (req, res) => {
+    let idAchievementUsuario = req.body.idAchievementUsuario;
     let a = await AchievementUsuario.read(idAchievementUsuario);
     res.json(a);
 }));
-router.get("/readFromUserID", wrap(async (req, res) => {
-    let ra = req.query.ra;
+router.post("/readFromUserID", wrap(async (req, res) => {
+    let ra = req.body.ra;
     let a = await AchievementUsuario.readFromUserID(ra);
     res.json(a);
 }));

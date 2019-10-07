@@ -28,8 +28,8 @@ router.post("/delete", wrap(async (req, res) => {
         res.json("Tipo de habilidade deletada");
     }
 }));
-router.get("/read", wrap(async (req, res) => {
-    let idTipoHabilidade = req.query.idTipoHabilidade;
+router.post("/read", wrap(async (req, res) => {
+    let idTipoHabilidade = req.body.idTipoHabilidade;
     let a = await TipoHabilidade.read(idTipoHabilidade);
     res.json(a);
 }));

@@ -1,13 +1,13 @@
 import express = require("express")
 import wrap = require("express-async-error-wrapper");
-import TipoProjeto = require("../../models/TipoProjeto");
+import Links = require("../../models/Links");
 
 const router = express.Router()
 
 
 router.post("/create", wrap(async (req: express.Request, res: express.Response) => {
-    let p = req.body as TipoProjeto
-    let erro = await TipoProjeto.create(p)
+    let p = req.body as Links
+    let erro = await Links.create(p)
     console.log(req.body)
 
     if (erro) {
@@ -15,49 +15,48 @@ router.post("/create", wrap(async (req: express.Request, res: express.Response) 
         res.json(erro)
     }
     else {
-        res.json("Tipo de projeto criado")
+        res.json("Link criado")
     }
 
 }))
 
 router.get("/list", wrap(async (req: express.Request, res: express.Response) => {
-    let lista = await TipoProjeto.list()
+    let lista = await Links.list()
 
     res.json(lista)
 }))
 
 router.post("/delete", wrap(async (req: express.Request, res: express.Response) => {
-    let idTipoProjeto = req.body.idTipoProjeto
-    let p = await TipoProjeto.delete(idTipoProjeto) //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
+    let idLink = req.body.idLink
+    let p = await Links.delete(idLink) //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
     if (p == false) {
 
-        res.json("Tipo de projeto não encontrado")
+        res.json("Link do usuário não encontrado")
     }
 
     else {
-        res.json("Tipo de projeto deletado")
+        res.json("Link do usuário deletado")
     }
 }))
 
 
 router.post("/read", wrap(async (req: express.Request, res: express.Response) => {
-    let idTipoProjeto = req.body.idTipoProjeto
-    let p = await TipoProjeto.read(idTipoProjeto)
+    let ra = req.body.ra
+    let p = await Links.read(ra)
     res.json(p)
 }))
 
 router.post("/update", wrap(async (req: express.Request, res: express.Response) => {
-    let p = req.body as TipoProjeto
-    let erro = await TipoProjeto.update(p)
-    console.log(erro)
+    let p = req.body as Links
+    let erro = await Links.update(p)
 
     if (erro) {
 
-        res.json("Este tipo de projeto não existe")
+        res.json("O usuário não possui o item")
     }
 
     else {
-        res.json("Tipo de projeto alterado!")
+        res.json("Link alterado!")
     }
 
 

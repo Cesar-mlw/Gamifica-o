@@ -29,8 +29,8 @@ router.post("/delete", wrap(async (req, res) => {
         res.json("Item deletado");
     }
 }));
-router.get("/read", wrap(async (req, res) => {
-    let idItem = req.query.idItem;
+router.post("/read", wrap(async (req, res) => {
+    let idItem = req.body.idItem;
     let p = await Item.read(idItem);
     res.json(p);
 }));

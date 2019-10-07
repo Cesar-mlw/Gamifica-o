@@ -40,8 +40,8 @@ router.post("/delete", wrap(async (req: express.Request, res: express.Response) 
 }))
 
 
-router.get("/read", wrap(async (req: express.Request, res: express.Response) => {
-    let ra = req.query.ra
+router.post("/read", wrap(async (req: express.Request, res: express.Response) => {
+    let ra = req.body.ra
     let p = await ItemUsuario.read(ra)
     res.json(p)
 }))

@@ -40,8 +40,8 @@ router.post("/delete", wrap(async (req: express.Request, res: express.Response) 
 }))
 
 
-router.get("/read", wrap(async (req: express.Request, res: express.Response) => {
-    let idArea = req.query.idArea
+router.post("/read", wrap(async (req: express.Request, res: express.Response) => {
+    let idArea = req.body.idArea
     let p = await Area.read(idArea)
     res.json(p)
 }))
