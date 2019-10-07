@@ -45,7 +45,19 @@
                 <img src="../Public/images/desk.png" class="desk"></img>
                 <button data-micromodal-trigger="modal-1" class="furniture-button pc" onclick=""></button>
                 <button class="furniture-button estante" onclick=""></button>
-                <button class="furniture-button shelf" onclick=""></button>
+                <button class="furniture-button shelf" data-micromodal-trigger="modal-2">
+                    <div class="books-wrapper">
+                        <div class="book-pile" id="pile1">
+                            <div class="book-pile book-pile-v">
+                                <div class="book"></div>
+                                <div class="book"></div>
+                            </div>      
+                            <div class="book-pile">
+                                <div class="book book-h"></div>
+                            </div>
+                        </div>
+                    </div>
+                </button>
                 <button class="furniture-button board" onclick=""></button>
             </div>
         </div>
@@ -68,11 +80,11 @@
                 <main class="modal__content os-desktop-wrapping" id="modal-1-content">
                     <div class="os-desktop">
                         <div class="icon-column">
-                            <button onclick="loadContent('/testeAjax')" class="desktop-icon">
+                            <button onclick="loadContent('/registroProjeto')" class="desktop-icon">
                                 <i class="material-icons">note_add</i>
                                 <span>Registro</span>
                             </button>
-                            <button onclick="loadContent('')" class="desktop-icon">
+                            <button onclick="loadContent('/portifolio')" class="desktop-icon">
                                 <i class="material-icons">book</i>
                                 <span>Portfólio</span>
                             </button>
@@ -92,8 +104,31 @@
                             
                             <button class="os-window-close"></button>
                         </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
 
-
+    <div class="modal micromodal-slide" id="modal-2" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal__container shelf-gui-wrapper" role="dialog" aria-modal="true" aria-labelledby="modal-2-title">
+                <header class="modal__header shelf-header">
+                    <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                </header>
+                <main class="modal__content shelf-body-wrapper" id="modal-2-content">
+                    <div class="shelf-body">
+                        <div class="books-wrapper books-wrapper-big">
+                            <div class="book-pile" id="pile1">
+                                <div class="book-pile book-pile-v">
+                                    <div class="book book-big"></div>
+                                    <div class="book book-big"></div>
+                                </div>      
+                                <div class="book-pile">
+                                    <div class="book book-h book-h-big"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </main>
             </div>
@@ -159,6 +194,9 @@
 
 <%- contentFor("scripts")%>
 <script type="text/javascript">
+
+// mdc.select.MDCSelect.attachTo(document.querySelector(".mdc-select"));
+
     function registroRedirect() {
         window.location.replace("/formTest")
     }
@@ -193,8 +231,18 @@
     }
 
     $(document).ready(function(){
+
         $("#account-header-button").click(function(){
              $(".account-modal-wrapper").fadeToggle(200);
         });
+
+        $(".desktop-icon").click(function(){
+             $(".os-window-container").show(150);
+        });
+
+        $(".os-window-close").click(function(){
+             $(".os-window-container").hide(150);
+        });
+
     });
 </script>

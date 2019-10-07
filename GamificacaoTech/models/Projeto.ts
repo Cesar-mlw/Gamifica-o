@@ -4,12 +4,12 @@ export = class Projeto {
   public id_projeto: number;
   public id_tipo_projeto: number;
   public ra_usuario: number;
-  public id_area: string;
-  public dt_comeco_projeto: Date;
-  public terminado_projeto: string;
+  public id_area: number;
+  public dt_comeco_projeto: string;
+  public terminado_projeto: number;
   public nome_projeto: string;
   public descricao_projeto: string;
-  public dt_termino_projeto: Date;
+  public dt_termino_projeto: string;
 
   public static validate(p: Projeto): string {
     let resp: string;
@@ -39,7 +39,7 @@ export = class Projeto {
   public static async create(p: Projeto): Promise<string> {
     let res: string;
     if ((res = Projeto.validate(p))) return res;
-
+    console.log(p)
     await Sql.conectar(async (sql: Sql) => {
       try {
         await sql.query(

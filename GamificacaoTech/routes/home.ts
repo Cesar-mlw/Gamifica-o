@@ -38,12 +38,17 @@ router.get('/formTest', wrap(async (req: express.Request, res: express.Response)
 }));
 
 router.get('/portifolio', wrap(async (req: express.Request, res: express.Response) => {
-    res.render('portifolio', { titulo: "Portifolio"})//renderizar a tela
+    res.render('portifolio', { layout:'layoutVazio'})//renderizar a tela
 }));
 
 router.get('/testeAjax', wrap(async (req: express.Request, res: express.Response) => {
-    res.render('testeAjax', { layout:'layoutVazio' })//renderizar a tela
+    res.render('testeAjax', { layout:'layoutVazio'})//renderizar a tela
 }));
+
+router.get('/registroProjeto', wrap(async (req: express.Request, res: express.Response) => {
+    res.render('registroProjeto', { layout:'layoutVazio'})//renderizar a tela
+}));
+
 
 
 

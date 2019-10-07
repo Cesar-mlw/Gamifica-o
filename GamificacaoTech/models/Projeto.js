@@ -26,6 +26,7 @@ module.exports = class Projeto {
         let res;
         if ((res = Projeto.validate(p)))
             return res;
+        console.log(p);
         await Sql.conectar(async (sql) => {
             try {
                 await sql.query("insert into projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) values (?, ?, ?, ?, ?, ?, ?, ?)", [
