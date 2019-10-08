@@ -33,7 +33,7 @@ module.exports = class Habilidade {
     }
     static async update(h) {
         let res;
-        Sql.conectar(async (sql) => {
+        await Sql.conectar(async (sql) => {
             await sql.query("UPDATE habilidade SET nome_habilidade = ?, range_habilidade = ?, id_tipo_habilidade = ? WHERE id_habilidade = ?", [h.nome_habilidade, h.range_habilidade, h.id_tipo_habilidade, h.id_habilidade]);
             if (!sql.linhasAfetadas)
                 res = "Habilidade Inexistente";

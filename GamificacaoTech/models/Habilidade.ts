@@ -48,7 +48,7 @@ export = class Habilidade {
     public static async update(h: Habilidade): Promise<string>{
         let res: string
         
-        Sql.conectar(async (sql: Sql) => {
+        await Sql.conectar(async (sql: Sql) => {
             await sql.query("UPDATE habilidade SET nome_habilidade = ?, range_habilidade = ?, id_tipo_habilidade = ? WHERE id_habilidade = ?", [h.nome_habilidade, h.range_habilidade, h.id_tipo_habilidade, h.id_habilidade])
             if(!sql.linhasAfetadas)
                 res = "Habilidade Inexistente"

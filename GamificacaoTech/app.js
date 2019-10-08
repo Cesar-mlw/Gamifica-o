@@ -27,8 +27,12 @@ app.use("/api/area", require("./routes/api/area"));
 app.use("/api/curso", require("./routes/api/curso"));
 app.use("/api/tipoProjeto", require("./routes/api/tipoProjeto"));
 app.use("/api/tipoHabilidade", require("./routes/api/tipoHabilidade"));
-app.use("/api/links", require("./routes/api/links"));
-app.use("/api/tituloLinks", require("./routes/api/tituloLink"));
+app.use("/api/cidade", require("./routes/api/cidade"));
+app.use("/api/pais", require("./routes/api/pais"));
+app.use("/api/estado", require("./routes/api/estado"));
+app.use("/api/endereco", require("./routes/api/endereco"));
+app.use("/api/nacionalidade", require("./routes/api/nacionalidade"));
+app.use("/api/dadosCurriculo", require("./routes/api/dadosCurriculo"));
 // catch 404 and forward to error handler
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

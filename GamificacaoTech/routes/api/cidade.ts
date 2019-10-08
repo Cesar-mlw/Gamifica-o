@@ -1,62 +1,61 @@
 import express = require("express")
 import wrap = require("express-async-error-wrapper");
-import Links = require("../../models/Links");
+import Cidade = require("../../models/Cidade");
+
 
 const router = express.Router()
 
 
 router.post("/create", wrap(async (req: express.Request, res: express.Response) => {
-    let p = req.body as Links
-    let erro = await Links.create(p)
-    console.log(req.body)
+    let p = req.body as Cidade
+    let erro = await Cidade.create(p)
 
     if (erro) {
         res.statusCode = 400
         res.json(erro)
     }
     else {
-        res.json("Link criado")
+        res.json("Cidade criada")
     }
 
 }))
 
 router.get("/list", wrap(async (req: express.Request, res: express.Response) => {
-    let lista = await Links.list()
+    let lista = await Cidade.list()
 
     res.json(lista)
 }))
 
 router.post("/delete", wrap(async (req: express.Request, res: express.Response) => {
-    let idLink = req.body.idLink
-    let p = await Links.delete(idLink) //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
+    let idCidade = req.body.idCidade
+    let p = await Cidade.delete(idCidade) //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
     if (p == false) {
-
-        res.json("Link do usuário não encontrado")
+        res.json("Cidade não encontrada")
     }
 
     else {
-        res.json("Link do usuário deletado")
+        res.json("Cidade deletada")
     }
 }))
 
 
 router.post("/read", wrap(async (req: express.Request, res: express.Response) => {
-    let ra = req.body.ra
-    let p = await Links.read(ra)
+    let idCidade = req.body.idCidade
+    let p = await Cidade.read(idCidade)
     res.json(p)
 }))
 
 router.post("/update", wrap(async (req: express.Request, res: express.Response) => {
-    let p = req.body as Links
-    let erro = await Links.update(p)
+    let p = req.body as Cidade
+    let erro = await Cidade.update(p)
 
     if (erro) {
 
-        res.json("O usuário não possui o item")
+        res.json("Esta Cidade não existe")
     }
 
     else {
-        res.json("Link alterado!")
+        res.json("Cidade alterada!")
     }
 
 

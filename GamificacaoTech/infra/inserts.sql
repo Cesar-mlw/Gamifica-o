@@ -38,10 +38,11 @@ INSERT INTO tipo_projeto (nome_tipo_projeto, pontos_tipo_projeto) VALUES ("Concl
 -- TIPO_HABILIDADE TABLE
 
 INSERT INTO tipo_habilidade (nome_tipo_habilidade) VALUES ("Idioma");
-INSERT INTO tipo_habilidade (nome_tipo_habilidade) VALUES ("Instrumento");
 INSERT INTO tipo_habilidade (nome_tipo_habilidade) VALUES ("Linguagem");
-INSERT INTO tipo_habilidade (nome_tipo_habilidade) VALUES ("Arquitetura");
-INSERT INTO tipo_habilidade (nome_tipo_habilidade) VALUES ("Framework");
+INSERT INTO tipo_habilidade (nome_tipo_habilidade) VALUES ("Metodologia");
+INSERT INTO tipo_habilidade (nome_tipo_habilidade) VALUES ("Ferramenta");
+INSERT INTO tipo_habilidade (nome_tipo_habilidade) VALUES ("Educação");
+INSERT INTO tipo_habilidade (nome_tipo_habilidade) VALUES ("Experiência Profissional");
 
 -- USUARIO TABLE
 
