@@ -12,7 +12,7 @@ module.exports = class Estado {
     static async list() {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = await sql.query("SELECT e.id_estado, e.nome_estado, e.id_pais_estado, p.nome_estado FROM estado e, pais p WHERE e.id_pais_estado = p.id_pais");
+            lista = await sql.query("SELECT e.id_estado, e.nome_estado, e.id_pais_estado, p.nome_pais FROM estado e, pais p WHERE e.id_pais_estado = p.id_pais");
         });
         return lista;
     }

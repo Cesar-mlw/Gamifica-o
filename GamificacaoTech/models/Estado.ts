@@ -20,7 +20,7 @@ export = class Estado {
         let lista: Estado[] = null;
 
         await Sql.conectar(async (sql: Sql) => {
-            lista = await sql.query("SELECT e.id_estado, e.nome_estado, e.id_pais_estado, p.nome_estado FROM estado e, pais p WHERE e.id_pais_estado = p.id_pais") as Estado[]
+            lista = await sql.query("SELECT e.id_estado, e.nome_estado, e.id_pais_estado, p.nome_pais FROM estado e, pais p WHERE e.id_pais_estado = p.id_pais") as Estado[]
         })
         return lista
     }

@@ -23,7 +23,7 @@ export = class Endereco {
         let lista: Endereco[] = null;
 
         await Sql.conectar(async (sql: Sql) => {
-            lista = await sql.query("SELECT e.id_endereco, e.logradouro_endereco, e.numero_endereco, e.complemento_endereco, c.nome_cidade, e.id_cidade FROM Endereco e, Cidade c WHERE e.id_cidade = c.id_cidade") as Endereco[]
+            lista = await sql.query("SELECT e.id_endereco, e.logradouro_endereco, e.numero_endereco, e.complemento_endereco, c.nome_cidade, e.id_cidade_endereco FROM Endereco e, Cidade c WHERE e.id_cidade_endereco = c.id_cidade") as Endereco[]
         })
         return lista
     }
