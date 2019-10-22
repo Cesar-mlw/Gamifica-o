@@ -27,7 +27,7 @@
             <div class="os-window-field-group os-window-field-subgroup">
                 <span class="os-subgroup-title">Informações</span>
                 <input style="margin-top: -15px;" type="text" class="os-window-field" placeholder="Nome do projeto" id="nome_projeto" name="">
-                <textarea class="os-window-field" placeholder="Descrição do Projeto" id="descricao_projeto" rows="3" style="resize: none;"></textarea>
+                <textarea class="os-window-field" placeholder="descrição do Projeto" id="descricao_projeto" rows="3" style="resize: none;"></textarea>
             </div>
             <select style="margin: 10px;" class="custom-select" id="area_projeto">
                 <option disabled selected hidden>Área do Projeto</option>
@@ -52,26 +52,32 @@
                 <label for="check" class="css-label">Projeto Concluído</label>
                 <input type="text" class="os-window-field" placeholder="Data de Conclusão do Projeto" name="" id="datepicker2">
             </div>
-            <span class="os-button-complement" style="margin-top: 15px;"><input type="submit" class="os-button" placeholder="Enviar" onclick="portEnviar()"></span>
+            <input id="check2" class="css-checkbox" type="checkbox" name="check2" value="check">
+            <label for="check2" class="css-label">Exibir no Portfólio</label>
+            <span class="os-button-complement" style="margin-top: 15px;"><button type="submit" class="os-button" onclick="portEnviar()">Enviar</button></span>
         </form>
     </div>
     
     <!--CURRICULO-->
-    <div id="formCurriculoWrapper" class="container" style="display: none">
-        <div class="coisinhas">  
-            <select class="form-control form-control-lg" id="selectHabilidade">
-                <option>Escolha sua habilidade</option>
-            </select>
-            <select class="form-control selectArea" id="selectNivelProficiencia">
-                <option>Nivel de proficiencia</option>
-                <option value="1">Baixo</option>
-                <option value="2">Medio</option>
-                <option value="3">Avancado</option>
-            </select>
-            <div class="form-group">
-                <button type="button" class="btnenviar" onclick="portEnviar()">Enviar</button>
+    <div id="formCurriculoWrapper" class="os-window-field-group" style="display: none">
+        <i class="material-icons-sharp form-logo">assignment_ind</i>
+        <form id="formCurriculo" class="formulario">
+            <div class="os-window-field-group os-window-field-subgroup">
+                <span class="os-subgroup-title">Informações</span>
+                <input style="margin-top: -15px;" type="text" class="os-window-field" placeholder="Nome da Habilidade" id="nome_habilidade" name="">
+                <select style="margin: 10px;" class="custom-select" id="area_projeto">
+                    <option disabled selected hidden>Tipo de Habilidade</option>
+                    <option value="1">Idioma</option>
+                    <option value="2">Linguagem</option>
+                    <option value="3">Metodologia</option>
+                    <option value="4">Ferramenta</option>
+                    <option value="5">Educação</option>
+                    <option value="6">Experiência Profissional</option>
+                </select>
             </div>
-        </div>
+            <span class="os-button-complement" style="margin-top: 15px;"><button type="submit" class="os-button" onclick="portEnviar()">Enviar</button></span>
+
+        </form>
     </div>
 </div>
 <script type="text/javascript">
@@ -80,7 +86,7 @@
         var brDate = {
             previousMonth : 'Mês Anterior',
             nextMonth     : 'Mês Seguinte',
-            months        : ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+            months        : ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','dezembro'],
             weekdays      : ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
             weekdaysShort : ['Dom','Seg','Ter','Qua','Qui','Sex','Sab']
         };

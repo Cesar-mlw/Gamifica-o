@@ -36,24 +36,65 @@
 
 <!--CONTENT-->
 
-<div class="content-wrapper">
+<div class="content-wrapper dragscroll">
     <div class="room-container">
-        <img src="../Public/images/background-floor.svg" alt="" class="room">
-        <img src="../Public/images/box.svg" alt="" class="room-box">
+        <img src="../Public/images/background-floor.svg" class="room">
+        <img src="../Public/images/box.svg" class="room-box">
         <div class="grid-container">
             <div class="furniture">
                 <img src="../Public/images/desk.png" class="desk"></img>
                 <button data-micromodal-trigger="modal-1" class="furniture-button pc" onclick=""></button>
-                <button class="furniture-button estante" onclick=""></button>
+                <button class="furniture-button estante" data-micromodal-trigger="modal-3" onclick=""></button>
                 <button class="furniture-button shelf" data-micromodal-trigger="modal-2">
                     <div class="books-wrapper">
-                        <div class="book-pile" id="pile1">
-                            <div class="book-pile book-pile-v">
+                        <div class="book-pile" id="games">
+                            <div class="book-group-1">
+                                <div class="book"></div>
                                 <div class="book"></div>
                                 <div class="book"></div>
                             </div>      
-                            <div class="book-pile">
-                                <div class="book book-h"></div>
+                            <div class="book-group-2">
+                                <div class="book"></div>
+                                <div class="book"></div>
+                                <div class="book"></div>
+                            </div>
+                            <div class="book-group-3">
+                                <div class="book"></div>
+                                <div class="book"></div>
+                                <div class="book"></div>
+                            </div>
+                        </div>
+                        <div class="book-pile" id="bi">
+                            <div class="book-group-1">
+                                <div class="book book-gui"></div>
+                            </div>      
+                            <div class="book-group-2">
+                                <div class="book book-gui"></div>
+                            </div>
+                            <div class="book-group-3">
+                                <div class="book book-gui"></div>
+                            </div>
+                        </div>
+                        <div class="book-pile" id="dev">
+                            <div class="book-group-1">
+                                <div class="book book-gui"></div>
+                            </div>      
+                            <div class="book-group-2">
+                                <div class="book book-gui"></div>
+                            </div>
+                            <div class="book-group-3">
+                                <div class="book book-gui"></div>
+                            </div>
+                        </div>
+                        <div class="book-pile" id="inov">
+                            <div class="book-group-1">
+                                <div class="book book-gui"></div>
+                            </div>      
+                            <div class="book-group-2">
+                                <div class="book book-gui"></div>
+                            </div>
+                            <div class="book-group-3">
+                                <div class="book book-gui"></div>
                             </div>
                         </div>
                     </div>
@@ -73,7 +114,7 @@
             <div class="modal__container os-container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
                 <header class="modal__header os-taskbar">
                     <h2 class="modal__title" id="modal-1-title">
-                    Micromodal
+                    IDTech OS
                     </h2>
                     <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
                 </header>
@@ -88,11 +129,11 @@
                                 <i class="material-icons">book</i>
                                 <span>Portfólio</span>
                             </button>
-                            <button onclick="loadContent('')" class="desktop-icon">
+                            <button onclick="loadContent('/curriculo')" class="desktop-icon">
                                 <i class="material-icons">assignment_ind</i>
                                 <span>Currículo</span>
                             </button>
-                            <button onclick="loadContent('')" class="desktop-icon">
+                            <button onclick="" class="desktop-icon">
                                 <i class="material-icons">info</i>
                                 <span>Informações<br>da Faculdade</span>
                             </button>
@@ -116,18 +157,88 @@
                 <header class="modal__header shelf-header">
                     <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
                 </header>
-                <main class="modal__content shelf-body-wrapper" id="modal-2-content">
+                <main class="modal__content shelf-body-wrapper dragscroll" id="modal-2-content">
                     <div class="shelf-body">
-                        <div class="books-wrapper books-wrapper-big">
-                            <div class="book-pile" id="pile1">
-                                <div class="book-pile book-pile-v">
-                                    <div class="book book-big"></div>
-                                    <div class="book book-big"></div>
+                        <div class="books-wrapper books-wrapper-gui">
+                            <div class="book-pile" id="games">
+                                <div class="book-group-1">
+                                    <div class="book"></div>
+                                    <div class="book"></div>
+                                    <div class="book"></div>
                                 </div>      
-                                <div class="book-pile">
-                                    <div class="book book-h book-h-big"></div>
+                                <div class="book-group-2">
+                                    <div class="book"></div>
+                                    <div class="book"></div>
+                                    <div class="book"></div>
+                                </div>
+                                <div class="book-group-3">
+                                    <div class="book"></div>
+                                    <div class="book"></div>
+                                    <div class="book"></div>
                                 </div>
                             </div>
+                            <div class="book-pile" id="bi">
+                                <div class="book-group-1">
+                                    <div class="book book-gui"></div>
+                                </div>      
+                                <div class="book-group-2">
+                                    <div class="book book-gui"></div>
+                                </div>
+                                <div class="book-group-3">
+                                    <div class="book book-gui"></div>
+                                </div>
+                            </div>
+                            <div class="book-pile" id="dev">
+                                <div class="book-group-1">
+                                    <div class="book book-gui"></div>
+                                </div>      
+                                <div class="book-group-2">
+                                    <div class="book book-gui"></div>
+                                </div>
+                                <div class="book-group-3">
+                                    <div class="book book-gui"></div>
+                                </div>
+                            </div>
+                            <div class="book-pile" id="inov">
+                                <div class="book-group-1">
+                                    <div class="book book-gui"></div>
+                                </div>      
+                                <div class="book-group-2">
+                                    <div class="book book-gui"></div>
+                                </div>
+                                <div class="book-group-3">
+                                    <div class="book book-gui"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal micromodal-slide" id="modal-3" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal__container estante-gui-wrapper" role="dialog" aria-modal="true" aria-labelledby="modal-3-title">
+                <header class="modal__header estante-header">
+                    <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                </header>
+                <main class="modal__content estante-body-wrapper dragscroll" id="modal-3-content">
+                    <div class="estante-body">
+                        <div class="estante-body-top">
+
+                        </div>
+                        <div class="estante-body-bottom">
+
+                        </div>
+                        <div class="estante-body-bottom">
+
+                        </div>
+                        <div class="estante-body-bottom">
+
+                        </div>
+                        <div class="estante-body-bottom">
+
                         </div>
                     </div>
                 </main>
@@ -231,6 +342,20 @@
     }
 
     $(document).ready(function(){
+
+        // $(".room-container").smoothDivScroll({
+        //     mousewheelScrolling: "",
+        //     countOnlyClass: ".room",
+		// 	manualContinuousScrolling: false,
+        //     autoScrollingMode: ""
+        //     // touchScrolling: true,
+        //     // hotSpotScrolling: false
+        // });
+
+		// $(".room-container").smoothTouchScroll({ 
+        //     continuousScrolling: false,
+        //     countOnlyClass: ".room"
+	    // });
 
         $("#account-header-button").click(function(){
              $(".account-modal-wrapper").fadeToggle(200);

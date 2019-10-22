@@ -32,6 +32,9 @@ router.get('/formTest', wrap(async (req, res) => {
 router.get('/portifolio', wrap(async (req, res) => {
     res.render('portifolio', { layout: 'layoutVazio' }); //renderizar a tela
 }));
+router.get('/curriculo', wrap(async (req, res) => {
+    res.render('curriculo', { layout: 'layoutVazio' }); //renderizar a tela
+}));
 router.get('/testeAjax', wrap(async (req, res) => {
     res.render('testeAjax', { layout: 'layoutVazio' }); //renderizar a tela
 }));
