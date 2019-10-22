@@ -8,12 +8,13 @@ const router = express.Router();
 
 //import usuario
 router.get('/', wrap(async (req: express.Request, res: express.Response) => {//Declaração de rota
-    //itens / pontos das áreas
+    
     let points = await Usuario.readUserPoints(11710371)
     let books = []
     for(let i = 0; i < points.length; i++){
         books.push(BookSpiller.bookSpiller(points[i]['pontos'], points[i]['id']))
     }
+    // Book pile string builder
     res.render('home', { titulo: 'Gamificação TECH'}); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 }));
 
