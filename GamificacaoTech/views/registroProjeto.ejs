@@ -1,0 +1,210 @@
+<script src="../public/lib/jquery/jquery-1.0.0.min.js"></script>
+<style>
+#datepicker2 {
+      display:none;
+  }
+
+  #check:checked ~ #datepicker2{
+      display:block;
+  }
+</style>
+<span class="window-title">Registro</span>
+
+<div class="registro-wrapper">
+    <div class="os-window-division">
+        <select class="custom-select" id="selectCurPor" onchange="clc()">
+            <option disabled selected hidden>Selecionar Formato...</option>
+            <option value="portifolio">Portifólio</option>
+            <option value="curriculo">Currículo</option>
+        </select>
+    </div>
+
+    <!--PORTIFOLIO-->
+    
+    <div id="formPortifolioWrapper" class="os-window-field-group" style="display: none">
+        <i class="material-icons-sharp form-logo">folder_shared</i>
+        <form id="formPortifolio" class="formulario">
+            <div class="os-window-field-group os-window-field-subgroup">
+                <span class="os-subgroup-title">Informações</span>
+                <input style="margin-top: -15px;" type="text" class="os-window-field" placeholder="Nome do projeto" id="nome_projeto" name="">
+                <textarea class="os-window-field" placeholder="descrição do Projeto" id="descricao_projeto" rows="3" style="resize: none;"></textarea>
+            </div>
+            <select style="margin: 10px;" class="custom-select" id="area_projeto">
+                <option disabled selected hidden>Área do Projeto</option>
+                <option value="1">Games</option>
+                <option value="2">BI</option>
+                <option value="3">Dev</option>
+                <option value="4">Inovação</option>
+            </select>
+            <select style="margin: 10px;" class="custom-select" id="tipo_projeto">
+                <option disabled selected hidden>Tipo de projeto</option>
+                <option value="1">NAEC</option>
+                <option value="2">Matéria 36H</option>
+                <option value="3">Matéria 72H</option>
+                <option value="4">Palestras</option>
+                <option value="5">PIC</option>
+                <option value="6">Conclusão Semestral</option>
+            </select>
+            <div class="os-window-field-group os-window-field-subgroup" id="datas-subgroup">
+                <span class="os-subgroup-title">Datas</span>
+                <input style="margin-top: -15px;" type="text" class="os-window-field" placeholder="Data de Início do Projeto" name="" id="datepicker">
+                <input id="check" class="css-checkbox" type="checkbox" name="check" value="check">
+                <label for="check" class="css-label">Projeto Concluído</label>
+                <input type="text" class="os-window-field" placeholder="Data de Conclusão do Projeto" name="" id="datepicker2">
+            </div>
+            <input id="check2" class="css-checkbox" type="checkbox" name="check2" value="check">
+            <label for="check2" class="css-label">Exibir no Portfólio</label>
+            <span class="os-button-complement" style="margin-top: 15px;"><button type="submit" class="os-button" onclick="portEnviar()">Enviar</button></span>
+        </form>
+    </div>
+    
+    <!--CURRICULO-->
+    <div id="formCurriculoWrapper" class="os-window-field-group" style="display: none">
+        <i class="material-icons-sharp form-logo">assignment_ind</i>
+        <form id="formCurriculo" class="formulario">
+            <div class="os-window-field-group os-window-field-subgroup">
+                <span class="os-subgroup-title">Informações</span>
+                <input style="margin-top: -15px;" type="text" class="os-window-field" placeholder="Nome da Habilidade" id="nome_habilidade" name="">
+                <select style="margin: 10px;" class="custom-select" id="area_projeto">
+                    <option disabled selected hidden>Tipo de Habilidade</option>
+                    <option value="1">Idioma</option>
+                    <option value="2">Linguagem</option>
+                    <option value="3">Metodologia</option>
+                    <option value="4">Ferramenta</option>
+                    <option value="5">Educação</option>
+                    <option value="6">Experiência Profissional</option>
+                </select>
+            </div>
+            <span class="os-button-complement" style="margin-top: 15px;"><button type="submit" class="os-button" onclick="portEnviar()">Enviar</button></span>
+
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        var brDate = {
+            previousMonth : 'Mês Anterior',
+            nextMonth     : 'Mês Seguinte',
+            months        : ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','dezembro'],
+            weekdays      : ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+            weekdaysShort : ['Dom','Seg','Ter','Qua','Qui','Sex','Sab']
+        };
+
+        var picker = new Pikaday({
+            field: document.getElementById('datepicker'),
+            maxDate: new Date(),
+            onSelect: function() {
+                picker2.setMinDate(this.getDate());
+            },
+            i18n: brDate,
+            format: 'D/M/YYYY',
+            toString(date, format) {
+                const day = date.getDate();
+                const month = date.getMonth() + 1;
+                const year = date.getFullYear();
+                return `${day}/${month}/${year}`;
+            },
+            parse(dateString, format) {
+                const parts = dateString.split('/');
+                const day = parseInt(parts[0], 10);
+                const month = parseInt(parts[1], 10) - 1;
+                const year = parseInt(parts[2], 10);
+                return new Date(year, month, day);
+            }
+        });
+
+        var picker2 = new Pikaday({
+            field: document.getElementById('datepicker2'),
+            maxDate: new Date(),
+            onSelect: function() {
+                picker.setMaxDate(this.getDate());
+            },
+            i18n: brDate,
+            format: 'D/M/YYYY',
+            toString(date, format) {
+                const day = date.getDate();
+                const month = date.getMonth() + 1;
+                const year = date.getFullYear();
+                return `${day}/${month}/${year}`;
+            },
+            parse(dateString, format) {
+                const parts = dateString.split('/');
+                const day = parseInt(parts[0], 10);
+                const month = parseInt(parts[1], 10) - 1;
+                const year = parseInt(parts[2], 10);
+                return new Date(year, month, day);
+            }
+        });
+
+    });
+
+    function clc() {
+        //if (actionGoingOn)
+        //    return;
+
+        let selectBox = document.getElementById("selectCurPor")
+        let selectedValue = selectBox.options[selectBox.selectedIndex].value
+        let divPort = document.getElementById("formPortifolioWrapper")
+        let divCurr = document.getElementById("formCurriculoWrapper")
+        actionGoingOn = true;
+        // @@@ exibir waiting
+        //request.get("url", (response, body, error) => {
+        //    /// @@@ ocultar waiting
+        //    actionGoingOn = false;
+
+        //})
+        if (selectedValue == "portifolio") {
+            divPort.style.display = 'block'
+            divCurr.style.display = 'none'
+        }
+        else if (selectedValue == "curriculo") {
+            divPort.style.display = 'none'
+            divCurr.style.display = 'block'
+        }
+        else {
+            divPort.style.display = 'none'
+            divCurr.style.display = 'none'
+        }
+
+
+    }
+
+    function portEnviar() {
+
+        let nome_projeto= document.getElementById("nome_projeto").value;
+        let id_area = document.getElementById("area_projeto");
+        let id_area_value = parseInt(id_area.options[id_area.selectedIndex].value);
+        let id_tipo_projeto = 1;
+        let ra = 11710370;
+        let descricao_projeto = document.getElementById("descricao_projeto").value;
+        let dt_comeco_projeto = "2019/02/12";
+        let dt_termino_projeto = "2019/03/12";
+        let terminado_projeto=1;
+
+        const form = {
+            id_tipo_projeto: id_tipo_projeto,
+            ra_usuario: ra,
+            id_area: id_area_value,
+            dt_comeco_projeto: dt_comeco_projeto,
+            terminado_projeto: terminado_projeto,
+            nome_projeto: nome_projeto,
+            descricao_projeto: descricao_projeto,
+            dt_termino_projeto: dt_termino_projeto
+        }
+        
+        console.log(form)
+        $.ajax({
+            method: "post",
+            url: "http://localhost:3000/api/projeto/create",
+            data: form,
+            dataType: "json",
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        })
+    }
+</script>

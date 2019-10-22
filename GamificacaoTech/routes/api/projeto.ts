@@ -7,6 +7,7 @@ const router = express.Router()
 
 router.post("/create", wrap(async (req: express.Request, res: express.Response) => {
     let p = req.body as Projeto
+    console.log(p)
     let erro = await Projeto.create(p)
     console.log(req.body)
 

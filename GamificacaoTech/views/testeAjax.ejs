@@ -1,52 +1,40 @@
+<span class="window-title">Teste Ajax</span>
+
 <div class="registro-wrapper">
-    <div id="firstSelect" class="zap">
-        <div class="fundoform">
-            <select class="custom-select" id="selectCurPor" onchange="clc()">
-                <option selected>Onde isso será registrado?</option>
-                <option value="portifolio">Portifólio</option>
-                <option value="curriculo">Currículo</option>
-            </select>
-        </div>
+    <div class="os-window-division">
+        <select class="custom-select" id="selectCurPor" onchange="clc()">
+            <option disabled selected hidden>Selecionar Formato...</option>
+            <option value="portifolio">Portifólio</option>
+            <option value="curriculo">Currículo</option>
+        </select>
     </div>
+
     <!--PORTIFOLIO-->
-    <div id="formPortifolio" class="zap" style="display: none">
-        <div class="coisinhas">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Nome do projeto" id="nome_projeto" name="">
+    
+    <div id="formPortifolioWrapper" class="os-window-field-group" style="display: none">
+        <i class="material-icons-sharp form-logo">folder_shared</i>
+        <form id="formPortifolio" class="formulario">
+            <div class="os-window-field-group os-window-field-subgroup">
+                <span class="os-subgroup-title">Informações</span>
+                <input style="margin-top: -15px;" type="text" class="os-window-field" placeholder="Nome do projeto" id="nome_projeto" name="">
+                <textarea class="os-window-field" placeholder="Descrição do Projeto" id="descricao_projeto" rows="3" style="resize: none;"></textarea>
             </div>
-            <div class="form-group">
-                <textarea class="form-control" placeholder="Descrição do Projeto" id="descricao_projeto"
-                    rows="3"></textarea>
-            </div>
-            <div class="input-group-prepend">
-            </div>
-            <select class="form-control form-control-lg" id="area_projeto">
-                <option>Escolha a área do projeto</option>
+            <select style="margin: 10px;" class="custom-select" id="area_projeto">
+                <option disabled selected hidden>Área do projeto</option>
+                <option value="1">Games</option>
+                <option value="2">BI</option>
+                <option value="3">Dev</option>
+                <option value="4">Inovação</option>
             </select>
-            <div class="input-group-prepend tipoProjetoSelect">
-            </div>
-            <select class="custom-select" onchange="test()" id="tipo_projeto">
-                <option selected>Choose...</option>
-            </select>
-            <div class="form-group tipoProjetoSelect">
-                <input type="text" class="form-control" placeholder="Local do Projeto" id="local_projeto">
-            </div>
-            <div class="check">
-                <div class="wrap centre">
-                    <div class="checkbox">
-                        <input id="check" type="checkbox" name="check" value="check">
-                        <label for="check">Terminando o projeto?</label>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <button type="button" class="btnenviar" onclick="portEnviar()">Enviar</button>
-            </div>
-        </div>
+            <input type="text" class="os-window-field" placeholder="Local do Projeto" id="local_projeto">
+            <input id="check" class="css-checkbox" type="checkbox" name="check" value="check">
+            <label for="check" class="css-label">Projeto Concluído</label>
+            <span class="os-button-complement" style="margin-top: 20px;"><input type="submit" class="os-button" placeholder="Enviar" onclick="portEnviar()"></span>
+        </form>
     </div>
     
-        <!--CURRICULO-->
-    <div id="formCurriculo" class="container" style="display: none">
+    <!--CURRICULO-->
+    <div id="formCurriculoWrapper" class="container" style="display: none">
         <div class="coisinhas">  
             <select class="form-control form-control-lg" id="selectHabilidade">
                 <option>Escolha sua habilidade</option>
@@ -72,8 +60,8 @@
 
         let selectBox = document.getElementById("selectCurPor")
         let selectedValue = selectBox.options[selectBox.selectedIndex].value
-        let divPort = document.getElementById("formPortifolio")
-        let divCurr = document.getElementById("formCurriculo")
+        let divPort = document.getElementById("formPortifolioWrapper")
+        let divCurr = document.getElementById("formCurriculoWrapper")
         actionGoingOn = true;
         // @@@ exibir waiting
         //request.get("url", (response, body, error) => {
@@ -99,30 +87,38 @@
 
     function portEnviar() {
 
-        let nome_projeto= document.getElementById("nome_projeto").textContent;
+        let nome_projeto= document.getElementById("nome_projeto").value;
+        let id_area = document.getElementById("area_projeto");
+        let id_area_value = parseInt(id_area.options[id_area.selectedIndex].value);
+        let id_tipo_projeto = 1;
+        let ra = 11710370;
+        let descricao_projeto = document.getElementById("descricao_projeto").value;
+        let dt_comeco_projeto = "2019/02/12";
+        let dt_termino_projeto = "2019/03/12";
+        let terminado_projeto=1;
 
         const form = {
-            id_tipo_projeto: tipoSelectedValue,
-            ra_usuario: ra_usu,
-            id_area: areaSelectedValue,
+            id_tipo_projeto: id_tipo_projeto,
+            ra_usuario: ra,
+            id_area: id_area_value,
             dt_comeco_projeto: dt_comeco_projeto,
             terminado_projeto: terminado_projeto,
             nome_projeto: nome_projeto,
             descricao_projeto: descricao_projeto,
             dt_termino_projeto: dt_termino_projeto
         }
-
-
+        
+        console.log(form)
         $.ajax({
-            url: "",
             method: "post",
-            data: JSON.stringify(form),
-            contentType: "applicagd",
+            url: "http://localhost:3000/api/projeto/create",
+            data: form,
+            dataType: "json",
             success: function (data) {
-
+                console.log(data)
             },
-            error: function () {
-
+            error: function (e) {
+                console.log(e)
             }
         })
     }

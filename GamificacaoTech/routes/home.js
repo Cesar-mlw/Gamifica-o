@@ -13,7 +13,6 @@ router.get('/', wrap(async (req, res) => {
     for (let i = 0; i < points.length; i++) {
         books.push(BookSpiller.bookSpiller(points[i]['pontos'], points[i]['id']));
     }
-    console.log(books);
     res.render('home', { titulo: 'Gamificação TECH' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 }));
 router.get('/pc', wrap(async (req, res) => {
@@ -36,10 +35,16 @@ router.get('/formTest', wrap(async (req, res) => {
     res.render('formTest', { titulo: "Gamificação" }); //renderizar a tela
 }));
 router.get('/portifolio', wrap(async (req, res) => {
-    res.render('portifolio', { titulo: "Portifolio" }); //renderizar a tela
+    res.render('portifolio', { layout: 'layoutVazio' }); //renderizar a tela
+}));
+router.get('/curriculo', wrap(async (req, res) => {
+    res.render('curriculo', { layout: 'layoutVazio' }); //renderizar a tela
 }));
 router.get('/testeAjax', wrap(async (req, res) => {
     res.render('testeAjax', { layout: 'layoutVazio' }); //renderizar a tela
+}));
+router.get('/registroProjeto', wrap(async (req, res) => {
+    res.render('registroProjeto', { layout: 'layoutVazio' }); //renderizar a tela
 }));
 module.exports = router;
 //# sourceMappingURL=home.js.map
