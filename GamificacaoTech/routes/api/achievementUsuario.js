@@ -38,6 +38,16 @@ router.post("/readFromUserID", wrap(async (req, res) => {
     let a = await AchievementUsuario.readFromUserID(ra);
     res.json(a);
 }));
+router.post("/readMissingAchievements", wrap(async (req, res) => {
+    let ra = req.body.ra;
+    let a = await AchievementUsuario.readMissingAchievements(ra);
+    res.json(a);
+}));
+router.post("/readFeaturedAchievements", wrap(async (req, res) => {
+    let ra = req.body.ra;
+    let a = await AchievementUsuario.readFeaturedAchievements(ra);
+    res.json(a);
+}));
 router.post("/update", wrap(async (req, res) => {
     let a = req.body;
     let erro = await AchievementUsuario.update(a);

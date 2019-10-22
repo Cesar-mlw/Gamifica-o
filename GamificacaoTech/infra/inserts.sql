@@ -4,13 +4,14 @@ INSERT INTO AREA (nome_area) VALUES ("Games");
 INSERT INTO AREA (nome_area) VALUES ("BI");
 INSERT INTO AREA (nome_area) VALUES ("Dev");
 INSERT INTO AREA (nome_area) VALUES ("Inovação Tecnológica");
+INSERT INTO AREA (nome_area) VALUES ("Neutra");
 
 -- ACHIEVEMENT TABLE
 
-INSERT INTO achievement (nome_achievement, descricao_achievement, id_area) VALUES ("ACHIEVEMENT TESTE", "DONE SOME WEIRD SHIT ON THE PLATFORM LIKE A BACKFLIP OR SOMETHING WHOLESOME", 1);
-INSERT INTO achievement (nome_achievement, descricao_achievement, id_area) VALUES ("ACHIEVEMENT TESTE2", "DONE MORE WEIRD SHIT LIKE PET A DOG OR EAT A GOGURT", 3);
-INSERT INTO achievement (nome_achievement, descricao_achievement, id_area) VALUES ("ACHIEVEMENT TESTE3", "FAZER A PIADA DO BERIMBAU COM O MAURO", 2);
-INSERT INTO achievement (nome_achievement, descricao_achievement, id_area) VALUES ("ACHIEVEMENT TESTE4", "CUSPIR CÓDIGO ATÉ SEUS DEDOS NÃO AGUENTAREM MAIS. RADICAL!!!", 3);
+INSERT INTO achievement (nome_achievement, criterio_achievement,descricao_achievement, id_area) VALUES ("ACHIEVEMENT TESTE", "05 palestras", "DONE SOME WEIRD SHIT ON THE PLATFORM LIKE A BACKFLIP OR SOMETHING WHOLESOME", 5);
+INSERT INTO achievement (nome_achievement, criterio_achievement,descricao_achievement, id_area) VALUES ("ACHIEVEMENT TESTE2", "10 palestras", "DONE MORE WEIRD SHIT LIKE PET A DOG OR EAT A GOGURT", 5);
+INSERT INTO achievement (nome_achievement, criterio_achievement,descricao_achievement, id_area) VALUES ("ACHIEVEMENT TESTE3", "15 palestras", "FAZER A PIADA DO BERIMBAU COM O MAURO", 5);
+INSERT INTO achievement (nome_achievement, criterio_achievement,descricao_achievement, id_area) VALUES ("ACHIEVEMENT TESTE4", "20 palestras", "CUSPIR CÓDIGO ATÉ SEUS DEDOS NÃO AGUENTAREM MAIS. RADICAL!!!", 5);
 
 -- CURSO TABLE
 
@@ -58,32 +59,23 @@ INSERT INTO item_usuario(ra_usuario, id_item, dt_item) VALUES (11710371, 3, "201
 
 -- ACHIEVEMENT_USUARIO TABLE
 -- Usuário de RA = 11710372 não possui achievements
-INSERT INTO achievement_usuario (id_achievement, ra_usuario, dt_achievement) VALUES (4, 11710370, "2017/09/15");    
-INSERT INTO achievement_usuario (id_achievement, ra_usuario, dt_achievement) VALUES (2  , 11710371, "2018/07/15");    
-INSERT INTO achievement_usuario (id_achievement, ra_usuario, dt_achievement) VALUES (3, 11710371, "2019/02/15");
+INSERT INTO achievement_usuario (id_achievement, ra_usuario, dt_achievement, destaque_achievement) VALUES (1, 11710370, "2017/09/15", 0);    
+INSERT INTO achievement_usuario (id_achievement, ra_usuario, dt_achievement, destaque_achievement) VALUES (1, 11710371, "2018/07/15", 0);    
+INSERT INTO achievement_usuario (id_achievement, ra_usuario, dt_achievement, destaque_achievement) VALUES (2, 11710371, "2019/02/15", 0);
 
 -- HABILIDADE TABLE
 -- Usuário de RA = 11710372 não possui habildades
-INSERT INTO habilidade (nome_habilidade, range_habilidade, ra_usuario, id_tipo_habilidade) VALUES ("Javascript", 52.5, 11710370, 3);
-INSERT INTO habilidade (nome_habilidade, range_habilidade, ra_usuario, id_tipo_habilidade) VALUES ("R", 52.5, 11710371, 3);
-INSERT INTO habilidade (nome_habilidade, range_habilidade, ra_usuario, id_tipo_habilidade) VALUES ("Python", 52.5, 11710370, 3);
+INSERT INTO habilidade (nome_habilidade, ra_usuario, id_tipo_habilidade) VALUES ("Javascript", 11710370, 3);
+INSERT INTO habilidade (nome_habilidade, ra_usuario, id_tipo_habilidade) VALUES ("R", 11710371, 3);
+INSERT INTO habilidade (nome_habilidade, ra_usuario, id_tipo_habilidade) VALUES ("Python", 11710370, 3);
 
 -- PROJETO TABLE
 -- Usuário de RA = 11710372 não possui Projetos
 INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) VALUES (3, 11710371, 2, "2018/02/01", true, "Banco de Dados Avançado", "Matéria ministrada pelo Professor Surian","2018/06/30");
 INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) VALUES (6, 11710371, 3, "2018/08/01", true, "Conclusão semestral", "Semestre 2018.2 concluído", "2019/02/01");
 INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) VALUES (5, 11710370, 1, "2019/08/01", false, "IDTech: Gamificação aplicada ao ensino superior", "Projeto de Iniciação científica orientado por Matheus Matsuda Marangoni", null);
+INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) VALUES (5, 11710371, 1, "2019/08/01", false, "IDTech: Gamificação aplicada ao ensino superior", "Projeto de Iniciação científica orientado por Matheus Matsuda Marangoni", null);
 
--- TITULO_LINK TABLE
-INSERT INTO titulo_link (nome_titulo_link) VALUES ("GitHub");
-INSERT INTO titulo_link (nome_titulo_link) VALUES ("Linkedin");
-INSERT INTO titulo_link (nome_titulo_link) VALUES ("Instagram");
-INSERT INTO titulo_link (nome_titulo_link) VALUES ("Website Pessoal");
-
--- LINK TABLE
--- Usuário de RA = 11710372 não possui Projetos
-INSERT INTO links (titulo_link, txt_link, ra_usuario) VALUES (1, "github.com/flavinho", 11710371);
-INSERT INTO links (titulo_link, txt_link, ra_usuario) VALUES (1, "github.com/Cesar-mlw", 11710370);
 
 -- SELECTS ALL TABLES
 select * from achievement; 

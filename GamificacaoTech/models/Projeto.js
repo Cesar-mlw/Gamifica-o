@@ -24,6 +24,7 @@ module.exports = class Projeto {
     }
     static async create(p) {
         let res;
+        console.log(p);
         if ((res = Projeto.validate(p)))
             return res;
         await Sql.conectar(async (sql) => {

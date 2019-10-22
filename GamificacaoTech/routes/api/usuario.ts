@@ -33,10 +33,16 @@ router.post("/update", wrap(async (req: express.Request, res: express.Response) 
 
 }))
 
-router.get("/read", wrap(async (req: express.Request, res: express.Response) => {
-    let ra = req.query.ra
+router.post("/read", wrap(async (req: express.Request, res: express.Response) => {
+    let ra = req.body.ra
     let u = await Usuario.read(ra)
     res.json(u)
+}))
+
+router.post("/readUserPoints", wrap(async (req: express.Request, res: express.Response) => {
+    let ra = req.body.ra
+    let p = await Usuario.readUserPoints(ra)
+    res.json(p)
 }))
 
 //criar rota delete

@@ -6,7 +6,7 @@ export = class Projeto {
   public ra_usuario: number;
   public id_area: string;
   public dt_comeco_projeto: Date;
-  public terminado_projeto: string;
+  public terminado_projeto: boolean;
   public nome_projeto: string;
   public descricao_projeto: string;
   public dt_termino_projeto: Date;
@@ -38,6 +38,7 @@ export = class Projeto {
 
   public static async create(p: Projeto): Promise<string> {
     let res: string;
+    console.log(p);
     if ((res = Projeto.validate(p))) return res;
 
     await Sql.conectar(async (sql: Sql) => {
@@ -77,6 +78,8 @@ export = class Projeto {
 
     return (lista && lista[0]) || null;
   }
+
+  
 
   public static async update(p: Projeto): Promise<string> {
     let res: string;

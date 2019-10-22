@@ -180,6 +180,7 @@ CREATE TABLE IF NOT EXISTS `idtech`.`Achievement` (
   `id_area` INT NOT NULL,
   `nome_achievement` VARCHAR(90) NOT NULL,
   `descricao_achievement` VARCHAR(250) NOT NULL,
+  `criterio_achievement` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id_achievement`),
   INDEX `id_area_achievement` (`id_area` ASC),
   CONSTRAINT `id_area_achievement`
@@ -196,6 +197,7 @@ CREATE TABLE IF NOT EXISTS `idtech`.`Achievement_Usuario` (
   `id_achievement_usuario` INT NOT NULL AUTO_INCREMENT,
   `id_achievement` INT NOT NULL,
   `ra_usuario` BIGINT NOT NULL,
+  `destaque_achievement` TINYINT NOT NULL,
   `dt_achievement` DATE NOT NULL,
   PRIMARY KEY (`id_achievement_usuario`),
   INDEX `id_achievement_achievement_usuario` (`id_achievement` ASC),

@@ -36,7 +36,7 @@ module.exports = class AchievementUsuario {
     static async readFromUserID(ra) {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = await sql.query("select u.id_achievement_usuario, u.ra_usuario, u.dt_achievement, a.id_achievement, a.nome_achievement, a.descricao_achievement, r.nome_area from achievement a, achievement_usuario u, area r where ra_usuario = ? and a.id_achievement = u.id_achievement and a.id_area = r.id_area", [ra]);
+            lista = await sql.query("select u.id_achievement_usuario, u.ra_usuario, u.dt_achievement, a.id_achievement, a.nome_achievement, a.descricao_achievement, a.criterio_achievement, r.nome_area from achievement a, achievement_usuario u, area r where ra_usuario = ? and a.id_achievement = u.id_achievement and a.id_area = r.id_area", [ra]);
         });
         return lista;
     }
@@ -44,6 +44,20 @@ module.exports = class AchievementUsuario {
         let lista = null;
         await Sql.conectar(async (sql) => {
             lista = await sql.query("select u.id_achievement_usuario, u.ra_usuario, u.dt_achievement, a.id_achievement, a.nome_achievement, a.descricao_achievement, r.nome_area from achievement a, achievement_usuario u, area r where id_achievement_usuario = ? and a.id_achievement = u.id_achievement and a.id_area = r.id_area", [id]);
+        });
+        return lista;
+    }
+    static async readMissingAchievements(ra) {
+        let lista = null;
+        await Sql.conectar(async (sql) => {
+            lista = await sql.query("select * from achievement a where a.id_achievement not in (SELECT id_achievement FROM achievement_usuario u where u.ra_usuario = ?)", [ra]);
+        });
+        return lista;
+    }
+    static async readFeaturedAchievements(ra) {
+        let lista = null;
+        await Sql.conectar(async (sql) => {
+            lista = await sql.query("select u.id_achievement_usuario, u.ra_usuario, u.dt_achievement, a.id_achievement, a.nome_achievement, a.descricao_achievement, r.nome_area from achievement a, achievement_usuario u, area r where ra_usuario = ? and destaque_achievement = 1 and a.id_achievement = u.id_achievement and a.id_area = r.id_area", [ra]);
         });
         return lista;
     }

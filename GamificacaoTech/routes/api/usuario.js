@@ -25,10 +25,15 @@ router.post("/update", wrap(async (req, res) => {
         res.json("Usuário alterado!");
     }
 }));
-router.get("/read", wrap(async (req, res) => {
-    let ra = req.query.ra;
+router.post("/read", wrap(async (req, res) => {
+    let ra = req.body.ra;
     let u = await Usuario.read(ra);
     res.json(u);
+}));
+router.post("/readUserPoints", wrap(async (req, res) => {
+    let ra = req.body.ra;
+    let p = await Usuario.readUserPoints(ra);
+    res.json(p);
 }));
 //criar rota delete
 router.post("/delete", wrap(async (req, res) => {

@@ -43,7 +43,7 @@ module.exports = class Habilidade {
     static async read(ra) {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = await sql.query("SELECT id_habilidade, nome_habilidade, range_habilidade, ra_usuario FROM habilidade WHERE ra_usuario = ?", [ra]);
+            lista = await sql.query("SELECT h.id_habilidade, h.nome_habilidade, h.ra_usuario, t.id_tipo_habilidade, t.nome_tipo_habilidade FROM habilidade h, tipo_habilidade t WHERE t.id_tipo_habilidade = h.id_tipo_habilidade AND ra_usuario = ?", [ra]);
         });
         return lista;
     }
