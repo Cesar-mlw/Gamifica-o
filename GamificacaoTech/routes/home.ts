@@ -3,7 +3,9 @@ import express = require('express');
 import wrap = require('express-async-error-wrapper')
 import Usuario = require('../models/Usuario')
 import Projeto = require('../models/Projeto');
-import BookSpiller = require('../utils/bookSpiller')
+import StringBuilder = require('../utils/stringBuilder')
+import Habilidade = require('../models/Habilidade');
+import AchievementUsuario = require('../models/AchievementUsuario');
 const router = express.Router();
 
 //import usuario
@@ -12,23 +14,20 @@ router.get('/', wrap(async (req: express.Request, res: express.Response) => {//D
     let points = await Usuario.readUserPoints(11710371)
     let books = []
     for(let i = 0; i < points.length; i++){
-        books.push(BookSpiller.bookSpiller(points[i]['pontos'], points[i]['id']))
+        books.push(StringBuilder.bookSpiller(points[i]['pontos'], points[i]['id']))
     }
+    let featuredAchievements = await AchievementUsuario.readFeaturedAchievements(11710370)
+    let achievements = await AchievementUsuario.readFromUserID(11710370)
+    let missingAchievements = await AchievementUsuario.readMissingAchievements(11710370)
+    console.log(achievements);
+    console.log(missingAchievements);
+    console.log(featuredAchievements);
     // Book pile string builder
     res.render('home', { titulo: 'Gamificação TECH'}); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 }));
 
 router.get('/pc', wrap(async (req: express.Request, res: express.Response) => {//Declaração de rota
     res.render('pc', { titulo: 'Gamificação TECH'}); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
-}));
-
-router.get('/cv', wrap(async (req: express.Request, res: express.Response) => {//Declaração de rota
-    res.render('cvPage', { titulo: 'Gamificação TECH'}); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
-}));
-
-router.get('/port', wrap(async (req: express.Request, res: express.Response) => {//Declaração de rota
-    let projetos = await Projeto.read(11122233)
-    res.render('cvPage', { titulo: 'Gamificação TECH', proj:projetos }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 }));
 
 router.get('/feed', wrap(async (req: express.Request, res: express.Response) => {//Declaração de rota
@@ -44,10 +43,14 @@ router.get('/formTest', wrap(async (req: express.Request, res: express.Response)
 }));
 
 router.get('/portifolio', wrap(async (req: express.Request, res: express.Response) => {
+    let projetos = await Projeto.read(11710370)
+    console.log(projetos);
     res.render('portifolio', { layout:'layoutVazio'})//renderizar a tela
 }));
 
 router.get('/curriculo', wrap(async (req: express.Request, res: express.Response) => {
+    let habs = await Habilidade.read(11710370)
+    console.log(habs);
     res.render('curriculo', { layout:'layoutVazio'})//renderizar a tela
 }));
 

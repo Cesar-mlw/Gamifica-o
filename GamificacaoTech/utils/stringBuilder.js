@@ -1,5 +1,5 @@
 "use strict";
-module.exports = class BookSpiller {
+module.exports = class StringBuilder {
     static bookSpiller(p, id) {
         let n1 = 0;
         let n2 = 0;
@@ -27,4 +27,4 @@ module.exports = class BookSpiller {
         return respString;
     }
 };
-//# sourceMappingURL=bookSpiller.js.map
+//# sourceMappingURL=stringBuilder.js.map

@@ -1,6 +1,6 @@
 
 
-export = class BookSpiller {
+export = class StringBuilder {
     public static bookSpiller(p: number, id: number): string{
         let n1 = 0
         let n2 = 0
