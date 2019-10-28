@@ -19,11 +19,12 @@ router.get('/', wrap(async (req: express.Request, res: express.Response) => {//D
     let featuredAchievements = await AchievementUsuario.readFeaturedAchievements(11710370)
     let achievements = await AchievementUsuario.readFromUserID(11710370)
     let missingAchievements = await AchievementUsuario.readMissingAchievements(11710370)
-    console.log(achievements);
-    console.log(missingAchievements);
-    console.log(featuredAchievements);
     // Book pile string builder
-    res.render('home', { titulo: 'Gamificação TECH'}); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+    res.render('home', { titulo: 'Gamificação TECH', 
+                        books: books, 
+                        featuredAchievements: featuredAchievements,
+                        achievements: achievements,
+                        missingAchievements: missingAchievements}); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 }));
 
 router.get('/pc', wrap(async (req: express.Request, res: express.Response) => {//Declaração de rota
@@ -44,14 +45,14 @@ router.get('/formTest', wrap(async (req: express.Request, res: express.Response)
 
 router.get('/portifolio', wrap(async (req: express.Request, res: express.Response) => {
     let projetos = await Projeto.read(11710370)
-    console.log(projetos);
-    res.render('portifolio', { layout:'layoutVazio'})//renderizar a tela
+    res.render('portifolio', { layout:'layoutVazio',
+                            projetos: projetos})//renderizar a tela
 }));
 
 router.get('/curriculo', wrap(async (req: express.Request, res: express.Response) => {
     let habs = await Habilidade.read(11710370)
-    console.log(habs);
-    res.render('curriculo', { layout:'layoutVazio'})//renderizar a tela
+    res.render('curriculo', { layout:'layoutVazio',
+                            habilidades: habs})//renderizar a tela
 }));
 
 router.get('/testeAjax', wrap(async (req: express.Request, res: express.Response) => {
