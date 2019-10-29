@@ -65,7 +65,7 @@
             <div class="os-window-field-group os-window-field-subgroup">
                 <span class="os-subgroup-title">Informações</span>
                 <input style="margin-top: -15px;" type="text" class="os-window-field" placeholder="Nome da Habilidade" id="nome_habilidade" name="">
-                <select style="margin: 10px;" class="custom-select" id="area_projeto">
+                <select style="margin: 10px;" class="custom-select" id="tipo_habilidade">
                     <option disabled selected hidden>Tipo de Habilidade</option>
                     <option value="1">Idioma</option>
                     <option value="2">Linguagem</option>
@@ -75,7 +75,7 @@
                     <option value="6">Experiência Profissional</option>
                 </select>
             </div>
-            <span class="os-button-complement" style="margin-top: 15px;"><button type="submit" class="os-button" onclick="portEnviar()">Enviar</button></span>
+            <span class="os-button-complement" style="margin-top: 15px;"><button type="button" class="os-button" onclick="currEnviar()">Enviar</button></span>
 
         </form>
     </div>
@@ -170,13 +170,41 @@
 
     }
 
+    function currEnviar(){
+        let nome_habilidade = document.getElementById("nome_habilidade").value;
+        let tipo_habilidade = document.getElementById("tipo_habilidade");
+        let id_tipo_habilidade = parseInt(tipo_habilidade.options[tipo_habilidade.selectedIndex].value);
+        let ra_usuario = 11710371
+        console.log(nome_habilidade)
+        console.log(id_tipo_habilidade)
+        const form = {
+            nome_habilidade: nome_habilidade,
+            id_tipo_habilidade: id_tipo_habilidade,
+            ra_usuario: ra_usuario
+        }
+
+        $.ajax({
+            method: "post",
+            url: "http://localhost:3000/api/habilidade/create",
+            data: form,
+            dataType: "json",
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        })
+
+    }
+
     function portEnviar() {
 
         let nome_projeto= document.getElementById("nome_projeto").value;
         let id_area = document.getElementById("area_projeto");
         let id_area_value = parseInt(id_area.options[id_area.selectedIndex].value);
         let id_tipo_projeto = 1;
-        let ra = 11710370;
+        let ra = 11710371;
         let descricao_projeto = document.getElementById("descricao_projeto").value;
         let dt_comeco_projeto = "2019/02/12";
         let dt_termino_projeto = "2019/03/12";

@@ -3,7 +3,7 @@ const Sql = require("../infra/sql");
 module.exports = class Habilidade {
     static validate(h) {
         let res;
-        if (h.nome_habilidade == null || h.range_habilidade == null || h.ra_usuario == null)
+        if (h.nome_habilidade == null || h.ra_usuario == null)
             res = "ERRO";
         return res;
     }
@@ -20,7 +20,7 @@ module.exports = class Habilidade {
             return res;
         await Sql.conectar(async (sql) => {
             try {
-                await sql.query("INSERT INTO habilidade (nome_habilidade, range_habilidade, ra_usuario) values (?, ?, ?)", [h.nome_habilidade, h.range_habilidade, h.ra_usuario]);
+                await sql.query("INSERT INTO habilidade (nome_habilidade, ra_usuario, id_tipo_habilidade) values (?, ?, ?)", [h.nome_habilidade, h.ra_usuario, h.id_tipo_habilidade]);
             }
             catch (e) {
                 if (e.code && e.code == 'ER_DUP_ENTRY')
@@ -34,7 +34,7 @@ module.exports = class Habilidade {
     static async update(h) {
         let res;
         await Sql.conectar(async (sql) => {
-            await sql.query("UPDATE habilidade SET nome_habilidade = ?, range_habilidade = ?, id_tipo_habilidade = ? WHERE id_habilidade = ?", [h.nome_habilidade, h.range_habilidade, h.id_tipo_habilidade, h.id_habilidade]);
+            await sql.query("UPDATE habilidade SET nome_habilidade = ?, id_tipo_habilidade = ? WHERE id_habilidade = ?", [h.nome_habilidade, h.id_tipo_habilidade, h.id_habilidade]);
             if (!sql.linhasAfetadas)
                 res = "Habilidade Inexistente";
         });

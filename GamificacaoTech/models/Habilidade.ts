@@ -4,7 +4,6 @@ export = class Habilidade {
 
     public id_habilidade: number;
     public nome_habilidade: string;
-    public range_habilidade: number;
     public ra_usuario: number;
     public id_tipo_habilidade: number;
 
@@ -12,7 +11,7 @@ export = class Habilidade {
 
     public static validate(h: Habilidade): string {
         let res: string
-        if(h.nome_habilidade == null || h.range_habilidade == null || h.ra_usuario == null) 
+        if(h.nome_habilidade == null || h.ra_usuario == null) 
             res="ERRO"
         return res
     }
@@ -34,7 +33,7 @@ export = class Habilidade {
         
         await Sql.conectar(async (sql: Sql) => {
             try{
-                await sql.query("INSERT INTO habilidade (nome_habilidade, range_habilidade, ra_usuario) values (?, ?, ?)", [h.nome_habilidade, h.range_habilidade, h.ra_usuario])
+                await sql.query("INSERT INTO habilidade (nome_habilidade, ra_usuario, id_tipo_habilidade) values (?, ?, ?)", [h.nome_habilidade, h.ra_usuario, h.id_tipo_habilidade])
             } catch(e) {
                 if(e.code && e.code == 'ER_DUP_ENTRY')
                     res = `O ID ${h.id_habilidade} já está e uso`
@@ -49,7 +48,7 @@ export = class Habilidade {
         let res: string
         
         await Sql.conectar(async (sql: Sql) => {
-            await sql.query("UPDATE habilidade SET nome_habilidade = ?, range_habilidade = ?, id_tipo_habilidade = ? WHERE id_habilidade = ?", [h.nome_habilidade, h.range_habilidade, h.id_tipo_habilidade, h.id_habilidade])
+            await sql.query("UPDATE habilidade SET nome_habilidade = ?, id_tipo_habilidade = ? WHERE id_habilidade = ?", [h.nome_habilidade, h.id_tipo_habilidade, h.id_habilidade])
             if(!sql.linhasAfetadas)
                 res = "Habilidade Inexistente"
         })
