@@ -19,12 +19,10 @@ router.get('/', wrap(async (req, res) => {
     let achievements = await AchievementUsuario.readFromUserID(11710370);
     let missingAchievements = await AchievementUsuario.readMissingAchievements(11710370);
     let achieveHTML = StringBuilder.shelfSpiller(allAchievements, missingAchievements, achievements);
-    console.log(achieveHTML);
     // Book pile string builder
     res.render('home', { titulo: 'Gamificação TECH',
         books: books,
-        achievements: achievements,
-        missingAchievements: missingAchievements }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+        achieveHTML: achieveHTML }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 }));
 router.get('/pc', wrap(async (req, res) => {
     res.render('pc', { titulo: 'Gamificação TECH' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
