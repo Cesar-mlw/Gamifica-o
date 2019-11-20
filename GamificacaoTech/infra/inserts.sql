@@ -53,9 +53,9 @@ INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, pontos_to
 
 -- ITEM_USUARIO TABLE
 -- Usuário de RA = 11710372 não possui itens
-INSERT INTO item_usuario(ra_usuario, id_item, dt_item) VALUES (11710370, 1, "2018/02/01");
-INSERT INTO item_usuario(ra_usuario, id_item, dt_item) VALUES (11710371, 2, "2019/05/15");
-INSERT INTO item_usuario(ra_usuario, id_item, dt_item) VALUES (11710371, 3, "2018/08/15");
+INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height) VALUES (11710370, 1, "2018/02/01", 23.5, 42.5, 200, 300);
+INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height) VALUES (11710371, 2, "2019/05/15", 27.5, 34.5, 200, 300);
+INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height) VALUES (11710371, 3, "2018/08/15", 27.5, 34.5, 200, 300);
 
 -- ACHIEVEMENT_USUARIO TABLE
 -- Usuário de RA = 11710372 não possui achievements
