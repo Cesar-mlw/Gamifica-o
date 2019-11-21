@@ -14,7 +14,7 @@ module.exports = class ItemUsuario {
     static async list() {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = await sql.query("SELECT u.id_item_usuario, u.ra_usuario, u.id_item, u.dt_item, i.nome_item, i.img_url_item FROM item_usuario u, item i WHERE u.id_item = i.id_item");
+            lista = await sql.query("SELECT u.id_item_usuario, u.ra_usuario, u.id_item, u.dt_item, i.nome_item, i.img_url_item, u.cellx_item, u.celly_item, u.width, u.height FROM item_usuario u, item i WHERE u.id_item = i.id_item");
         });
         return lista;
     }
@@ -22,7 +22,7 @@ module.exports = class ItemUsuario {
         let res;
         await Sql.conectar(async (sql) => {
             try {
-                await sql.query("INSERT INTO item_usuario (id_item, ra_usuario, dt_item) VALUES (?, ?, ?)", [i.id_item, i.ra_usuario, i.dt_item]);
+                await sql.query("INSERT INTO item_usuario (id_item, ra_usuario, dt_item, width, height) VALUES (?, ?, ?, ?, ?)", [i.id_item, i.ra_usuario, i.dt_item, i.width, i.height]);
             }
             catch (e) {
                 if (e.code && e.code === "ER_DUP_ENTRY")
@@ -36,16 +36,34 @@ module.exports = class ItemUsuario {
     static async read(ra) {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = await sql.query("select i.id_item, i.nome_item, i.img_url_item, u.dt_item, u.id_item_usuario, u.id_item from item_usuario u, item i where ra_usuario = ? and u.id_item = i.id_item", [ra]);
+            lista = await sql.query("select i.id_item, i.nome_item, i.img_url_item, u.dt_item, u.id_item_usuario, u.id_item, u.cellx_item, u.celly_item, u.width, u.height from item_usuario u, item i where ra_usuario = ? and u.id_item = i.id_item", [ra]);
         });
         return lista;
     }
     static async update(i) {
         let res;
         Sql.conectar(async (sql) => {
-            await sql.query("UPDATE item_usuario SET id_item = ?, dt_item = ? WHERE id_item_usuario = ?", [i.id_item, i.dt_item, i.id_item_usuario]);
+            await sql.query("UPDATE item_usuario SET id_item = ?, dt_item = ?, width = ?, height = ? WHERE id_item_usuario = ?", [i.id_item, i.dt_item, i.width, i.height, i.id_item_usuario]);
             if (!sql.linhasAfetadas)
                 res = "Usuário não possui esse item";
+        });
+        return res;
+    }
+    static async placeObject(id_item_usuario, cellx, celly) {
+        let res = true;
+        Sql.conectar(async (sql) => {
+            await sql.query("UPDATE item_usuario SET cellx_item = ?, celly_item = ? where id_item_usuario = ?", [cellx, celly, id_item_usuario]);
+            if (!sql.linhasAfetadas)
+                res = false;
+        });
+        return res;
+    }
+    static async removeObject(id_item_usuario) {
+        let res = true;
+        Sql.conectar(async (sql) => {
+            await sql.query("UPDATE item_usuario SET cellx_item = NULL, celly_item = NULL where id_item_usuario = ?", [id_item_usuario]);
+            if (!sql.linhasAfetadas)
+                res = false;
         });
         return res;
     }

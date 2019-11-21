@@ -49,8 +49,6 @@ router.post("/read", wrap(async (req: express.Request, res: express.Response) =>
 router.post("/update", wrap(async (req: express.Request, res: express.Response) => {
     let p = req.body as ItemUsuario
     let erro = await ItemUsuario.update(p)
-    console.log(erro)
-
     if (erro) {
 
         res.json("O usuário não possui o item")
@@ -59,8 +57,32 @@ router.post("/update", wrap(async (req: express.Request, res: express.Response) 
     else {
         res.json("Item alterado!")
     }
+}))
 
+router.post("/placeObject", wrap(async (req: express.Request, res: express.Response) => {
+    let id_item_usuario = req.body.id_item_usuario
+    let cellx = req.body.cellx
+    let celly = req.body.celly
+    let erro = await ItemUsuario.placeObject(id_item_usuario, cellx, celly)
+    if (!erro) {
+        res.json("O usuário não possui o item")
+    }
 
+    else {
+        res.json("Item Colocado!")
+    }
+}))
+
+router.post("/removeObject", wrap(async (req: express.Request, res: express.Response) => {
+    let id_item_usuario = req.body.id_item_usuario
+    let erro = await ItemUsuario.removeObject(id_item_usuario)
+    if (!erro) {
+        res.json("O usuário não possui o item")
+    }
+
+    else {
+        res.json("Item Retirado!")
+    }
 }))
 
 export = router;

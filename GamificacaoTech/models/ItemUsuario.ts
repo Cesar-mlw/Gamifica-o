@@ -7,6 +7,10 @@ export = class ItemUsuario {
     public ra_usuario: number;
     public id_item: number;
     public dt_item: Date;
+    public cellx_item: number;
+    public celly_item: number;
+    public width: number;
+    public height: number;
 
 
 
@@ -26,7 +30,7 @@ export = class ItemUsuario {
         let lista: ItemUsuario[] = null
 
         await Sql.conectar(async (sql:Sql) => {
-            lista = await sql.query("SELECT u.id_item_usuario, u.ra_usuario, u.id_item, u.dt_item, i.nome_item, i.img_url_item FROM item_usuario u, item i WHERE u.id_item = i.id_item") as ItemUsuario[]
+            lista = await sql.query("SELECT u.id_item_usuario, u.ra_usuario, u.id_item, u.dt_item, i.nome_item, i.img_url_item, u.cellx_item, u.celly_item, u.width, u.height FROM item_usuario u, item i WHERE u.id_item = i.id_item") as ItemUsuario[]
         })
 
         return lista
@@ -37,7 +41,7 @@ export = class ItemUsuario {
 
         await Sql.conectar(async (sql: Sql) => {
             try {
-                await sql.query("INSERT INTO item_usuario (id_item, ra_usuario, dt_item) VALUES (?, ?, ?)", [i.id_item, i.ra_usuario, i.dt_item])
+                await sql.query("INSERT INTO item_usuario (id_item, ra_usuario, dt_item, width, height) VALUES (?, ?, ?, ?, ?)", [i.id_item, i.ra_usuario, i.dt_item, i.width, i.height])
             } catch (e) {
                 if (e.code && e.code === "ER_DUP_ENTRY")
                     res = `O ID ${i.id_item_usuario} já está em uso`
@@ -53,7 +57,7 @@ export = class ItemUsuario {
         let lista: ItemUsuario[] = null;
 
         await Sql.conectar(async (sql: Sql) => {
-            lista = await sql.query("select i.id_item, i.nome_item, i.img_url_item, u.dt_item, u.id_item_usuario, u.id_item from item_usuario u, item i where ra_usuario = ? and u.id_item = i.id_item", [ra]) as ItemUsuario[]
+            lista = await sql.query("select i.id_item, i.nome_item, i.img_url_item, u.dt_item, u.id_item_usuario, u.id_item, u.cellx_item, u.celly_item, u.width, u.height from item_usuario u, item i where ra_usuario = ? and u.id_item = i.id_item", [ra]) as ItemUsuario[]
         })
         return lista
     }
@@ -62,13 +66,39 @@ export = class ItemUsuario {
         let res: string;
 
         Sql.conectar(async (sql: Sql) => {
-            await sql.query("UPDATE item_usuario SET id_item = ?, dt_item = ? WHERE id_item_usuario = ?", [i.id_item, i.dt_item, i.id_item_usuario])
+            await sql.query("UPDATE item_usuario SET id_item = ?, dt_item = ?, width = ?, height = ? WHERE id_item_usuario = ?", [i.id_item, i.dt_item, i.width, i.height, i.id_item_usuario])
             if(!sql.linhasAfetadas)
                 res = "Usuário não possui esse item"
         })
 
         return res
     }
+
+    public static async placeObject(id_item_usuario:number, cellx: number, celly: number): Promise<boolean> {
+        let res: boolean = true
+
+        Sql.conectar(async (sql: Sql) => {
+            await sql.query("UPDATE item_usuario SET cellx_item = ?, celly_item = ? where id_item_usuario = ?", [cellx, celly, id_item_usuario])
+            if(!sql.linhasAfetadas)
+                res = false
+        })
+
+        return res
+    }
+    
+    public static async removeObject(id_item_usuario:number): Promise<boolean> {
+        let res: boolean = true
+
+        Sql.conectar(async (sql: Sql) => {
+            await sql.query("UPDATE item_usuario SET cellx_item = NULL, celly_item = NULL where id_item_usuario = ?", [id_item_usuario])
+            if(!sql.linhasAfetadas)
+                res = false
+        })
+
+        return res
+    }
+
+    
 
     public static async delete(id: number): Promise<boolean> {
         let res: boolean = true

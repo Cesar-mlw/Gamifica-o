@@ -77,6 +77,7 @@ INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, te
 INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) VALUES (5, 11710371, 1, "2019/08/01", false, "IDTech: Gamificação aplicada ao ensino superior", "Projeto de Iniciação científica orientado por Matheus Matsuda Marangoni", null);
 
 
+
 -- SELECTS ALL TABLES
 select * from achievement; 
 select * from achievement_usuario; 
