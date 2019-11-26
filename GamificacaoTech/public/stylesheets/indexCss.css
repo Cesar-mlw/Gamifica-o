@@ -273,7 +273,12 @@ opacity: 1;
 .room-box{
     position: absolute;
     left: 0;
-    bottom:56px;
+    bottom: 50px;
+    height: 82px;
+    width: 83px;
+    background: url(../images/box.svg);
+    background-size: 83px;
+    border: none;
 }
 
 .furniture{
@@ -282,9 +287,9 @@ opacity: 1;
 
 .desk{
     position: absolute;
-    left: 600px;
+    left: 560px;
     bottom: 0;
-    height: 180px;
+    height: 192px;
 }
 
 .furniture-button{
@@ -296,21 +301,21 @@ opacity: 1;
 }
 
 .pc{
-    left: 735px;
-    bottom: 180px;
+    left: 720px;
+    bottom: 192px;
     height: 150px;
     width: 150px;
-    background: url("../images/pc.png");
+    background: url(../images/pc.png);
     background-size: 150px;
 }
 
 .estante{
-    left: 200px;
+    left: 160px;
     bottom: 0px;
-    height: 187px;
-    width: 219px;
-    background: url("../images/wardrobe.png");
-    background-size: 219px;
+    height: 206px;
+    width: 240px;
+    background: url(../images/wardrobe.png);
+    background-size: 240px;
 }
 
 .estante-gui-wrapper{
@@ -408,22 +413,22 @@ opacity: 1;
     justify-content: space-between;
     position: relative;
     padding: 0 30px;
-    margin: 29px 0;
+    margin: 30px 0;
 }
 
 .estante-item-preview{
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     background: red;
 }
 
 .shelf{
-    left: 150px;
-    top: 250px;
-    height: 34px;
-    width: 338px;
+    left: 160px;
+    top: 240px;
+    height: 32px;
+    width: 320px;
     background: url(../images/shelf.png);
-    background-size: 338px;
+    background-size: 320px;
 }
 
 .shelf-gui-wrapper{
@@ -455,8 +460,7 @@ opacity: 1;
 }
 
 .shelf-header button:hover{
-    transform: scale(1.1);
-    
+    transform: scale(1.1); 
 }
 
 .shelf-body-wrapper{
@@ -568,12 +572,15 @@ opacity: 1;
 }
 
 .grid-container{
-    height: 633px;
+    height: 640px;
     width: 1280px;
     background: rgba(255,0,0,0.2);
     position: absolute;
     left: 246px;
     top: 0px;
+    display: grid;
+    grid-template-columns: repeat(16, 80px);
+    grid-template-rows: repeat(8, 80px);
 }
 
 #sidebar-overlay {
@@ -677,7 +684,7 @@ opacity: 1;
 
 .os-window{
     background:#E4E4E4;
-    width: 100%;
+    width: 95%;
     /* padding: 5px 10px; */
     overflow: auto;
     height: 100%;
@@ -940,7 +947,75 @@ opacity: 1;
     width: 100%;
 }
 
+.item-box-wrapper{  
+    width: 100vw;
+    padding: 20px 0;
+    min-height: 240px;
+    height: 40vh;
+    background: red;
+    position: fixed;
+    z-index: 99;
+    transform: translateY(100%);
+    bottom: 0;
+    left: 0;
+    transition: 0.5s transform cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
 
+.item-box-close{
+    background-color: #E40A5D;
+    position: absolute;
+    left: calc(50% - 25px);
+    top: -19px;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
+    height: 50px;
+    width: 50px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
+    transform: none;
+    transition: transform linear 0.1s;
+    display: none;
+    outline: none;
+}
+
+.item-box-close:hover{
+    transform: scale(1.1); 
+}
+
+.item-box-close::before{
+    content: "\2715";
+}
+
+.item-box{
+    background: blue;
+    height: 100%;
+    margin: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-content: start;
+    flex-wrap: wrap;
+}
+
+.item-box-item{
+    height: 80px;
+    width: 80px;
+    margin: 30px;
+    background: yellow;
+    border: none;
+    outline: none;
+}
+
+.item-box-wrapper-after{
+    
+    transform: translateY(0);
+}
+
+.item-box-wrapper-after .item-box-close{
+    display: inline-block;
+}
 
 @media only screen and (min-width: 901px) {
     .header-nav{

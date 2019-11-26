@@ -34,8 +34,10 @@ module.exports = class StringBuilder {
                 let v = (i * 3) - all.length;
                 if (v < 0)
                     v *= -1;
+                if (v % 3 == 0)
+                    v = 0;
                 res += '<div class="estante-row-preview">';
-                for (let j = 1; j < 3 - v; j++) {
+                for (let j = 0; j < 3 - v; j++) {
                     if (miss.includes(all[counter])) {
                         res += '<div class="estante-item-preview missing-achievement"></div>';
                         counter++;
@@ -45,7 +47,7 @@ module.exports = class StringBuilder {
                         counter++;
                     }
                 }
-                res += '</div></div>';
+                res += '</div>';
             }
             else if (i == 0) {
                 res += '<div class="estante-row-preview">';
@@ -59,7 +61,7 @@ module.exports = class StringBuilder {
                         counter++;
                     }
                 }
-                res += '</div></div>';
+                res += '</div>';
             }
             else {
                 res += '<div class="estante-row-preview">';
@@ -73,7 +75,7 @@ module.exports = class StringBuilder {
                         counter++;
                     }
                 }
-                res += '</div></div>';
+                res += '</div>';
             }
         }
         return res;
@@ -87,8 +89,10 @@ module.exports = class StringBuilder {
                 let v = (i * 3) - all.length;
                 if (v < 0)
                     v *= -1;
+                if (v % 3 == 0)
+                    v = 0;
                 res += '<div class="estante-body-bottom"><div class="estante-row">';
-                for (let j = 1; j < 3 - v; j++) {
+                for (let j = 0; j < 3 - v; j++) {
                     if (miss.includes(all[counter])) {
                         res += '<div class="estante-item missing-achievement" id="achievement-' + counter + '"></div>';
                         counter++;

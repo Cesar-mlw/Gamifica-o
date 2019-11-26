@@ -39,29 +39,20 @@
 <div class="content-wrapper dragscroll">
     <div class="room-container">
         <img src="../Public/images/background-floor.svg" class="room">
-        <img src="../Public/images/box.svg" class="room-box">
+        <button class="room-box" onclick="editMode()"></button>
         <div class="grid-container">
             <div class="furniture">
                 <img src="../Public/images/desk.png" class="desk"></img>
-                <button data-micromodal-trigger="modal-1" class="furniture-button pc" onclick=""></button>
-                <button class="furniture-button estante" data-micromodal-trigger="modal-3" onclick="">
-                    <div class="estante-row-preview">
+                <button data-micromodal-trigger="modal-1" class="furniture-button ignore-dragscroll pc" onclick=""></button>
+                <button class="furniture-button ignore-dragscroll estante" data-micromodal-trigger="modal-3" onclick="">
+                        <%-achievePreviewHTML%>
+                    <!-- <div class="estante-row-preview">
                         <div class="estante-item-preview"></div>
                         <div class="estante-item-preview"></div>
                         <div class="estante-item-preview"></div>
-                    </div>
-                    <div class="estante-row-preview">
-                        <div class="estante-item-preview"></div>
-                        <div class="estante-item-preview"></div>
-                        <div class="estante-item-preview"></div>
-                    </div>
-                    <div class="estante-row-preview">
-                        <div class="estante-item-preview"></div>
-                        <div class="estante-item-preview"></div>
-                        <div class="estante-item-preview"></div>
-                    </div>
+                    </div> -->
                 </button>
-                <button class="furniture-button shelf" data-micromodal-trigger="modal-2">
+                <button class="furniture-button ignore-dragscroll shelf" data-micromodal-trigger="modal-2">
                     <div class="books-wrapper">
                         <% for(let i = 0; i < books.length; i++){ %>
                             <%-books[i]%>
@@ -118,8 +109,11 @@
                         </div> -->
                     </div>
                 </button>
-                <button class="furniture-button board" onclick=""></button>
+                <button class="furniture-button ignore-dragscroll board" onclick=""></button>
             </div>
+
+            <div style="position: absolute; left: 0; top: 80px; width: 80px; height: 80px; background-color: blue;" class="objdrag"></div>
+
         </div>
     </div>
 </div>
@@ -127,6 +121,14 @@
 <!--MODALS-->
 <div class="modal-storage">        
     <div id="sidebar-overlay" onclick="closeOverlay()"></div>
+    <div id="item-box-gui" class="item-box-wrapper">
+    <button class="item-box-close" onclick="endEditMode()"></button>
+        <div class="item-box">
+            <button class="item-box-item"></button>
+            <button class="item-box-item"></button>
+            <button class="item-box-item"></button>
+        </div>
+    </div>
 
     <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
         <div class="modal__overlay" tabindex="-1" data-micromodal-close>
@@ -203,68 +205,72 @@
             </div>
         </div>
     </div>
-
-
 </div> 
-            <script type="application/javascript">
-                var counter = document.getElementById('counter').getContext('2d');
-                var no = 0; // Starting Point
-                var pointToFill = 4.72;  //Point from where you want to fill the circle
-                var cw = counter.canvas.width;  //Return canvas width
-                var ch = counter.canvas.height; //Return canvas height
-                var diff;   // find the different between current value (no) and trageted value (100)
-                var loadingContent = false;
 
-                function loadContent(url) {
-                    if (loadingContent)
-                        return;
-                    
-                    loadingContent = true;
-                    $.ajax({
-                        method: 'GET',
-                        cache: false,
-                        url: url,
-                        success: function (data) {
-                            loadingContent = false;
-                            $('#os-content').html(data);
-                        },
-                        error: function () {
-                            loadingContent = false;
-                            $('#os-content').html("<b>Ocorreu um erro ao carregar os dados do servidor :(</b>");
-                        }
-                    })
-                }
+<script type="application/javascript">
+    var counter = document.getElementById('counter').getContext('2d');
+    var no = 0; // Starting Point
+    var pointToFill = 4.72;  //Point from where you want to fill the circle
+    var cw = counter.canvas.width;  //Return canvas width
+    var ch = counter.canvas.height; //Return canvas height
+    var diff;   // find the different between current value (no) and trageted value (100)
+    var loadingContent = false;
 
-                function fillCounter(){
-                    diff = ((no/100) * Math.PI*2*10);
-                    counter.clearRect(0,0,cw,ch);   // Clear canvas every time when function is call
-                    counter.lineWidth = 15;     // size of stroke
-                    counter.fillStyle = '#fff';     // color that you want to fill in counter/circle
-                    counter.strokeStyle = '#dc143c';    // Stroke Color
-                    counter.textAlign = 'center';
-                    counter.font = "0.1px monospace";    //set font size and face
-                    counter.fillText(no+'%',100,110);       //fillText(text,x,y);
-                    counter.beginPath();
-                    counter.arc(100,100,90,pointToFill,diff/10+pointToFill);    //arc(x,y,radius,start,stop)
-                    counter.stroke();   // to fill stroke
-                    
-                    // now add condition
-                    
-                    if(no >= 78){
-                        clearTimeout(fill);     //fill is a variable that call the function fillcounter()
-                    }
-                    no++;
-                }
-                
-                //now call the function
-                
-                var fill = setInterval(fillCounter,50);     //call the fillCounter function after every 50MS
-            </script>
+    function loadContent(url) {
+        if (loadingContent)
+            return;
+        
+        loadingContent = true;
+        $.ajax({
+            method: 'GET',
+            cache: false,
+            url: url,
+            success: function (data) {
+                loadingContent = false;
+                $('#os-content').html(data);
+            },
+            error: function () {
+                loadingContent = false;
+                $('#os-content').html("<b>Ocorreu um erro ao carregar os dados do servidor :(</b>");
+            }
+        })
+    }
+
+    function fillCounter(){
+        diff = ((no/100) * Math.PI*2*10);
+        counter.clearRect(0,0,cw,ch);   // Clear canvas every time when function is call
+        counter.lineWidth = 15;     // size of stroke
+        counter.fillStyle = '#fff';     // color that you want to fill in counter/circle
+        counter.strokeStyle = '#dc143c';    // Stroke Color
+        counter.textAlign = 'center';
+        counter.font = "0.1px monospace";    //set font size and face
+        counter.fillText(no+'%',100,110);       //fillText(text,x,y);
+        counter.beginPath();
+        counter.arc(100,100,90,pointToFill,diff/10+pointToFill);    //arc(x,y,radius,start,stop)
+        counter.stroke();   // to fill stroke
+        
+        // now add condition
+        
+        if(no >= 78){
+            clearTimeout(fill);     //fill is a variable that call the function fillcounter()
+        }
+        no++;
+    }
+    
+    //now call the function
+    
+    var fill = setInterval(fillCounter,50);     //call the fillCounter function after every 50MS
+</script>
 
 <%- contentFor("scripts")%>
 <script type="text/javascript">
+    function editMode(){
+        $('.item-box-wrapper').addClass('item-box-wrapper-after');
+    }
 
-// mdc.select.MDCSelect.attachTo(document.querySelector(".mdc-select"));
+    function endEditMode(){
+        $('.item-box-wrapper').removeClass('item-box-wrapper-after');
+    }
 
     function registroRedirect() {
         window.location.replace("/formTest")
