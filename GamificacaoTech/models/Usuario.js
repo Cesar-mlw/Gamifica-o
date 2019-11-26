@@ -12,8 +12,8 @@ module.exports = class Usuario {
             resp += "Nome do usuário não pode ser nulo";
         if (u.email_usuario == null)
             resp += "E-mail do usuário não pode ser nulo";
-        if (u.pontos_totais == null)
-            resp += "Pontos totais do usuário não pode ser nulo";
+        if (u.moedas_usuario == null)
+            resp += "Moedas totais do usuário não pode ser nulo";
         if (u.nome_usuario == null)
             resp += "Nome do usuário não pode ser nulo";
         if (u.nome_usuario == null)
@@ -23,7 +23,7 @@ module.exports = class Usuario {
     static async list() {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = (await sql.query("SELECT u.ra_usuario, u.id_curso, u.nome_usuario, u.email_usuario, u.pontos_totais, u.dt_entrada_usuario, u.senha_usuario, c.nome_curso FROM usuario u, curso c WHERE c.id_curso = u.id_curso"));
+            lista = (await sql.query("SELECT u.ra_usuario, u.id_curso, u.nome_usuario, u.email_usuario, u.moedas_usuario, u.dt_entrada_usuario, u.senha_usuario, c.nome_curso FROM usuario u, curso c WHERE c.id_curso = u.id_curso"));
         });
         return lista;
     }
@@ -34,12 +34,12 @@ module.exports = class Usuario {
             return res;
         await Sql.conectar(async (sql) => {
             try {
-                await sql.query("INSERT INTO usuario (ra_usuario, id_curso, nome_usuario, email_usuario, pontos_totais, dt_entrada_usuario, senha_usuario) VALUES (?, ?, ?, ?, ?, ?, ?)", [
+                await sql.query("INSERT INTO usuario (ra_usuario, id_curso, nome_usuario, email_usuario, moedas_usuario, dt_entrada_usuario, senha_usuario) VALUES (?, ?, ?, ?, ?, ?, ?)", [
                     u.ra_usuario,
                     u.id_curso,
                     u.nome_usuario,
                     u.email_usuario,
-                    u.pontos_totais,
+                    u.moedas_usuario,
                     u.dt_entrada_usuario,
                     u.senha_usuario
                 ]);
@@ -56,7 +56,7 @@ module.exports = class Usuario {
     static async read(id) {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = (await sql.query("select u.ra_usuario, u.id_curso, u.nome_usuario, u.pontos_totais, u.email_usuario, u.dt_entrada_usuario, c.nome_curso from usuario u, curso c where ra_usuario = ? and u.id_curso = c.id_curso", [id]));
+            lista = (await sql.query("select u.ra_usuario, u.id_curso, u.nome_usuario, u.moedas_usuario, u.email_usuario, u.dt_entrada_usuario, c.nome_curso from usuario u, curso c where ra_usuario = ? and u.id_curso = c.id_curso", [id]));
         });
         return (lista && lista[0]) || null;
     }
@@ -71,11 +71,11 @@ module.exports = class Usuario {
         //
         let res;
         await Sql.conectar(async (sql) => {
-            await sql.query("UPDATE usuario SET id_curso = ?, nome_usuario = ?, email_usuario = ?, pontos_totais = ?, dt_entrada_usuario = ? WHERE ra_usuario = ?", [
+            await sql.query("UPDATE usuario SET id_curso = ?, nome_usuario = ?, email_usuario = ?, moedas_usuario = ?, dt_entrada_usuario = ? WHERE ra_usuario = ?", [
                 u.id_curso,
                 u.nome_usuario,
                 u.email_usuario,
-                u.pontos_totais,
+                u.moedas_usuario,
                 u.dt_entrada_usuario,
                 u.ra_usuario
             ]);
@@ -117,7 +117,20 @@ module.exports = class Usuario {
         });
         return res;
     }
-    //FAZER FUNÇÃO PARA REDIRECIONAR O USUÁRIO PARA OUTRA TABELA
+    static async buyObject(price, id) {
+        let res;
+        let user = await this.read(id);
+        if (user.moedas_usuario <= price)
+            res = "cant buy";
+        else {
+            await Sql.conectar(async (sql) => {
+                await sql.query("UPDATE usuario SET moedas_usuario = (moedas_usuario - ?) where ra_usuario = ?", [price, id]);
+                if (!sql.linhasAfetadas)
+                    res = "Usuario não existe";
+            });
+        }
+        return res;
+    }
     static async efetuarLogin(ra, senha) {
         //parametros a serem passados - ra: number / senha: string
         let res = true;

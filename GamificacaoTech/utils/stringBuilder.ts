@@ -1,5 +1,6 @@
 import Achievement = require("../models/Achievement")
 import AchievementUsuario = require("../models/AchievementUsuario")
+import ItemUsuario = require("../models/ItemUsuario")
 
 
 export = class StringBuilder {
@@ -84,6 +85,15 @@ export = class StringBuilder {
         }
         return res
     }
+
+    public static itemBoxSpiller(items: ItemUsuario[]): string{
+        let res = ""
+        for(let i = 0; i < items.length; i++){
+            res += '<button class="item-box-item" id="item-box-item-'+items[i].id_item_usuario+'></button>'
+        }
+        return res
+    }
+
     public static shelfSpiller(all: Achievement[], miss: Achievement[]): string{
         let res = ""
         let p = Math.ceil(all.length / 3)

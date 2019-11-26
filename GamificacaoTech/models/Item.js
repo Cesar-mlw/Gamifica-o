@@ -12,7 +12,7 @@ module.exports = class Item {
     static async list() {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = await sql.query("SELECT id_item, nome_item, img_url_item FROM item");
+            lista = await sql.query("SELECT id_item, nome_item, img_url_item, preco_item FROM item");
         });
         return lista;
     }
@@ -22,7 +22,7 @@ module.exports = class Item {
             throw res;
         await Sql.conectar(async (sql) => {
             try {
-                sql.query("INSERT INTO item (nome_item, img_url_item) VALUES (?, ?)", [i.nome_item, i.img_url_item]);
+                sql.query("INSERT INTO item (nome_item, img_url_item, preco_item) VALUES (?, ?, ?)", [i.nome_item, i.img_url_item, i.preco_item]);
             }
             catch (e) {
                 if (e.code && e.code == "ER_DUP_ENTRY")
@@ -36,16 +36,16 @@ module.exports = class Item {
     static async read(id) {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = await sql.query("SELECT id_item, nome_item, img_url_item FROM item WHERE id_item = ?", [id]);
+            lista = await sql.query("SELECT id_item, nome_item, img_url_item, preco_item FROM item WHERE id_item = ?", [id]);
         });
         return ((lista && lista[0]) || null);
     }
-    static async update(t) {
+    static async update(i) {
         let res;
         await Sql.conectar(async (sql) => {
-            await sql.query("UPDATE item SET nome_item = ?, img_url_item = ? WHERE id_item = ?", [t.nome_item, t.img_url_item, t.id_item]);
+            await sql.query("UPDATE item SET nome_item = ?, img_url_item = ?, preco_item = ? where id_item = ?", [i.nome_item, i.img_url_item, i.preco_item, i.id_item]);
             if (!sql.linhasAfetadas)
-                res = "Tipo de habilidade não encontrado";
+                res = "Item não existente";
         });
         return res;
     }

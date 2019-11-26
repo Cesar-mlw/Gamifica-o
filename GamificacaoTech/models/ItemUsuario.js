@@ -40,6 +40,27 @@ module.exports = class ItemUsuario {
         });
         return lista;
     }
+    static async readPlacedItems(ra) {
+        let lista = null;
+        await Sql.conectar(async (sql) => {
+            lista = await sql.query("SELECT u.id_item_usuario, u.ra_usuario, u.id_item, u.cellx_item, u.celly_item, u.width, u.height, u.positioned_item, i.nome_item, i.img_url_item, i.preco_item FROM item_usuario u, item i WHERE u.ra_usuario = ? AND u.positioned_item = TRUE AND u.id_item = i.id_item", [ra]);
+        });
+        return lista;
+    }
+    static async readNotPlacedItems(ra) {
+        let lista = null;
+        await Sql.conectar(async (sql) => {
+            lista = await sql.query("SELECT u.id_item_usuario, u.ra_usuario, u.id_item, u.cellx_item, u.celly_item, u.width, u.height, u.positioned_item, i.nome_item, i.img_url_item, i.preco_item FROM item_usuario u, item i WHERE u.ra_usuario = ? AND u.positioned_item = FALSE AND u.id_item = i.id_item", [ra]);
+        });
+        return lista;
+    }
+    static async readOccupiedPlaces(ra) {
+        let lista = null;
+        await Sql.conectar(async (sql) => {
+            lista = await sql.query("SELECT cellx_item, celly_item FROM item_usuario u WHERE u.ra_usuario = ? AND u.positioned_item = true", [ra]);
+        });
+        return lista;
+    }
     static async update(i) {
         let res;
         Sql.conectar(async (sql) => {
@@ -52,7 +73,7 @@ module.exports = class ItemUsuario {
     static async placeObject(id_item_usuario, cellx, celly) {
         let res = true;
         Sql.conectar(async (sql) => {
-            await sql.query("UPDATE item_usuario SET cellx_item = ?, celly_item = ? where id_item_usuario = ?", [cellx, celly, id_item_usuario]);
+            await sql.query("UPDATE item_usuario SET cellx_item = ?, celly_item = ?, positioned_item = true where id_item_usuario = ?", [cellx, celly, id_item_usuario]);
             if (!sql.linhasAfetadas)
                 res = false;
         });
@@ -61,7 +82,7 @@ module.exports = class ItemUsuario {
     static async removeObject(id_item_usuario) {
         let res = true;
         Sql.conectar(async (sql) => {
-            await sql.query("UPDATE item_usuario SET cellx_item = NULL, celly_item = NULL where id_item_usuario = ?", [id_item_usuario]);
+            await sql.query("UPDATE item_usuario SET cellx_item = NULL, celly_item = NULL, positioned_item = false where id_item_usuario = ?", [id_item_usuario]);
             if (!sql.linhasAfetadas)
                 res = false;
         });

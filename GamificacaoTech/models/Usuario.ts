@@ -6,7 +6,7 @@ export = class Usuario {
   public id_curso: string;
   public nome_usuario: string;
   public email_usuario: string;
-  public pontos_totais: number;
+  public moedas_usuario: number;
   public dt_entrada_usuario: Date;
   public senha_usuario: string;
 
@@ -16,8 +16,8 @@ export = class Usuario {
     if (u.id_curso == null) resp += "ID do curso não pode ser nulo\n";
     if (u.nome_usuario == null) resp += "Nome do usuário não pode ser nulo";
     if (u.email_usuario == null) resp += "E-mail do usuário não pode ser nulo";
-    if (u.pontos_totais == null)
-      resp += "Pontos totais do usuário não pode ser nulo";
+    if (u.moedas_usuario == null)
+      resp += "Moedas totais do usuário não pode ser nulo";
     if (u.nome_usuario == null) resp += "Nome do usuário não pode ser nulo";
     if (u.nome_usuario == null) resp += "Nome do usuário não pode ser nulo";
     return resp;
@@ -28,7 +28,7 @@ export = class Usuario {
 
     await Sql.conectar(async (sql: Sql) => {
       lista = (await sql.query(
-        "SELECT u.ra_usuario, u.id_curso, u.nome_usuario, u.email_usuario, u.pontos_totais, u.dt_entrada_usuario, u.senha_usuario, c.nome_curso FROM usuario u, curso c WHERE c.id_curso = u.id_curso"
+        "SELECT u.ra_usuario, u.id_curso, u.nome_usuario, u.email_usuario, u.moedas_usuario, u.dt_entrada_usuario, u.senha_usuario, c.nome_curso FROM usuario u, curso c WHERE c.id_curso = u.id_curso"
       )) as Usuario[];
     });
     return lista;
@@ -42,13 +42,13 @@ export = class Usuario {
     await Sql.conectar(async (sql: Sql) => {
       try {
         await sql.query(
-          "INSERT INTO usuario (ra_usuario, id_curso, nome_usuario, email_usuario, pontos_totais, dt_entrada_usuario, senha_usuario) VALUES (?, ?, ?, ?, ?, ?, ?)",
+          "INSERT INTO usuario (ra_usuario, id_curso, nome_usuario, email_usuario, moedas_usuario, dt_entrada_usuario, senha_usuario) VALUES (?, ?, ?, ?, ?, ?, ?)",
           [
             u.ra_usuario,
             u.id_curso,
             u.nome_usuario,
             u.email_usuario,
-            u.pontos_totais,
+            u.moedas_usuario,
             u.dt_entrada_usuario,
             u.senha_usuario
           ]
@@ -68,7 +68,7 @@ export = class Usuario {
 
     await Sql.conectar(async (sql: Sql) => {
       lista = (await sql.query(
-        "select u.ra_usuario, u.id_curso, u.nome_usuario, u.pontos_totais, u.email_usuario, u.dt_entrada_usuario, c.nome_curso from usuario u, curso c where ra_usuario = ? and u.id_curso = c.id_curso",
+        "select u.ra_usuario, u.id_curso, u.nome_usuario, u.moedas_usuario, u.email_usuario, u.dt_entrada_usuario, c.nome_curso from usuario u, curso c where ra_usuario = ? and u.id_curso = c.id_curso",
         [id]
       )) as Usuario[];
     });
@@ -91,12 +91,12 @@ export = class Usuario {
     let res: string;
     await Sql.conectar(async (sql: Sql) => {
       await sql.query(
-        "UPDATE usuario SET id_curso = ?, nome_usuario = ?, email_usuario = ?, pontos_totais = ?, dt_entrada_usuario = ? WHERE ra_usuario = ?",
+        "UPDATE usuario SET id_curso = ?, nome_usuario = ?, email_usuario = ?, moedas_usuario = ?, dt_entrada_usuario = ? WHERE ra_usuario = ?",
         [
           u.id_curso,
           u.nome_usuario,
           u.email_usuario,
-          u.pontos_totais,
+          u.moedas_usuario,
           u.dt_entrada_usuario,
           u.ra_usuario
         ]
@@ -146,7 +146,22 @@ export = class Usuario {
 
     return res;
   }
-  //FAZER FUNÇÃO PARA REDIRECIONAR O USUÁRIO PARA OUTRA TABELA
+
+  public static async buyObject(price: number, id: number): Promise<string> {
+    let res: string;
+    let user: Usuario = await this.read(id)
+    if(user.moedas_usuario <= price) 
+      res = "cant buy"
+    
+    else{
+      await Sql.conectar(async (sql: Sql) => {
+        await sql.query("UPDATE usuario SET moedas_usuario = (moedas_usuario - ?) where ra_usuario = ?", [price, id]);
+        if (!sql.linhasAfetadas) res = "Usuario não existe";
+      });
+    }
+
+    return res
+  }
 
   public static async efetuarLogin(
     ra: number,

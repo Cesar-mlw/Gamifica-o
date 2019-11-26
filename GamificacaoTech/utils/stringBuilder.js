@@ -80,6 +80,13 @@ module.exports = class StringBuilder {
         }
         return res;
     }
+    static itemBoxSpiller(items) {
+        let res = "";
+        for (let i = 0; i < items.length; i++) {
+            res += '<button class="item-box-item" id="item-box-item-' + items[i].id_item_usuario + '></button>';
+        }
+        return res;
+    }
     static shelfSpiller(all, miss) {
         let res = "";
         let p = Math.ceil(all.length / 3);

@@ -62,6 +62,36 @@ export = class ItemUsuario {
         return lista
     }
 
+    public static async readPlacedItems(ra: number): Promise<ItemUsuario[]>{
+        let lista: ItemUsuario[] = null;
+
+        await Sql.conectar(async (sql: Sql) => {
+            lista = await sql.query("SELECT u.id_item_usuario, u.ra_usuario, u.id_item, u.cellx_item, u.celly_item, u.width, u.height, u.positioned_item, i.nome_item, i.img_url_item, i.preco_item FROM item_usuario u, item i WHERE u.ra_usuario = ? AND u.positioned_item = TRUE AND u.id_item = i.id_item", [ra]) as ItemUsuario[]
+        })
+
+        return lista
+    }
+
+    public static async readNotPlacedItems(ra: number): Promise<ItemUsuario[]>{
+        let lista: ItemUsuario[] = null;
+
+        await Sql.conectar(async (sql: Sql) => {
+            lista = await sql.query("SELECT u.id_item_usuario, u.ra_usuario, u.id_item, u.cellx_item, u.celly_item, u.width, u.height, u.positioned_item, i.nome_item, i.img_url_item, i.preco_item FROM item_usuario u, item i WHERE u.ra_usuario = ? AND u.positioned_item = FALSE AND u.id_item = i.id_item", [ra]) as ItemUsuario[]
+        })
+
+        return lista
+    }
+
+    public static async readOccupiedPlaces(ra: number): Promise<ItemUsuario[]>{
+        let lista: ItemUsuario[] = null;
+
+        await Sql.conectar(async (sql: Sql) => {
+            lista = await sql.query("SELECT cellx_item, celly_item FROM item_usuario u WHERE u.ra_usuario = ? AND u.positioned_item = true", [ra]) as ItemUsuario[]
+        })
+
+        return lista
+    }
+
     public static async update(i: ItemUsuario): Promise<string> {
         let res: string;
 
@@ -78,7 +108,7 @@ export = class ItemUsuario {
         let res: boolean = true
 
         Sql.conectar(async (sql: Sql) => {
-            await sql.query("UPDATE item_usuario SET cellx_item = ?, celly_item = ? where id_item_usuario = ?", [cellx, celly, id_item_usuario])
+            await sql.query("UPDATE item_usuario SET cellx_item = ?, celly_item = ?, positioned_item = true where id_item_usuario = ?", [cellx, celly, id_item_usuario])
             if(!sql.linhasAfetadas)
                 res = false
         })
@@ -90,7 +120,7 @@ export = class ItemUsuario {
         let res: boolean = true
 
         Sql.conectar(async (sql: Sql) => {
-            await sql.query("UPDATE item_usuario SET cellx_item = NULL, celly_item = NULL where id_item_usuario = ?", [id_item_usuario])
+            await sql.query("UPDATE item_usuario SET cellx_item = NULL, celly_item = NULL, positioned_item = false where id_item_usuario = ?", [id_item_usuario])
             if(!sql.linhasAfetadas)
                 res = false
         })

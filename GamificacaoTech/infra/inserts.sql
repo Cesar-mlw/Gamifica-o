@@ -1,10 +1,10 @@
 ﻿-- AREA TABLE
 
-INSERT INTO AREA (nome_area) VALUES ("Games");
-INSERT INTO AREA (nome_area) VALUES ("BI");
-INSERT INTO AREA (nome_area) VALUES ("Dev");
-INSERT INTO AREA (nome_area) VALUES ("Inovação Tecnológica");
-INSERT INTO AREA (nome_area) VALUES ("Neutra");
+INSERT INTO area (nome_area) VALUES ("Games");
+INSERT INTO area (nome_area) VALUES ("BI");
+INSERT INTO area (nome_area) VALUES ("Dev");
+INSERT INTO area (nome_area) VALUES ("Inovação Tecnológica");
+INSERT INTO area (nome_area) VALUES ("Neutra");
 
 -- ACHIEVEMENT TABLE
 
@@ -15,17 +15,17 @@ INSERT INTO achievement (nome_achievement, criterio_achievement,descricao_achiev
 
 -- CURSO TABLE
 
-INSERT INTO CURSO (nome_curso) VALUES ("TECH");
-INSERT INTO CURSO (nome_curso) VALUES ("Publicidade e Propaganda");
-INSERT INTO CURSO (nome_curso) VALUES ("Ciências Sociais");
-INSERT INTO CURSO (nome_curso) VALUES ("Design");
+INSERT INTO curso (nome_curso) VALUES ("TECH");
+INSERT INTO curso (nome_curso) VALUES ("Publicidade e Propaganda");
+INSERT INTO curso (nome_curso) VALUES ("Ciências Sociais");
+INSERT INTO curso (nome_curso) VALUES ("Design");
 
 -- ITEM TABLE
 
-INSERT INTO ITEM (nome_item, img_url_item) VALUES ("Lâmpada Super legal", "https://www.spacejam.com/archive/spacejam/movie/jam.htm");
-INSERT INTO ITEM (nome_item, img_url_item) VALUES ("Boal de basquete", "https://www.spacejam.com/archive/spacejam/movie/jam.htm2");
-INSERT INTO ITEM (nome_item, img_url_item) VALUES ("Pintura da GlADOS", "https://www.spacejam.com/archive/spacejam/movie/jam.htm3");
-INSERT INTO ITEM (nome_item, img_url_item) VALUES ("Fita de NES do Shaq-Fu", "https://www.spacejam.com/archive/spacejam/movie/jam.htm4");
+INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Lâmpada Super legal", "https://www.spacejam.com/archive/spacejam/movie/jam.htm", 10);
+INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Boal de basquete", "https://www.spacejam.com/archive/spacejam/movie/jam.htm2", 10);
+INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Pintura da GlADOS", "https://www.spacejam.com/archive/spacejam/movie/jam.htm3", 10);
+INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Fita de NES do Shaq-Fu", "https://www.spacejam.com/archive/spacejam/movie/jam.htm4", 10);
 
 -- TIPO_PROJETO TABLE
 
@@ -47,15 +47,16 @@ INSERT INTO tipo_habilidade (nome_tipo_habilidade) VALUES ("Experiência Profiss
 
 -- USUARIO TABLE
 
-INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, pontos_totais, dt_entrada_usuario, senha_usuario, isAdmin) VALUES (11710370, 1, "Cesar Moura Leite Westphal", "cesarmlwestphal@acad.espm.br", null, "2017/02/01", "Heeloo", FALSE);
-INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, pontos_totais, dt_entrada_usuario, senha_usuario, isAdmin) VALUES (11710371, 1, "Flávio Marques Azevedo", "fmarques@acad.espm.br", null, "2018/02/01", "Heeloo", TRUE);
-INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, pontos_totais, dt_entrada_usuario, senha_usuario, isAdmin) VALUES (11710372, 1, "Carlos Rafael", "crafael@acad.espm.br", null, "2017/06/01", "Heeloo", TRUE);
+INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, dt_entrada_usuario, senha_usuario, isAdmin, moedas_usuario) VALUES (11710370, 1, "Cesar Moura Leite Westphal", "cesarmlwestphal@acad.espm.br", "2017/02/01", "Heeloo", FALSE, 0);
+INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, dt_entrada_usuario, senha_usuario, isAdmin, moedas_usuario) VALUES (11710371, 1, "Flávio Marques Azevedo", "fmarques@acad.espm.br", "2018/02/01", "Heeloo", TRUE, 80.5);
+INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, dt_entrada_usuario, senha_usuario, isAdmin, moedas_usuario) VALUES (11710372, 1, "Carlos Rafael", "crafael@acad.espm.br", "2017/06/01", "Heeloo", TRUE, 32);
 
 -- ITEM_USUARIO TABLE
 -- Usuário de RA = 11710372 não possui itens
-INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height) VALUES (11710370, 1, "2018/02/01", 23.5, 42.5, 200, 300);
-INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height) VALUES (11710371, 2, "2019/05/15", 27.5, 34.5, 200, 300);
-INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height) VALUES (11710371, 3, "2018/08/15", 27.5, 34.5, 200, 300);
+INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710370, 1, "2018/02/01", 23.5, 42.5, 200, 300, TRUE);
+INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710371, 2, "2019/05/15", 27.5, 34.5, 200, 300, TRUE);
+INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710371, 3, "2018/08/15", 27.5, 34.5, 200, 300, TRUE);
+INSERT INTO item_usuario(ra_usuario, id_item, dt_item, width, height, positioned_item) VALUES (11710371, 3, "2018/08/15", 200, 300, FALSE);
 
 -- ACHIEVEMENT_USUARIO TABLE
 -- Usuário de RA = 11710372 não possui achievements

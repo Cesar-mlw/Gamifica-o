@@ -2,17 +2,32 @@
 const express = require("express");
 const wrap = require("express-async-error-wrapper");
 const ItemUsuario = require("../../models/ItemUsuario");
+const Usuario = require("../../models/Usuario");
+const Item = require("../../models/Item");
 const router = express.Router();
 router.post("/create", wrap(async (req, res) => {
     let p = req.body;
-    let erro = await ItemUsuario.create(p);
-    console.log(req.body);
-    if (erro) {
+    let item = await Item.read(p.id_item);
+    if (Item === null) {
         res.statusCode = 400;
-        res.json(erro);
+        res.json("Item não existe");
     }
     else {
-        res.json("Item do usuário criado");
+        let erro = await Usuario.buyObject(item.preco_item, p.ra_usuario);
+        if (erro) {
+            res.statusCode = 400;
+            res.json(erro);
+        }
+        else {
+            let resp = await ItemUsuario.create(p);
+            if (resp) {
+                res.statusCode = 400;
+                res.json(resp);
+            }
+            else {
+                res.json("Item Usuario criado");
+            }
+        }
     }
 }));
 router.get("/list", wrap(async (req, res) => {
@@ -32,6 +47,21 @@ router.post("/delete", wrap(async (req, res) => {
 router.post("/read", wrap(async (req, res) => {
     let ra = req.body.ra;
     let p = await ItemUsuario.read(ra);
+    res.json(p);
+}));
+router.post("/readPlacedItems", wrap(async (req, res) => {
+    let ra = req.body.ra;
+    let p = await ItemUsuario.readPlacedItems(ra);
+    res.json(p);
+}));
+router.post("/readNotPlacedItems", wrap(async (req, res) => {
+    let ra = req.body.ra;
+    let p = await ItemUsuario.readNotPlacedItems(ra);
+    res.json(p);
+}));
+router.post("/readOccupiedPlaces", wrap(async (req, res) => {
+    let ra = req.body.ra;
+    let p = await ItemUsuario.readOccupiedPlaces(ra);
     res.json(p);
 }));
 router.post("/update", wrap(async (req, res) => {

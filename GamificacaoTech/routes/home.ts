@@ -7,6 +7,7 @@ import StringBuilder = require('../utils/stringBuilder')
 import Habilidade = require('../models/Habilidade');
 import AchievementUsuario = require('../models/AchievementUsuario');
 import Achievement = require('../models/Achievement');
+import ItemUsuario = require('../models/ItemUsuario');
 const router = express.Router();
 
 //import usuario
@@ -20,7 +21,8 @@ router.get('/', wrap(async (req: express.Request, res: express.Response) => {//D
     let missingAchievements = await AchievementUsuario.readMissingAchievements(11710370)
     let achieveHTML = StringBuilder.shelfSpiller(allAchievements, missingAchievements)
     let achievePreviewHTML = StringBuilder.shelfPreviewSpiller(allAchievements, missingAchievements)
-    console.log(achievePreviewHTML)
+    let notPlacedItems = StringBuilder.itemBoxSpiller(await ItemUsuario.readNotPlacedItems(11710371))
+    console.log(notPlacedItems)
     // Book pile string builder
     res.render('home', { titulo: 'Gamificação TECH', 
                         books: books, 
