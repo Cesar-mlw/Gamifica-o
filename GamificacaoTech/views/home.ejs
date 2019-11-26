@@ -122,7 +122,10 @@
 <div class="modal-storage">        
     <div id="sidebar-overlay" onclick="closeOverlay()"></div>
     <div id="item-box-gui" class="item-box-wrapper">
-    <button class="item-box-close" onclick="endEditMode()"></button>
+    <div class="item-box-button-container">
+        <button id="item-box-close" class="item-box-button" onclick="endEditMode()"><i class="material-icons">close</i></button>
+        <button id="item-box-edit" class="item-box-button" onclick=""><i class="material-icons">widgets</i></button>
+    </div>
         <div class="item-box">
             <button class="item-box-item"></button>
             <button class="item-box-item"></button>
