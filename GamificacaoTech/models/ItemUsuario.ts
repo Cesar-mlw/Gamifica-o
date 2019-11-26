@@ -91,6 +91,16 @@ export = class ItemUsuario {
 
         return lista
     }
+    
+    public static async readImageStyle(ra: number): Promise<ItemUsuario[]>{
+        let lista: ItemUsuario[] = null;
+
+        await Sql.conectar(async (sql: Sql) => {
+            lista = await sql.query("SELECT u.width, u.height, i.img_url_item FROM item_usuario u, item i WHERE u.ra_usuario = 11710371 AND u.positioned_item = false and u.id_item = i.id_item;", [ra]) as ItemUsuario[]
+        })
+
+        return lista
+    }
 
     public static async update(i: ItemUsuario): Promise<string> {
         let res: string;

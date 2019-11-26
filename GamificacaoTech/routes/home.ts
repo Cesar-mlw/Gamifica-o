@@ -27,7 +27,8 @@ router.get('/', wrap(async (req: express.Request, res: express.Response) => {//D
     res.render('home', { titulo: 'Gamificação TECH', 
                         books: books, 
                         achieveHTML: achieveHTML,
-                        achievePreviewHTML: achievePreviewHTML}); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+                        achievePreviewHTML: achievePreviewHTML,
+                        notPlacedItems: notPlacedItems}); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 }));
 
 router.get('/pc', wrap(async (req: express.Request, res: express.Response) => {//Declaração de rota

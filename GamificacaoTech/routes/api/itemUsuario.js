@@ -64,6 +64,11 @@ router.post("/readOccupiedPlaces", wrap(async (req, res) => {
     let p = await ItemUsuario.readOccupiedPlaces(ra);
     res.json(p);
 }));
+router.post("/readImageStyle", wrap(async (req, res) => {
+    let ra = req.body.ra;
+    let p = await ItemUsuario.readImageStyle(ra);
+    res.json(p);
+}));
 router.post("/update", wrap(async (req, res) => {
     let p = req.body;
     let erro = await ItemUsuario.update(p);

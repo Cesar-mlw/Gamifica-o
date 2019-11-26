@@ -83,7 +83,7 @@ module.exports = class StringBuilder {
     static itemBoxSpiller(items) {
         let res = "";
         for (let i = 0; i < items.length; i++) {
-            res += '<button class="item-box-item" id="item-box-item-' + items[i].id_item_usuario + '></button>';
+            res += '<button class="item-box-item" id="item-box-item-' + items[i].id_item_usuario + ' onclick="adicionarItem(' + items[i].id_item_usuario + ')"></button>';
         }
         return res;
     }
