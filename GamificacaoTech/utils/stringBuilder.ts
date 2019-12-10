@@ -98,7 +98,7 @@ export = class StringBuilder {
     public static placedItemSpiller(items: ItemItemUsuario[]): string {
         let res = ""
         for(let i = 0; i < items.length; i++){
-            res += `<div class="objdrag room-object" id = "item-" style="position:absolute;background:url(${items[i].img_url_item}); width:${(items[i].width)*80}px; height:${(items[i].height)*80}px"></div>`
+            res += `<div class="objdrag room-object" id = "item-${items[i].id_item_usuario}" data-id="${items[i].id_item_usuario}" style="position:absolute;background:url(${items[i].img_url_item}); width:${(items[i].width)*80}px; height:${(items[i].height)*80}px"></div>`
         }
         return res
     }

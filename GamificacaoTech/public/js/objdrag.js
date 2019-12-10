@@ -90,6 +90,24 @@ $(function () {
             }
         }
         finishDrag();
+        let url = "/api/itemUsuario/placeObject"
+        let form = {
+            id_item_usuario: eldrag.getAttribute("data-id"),
+            cellx: eldrag.cellX,
+            celly: eldrag.celly
+        }
+        $.ajax({
+            method: "post",
+            url: url,
+            data: form,
+            dataType: "json",
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        })
         // @@@
     }
 

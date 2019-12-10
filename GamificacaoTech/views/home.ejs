@@ -289,10 +289,6 @@
     function saveEditMode(){
         $('.edit-overlay').remove();
         $('.room-save').remove();
-        
-        var zap = $('.grid-container').find('.room-object');
-        var ide = zap[0].id;
-        var idezinho = ide.substring(14);
 
         window.objdragEditing = false;
     }
@@ -311,7 +307,24 @@
         div.cellW = itemClicado.width;
         div.cellH = itemClicado.height;
         $('.grid-container').append(div);
-
+        let url = "/api/itemUsuario/placeObject"
+        let form = {
+            id_item_usuario: eldrag.getAttribute("data-id"),
+            cellx: eldrag.cellX,
+            celly: eldrag.celly
+        }
+        $.ajax({
+            method: "post",
+            url: url,
+            data: form,
+            dataType: "json",
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        })
     }
 
     function carregarCaixa(){

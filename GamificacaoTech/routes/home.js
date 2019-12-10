@@ -29,9 +29,9 @@ router.get('/', wrap(async (req, res) => {
         books: books,
         achieveHTML: achieveHTML,
         achievePreviewHTML: achievePreviewHTML,
-        notPlacedItems: notPlacedItems,
-        notPlacedItemsJson: notPlacedItemsJson
-    }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+        notPlacedItemsJson: JSON.stringify(notPlacedItemsJson),
+        notPlacedItems: notPlacedItems });
+    //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 }));
 router.get('/pc', wrap(async (req, res) => {
     res.render('pc', { titulo: 'Gamificação TECH' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
