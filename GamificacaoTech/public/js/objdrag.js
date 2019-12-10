@@ -88,27 +88,28 @@ $(function () {
                 eldrag.cellX = initialCellX;
                 eldrag.cellY = initialCellY;
             }
-        }
-        finishDrag();
-        let url = "/api/itemUsuario/placeObject"
-        let form = {
-            id_item_usuario: eldrag.getAttribute("data-id"),
-            cellx: eldrag.cellX,
-            celly: eldrag.celly
-        }
-        $.ajax({
-            method: "post",
-            url: url,
-            data: form,
-            dataType: "json",
-            success: function (data) {
-                console.log(data)
-            },
-            error: function (e) {
-                console.log(e)
+            var el = eldrag;
+            finishDrag();
+            let url = "/api/itemUsuario/placeObject"
+            let form = {
+                id_item_usuario: el.getAttribute("data-id"),
+                cellx: el.cellX,
+                celly: el.celly
             }
-        })
-        // @@@
+            $.ajax({
+                method: "post",
+                url: url,
+                data: form,
+                dataType: "json",
+                success: function (data) {
+                    console.log(data)
+                },
+                error: function (e) {
+                    console.log(e)
+                }
+            })
+            // @@@
+        }
     }
 
     if (("ontouchend"in document)) {
