@@ -268,6 +268,12 @@ opacity: 1;
 
 .room{
     background: #d8d0ca;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
 }
 
 .room-box{
@@ -279,16 +285,29 @@ opacity: 1;
     background: url(../images/box.svg);
     background-size: 83px;
     border: none;
+    z-index: 1;
+}
+
+.room-save{
+    background: chartreuse;
+    position: absolute;
+    left: 0;
+    bottom: 50px;
+    height: 82px;
+    width: 83px;
+    background-size: 83px;
+    border: none;
+    z-index: 2;
 }
 
 .furniture{
-
+    z-index: 95;
 }
 
 .desk{
     position: absolute;
     left: 560px;
-    bottom: 0;
+    bottom: 50px;
     height: 192px;
 }
 
@@ -302,7 +321,7 @@ opacity: 1;
 
 .pc{
     left: 720px;
-    bottom: 192px;
+    bottom: 242px;
     height: 150px;
     width: 150px;
     background: url(../images/pc.png);
@@ -311,11 +330,15 @@ opacity: 1;
 
 .estante{
     left: 160px;
-    bottom: 0px;
-    height: 206px;
-    width: 240px;
+    bottom: 35px;
+    height: 210px;
+    width: 245px;
     background: url(../images/wardrobe.png);
-    background-size: 240px;
+    background-size: 245px;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 18px 5px 18px;
+    align-items: center;
 }
 
 .estante-gui-wrapper{
@@ -413,7 +436,8 @@ opacity: 1;
     justify-content: space-between;
     position: relative;
     padding: 0 30px;
-    margin: 30px 0;
+    margin: 12px 0;
+    width: 100%;
 }
 
 .estante-item-preview{
@@ -424,7 +448,7 @@ opacity: 1;
 
 .shelf{
     left: 160px;
-    top: 240px;
+    top: 156px;
     height: 32px;
     width: 320px;
     background: url(../images/shelf.png);
@@ -578,9 +602,9 @@ opacity: 1;
     position: absolute;
     left: 246px;
     top: 0px;
-    display: grid;
+    /* display: grid;
     grid-template-columns: repeat(16, 80px);
-    grid-template-rows: repeat(8, 80px);
+    grid-template-rows: repeat(8, 80px); */
 }
 
 #sidebar-overlay {
@@ -1023,6 +1047,18 @@ opacity: 1;
 
 .item-box-wrapper-after .item-box-button{
     display: flex;
+}
+
+.edit-overlay{
+    z-index: 98;
+    background: coral;
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+}
+
+.objdrag{
+    z-index: 100;
 }
 
 @media only screen and (min-width: 901px) {

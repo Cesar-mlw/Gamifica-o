@@ -36,7 +36,7 @@
 
 <!--CONTENT-->
 
-<div class="content-wrapper dragscroll">
+<div class="content-wrapper dragscroll" id="content-wrapper">
     <div class="room-container">
         <img src="../Public/images/background-floor.svg" class="room">
         <button class="room-box" onclick="editMode()"></button>
@@ -112,7 +112,7 @@
                 <button class="furniture-button ignore-dragscroll board" onclick=""></button>
             </div>
 
-            <div style="position: absolute; left: 0; top: 80px; width: 80px; height: 80px; background-color: blue;" class="objdrag"></div>
+
 
         </div>
     </div>
@@ -124,12 +124,10 @@
     <div id="item-box-gui" class="item-box-wrapper">
     <div class="item-box-button-container">
         <button id="item-box-close" class="item-box-button" onclick="endEditMode()"><i class="material-icons">close</i></button>
-        <button id="item-box-edit" class="item-box-button" onclick=""><i class="material-icons">widgets</i></button>
+        <button id="item-box-edit" class="item-box-button" onclick="startEditMode()"><i class="material-icons">widgets</i></button>
     </div>
         <div class="item-box">
-            <button class="item-box-item"></button>
-            <button class="item-box-item"></button>
-            <button class="item-box-item"></button>
+            <%- notPlacedItems %>
         </div>
     </div>
 
@@ -184,9 +182,9 @@
                 <main class="modal__content shelf-body-wrapper dragscroll" id="modal-2-content">
                     <div class="shelf-body">
                         <div class="books-wrapper books-wrapper-gui">
-                                <% for(let i = 0; i < books.length; i++){ %>
-                                    <%-books[i]%>
-                                <%}%>
+                            <% for(let i = 0; i < books.length; i++){ %>
+                                <%-books[i]%>
+                            <%}%>
                         </div>
                     </div>
                 </main>
@@ -273,6 +271,52 @@
 
     function endEditMode(){
         $('.item-box-wrapper').removeClass('item-box-wrapper-after');
+    }
+
+    function startEditMode(){
+        $('.item-box-wrapper').removeClass('item-box-wrapper-after');
+        if(window.objdragEditing == true){
+
+        }
+        else{
+            window.objdragEditing = true;
+            //durante essa operacao checar posicionamento dos itens ja colocados e dos móveis fixos, e tamanho dos itens para definir onde podem ser colocados
+            $('.grid-container').append('<div class="edit-overlay"></div>');
+            $('.room-container').append('<button class="room-save" onclick="saveEditMode()"></button>');
+        }
+    }
+
+    function saveEditMode(){
+        $('.edit-overlay').remove();
+        $('.room-save').remove();
+        
+        var zap = $('.grid-container').find('.room-object');
+        var ide = zap[0].id;
+        var idezinho = ide.substring(14);
+
+
+        window.objdragEditing = false;
+        //SALVAR POSICAO DOS ITENS E ENVIAR PARA O BANCO
+    }
+
+    function adicionarItem(x){
+        var itemInfo = <%-notPlacedItemsJson%>;
+        var itemClicado;
+        for(let i = 0; i < itemInfo.length; i++){
+            if(itemInfo[i].id_item_usuario == x){
+                itemClicado = itemInfo[i];
+            }
+        }
+        var div = $(`<div class="objdrag room-object" id = "itxem-box-item-${itemClicado.id_item_usuario}" style="position:absolute;background:url(${itemClicado.img_url_item}); width:${(itemClicado.width)*80}px; height:${(itemClicado.height)*80}px"></div>`)[0];
+        div.cellX = 0;
+        div.cellY = 0;
+        div.cellW = 2;
+        div.cellH = 2;
+        $('.grid-container').append(div);
+    }
+
+    function carregarCaixa(){
+
     }
 
     function registroRedirect() {

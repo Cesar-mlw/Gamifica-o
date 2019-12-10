@@ -21,6 +21,7 @@ router.get('/', wrap(async (req: express.Request, res: express.Response) => {//D
     let missingAchievements = await AchievementUsuario.readMissingAchievements(11710370)
     let achieveHTML = StringBuilder.shelfSpiller(allAchievements, missingAchievements)
     let achievePreviewHTML = StringBuilder.shelfPreviewSpiller(allAchievements, missingAchievements)
+    let notPlacedItemsJson = await ItemUsuario.readNotPlacedItems(11710371)
     let notPlacedItems = StringBuilder.itemBoxSpiller(await ItemUsuario.readNotPlacedItems(11710371))
     console.log(notPlacedItems)
     // Book pile string builder
@@ -28,7 +29,9 @@ router.get('/', wrap(async (req: express.Request, res: express.Response) => {//D
                         books: books, 
                         achieveHTML: achieveHTML,
                         achievePreviewHTML: achievePreviewHTML,
-                        notPlacedItems: notPlacedItems}); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+                        notPlacedItemsJson: JSON.stringify(notPlacedItemsJson),
+                        notPlacedItems: notPlacedItems});
+                        //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 }));
 
 router.get('/pc', wrap(async (req: express.Request, res: express.Response) => {//Declaração de rota
