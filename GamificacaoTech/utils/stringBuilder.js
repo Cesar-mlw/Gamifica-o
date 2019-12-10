@@ -87,6 +87,13 @@ module.exports = class StringBuilder {
         }
         return res;
     }
+    static placedItemSpiller(items) {
+        let res = "";
+        for (let i = 0; i < items.length; i++) {
+            res += `<div class="objdrag room-object" id = "item-" style="position:absolute;background:url(${items[i].img_url_item}); width:${(items[i].width) * 80}px; height:${(items[i].height) * 80}px"></div>`;
+        }
+        return res;
+    }
     static shelfSpiller(all, miss) {
         let res = "";
         let p = Math.ceil(all.length / 3);

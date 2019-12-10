@@ -1,6 +1,7 @@
 import Achievement = require("../models/Achievement")
 import AchievementUsuario = require("../models/AchievementUsuario")
 import ItemUsuario = require("../models/ItemUsuario")
+import ItemItemUsuario = require("../models/ItemItemUsuarioJoin")
 
 
 export = class StringBuilder {
@@ -90,6 +91,14 @@ export = class StringBuilder {
         let res = ""
         for(let i = 0; i < items.length; i++){
             res += '<button class="item-box-item" id="item-box-item-'+items[i].id_item_usuario+'" onclick="adicionarItem('+items[i].id_item_usuario+')"></button>'
+        }
+        return res
+    }
+
+    public static placedItemSpiller(items: ItemItemUsuario[]): string {
+        let res = ""
+        for(let i = 0; i < items.length; i++){
+            res += `<div class="objdrag room-object" id = "item-" style="position:absolute;background:url(${items[i].img_url_item}); width:${(items[i].width)*80}px; height:${(items[i].height)*80}px"></div>`
         }
         return res
     }

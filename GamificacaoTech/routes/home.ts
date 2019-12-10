@@ -23,7 +23,8 @@ router.get('/', wrap(async (req: express.Request, res: express.Response) => {//D
     let achievePreviewHTML = StringBuilder.shelfPreviewSpiller(allAchievements, missingAchievements)
     let notPlacedItemsJson = await ItemUsuario.readNotPlacedItems(11710371)
     let notPlacedItems = StringBuilder.itemBoxSpiller(await ItemUsuario.readNotPlacedItems(11710371))
-    console.log(notPlacedItems)
+    let placedItems = StringBuilder.placedItemSpiller(await ItemUsuario.readPlacedItems(11710371))
+    console.log(placedItems);
     // Book pile string builder
     res.render('home', { titulo: 'Gamificação TECH', 
                         books: books, 
