@@ -36,7 +36,7 @@ module.exports = class ItemUsuario {
     static async read(ra) {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = await sql.query("select i.id_item, i.nome_item, i.img_url_item, u.dt_item, u.id_item_usuario, u.id_item, u.cellx_item, u.celly_item, u.width, u.height from item_usuario u, item i where ra_usuario = ? and u.id_item = i.id_item", [ra]);
+            lista = await sql.query("select i.id_item, i.nome_item, i.img_url_item, u.dt_item, u.id_item_usuario, u.id_item, u.cellx_item, u.celly_item, u.width, u.height, u.positioned_item from item_usuario u, item i where ra_usuario = ? and u.id_item = i.id_item", [ra]);
         });
         return lista;
     }
@@ -64,7 +64,7 @@ module.exports = class ItemUsuario {
     static async readImageStyle(ra) {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = await sql.query("SELECT u.width, u.height, i.img_url_item FROM item_usuario u, item i WHERE u.ra_usuario = ? AND u.positioned_item = false", [ra]);
+            lista = await sql.query("SELECT u.width, u.height, i.img_url_item FROM item_usuario u, item i WHERE u.ra_usuario = 11710371 AND u.positioned_item = false and u.id_item = i.id_item;", [ra]);
         });
         return lista;
     }

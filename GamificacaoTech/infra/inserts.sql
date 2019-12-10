@@ -22,10 +22,10 @@ INSERT INTO curso (nome_curso) VALUES ("Design");
 
 -- ITEM TABLE
 
-INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Lâmpada Super legal", "https://www.spacejam.com/archive/spacejam/movie/jam.htm", 10);
-INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Boal de basquete", "https://www.spacejam.com/archive/spacejam/movie/jam.htm2", 10);
-INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Pintura da GlADOS", "https://www.spacejam.com/archive/spacejam/movie/jam.htm3", 10);
-INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Fita de NES do Shaq-Fu", "https://www.spacejam.com/archive/spacejam/movie/jam.htm4", 10);
+INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Lâmpada Super legal", "https://upload.wikimedia.org/wikipedia/en/thumb/5/5c/Kirby.png/220px-Kirby.png", 10);
+INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Boal de basquete", "https://upload.wikimedia.org/wikipedia/en/thumb/5/5c/Kirby.png/220px-Kirby.png", 10);
+INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Pintura da GlADOS", "https://upload.wikimedia.org/wikipedia/en/thumb/5/5c/Kirby.png/220px-Kirby.png", 10);
+INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Fita de NES do Shaq-Fu", "https://upload.wikimedia.org/wikipedia/en/thumb/5/5c/Kirby.png/220px-Kirby.png", 10);
 
 -- TIPO_PROJETO TABLE
 

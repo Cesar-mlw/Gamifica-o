@@ -272,7 +272,7 @@ DROP TABLE IF EXISTS `idtech`.`Item` ;
 CREATE TABLE IF NOT EXISTS `idtech`.`Item` (
   `id_item` INT NOT NULL AUTO_INCREMENT,
   `nome_item` VARCHAR(45) NOT NULL,
-  `img_url_item` VARCHAR(150) NOT NULL,
+  `img_url_item` VARCHAR(250) NOT NULL,
   `preco_item` FLOAT NOT NULL,
   UNIQUE INDEX (`img_url_item` ASC) VISIBLE,
   PRIMARY KEY (`id_item`));
