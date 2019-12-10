@@ -294,25 +294,24 @@
         var ide = zap[0].id;
         var idezinho = ide.substring(14);
 
-
         window.objdragEditing = false;
-        //SALVAR POSICAO DOS ITENS E ENVIAR PARA O BANCO
     }
 
     function adicionarItem(x){
-        var itemInfo = <%-notPlacedItemsJson%>;
+        var itemInfo = <%-JSON.stringify(notPlacedItemsJson) %>;
         var itemClicado;
         for(let i = 0; i < itemInfo.length; i++){
             if(itemInfo[i].id_item_usuario == x){
                 itemClicado = itemInfo[i];
             }
         }
-        var div = $(`<div class="objdrag room-object" id = "itxem-box-item-${itemClicado.id_item_usuario}" style="position:absolute;background:url(${itemClicado.img_url_item}); width:${(itemClicado.width)*80}px; height:${(itemClicado.height)*80}px"></div>`)[0];
+        var div = $(`<div class="objdrag room-object" id = "item-box-item-${itemClicado.id_item_usuario}" style="position:absolute;background:url(${itemClicado.img_url_item}); width:${(itemClicado.width)*80}px; height:${(itemClicado.height)*80}px"></div>`)[0];
         div.cellX = 0;
         div.cellY = 0;
-        div.cellW = 2;
-        div.cellH = 2;
+        div.cellW = itemClicado.width;
+        div.cellH = itemClicado.height;
         $('.grid-container').append(div);
+
     }
 
     function carregarCaixa(){
