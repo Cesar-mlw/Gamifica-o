@@ -31,7 +31,8 @@ router.get('/', wrap(async (req: express.Request, res: express.Response) => {//D
                         achieveHTML: achieveHTML,
                         achievePreviewHTML: achievePreviewHTML,
                         notPlacedItemsJson: JSON.stringify(notPlacedItemsJson),
-                        notPlacedItems: notPlacedItems});
+                        notPlacedItems: notPlacedItems,
+                        placedItems: placedItems});
                         //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 }));
 
