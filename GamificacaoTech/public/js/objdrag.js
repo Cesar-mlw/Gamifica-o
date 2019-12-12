@@ -8,6 +8,13 @@ $(function () {
     var eldrag = null;
     var eventName = "";
     var initialCellX = 0, initialCellY = 0;
+    var moveisFixos = [
+        { cellX: 2, cellY: 5, cellW: 3, cellH: 3 },
+        { cellX: 2, cellY: 0, cellW: 4, cellH: 3 },
+        { cellX: 7, cellY: 5, cellW: 4, cellH: 3 },
+        { cellX: 9, cellY: 3, cellW: 2, cellH: 2 },
+        { cellX: 12, cellY: 2, cellW: 3, cellH: 2 }
+    ];
     var contentWrapper = document.getElementById("content-wrapper");
 
     function cancelEvent(evt) {
@@ -57,10 +64,12 @@ $(function () {
 
     function mouseup() {
         isdown = false;
+
         if (eldrag) {
-            var i, item, items = $("#content-wrapper .room-object"), overlaps = false;
+            var i, item, items = moveisFixos.slice(), overlaps = false;
             var el = eldrag.cellX, et = eldrag.cellY;
             var er = el + eldrag.cellW, eb = et + eldrag.cellH;
+            Array.prototype.push.apply(items, $("#content-wrapper .room-object"));
             for (i = items.length - 1; i >= 0; i--) {
                 item = items[i];
                 if (item === eldrag)
@@ -79,27 +88,28 @@ $(function () {
                 eldrag.cellX = initialCellX;
                 eldrag.cellY = initialCellY;
             }
-        }
-        finishDrag();
-        let url = "/api/itemUsuario/placeObject"
-        let form = {
-            id_item_usuario: eldrag.getAttribute("data-id"),
-            cellx: eldrag.cellX,
-            celly: eldrag.celly
-        }
-        $.ajax({
-            method: "post",
-            url: url,
-            data: form,
-            dataType: "json",
-            success: function (data) {
-                console.log(data)
-            },
-            error: function (e) {
-                console.log(e)
+            var el = eldrag;
+            finishDrag();
+            let url = "/api/itemUsuario/placeObject"
+            let form = {
+                id_item_usuario: el.getAttribute("data-id"),
+                cellx: el.cellX,
+                celly: el.celly
             }
-        })
-        // @@@
+            $.ajax({
+                method: "post",
+                url: url,
+                data: form,
+                dataType: "json",
+                success: function (data) {
+                    console.log(data)
+                },
+                error: function (e) {
+                    console.log(e)
+                }
+            })
+            // @@@
+        }
     }
 
     if (("ontouchend"in document)) {
@@ -122,7 +132,7 @@ $(function () {
             return cancelEvent(e);
         }, { capture: true, passive: false });
     
-        contentWrapper.addEventListener("touchend", mouseup, { capture: true, passive: false });
+        document.addEventListener("touchend", mouseup, { capture: true, passive: false });
     }
 
     contentWrapper.addEventListener("mousedown", function (e) {
@@ -145,5 +155,5 @@ $(function () {
         return cancelEvent(e);
     }, true);
 
-    contentWrapper.addEventListener("mouseup", mouseup, true);
+    document.addEventListener("mouseup", mouseup, true);
 });

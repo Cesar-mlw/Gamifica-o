@@ -588,10 +588,10 @@ opacity: 1;
 
 .board{
     right: 75px;
-    top: 205px;
+    top: 162px;
     height: 158px;
     width: 254px;
-    background: url("../images/board.png");
+    background: url(../images/board.png);
     background-size: 254px;
 }
 
