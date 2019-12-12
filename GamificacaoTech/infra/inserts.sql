@@ -22,9 +22,9 @@ INSERT INTO curso (nome_curso) VALUES ("Design");
 
 -- ITEM TABLE
 
-INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Lâmpada Super legal", "https://upload.wikimedia.org/wikipedia/en/thumb/5/5c/Kirby.png/220px-Kirby.png", 10);
-INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Boal de basquete", "https://upload.wikimedia.org/wikipedia/en/thumb/5/5c/Kirby.png/220px-Kirby.png", 10);
-INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Pintura da GlADOS", "https://upload.wikimedia.org/wikipedia/en/thumb/5/5c/Kirby.png/220px-Kirby.png", 10);
+INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Lâmpada Super legal", "https://www.smashbros.com/wiiu-3ds/sp/images/character/kirby/main.png", 10);
+INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Boal de basquete", "https://feliciagamingdiary.files.wordpress.com/2015/12/kirby.png", 10);
+INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Pintura da GlADOS", "https://jogoveio.com.br/wp-content/uploads/2017/04/kirbys-dream-land-kirby-jogoveio.png", 10);
 INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Fita de NES do Shaq-Fu", "https://upload.wikimedia.org/wikipedia/en/thumb/5/5c/Kirby.png/220px-Kirby.png", 10);
 
 -- TIPO_PROJETO TABLE
@@ -53,10 +53,10 @@ INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, dt_entrad
 
 -- ITEM_USUARIO TABLE
 -- Usuário de RA = 11710372 não possui itens
-INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710370, 1, "2018/02/01", 23.5, 42.5, 200, 300, TRUE);
-INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710371, 2, "2019/05/15", 27.5, 34.5, 200, 300, TRUE);
-INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710371, 3, "2018/08/15", 27.5, 34.5, 200, 300, TRUE);
-INSERT INTO item_usuario(ra_usuario, id_item, dt_item, width, height, positioned_item) VALUES (11710371, 3, "2018/08/15", 200, 300, FALSE);
+INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710370, 1, "2018/02/01", 23.5, 42.5, 2, 3, TRUE);
+INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710371, 2, "2019/05/15", 27.5, 34.5, 2, 3, TRUE);
+INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710371, 3, "2018/08/15", 27.5, 34.5, 2, 3, TRUE);
+INSERT INTO item_usuario(ra_usuario, id_item, dt_item, width, height, positioned_item) VALUES (11710371, 4, "2018/08/15", 2, 2, FALSE);
 
 -- ACHIEVEMENT_USUARIO TABLE
 -- Usuário de RA = 11710372 não possui achievements
