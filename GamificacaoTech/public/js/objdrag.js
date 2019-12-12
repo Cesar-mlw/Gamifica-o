@@ -7,7 +7,7 @@ $(function () {
     var isdown = false, handlerInstalled = false;
     var eldrag = null;
     var eventName = "";
-    // var initialCellX = 0, initialCellY = 0;
+    var initialCellX = 0, initialCellY = 0;
     var moveisFixos = [
         { cellX: 2, cellY: 5, cellW: 3, cellH: 3 },
         { cellX: 2, cellY: 0, cellW: 4, cellH: 3 },
