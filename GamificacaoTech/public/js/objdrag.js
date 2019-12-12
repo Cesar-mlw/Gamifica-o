@@ -59,6 +59,8 @@ $(function () {
         eldrag.style.top = (cellY * grid) + "px";
         eldrag.cellX = cellX;
         eldrag.cellY = cellY;
+        eldrag.cellW = parseInt(eldrag.style.width);
+        eldrag.cellH = parseInt(eldrag.style.height);
         return cancelEvent(e);
     }
 
@@ -68,8 +70,8 @@ $(function () {
         if (eldrag) {
             var i, item, items = moveisFixos.slice(), overlaps = false;
             var el = eldrag.cellX, et = eldrag.cellY;
-            var er = el + eldrag.cellW, eb = et + eldrag.cellH;
-            Array.prototype.push.apply(items, $("#content-wrapper .room-object"));
+            var er = el + eldrag.cellW/grid, eb = et + eldrag.cellH/grid;
+            Array.prototype.push.apply(items, document.querySelectorAll('.room-object'));
             for (i = items.length - 1; i >= 0; i--) {
                 item = items[i];
                 if (item === eldrag)
@@ -83,18 +85,23 @@ $(function () {
             }
 
             if (overlaps) {
+                // debugger;
                 eldrag.style.left = (initialCellX * grid) + "px";
                 eldrag.style.top = (initialCellY * grid) + "px";
                 eldrag.cellX = initialCellX;
                 eldrag.cellY = initialCellY;
+                initialCellX = eldrag.cellX;
+                initialCellY = eldrag.cellY;
+
             }
+            
             var el = eldrag;
             finishDrag();
             let url = "/api/itemUsuario/placeObject"
             let form = {
                 id_item_usuario: el.getAttribute("data-id"),
                 cellx: el.cellX,
-                celly: el.celly
+                celly: el.cellY
             }
             $.ajax({
                 method: "post",
@@ -112,7 +119,7 @@ $(function () {
         }
     }
 
-    if (("ontouchend"in document)) {
+    if (("ontouchend" in document)) {
         contentWrapper.addEventListener("touchstart", function (e) {
             if (!objdragEditing ||
                 e.target.className.indexOf("objdrag") < 0)
@@ -148,12 +155,11 @@ $(function () {
             eldrag = e.target;
             initialCellX = eldrag.cellX;
             initialCellY = eldrag.cellY;
+            
             handlerInstalled = true;
             contentWrapper.addEventListener(eventName = "mousemove", mousemove, true);
         }
-
         return cancelEvent(e);
     }, true);
-
     document.addEventListener("mouseup", mouseup, true);
 });

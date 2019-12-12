@@ -111,9 +111,7 @@
                 </button>
                 <button class="furniture-button ignore-dragscroll board" onclick=""></button>
             </div>
-
-
-
+            <%- placedItems %>
         </div>
     </div>
 </div>
@@ -294,24 +292,25 @@
     }
 
     function adicionarItem(x){
-        var itemInfo = <%-JSON.stringify(notPlacedItemsJson) %>;
+        var itemInfo = <%-notPlacedItemsJson%>;
         var itemClicado;
         for(let i = 0; i < itemInfo.length; i++){
             if(itemInfo[i].id_item_usuario == x){
                 itemClicado = itemInfo[i];
             }
         }
-        var div = $(`<div class="objdrag room-object" id = "item-box-item-${itemClicado.id_item_usuario}" style="position:absolute;background:url(${itemClicado.img_url_item}); width:${(itemClicado.width)*80}px; height:${(itemClicado.height)*80}px"></div>`)[0];
+        var div = $(`<div class="objdrag room-object" id="item-box-item-${itemClicado.id_item_usuario}" style="position:absolute;background:url(${itemClicado.img_url_item}); width:${(itemClicado.width)*80}px; height:${(itemClicado.height)*80}px"></div>`)[0];
         div.cellX = 0;
         div.cellY = 0;
         div.cellW = itemClicado.width;
         div.cellH = itemClicado.height;
         $('.grid-container').append(div);
+        x
         let url = "/api/itemUsuario/placeObject"
         let form = {
-            id_item_usuario: eldrag.getAttribute("data-id"),
-            cellx: eldrag.cellX,
-            celly: eldrag.celly
+            id_item_usuario: itemClicado.id_item_usuario,
+            cellx: 0,
+            celly: 0
         }
         $.ajax({
             method: "post",
