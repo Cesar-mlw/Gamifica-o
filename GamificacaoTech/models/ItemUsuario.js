@@ -22,7 +22,7 @@ module.exports = class ItemUsuario {
         let res;
         await Sql.conectar(async (sql) => {
             try {
-                await sql.query("INSERT INTO item_usuario (id_item, ra_usuario, dt_item, width, height) VALUES (?, ?, ?, ?, ?)", [i.id_item, i.ra_usuario, i.dt_item, i.width, i.height]);
+                await sql.query("INSERT INTO item_usuario (id_item, ra_usuario, dt_item, cellx_item, celly_item, width, height) VALUES (?, ?, ?, ?, ?, ?, ?)", [i.id_item, i.ra_usuario, i.dt_item, i.cellx_item, i.celly_item, i.width, i.height]);
             }
             catch (e) {
                 if (e.code && e.code === "ER_DUP_ENTRY")

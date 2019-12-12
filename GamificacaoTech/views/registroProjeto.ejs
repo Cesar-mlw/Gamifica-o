@@ -75,7 +75,7 @@
                     <option value="6">Experiência Profissional</option>
                 </select>
             </div>
-            <span class="os-button-complement" style="margin-top: 15px;"><button type="button" class="os-button" onclick="currEnviar()">Enviar</button></span>
+            <span class="os-button-complement" style="margin-top: 15px;"><button type="submit" class="os-button" onclick="currEnviar()">Enviar</button></span>
 
         </form>
     </div>
@@ -174,9 +174,7 @@
         let nome_habilidade = document.getElementById("nome_habilidade").value;
         let tipo_habilidade = document.getElementById("tipo_habilidade");
         let id_tipo_habilidade = parseInt(tipo_habilidade.options[tipo_habilidade.selectedIndex].value);
-        let ra_usuario = 11710371
-        console.log(nome_habilidade)
-        console.log(id_tipo_habilidade)
+        let ra_usuario = 11710371 //HARD CODE
         const form = {
             nome_habilidade: nome_habilidade,
             id_tipo_habilidade: id_tipo_habilidade,
@@ -203,15 +201,16 @@
         let nome_projeto= document.getElementById("nome_projeto").value;
         let id_area = document.getElementById("area_projeto");
         let id_area_value = parseInt(id_area.options[id_area.selectedIndex].value);
-        let id_tipo_projeto = 1;
-        let ra = 11710371;
+        let id_tipo_projeto = document.getElementById("tipo_projeto")
+        let id_tipo_projeto_value = parseInt(id_tipo_projeto.options[id_tipo_projeto.selectedIndex].value)
+        let ra = 11710371; //HARD CODE
         let descricao_projeto = document.getElementById("descricao_projeto").value;
         let dt_comeco_projeto = "2019/02/12";
         let dt_termino_projeto = "2019/03/12";
         let terminado_projeto=1;
 
         const form = {
-            id_tipo_projeto: id_tipo_projeto,
+            id_tipo_projeto: id_tipo_projeto_value,
             ra_usuario: ra,
             id_area: id_area_value,
             dt_comeco_projeto: dt_comeco_projeto,

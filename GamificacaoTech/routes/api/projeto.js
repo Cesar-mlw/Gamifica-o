@@ -35,6 +35,11 @@ router.post("/read", wrap(async (req, res) => {
     let p = await Projeto.read(ra);
     res.json(p);
 }));
+router.post("/readTipoProjetoCount", wrap(async (req, res) => {
+    let ra = req.body.ra;
+    let p = await Projeto.readTipoProjetoCounts(ra);
+    res.json(p);
+}));
 router.post("/update", wrap(async (req, res) => {
     let p = req.body;
     let erro = await Projeto.update(p);
