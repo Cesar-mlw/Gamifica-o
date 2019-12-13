@@ -106,6 +106,10 @@ export = class Usuario {
     return res;
   }
 
+  public static async checkForAchievements(ra: number): Promise<number[]>{
+    // returns list of achievements ids that the user has acess to
+  }
+
   public static async updatePassword(id: number, pass: string): Promise<string> {
     let res: string;
     await Sql.conectar(async (sql: Sql) => {
@@ -149,9 +153,9 @@ export = class Usuario {
 
   public static async buyObject(price: number, id: number): Promise<string> {
     let res: string;
-    let user: Usuario = await this.read(id)
+    let user: Usuario = await this.read(id);
     if(user.moedas_usuario <= price) 
-      res = "cant buy"
+      res = "Saldo Insuficiente"
     
     else{
       await Sql.conectar(async (sql: Sql) => {
@@ -161,6 +165,16 @@ export = class Usuario {
     }
 
     return res
+  }
+
+  public static async addCoins(coins: number, id: number): Promise<string>{
+    let res: string;
+    let user: Usuario = await this.read(id);
+    await Sql.conectar(async (sql: Sql) => {
+      await sql.query("UPDATE usuario SET moedas_usuario = (moedas_usuario + ?) where ra_usuario = ?", [coins, id])
+      if(!sql.linhasAfetadas) res = "Usuário não existente"
+    })
+    return res;
   }
 
   public static async efetuarLogin(

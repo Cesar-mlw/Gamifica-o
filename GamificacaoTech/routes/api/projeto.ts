@@ -47,6 +47,12 @@ router.post("/read", wrap(async (req: express.Request, res: express.Response) =>
     res.json(p)
 }))
 
+router.post("/readTipoProjetoCount", wrap(async (req: express.Request, res: express.Response) => {
+    let ra = req.body.ra
+    let p = await Projeto.readTipoProjetoCounts(ra)
+    res.json(p)
+}))
+
 router.post("/update", wrap(async (req: express.Request, res: express.Response) => {
     let p = req.body as Projeto
     let erro = await Projeto.update(p)

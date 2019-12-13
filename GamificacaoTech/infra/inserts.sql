@@ -53,10 +53,10 @@ INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, dt_entrad
 
 -- ITEM_USUARIO TABLE
 -- Usuário de RA = 11710372 não possui itens
-INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710370, 1, "2018/02/01", 23.5, 42.5, 2, 3, TRUE);
-INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710371, 2, "2019/05/15", 27.5, 34.5, 2, 3, TRUE);
-INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710371, 3, "2018/08/15", 27.5, 34.5, 2, 3, TRUE);
-INSERT INTO item_usuario(ra_usuario, id_item, dt_item, width, height, positioned_item) VALUES (11710371, 4, "2018/08/15", 2, 2, FALSE);
+INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710370, 1, "2018/02/01", 0, 0, 2, 3, FALSE);
+INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710371, 2, "2019/05/15", 0, 0, 2, 3, FALSE);
+INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710371, 3, "2018/08/15", 0, 0, 2, 3, FALSE);
+INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710371, 4, "2018/08/15", 0, 0, 2, 2, TRUE);
 
 -- ACHIEVEMENT_USUARIO TABLE
 -- Usuário de RA = 11710372 não possui achievements
@@ -76,6 +76,9 @@ INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, te
 INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) VALUES (6, 11710371, 3, "2018/08/01", true, "Conclusão semestral", "Semestre 2018.2 concluído", "2019/02/01");
 INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) VALUES (5, 11710370, 1, "2019/08/01", false, "IDTech: Gamificação aplicada ao ensino superior", "Projeto de Iniciação científica orientado por Matheus Matsuda Marangoni", null);
 INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) VALUES (5, 11710371, 1, "2019/08/01", false, "IDTech: Gamificação aplicada ao ensino superior", "Projeto de Iniciação científica orientado por Matheus Matsuda Marangoni", null);
+INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) VALUES (1, 11710371, 1, "2019/08/01", false, "teste", "teste achievements", null);
+INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) VALUES (2, 11710371, 1, "2019/08/01", false, "teste", "teste achievements", null);
+INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) VALUES (4, 11710371, 1, "2019/08/01", false, "teste", "teste achievements", null);
 
 
 

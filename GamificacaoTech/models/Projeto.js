@@ -1,5 +1,6 @@
 "use strict";
 const Sql = require("../infra/sql");
+const Usuario = require("./Usuario");
 module.exports = class Projeto {
     static validate(p) {
         let resp;
@@ -48,6 +49,7 @@ module.exports = class Projeto {
                     throw e;
             }
         });
+        await Usuario.addCoins(50, p.ra_usuario);
         return res;
     }
     static async read(ra) {
@@ -56,6 +58,13 @@ module.exports = class Projeto {
             lista = (await sql.query("select p.nome_projeto, p.descricao_projeto, p.terminado_projeto, p.dt_comeco_projeto, p.ra_usuario, p.id_tipo_projeto, t.nome_tipo_projeto, t.pontos_tipo_projeto, a.nome_area, p.id_area, p.dt_termino_projeto from projeto p, tipo_projeto t, area a where t.id_tipo_projeto = p.id_tipo_projeto and a.id_area = p.id_area and p.ra_usuario = ?", [ra]));
         });
         return (lista && lista[0]) || null;
+    }
+    static async readTipoProjetoCounts(ra) {
+        let res;
+        await Sql.conectar(async (sql) => {
+            res = await sql.query("select t.nome_tipo_projeto, count(p.id_tipo_projeto) as count_tipo_projeto from projeto p, tipo_projeto t where ra_usuario = ? and p.id_tipo_projeto = t.id_tipo_projeto group by t.id_tipo_projeto;", [ra]);
+        });
+        return res;
     }
     static async update(p) {
         let res;

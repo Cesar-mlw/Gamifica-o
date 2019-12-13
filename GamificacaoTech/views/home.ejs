@@ -299,13 +299,16 @@
                 itemClicado = itemInfo[i];
             }
         }
-        var div = $(`<div class="objdrag room-object" id="item-box-item-${itemClicado.id_item_usuario}" style="position:absolute;background:url(${itemClicado.img_url_item}); width:${(itemClicado.width)*80}px; height:${(itemClicado.height)*80}px"></div>`)[0];
+        var div = $(`<div class="objdrag room-object" id="item-box-item-${itemClicado.id_item_usuario}" data-id="${itemClicado.id_item_usuario}" style="position:absolute;background:url(${itemClicado.img_url_item}); width:${(itemClicado.width)*80}px; height:${(itemClicado.height)*80}px"></div>`)[0];
+        var clicadoId = itemClicado.id_item_usuario;
+        console.log( $("#item-box-item-"+clicadoId+""));
+        $("#item-box-item-"+clicadoId+"").remove();
         div.cellX = 0;
         div.cellY = 0;
         div.cellW = itemClicado.width;
         div.cellH = itemClicado.height;
         $('.grid-container').append(div);
-        x
+        
         let url = "/api/itemUsuario/placeObject"
         let form = {
             id_item_usuario: itemClicado.id_item_usuario,
@@ -362,20 +365,9 @@
         var sidebar = document.querySelector('.sidebar-wrapper');
             sidebar.classList.remove('sidebar-wrapper-after');
     }
+
     
     $(document).ready(function(){
-        
-        var itemInfo = <%-placedItems%>
-        console.log(itemInfo)
-        for(let i = 0; i < itemInfo.length; i++){
-            var item = itemInfo[i]
-            var div = $(`<div class="objdrag room-object" id="item-box-item-${item.id_item_usuario}" style="position:absolute;background:url(${item.img_url_item}); width:${(item.width)*80}px; height:${(item.height)*80}px"></div>`)[0];
-            div.cellX = item.cellx_item;
-            div.cellY = item.celly_item;
-            div.cellW = item.width;
-            div.cellH = item.height;
-            $('.grid-container').append(div);
-        }
 
         $(".room-container").smoothDivScroll({
             mousewheelScrolling: "",

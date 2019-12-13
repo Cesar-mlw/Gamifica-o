@@ -1,4 +1,6 @@
 ﻿import Sql = require("../infra/sql");
+import Usuario = require("./Usuario");
+import TipoProjetoCount = require("./TipoProjetoCount");
 
 export = class Projeto {
   public id_projeto: number;
@@ -62,7 +64,7 @@ export = class Projeto {
         else throw e;
       }
     });
-
+    await Usuario.addCoins(50, p.ra_usuario)
     return res;
   }
 
@@ -77,6 +79,16 @@ export = class Projeto {
     });
 
     return (lista && lista[0]) || null;
+  }
+
+  public static async readTipoProjetoCounts(ra: number): Promise<TipoProjetoCount[]> {
+    let res: TipoProjetoCount[];
+
+    await Sql.conectar(async (sql: Sql) => {
+      res = await sql.query("select t.nome_tipo_projeto, count(p.id_tipo_projeto) as count_tipo_projeto from projeto p, tipo_projeto t where ra_usuario = ? and p.id_tipo_projeto = t.id_tipo_projeto group by t.id_tipo_projeto;", [ra]) as TipoProjetoCount[]
+    })
+
+    return res;
   }
 
   
