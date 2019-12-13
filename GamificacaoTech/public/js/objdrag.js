@@ -85,7 +85,6 @@ $(function () {
             }
 
             if (overlaps) {
-                // debugger;
                 eldrag.style.left = (initialCellX * grid) + "px";
                 eldrag.style.top = (initialCellY * grid) + "px";
                 eldrag.cellX = initialCellX;

@@ -377,19 +377,19 @@
             $('.grid-container').append(div);
         }
 
-        // $(".room-container").smoothDivScroll({
-        //     mousewheelScrolling: "",
-        //     countOnlyClass: ".room",
-		// 	manualContinuousScrolling: false,
-        //     autoScrollingMode: ""
-        //     // touchScrolling: true,
-        //     // hotSpotScrolling: false
-        // });
+        $(".room-container").smoothDivScroll({
+            mousewheelScrolling: "",
+            countOnlyClass: ".room",
+			manualContinuousScrolling: false,
+            autoScrollingMode: ""
+            // touchScrolling: true,
+            // hotSpotScrolling: false
+        });
 
-		// $(".room-container").smoothTouchScroll({ 
-        //     continuousScrolling: false,
-        //     countOnlyClass: ".room"
-	    // });
+		$(".room-container").smoothTouchScroll({ 
+            continuousScrolling: false,
+            countOnlyClass: ".room"
+	    });
 
         $("#account-header-button").click(function(){
              $(".account-modal-wrapper").fadeToggle(200);
