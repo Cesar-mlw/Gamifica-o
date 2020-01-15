@@ -66,5 +66,8 @@ router.get('/testeAjax', wrap(async (req, res) => {
 router.get('/registroProjeto', wrap(async (req, res) => {
     res.render('registroProjeto', { layout: 'layoutVazio' }); //renderizar a tela
 }));
+router.get('/loja', wrap(async (req, res) => {
+    res.render('loja', { layout: 'layoutVazio' }); //renderizar a tela
+}));
 module.exports = router;
 //# sourceMappingURL=home.js.map

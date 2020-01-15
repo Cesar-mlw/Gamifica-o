@@ -47,7 +47,7 @@ $(function () {
     function mousemove(e) {
         if (!isdown)
             return;
-
+        
         var clientX = e.clientX || (e.touches && e.touches[0] && e.touches[0].clientX) || 0;
         var clientY = e.clientY || (e.touches && e.touches[0] && e.touches[0].clientY) || 0;
         var rectParent = eldrag.parentNode.getBoundingClientRect();
@@ -64,10 +64,35 @@ $(function () {
         return cancelEvent(e);
     }
 
-    function mouseup() {
+    function mouseup(e) {
         isdown = false;
 
         if (eldrag) {
+            var clientX = e.clientX || (e.touches && e.touches[0] && e.touches[0].clientX) || 0;
+            var clientY = e.clientY || (e.touches && e.touches[0] && e.touches[0].clientY) || 0;
+            if(clientY >= 630){
+                var el = eldrag;
+                finishDrag();
+                let url = "/api/itemUsuario/removeObject"
+                let form = {
+                    id_item_usuario: el.getAttribute("data-id")
+                }
+                $.ajax({
+                    method: "post",
+                    url: url,
+                    data: form,
+                    dataType: "json",
+                    success: function (data) {
+                        console.log(data);
+                        $('#item-box-item-'+el.getAttribute("data-id")+'').remove();
+                        $('.item-box').append('<button class="item-box-item" id="item-box-item-'+el.getAttribute("data-id")+'" onclick="adicionarItem('+el.getAttribute("data-id")+')"></button>')
+                    },
+                    error: function (e) {
+                        console.log(e)
+                    }
+                })
+                return;
+            }
             var i, item, items = moveisFixos.slice(), overlaps = false;
             var el = eldrag.cellX, et = eldrag.cellY;
             var er = el + eldrag.cellW/grid, eb = et + eldrag.cellH/grid;
@@ -84,13 +109,14 @@ $(function () {
                 }
             }
 
-            if (overlaps) {
-                // debugger;
+            if (overlaps || (eldrag.cellX < 0 || eldrag.cellX + (eldrag.cellW/80) > 16) || eldrag.cellY + (eldrag.cellH/80) > 8 ) {
+                
                 eldrag.style.left = (initialCellX * grid) + "px";
                 eldrag.style.top = (initialCellY * grid) + "px";
                 eldrag.cellX = initialCellX;
                 eldrag.cellY = initialCellY;
                 initialCellX = eldrag.cellX;
+                
                 initialCellY = eldrag.cellY;
             }
             

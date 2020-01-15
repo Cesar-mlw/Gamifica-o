@@ -77,6 +77,10 @@ router.get('/registroProjeto', wrap(async (req: express.Request, res: express.Re
     res.render('registroProjeto', { layout:'layoutVazio'})//renderizar a tela
 }));
 
+router.get('/loja', wrap(async (req: express.Request, res: express.Response) => {
+    res.render('loja', { layout:'layoutVazio'})//renderizar a tela
+}));
+
 
 
 export = router;

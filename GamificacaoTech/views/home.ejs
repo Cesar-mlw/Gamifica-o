@@ -38,6 +38,7 @@
 
 <div class="content-wrapper dragscroll" id="content-wrapper">
     <div class="room-container">
+        <div id="item-store-area" class="item-store-area-wrapper"></div>
         <img src="../Public/images/background-floor.svg" class="room">
         <button class="room-box" onclick="editMode()"></button>
         <div class="grid-container">
@@ -46,67 +47,12 @@
                 <button data-micromodal-trigger="modal-1" class="furniture-button ignore-dragscroll pc" onclick=""></button>
                 <button class="furniture-button ignore-dragscroll estante" data-micromodal-trigger="modal-3" onclick="">
                         <%-achievePreviewHTML%>
-                    <!-- <div class="estante-row-preview">
-                        <div class="estante-item-preview"></div>
-                        <div class="estante-item-preview"></div>
-                        <div class="estante-item-preview"></div>
-                    </div> -->
                 </button>
                 <button class="furniture-button ignore-dragscroll shelf" data-micromodal-trigger="modal-2">
                     <div class="books-wrapper">
                         <% for(let i = 0; i < books.length; i++){ %>
                             <%-books[i]%>
                         <%}%>
-                        <!-- <div class="book-pile" id="games">
-                            <div class="book-group-1">
-                                <div class="book"></div>
-                                <div class="book"></div>
-                                <div class="book"></div>
-                            </div>      
-                            <div class="book-group-2">
-                                <div class="book"></div>
-                                <div class="book"></div>
-                                <div class="book"></div>
-                            </div>
-                            <div class="book-group-3">
-                                <div class="book"></div>
-                                <div class="book"></div>
-                                <div class="book"></div>
-                            </div>
-                        </div>
-                        <div class="book-pile" id="bi">
-                            <div class="book-group-1">
-                                <div class="book book-gui"></div>
-                            </div>      
-                            <div class="book-group-2">
-                                <div class="book book-gui"></div>
-                            </div>
-                            <div class="book-group-3">
-                                <div class="book book-gui"></div>
-                            </div>
-                        </div>
-                        <div class="book-pile" id="dev">
-                            <div class="book-group-1">
-                                <div class="book book-gui"></div>
-                            </div>      
-                            <div class="book-group-2">
-                                <div class="book book-gui"></div>
-                            </div>
-                            <div class="book-group-3">
-                                <div class="book book-gui"></div>
-                            </div>
-                        </div>
-                        <div class="book-pile" id="inov">
-                            <div class="book-group-1">
-                                <div class="book book-gui"></div>
-                            </div>      
-                            <div class="book-group-2">
-                                <div class="book book-gui"></div>
-                            </div>
-                            <div class="book-group-3">
-                                <div class="book book-gui"></div>
-                            </div>
-                        </div> -->
                     </div>
                 </button>
                 <button class="furniture-button ignore-dragscroll board" onclick=""></button>
@@ -119,11 +65,12 @@
 <!--MODALS-->
 <div class="modal-storage">        
     <div id="sidebar-overlay" onclick="closeOverlay()"></div>
+
     <div id="item-box-gui" class="item-box-wrapper">
-    <div class="item-box-button-container">
-        <button id="item-box-close" class="item-box-button" onclick="endEditMode()"><i class="material-icons">close</i></button>
-        <button id="item-box-edit" class="item-box-button" onclick="startEditMode()"><i class="material-icons">widgets</i></button>
-    </div>
+        <div class="item-box-button-container">
+            <button id="item-box-close" class="item-box-button" onclick="endEditMode()"><i class="material-icons">close</i></button>
+            <button id="item-box-edit" class="item-box-button" onclick="startEditMode()"><i class="material-icons">widgets</i></button>
+        </div>
         <div class="item-box">
             <%- notPlacedItems %>
         </div>
@@ -156,6 +103,10 @@
                             <button onclick="" class="desktop-icon">
                                 <i class="material-icons">info</i>
                                 <span>Informações<br>da Faculdade</span>
+                            </button>
+                            <button onclick="loadContent('/loja')" class="desktop-icon">
+                                <i class="material-icons">shopping_basket</i>
+                                <span>E-Commerce</span>
                             </button>
                         </div>
                         <div class="os-window-container">
@@ -259,12 +210,37 @@
     //now call the function
     
     var fill = setInterval(fillCounter,50);     //call the fillCounter function after every 50MS
+
+    (function () {
+        var i, item, items = $(".room-object");
+        for (i = items.length - 1; i >= 0; i--) {
+            item = items[i];
+            item.cellX = (parseInt(item.style.left) / 80) | 0;
+            item.cellY = (parseInt(item.style.top) / 80) | 0;
+            item.cellW = (parseInt(item.style.width) / 80) | 0;
+            item.cellH = (parseInt(item.style.height) / 80) | 0;
+        }
+    })();
+    function getScrollBarWidth () {
+        console.log(window.innerWidth);
+        console.log($('.room').width());
+        if( $('.room').width() > window.innerWidth ){
+            var $outer = $('<div>').css({visibility: 'hidden', width: 100, overflow: 'scroll'}).appendTo('body'),
+            widthWithScroll = $('<div>').css({width: '100%'}).appendTo($outer).outerWidth();
+            $outer.remove();
+            return 100 - widthWithScroll;
+        }
+        else{
+            return 0;
+        }
+    };
 </script>
 
 <%- contentFor("scripts")%>
 <script type="text/javascript">
     function editMode(){
         $('.item-box-wrapper').addClass('item-box-wrapper-after');
+        $()
     }
 
     function endEditMode(){
@@ -274,20 +250,20 @@
     function startEditMode(){
         $('.item-box-wrapper').removeClass('item-box-wrapper-after');
         if(window.objdragEditing == true){
-
         }
         else{
             window.objdragEditing = true;
             //durante essa operacao checar posicionamento dos itens ja colocados e dos móveis fixos, e tamanho dos itens para definir onde podem ser colocados
             $('.grid-container').append('<div class="edit-overlay"></div>');
             $('.room-container').append('<button class="room-save" onclick="saveEditMode()"></button>');
+            $('#item-store-area').css('bottom',getScrollBarWidth());
         }
     }
 
     function saveEditMode(){
         $('.edit-overlay').remove();
         $('.room-save').remove();
-
+        $('#item-store-area').css('bottom',-45);
         window.objdragEditing = false;
     }
 
@@ -345,7 +321,6 @@
         window.location.replace("/resume.html")
     }
 
-    //VINICIUS-------------------------------------------------------
     MicroModal.init({
         awaitCloseAnimation: true,
     });
@@ -365,23 +340,8 @@
         var sidebar = document.querySelector('.sidebar-wrapper');
             sidebar.classList.remove('sidebar-wrapper-after');
     }
-
     
     $(document).ready(function(){
-
-        // $(".room-container").smoothDivScroll({
-        //     mousewheelScrolling: "",
-        //     countOnlyClass: ".room",
-		// 	manualContinuousScrolling: false,
-        //     autoScrollingMode: ""
-        //     // touchScrolling: true,
-        //     // hotSpotScrolling: false
-        // });
-
-		// $(".room-container").smoothTouchScroll({ 
-        //     continuousScrolling: false,
-        //     countOnlyClass: ".room"
-	    // });
 
         $("#account-header-button").click(function(){
              $(".account-modal-wrapper").fadeToggle(200);
