@@ -1,5 +1,6 @@
 ﻿import Sql = require("../infra/sql")
 import ItemItemUsuarioJoin = require("./ItemItemUsuarioJoin");
+import Item = require("./Item")
 
 
 export = class ItemUsuario {
@@ -137,6 +138,16 @@ export = class ItemUsuario {
         })
 
         return res
+    }
+
+    public static async readMissingItems(ra: number): Promise<Item[]>{
+        let lista: Item[] = null
+        
+        await Sql.conectar(async (sql: Sql) => {
+            lista = await sql.query("select * from item a where a.id_item not in (SELECT id_item FROM item_usuario u where u.ra_usuario = ?)", [ra])
+        })
+
+        return lista
     }
 
     

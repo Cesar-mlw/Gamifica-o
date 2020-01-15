@@ -95,6 +95,13 @@ module.exports = class ItemUsuario {
         });
         return res;
     }
+    static async readMissingItems(ra) {
+        let lista = null;
+        await Sql.conectar(async (sql) => {
+            lista = await sql.query("select * from item a where a.id_item not in (SELECT id_item FROM item_usuario u where u.ra_usuario = ?)", [ra]);
+        });
+        return lista;
+    }
     static async delete(id) {
         let res = true;
         Sql.conectar(async (sql) => {
