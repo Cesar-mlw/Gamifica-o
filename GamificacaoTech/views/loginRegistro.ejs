@@ -36,17 +36,30 @@
 <%- contentFor("scripts")%>
 <script>
     function register(){
-        
+        let isAdmin = 0
+        if(document.getElementById("idAdmin").checked) isAdmin = 1
         let form = {
             ra_usuario: document.getElementById("ra_usuario").value,
             nome_usuario: document.getElementById("nome_usuario").value,
             email_usuario: document.getElementById("email_usuario").value,
             dt_entrada_usuario: document.getElementById("dt_entrada_usuario").value,
             senha_usuario: document.getElementById("senha_usuario").value,
-            idAdmin: document.getElementById("idAdmin").checked,
+            isAdmin: isAdmin,
             id_curso: document.getElementById("curso").options[document.getElementById("curso").selectedIndex].value
         }
 
         console.log(form);
+        $.ajax({
+            method: "post",
+            url: "http://localhost:3000/api/usuario/create",
+            data: form,
+            dataType: "json",
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        })
     }
 </script>

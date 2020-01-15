@@ -12,12 +12,12 @@ module.exports = class Usuario {
             resp += "Nome do usuário não pode ser nulo";
         if (u.email_usuario == null)
             resp += "E-mail do usuário não pode ser nulo";
-        if (u.moedas_usuario == null)
-            resp += "Moedas totais do usuário não pode ser nulo";
         if (u.nome_usuario == null)
             resp += "Nome do usuário não pode ser nulo";
         if (u.nome_usuario == null)
             resp += "Nome do usuário não pode ser nulo";
+        if (u.isAdmin == null)
+            resp += "Hierarquia não pode ser nulo";
         return resp;
     }
     static async list() {
@@ -32,16 +32,18 @@ module.exports = class Usuario {
         u.senha_usuario = await GeradorHash.criarHash(u.senha_usuario);
         if ((res = Usuario.validate(u)))
             return res;
+        u.moedas_usuario = 0;
         await Sql.conectar(async (sql) => {
             try {
-                await sql.query("INSERT INTO usuario (ra_usuario, id_curso, nome_usuario, email_usuario, moedas_usuario, dt_entrada_usuario, senha_usuario) VALUES (?, ?, ?, ?, ?, ?, ?)", [
+                await sql.query("INSERT INTO usuario (ra_usuario, id_curso, nome_usuario, email_usuario, moedas_usuario, dt_entrada_usuario, senha_usuario, isAdmin) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [
                     u.ra_usuario,
                     u.id_curso,
                     u.nome_usuario,
                     u.email_usuario,
                     u.moedas_usuario,
                     u.dt_entrada_usuario,
-                    u.senha_usuario
+                    u.senha_usuario,
+                    u.isAdmin
                 ]);
             }
             catch (e) {
@@ -56,7 +58,7 @@ module.exports = class Usuario {
     static async read(id) {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = (await sql.query("select u.ra_usuario, u.id_curso, u.nome_usuario, u.moedas_usuario, u.email_usuario, u.dt_entrada_usuario, c.nome_curso from usuario u, curso c where ra_usuario = ? and u.id_curso = c.id_curso", [id]));
+            lista = (await sql.query("select u.ra_usuario, u.id_curso, u.nome_usuario, u.moedas_usuario, u.email_usuario, u.dt_entrada_usuario, c.nome_curso, u.isAdmin from usuario u, curso c where ra_usuario = ? and u.id_curso = c.id_curso", [id]));
         });
         return (lista && lista[0]) || null;
     }
@@ -77,7 +79,8 @@ module.exports = class Usuario {
                 u.email_usuario,
                 u.moedas_usuario,
                 u.dt_entrada_usuario,
-                u.ra_usuario
+                u.ra_usuario,
+                u.isAdmin
             ]);
             if (!sql.linhasAfetadas)
                 res = "Usuário Inexistente";

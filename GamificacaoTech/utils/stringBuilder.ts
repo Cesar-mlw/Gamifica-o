@@ -2,6 +2,7 @@ import Achievement = require("../models/Achievement")
 import AchievementUsuario = require("../models/AchievementUsuario")
 import ItemUsuario = require("../models/ItemUsuario")
 import ItemItemUsuario = require("../models/ItemItemUsuarioJoin")
+import Item = require("../models/Item")
 
 
 export = class StringBuilder {
@@ -155,6 +156,24 @@ export = class StringBuilder {
                 res += '</div></div>'
             }
         }
+        return res
+    }
+
+    public static storeItemSpiller(item: Item[]): string {
+        let res: string = ""
+        for(let i = 0; i < item.length; i++){
+            res+= `<li class="bcl-item">
+            <div class="bcl-item-body">
+                <img src=${item[i].img_url_item}>
+            </div>
+            <div class="bcl-item-header">
+                <div class="bcl-title">Item ${item[i].id_item}</div>
+                <button class="mdc-icon-button material-icons" onclick="">monetization_on</button>
+                <div class="item-price">${item[i].preco_item}</div>
+            </div>
+        </li>`
+        }
+
         return res
     }
 }
