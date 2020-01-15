@@ -106,9 +106,9 @@ export = class Usuario {
     return res;
   }
 
-  public static async checkForAchievements(ra: number): Promise<number[]>{
+  //public static async checkForAchievements(ra: number): Promise<number[]>{
     // returns list of achievements ids that the user has acess to
-  }
+  //}
 
   public static async updatePassword(id: number, pass: string): Promise<string> {
     let res: string;

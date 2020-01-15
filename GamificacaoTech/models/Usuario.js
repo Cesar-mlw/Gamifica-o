@@ -84,9 +84,9 @@ module.exports = class Usuario {
         });
         return res;
     }
-    static async checkForAchievements(ra) {
-        // returns list of achievements ids that the user has acess to
-    }
+    //public static async checkForAchievements(ra: number): Promise<number[]>{
+    // returns list of achievements ids that the user has acess to
+    //}
     static async updatePassword(id, pass) {
         let res;
         await Sql.conectar(async (sql) => {
