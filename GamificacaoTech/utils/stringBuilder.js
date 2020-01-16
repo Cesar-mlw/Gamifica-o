@@ -107,6 +107,7 @@ module.exports = class StringBuilder {
                     v = 0;
                 res += '<div class="estante-body-bottom"><div class="estante-row">';
                 for (let j = 0; j < 3 - v; j++) {
+                    console.log(all.includes(miss[counter]));
                     if (miss.includes(all[counter])) {
                         res += '<div class="estante-item missing-achievement" id="achievement-' + counter + '"></div>';
                         counter++;

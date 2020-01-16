@@ -3,6 +3,7 @@ import AchievementUsuario = require("../models/AchievementUsuario")
 import ItemUsuario = require("../models/ItemUsuario")
 import ItemItemUsuario = require("../models/ItemItemUsuarioJoin")
 import Item = require("../models/Item")
+import { CLIENT_RENEG_LIMIT } from "tls"
 
 
 export = class StringBuilder {
@@ -109,12 +110,13 @@ export = class StringBuilder {
         let p = Math.ceil(all.length / 3)
         let counter = 0
         for(let i = 0; i < p; i++){
-            if(p - 1 == i){
+            if(p - 1 == i){ 
                 let v = (i*3) - all.length
                 if(v < 0) v*=-1
                 if(v % 3 == 0) v = 0
                 res += '<div class="estante-body-bottom"><div class="estante-row">'
                 for(let j = 0; j < 3 - v; j++){
+                    console.log(all.includes(miss[counter]))
                     if(miss.includes(all[counter])){
                         res+= '<div class="estante-item missing-achievement" id="achievement-'+counter+'"></div>'
                         counter++

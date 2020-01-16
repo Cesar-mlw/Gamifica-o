@@ -17,7 +17,7 @@ router.get('/', wrap(async (req, res) => {
         books.push(StringBuilder.bookSpiller(points[i]['pontos'], points[i]['id']));
     }
     let allAchievements = await Achievement.list();
-    let missingAchievements = await AchievementUsuario.readMissingAchievements(11710370);
+    let missingAchievements = await AchievementUsuario.readMissingAchievements(11710372);
     let achieveHTML = StringBuilder.shelfSpiller(allAchievements, missingAchievements);
     let achievePreviewHTML = StringBuilder.shelfPreviewSpiller(allAchievements, missingAchievements);
     let notPlacedItemsJson = await ItemUsuario.readNotPlacedItems(11710371);

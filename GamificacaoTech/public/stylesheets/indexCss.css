@@ -1168,6 +1168,10 @@ opacity: 1;
     padding: 15px;
 }
 
+.missing-achievement{
+    opacity: 0.5;
+}
+
 @media only screen and (min-width: 901px) {
     .header-nav{
         display:flex;
