@@ -71,7 +71,7 @@ export = class AchievementUsuario {
         let lista: Achievement[] = null
         
         await Sql.conectar(async (sql: Sql) => {
-            lista = await sql.query("select * from achievement a where a.id_achievement not in (SELECT id_achievement FROM achievement_usuario u where u.ra_usuario = ?)", [ra])
+            lista = await sql.query("select a.id_achievement, a.id_area, a.nome_achievement, a.descricao_achievement, a.criterio_achievement, a.id_tipo_projeto_achievement from achievement a where a.id_achievement not in (SELECT id_achievement FROM achievement_usuario u where u.ra_usuario = ?)", [ra])
         })
 
         return lista
