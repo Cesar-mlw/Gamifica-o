@@ -238,9 +238,32 @@
 
 <%- contentFor("scripts")%>
 <script type="text/javascript">
+    function filterLoja(ele){
+        $('#loja-item-list li').remove();
+        idArea = ele.getAttribute('data-id');
+
+        let url = "/api/itemUsuario/readMissingItemsSpecific"
+        let form = {
+            idArea: idArea,
+            ra: 11710370
+        }
+        $.ajax({
+            method: "post",
+            url: url,
+            data: form,
+            dataType: "json",
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        })
+
+    }
+
     function editMode(){
         $('.item-box-wrapper').addClass('item-box-wrapper-after');
-        $()
     }
 
     function endEditMode(){
@@ -303,10 +326,6 @@
                 console.log(e)
             }
         })
-    }
-
-    function carregarCaixa(){
-
     }
 
     function registroRedirect() {
