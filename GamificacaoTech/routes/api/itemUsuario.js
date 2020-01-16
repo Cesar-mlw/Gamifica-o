@@ -74,6 +74,12 @@ router.post("/readMissingItems", wrap(async (req, res) => {
     let p = await ItemUsuario.readMissingItems(ra);
     res.json(p);
 }));
+router.post("/readMissingItemsSpecific", wrap(async (req, res) => {
+    let ra = req.body.ra;
+    let id_area = req.body.idArea;
+    let p = await ItemUsuario.readMissingItemsSpecific(ra, id_area);
+    res.json(p);
+}));
 router.post("/update", wrap(async (req, res) => {
     let p = req.body;
     let erro = await ItemUsuario.update(p);
