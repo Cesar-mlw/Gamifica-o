@@ -705,7 +705,7 @@ opacity: 1;
 
 .os-window{
     background:#E4E4E4;
-    width: 95%;
+    width: 100%;
     /* padding: 5px 10px; */
     overflow: auto;
     height: 100%;
@@ -1071,7 +1071,7 @@ opacity: 1;
     box-sizing: border-box;
     position: fixed;
     z-index: 101;
-    bottom: -45px;
+    bottom: -55px;
     left: 0;
     transition: 0.5s all ease;
 }
@@ -1130,6 +1130,12 @@ opacity: 1;
     align-items: center;
 }
 
+.loja-nav-scroller{
+    display: flex;
+    overflow: auto;
+    padding: 10px 0;
+}
+
 .loja-nav-button{
     margin: 0 10px;
     padding: 5px 10px;
@@ -1142,7 +1148,7 @@ opacity: 1;
 }
 
 .loja-nav-button:hover{
-    font-size: 20px;
+    font-size: 19px;
     text-decoration: underline;    
 }
 
@@ -1219,7 +1225,7 @@ opacity: 1;
     }
 
     .bcl-item{
-        width: 45%;
+        width: 33%;
     }
 }
 

@@ -17,14 +17,35 @@
                         <h4>STORE</h4>
                     </div>
                     <div class="loja-nav">
-                        <button class="loja-nav-button">Games</button>
-                        <button class="loja-nav-button">BI</button>
-                        <button class="loja-nav-button">DEV</button>
-                        <button class="loja-nav-button">Inovação</button>
+                        <div class="loja-nav-scroller">
+                            <button class="loja-nav-button" data-id="5" onclick="filterLoja(this)">Básicos</button>
+                            <button class="loja-nav-button" data-id="1" onclick="filterLoja(this)">Games</button>
+                            <button class="loja-nav-button" data-id="2" onclick="filterLoja(this)">BI</button>
+                            <button class="loja-nav-button" data-id="3" onclick="filterLoja(this)">DEV</button>
+                            <button class="loja-nav-button" id="zap" data-id="4" onclick="filterLoja(this)">Inovação</button>
+                        </div>
                     </div>
                 </div>
                 <div class="loja-body-wrapper">
-                    <ul class="browser-content-list">
+                    <ul class="browser-content-list" id="loja-item-list">
+                        <li class="bcl-item">
+                            <div class="bcl-item-body">
+                                <img src="https://images-na.ssl-images-amazon.com/images/I/61J2lVq1%2BIL._AC_SX355_.jpg" alt="">
+                            </div>
+                            <div class="bcl-item-header">
+                                <div class="bcl-title">Item 1</div>
+                                <button class="mdc-icon-button material-icons" onclick="">monetization_on</button>
+                            </div>
+                        </li>
+                        <li class="bcl-item">
+                            <div class="bcl-item-body">
+                                <img src="https://images-na.ssl-images-amazon.com/images/I/61J2lVq1%2BIL._AC_SX355_.jpg" alt="">
+                            </div>
+                            <div class="bcl-item-header">
+                                <div class="bcl-title">Item 1</div>
+                                <button class="mdc-icon-button material-icons" onclick="">monetization_on</button>
+                            </div>
+                        </li>
                         <li class="bcl-item">
                             <div class="bcl-item-body">
                                 <img src="https://images-na.ssl-images-amazon.com/images/I/61J2lVq1%2BIL._AC_SX355_.jpg" alt="">
