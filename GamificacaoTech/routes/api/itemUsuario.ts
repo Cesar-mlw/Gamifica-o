@@ -91,6 +91,13 @@ router.post("/readMissingItems", wrap(async (req: express.Request, res: express.
     res.json(p)
 }))
 
+router.post("/readMissingItemsSpecific", wrap(async (req: express.Request, res: express.Response) => {
+    let ra = req.body.ra
+    let id_area = req.body.idArea
+    let p = await ItemUsuario.readMissingItemsSpecific(ra, id_area)
+    res.json(p)
+}))
+
 router.post("/update", wrap(async (req: express.Request, res: express.Response) => {
     let p = req.body as ItemUsuario
     let erro = await ItemUsuario.update(p)

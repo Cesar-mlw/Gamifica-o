@@ -6,13 +6,6 @@ INSERT INTO area (nome_area) VALUES ("Dev");
 INSERT INTO area (nome_area) VALUES ("Inovação Tecnológica");
 INSERT INTO area (nome_area) VALUES ("Neutra");
 
--- ACHIEVEMENT TABLE
-
-INSERT INTO achievement (nome_achievement, criterio_achievement,descricao_achievement, id_area) VALUES ("ACHIEVEMENT TESTE", "05 palestras", "DONE SOME WEIRD SHIT ON THE PLATFORM LIKE A BACKFLIP OR SOMETHING WHOLESOME", 5);
-INSERT INTO achievement (nome_achievement, criterio_achievement,descricao_achievement, id_area) VALUES ("ACHIEVEMENT TESTE2", "10 palestras", "DONE MORE WEIRD SHIT LIKE PET A DOG OR EAT A GOGURT", 5);
-INSERT INTO achievement (nome_achievement, criterio_achievement,descricao_achievement, id_area) VALUES ("ACHIEVEMENT TESTE3", "15 palestras", "FAZER A PIADA DO BERIMBAU COM O MAURO", 5);
-INSERT INTO achievement (nome_achievement, criterio_achievement,descricao_achievement, id_area) VALUES ("ACHIEVEMENT TESTE4", "20 palestras", "CUSPIR CÓDIGO ATÉ SEUS DEDOS NÃO AGUENTAREM MAIS. RADICAL!!!", 5);
-
 -- CURSO TABLE
 
 INSERT INTO curso (nome_curso) VALUES ("TECH");
@@ -22,10 +15,10 @@ INSERT INTO curso (nome_curso) VALUES ("Design");
 
 -- ITEM TABLE
 
-INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Lâmpada Super legal", "https://www.smashbros.com/wiiu-3ds/sp/images/character/kirby/main.png", 10);
-INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Boal de basquete", "https://feliciagamingdiary.files.wordpress.com/2015/12/kirby.png", 10);
-INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Pintura da GlADOS", "https://jogoveio.com.br/wp-content/uploads/2017/04/kirbys-dream-land-kirby-jogoveio.png", 10);
-INSERT INTO item (nome_item, img_url_item, preco_item) VALUES ("Fita de NES do Shaq-Fu", "https://upload.wikimedia.org/wikipedia/en/thumb/5/5c/Kirby.png/220px-Kirby.png", 10);
+INSERT INTO item (nome_item, img_url_item, preco_item, id_area) VALUES ("Lâmpada Super legal", "https://www.smashbros.com/wiiu-3ds/sp/images/character/kirby/main.png", 10, 5);
+INSERT INTO item (nome_item, img_url_item, preco_item, id_area) VALUES ("Boal de basquete", "https://feliciagamingdiary.files.wordpress.com/2015/12/kirby.png", 10, 2);
+INSERT INTO item (nome_item, img_url_item, preco_item, id_area) VALUES ("Pintura da GlADOS", "https://jogoveio.com.br/wp-content/uploads/2017/04/kirbys-dream-land-kirby-jogoveio.png", 10, 1);
+INSERT INTO item (nome_item, img_url_item, preco_item, id_area) VALUES ("Fita de NES do Shaq-Fu", "https://upload.wikimedia.org/wikipedia/en/thumb/5/5c/Kirby.png/220px-Kirby.png", 10, 1);
 
 -- TIPO_PROJETO TABLE
 
@@ -58,6 +51,13 @@ INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, w
 INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710371, 3, "2018/08/15", 0, 0, 2, 3, FALSE);
 INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710371, 4, "2018/08/15", 0, 0, 2, 2, TRUE);
 
+-- ACHIEVEMENT TABLE
+
+INSERT INTO achievement (nome_achievement, criterio_achievement,descricao_achievement, id_area, id_tipo_projeto_achievement) VALUES ("ACHIEVEMENT TESTE", "05", "DONE SOME WEIRD SHIT ON THE PLATFORM LIKE A BACKFLIP OR SOMETHING WHOLESOME", 5, 1);
+INSERT INTO achievement (nome_achievement, criterio_achievement,descricao_achievement, id_area, id_tipo_projeto_achievement) VALUES ("ACHIEVEMENT TESTE2", "10", "DONE MORE WEIRD SHIT LIKE PET A DOG OR EAT A GOGURT", 5, 2);
+INSERT INTO achievement (nome_achievement, criterio_achievement,descricao_achievement, id_area, id_tipo_projeto_achievement) VALUES ("ACHIEVEMENT TESTE3", "15", "FAZER A PIADA DO BERIMBAU COM O MAURO", 5, 2);
+INSERT INTO achievement (nome_achievement, criterio_achievement,descricao_achievement, id_area, id_tipo_projeto_achievement) VALUES ("ACHIEVEMENT TESTE4", "20", "CUSPIR CÓDIGO ATÉ SEUS DEDOS NÃO AGUENTAREM MAIS. RADICAL!!!", 5, 3);
+
 -- ACHIEVEMENT_USUARIO TABLE
 -- Usuário de RA = 11710372 não possui achievements
 INSERT INTO achievement_usuario (id_achievement, ra_usuario, dt_achievement, destaque_achievement) VALUES (1, 11710370, "2017/09/15", 0);    
@@ -82,15 +82,5 @@ INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, te
 
 
 
--- SELECTS ALL TABLES
-select * from achievement; 
-select * from achievement_usuario; 
-select * from area;
-select * from curso;
-select * from habilidade; 
-select * from item; -- 
-select * from item_usuario; --
-select * from projeto;
-select * from tipo_habilidade;
-select * from tipo_projeto;
-select * from usuario;
+
+

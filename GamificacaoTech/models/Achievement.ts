@@ -5,7 +5,10 @@ export = class Achievement {
     public id_achievement: number;
     public id_area: number;
     public nome_achievement: string;
-    public descricao_achievement: string
+    public descricao_achievement: string;
+    public criterio_achievement: number;
+    public id_tipo_projeto_achievement: number;
+
 
 
     public static validate(a: Achievement): string {
@@ -13,9 +16,13 @@ export = class Achievement {
         if(a.id_area == null)
             resp = "ID da área não pode ser nulo\n "
         if(a.nome_achievement == null)
-            resp += " Nome do Achievement não pode ser nulo\n "
+            resp += "Nome do Achievement não pode ser nulo\n "
         if(a.descricao_achievement == null)
-            resp += " Descrição do Achievement não pode ser nulo"
+            resp += "Descrição do Achievement não pode ser nulo\n"
+        if(a.criterio_achievement == null)
+            resp += "Critério do Achievement não pode ser nulo\n"
+        if(a.id_tipo_projeto_achievement == null)
+            resp += "Id do tipo de projeto do achievement não pode ser nulo\n" 
         return resp
     }
 
@@ -23,7 +30,7 @@ export = class Achievement {
         let lista: Achievement[] = null;
 
         await Sql.conectar(async (sql: Sql) => {
-            lista = await sql.query("SELECT a.id_achievement, a.nome_achievement, a.descricao_achievement, a.id_area, r.nome_area FROM achievement a, area r WHERE r.id_area = a.id_area") as Achievement[]
+            lista = await sql.query("SELECT a.id_achievement, a.nome_achievement, a.descricao_achievement, a.criterio_achievement, a.id_tipo_projeto_achievement, p.nome_tipo_projeto,a.id_area, r.nome_area FROM achievement a, area r, tipo_projeto WHERE r.id_area = a.id_area AND p.id_tipo_projeto = a.id_tipo_projeto_achievement") as Achievement[]
         })
 
         return lista
@@ -37,7 +44,7 @@ export = class Achievement {
 
         await Sql.conectar(async (sql: Sql) => {
             try {
-                await sql.query("INSERT INTO achievement (nome_achievement, descricao_achievement, id_area) VALUES (?, ?, ?)", [a.nome_achievement, a.descricao_achievement, a.id_area])
+                await sql.query("INSERT INTO achievement (nome_achievement, descricao_achievement, id_area, criterio_achievement, id_tipo_projeto_achievement) VALUES (?, ?, ?, ?, ?)", [a.nome_achievement, a.descricao_achievement, a.id_area, a.criterio_achievement, a.id_tipo_projeto_achievement])
             } catch (e) {
                 if (e.code && e.code === "ER_DUP_ENTRY")
                     res = `O ID ${a.id_achievement.toString()} já está em uso`
@@ -63,7 +70,7 @@ export = class Achievement {
         let res: string;
 
         await Sql.conectar(async (sql: Sql) => {
-            await sql.query("UPDATE achievement SET nome_achievement = ?, descricao_achievement = ?, id_area = ? WHERE id_achievement = ?", [a.nome_achievement, a.descricao_achievement, a.id_area, a.id_achievement])
+            await sql.query("UPDATE achievement SET nome_achievement = ?, descricao_achievement = ?, id_area = ?, criterio_achievement = ?, id_tipo_projeto_achievement = ? WHERE id_achievement = ?", [a.nome_achievement, a.descricao_achievement, a.id_area, a.criterio_achievement, a.id_tipo_projeto_achievement, a.id_achievement])
             if (!sql.linhasAfetadas)
                 res = "Achievement Inexistente"
         })

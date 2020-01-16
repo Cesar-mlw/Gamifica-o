@@ -150,6 +150,16 @@ export = class ItemUsuario {
         return lista
     }
 
+    public static async readMissingItemsSpecific(ra: number, id: number): Promise<Item[]>{
+        let lista: Item[] = null
+        
+        await Sql.conectar(async (sql: Sql) => {
+            lista = await sql.query("select * from item a where a.id_item not in (SELECT id_item FROM item_usuario u where u.ra_usuario = ? AND id_area = ?)", [ra, id])
+        })
+
+        return lista
+    }
+
     
 
     public static async delete(id: number): Promise<boolean> {
