@@ -45,7 +45,7 @@ export = class StringBuilder {
                 if(v % 3 == 0) v = 0
                 res += '<div class="estante-row-preview">'
                 for(let j = 0; j < 3 - v; j++){
-                    if(miss.includes(all[counter])){
+                    if(this.contains(miss, all[counter].id_achievement)){
                         res+= '<div class="estante-item-preview missing-achievement"></div>'
                         counter++
                     }
@@ -116,8 +116,7 @@ export = class StringBuilder {
                 if(v % 3 == 0) v = 0
                 res += '<div class="estante-body-bottom"><div class="estante-row">'
                 for(let j = 0; j < 3 - v; j++){
-                    console.log(all.includes(miss[counter]))
-                    if(miss.includes(all[counter])){
+                    if(this.contains(miss, all[counter].id_achievement)){
                         res+= '<div class="estante-item missing-achievement" id="achievement-'+counter+'"></div>'
                         counter++
                     }
@@ -178,4 +177,15 @@ export = class StringBuilder {
 
         return res
     }
+    private static contains(array: Achievement[], item: number): boolean {
+        let resp = false;
+
+        for(let i = 0; i < array.length; i++){
+            if(array[i].id_achievement == item)
+                resp = true
+        }
+
+        return resp
+    }
 }
+
