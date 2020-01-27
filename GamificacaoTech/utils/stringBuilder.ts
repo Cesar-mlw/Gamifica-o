@@ -155,7 +155,7 @@ export = class StringBuilder {
             </div>
             <div class="bcl-item-header">
                 <div class="bcl-title">Item ${item[i].id_item}</div>
-                <button class="mdc-icon-button material-icons" onclick="">monetization_on</button>
+                <button class="mdc-icon-button material-icons" onclick="buyItem(${item[i].id_item})">monetization_on</button>
                 <div class="item-price">${item[i].preco_item}</div>
             </div>
         </li>`

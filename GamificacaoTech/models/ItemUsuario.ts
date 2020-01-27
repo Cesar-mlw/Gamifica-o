@@ -154,7 +154,7 @@ export = class ItemUsuario {
         let lista: Item[] = null
         
         await Sql.conectar(async (sql: Sql) => {
-            lista = await sql.query("select * from item a where a.id_item not in (SELECT id_item FROM item_usuario u where u.ra_usuario = 11710370) AND id_area = 1;", [ra, id])
+            lista = await sql.query("select * from item a where a.id_item not in (SELECT id_item FROM item_usuario u where u.ra_usuario = ?) AND id_area = ?;", [ra, id])
         })
 
         return lista

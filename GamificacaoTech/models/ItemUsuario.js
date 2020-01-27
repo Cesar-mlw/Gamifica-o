@@ -105,7 +105,7 @@ module.exports = class ItemUsuario {
     static async readMissingItemsSpecific(ra, id) {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = await sql.query("select * from item a where a.id_item not in (SELECT id_item FROM item_usuario u where u.ra_usuario = ? AND id_area = ?)", [ra, id]);
+            lista = await sql.query("select * from item a where a.id_item not in (SELECT id_item FROM item_usuario u where u.ra_usuario = ?) AND id_area = ?;", [ra, id]);
         });
         return lista;
     }

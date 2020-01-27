@@ -239,7 +239,6 @@
 <%- contentFor("scripts")%>
 <script type="text/javascript">
     function filterLoja(ele){
-        $('#loja-item-list li').remove();
         idArea = ele.getAttribute('data-id');
 
         let url = "/api/itemUsuario/readMissingItemsSpecific"
@@ -254,14 +253,51 @@
             dataType: "json",
             success: function (data) {
                 console.log(data);
+                let res = ""
+                for(let i = 0; i < data.length; i++){
+                    res+= `<li class="bcl-item">
+                    <div class="bcl-item-body">
+                        <img src=${data[i].img_url_item}>
+                    </div>
+                    <div class="bcl-item-header">
+                        <div class="bcl-title">Item ${data[i].id_item}</div>
+                        <button class="mdc-icon-button material-icons" onclick="buyItem(${item[i].id_item})">monetization_on</button>
+                        <div class="item-price">${data[i].preco_item}</div>
+                    </div>
+                </li>`
+                }
                 $('#loja-item-list').empty();
-                $('#loja-item-list').append();
+                $('#loja-item-list').append(res);
             },
             error: function (e) {
                 console.log(e)
             }
         })
 
+    }
+
+    function buyItem(id){
+        idItem = id;
+        let url = "/api/itemUsuario/create"
+        let form = {
+            id_item: idItem,
+            ra_usuario: 11710371
+        }
+        $.ajax({
+            method: "post",
+            url: url,
+            data: form,
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                $(this).closest('.bcl-item').remove();
+                $('.item-box').append('<button class="item-box-item" id="item-box-item-'+id+'" onclick="adicionarItem('+id+')"></button>')
+                console.log('zap')
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        })
     }
 
     function editMode(){
@@ -300,7 +336,7 @@
                 itemClicado = itemInfo[i];
             }
         }
-        var div = $(`<div class="objdrag room-object" id="item-box-item-${itemClicado.id_item_usuario}" data-id="${itemClicado.id_item_usuario}" style="position:absolute;background:url(${itemClicado.img_url_item}); width:${(itemClicado.width)*80}px; height:${(itemClicado.height)*80}px"></div>`)[0];
+        var div = $(`<div class="objdrag room-object" id="item-${itemClicado.id_item_usuario}" data-id="${itemClicado.id_item_usuario}" style="position:absolute;background:url(${itemClicado.img_url_item}); width:${(itemClicado.width)*80}px; height:${(itemClicado.height)*80}px"></div>`)[0];
         var clicadoId = itemClicado.id_item_usuario;
         console.log( $("#item-box-item-"+clicadoId+""));
         $("#item-box-item-"+clicadoId+"").remove();

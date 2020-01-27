@@ -84,7 +84,9 @@ $(function () {
                     dataType: "json",
                     success: function (data) {
                         console.log(data);
-                        $('#item-box-item-'+el.getAttribute("data-id")+'').remove();
+                        console.log($('#item-'+el.getAttribute("data-id")+''));
+                        $('#item-'+el.getAttribute("data-id")+'').remove();
+
                         $('.item-box').append('<button class="item-box-item" id="item-box-item-'+el.getAttribute("data-id")+'" onclick="adicionarItem('+el.getAttribute("data-id")+')"></button>')
                     },
                     error: function (e) {

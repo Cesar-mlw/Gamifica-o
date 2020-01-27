@@ -25,9 +25,7 @@ router.get('/', wrap(async (req: express.Request, res: express.Response) => {//D
     let notPlacedItems = StringBuilder.itemBoxSpiller(await ItemUsuario.readNotPlacedItems(11710371))
     let placedItemsJson = await ItemUsuario.readPlacedItems(11710371)
     let placedItems = StringBuilder.placedItemSpiller(await ItemUsuario.readPlacedItems(11710371))
-    let storeItems = StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370))
-    //console.log(StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370)))
-
+    // console.log(StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370)))
     // Book pile string builder
     res.render('home', { titulo: 'Gamificação TECH', 
                         books: books, 
@@ -36,8 +34,7 @@ router.get('/', wrap(async (req: express.Request, res: express.Response) => {//D
                         notPlacedItemsJson: JSON.stringify(notPlacedItemsJson),
                         notPlacedItems: notPlacedItems,
                         placedItems: placedItems,
-                        placedItemsJson: JSON.stringify(placedItemsJson),
-                        storeItems: storeItems});
+                        placedItemsJson: JSON.stringify(placedItemsJson)});
                         //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 }));
 
@@ -82,7 +79,10 @@ router.get('/registroProjeto', wrap(async (req: express.Request, res: express.Re
 }));
 
 router.get('/loja', wrap(async (req: express.Request, res: express.Response) => {
-    res.render('loja', { layout:'layoutVazio'})//renderizar a tela
+    let storeItems = StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370))
+    res.render('loja', { 
+        layout:'layoutVazio',
+        storeItems: storeItems});//renderizar a tela
 }));
 
 
