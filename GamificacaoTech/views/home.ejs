@@ -255,7 +255,7 @@
                 console.log(data);
                 let res = ""
                 for(let i = 0; i < data.length; i++){
-                    res+= `<li class="bcl-item">
+                    res+= `<li class="bcl-item" id="loja-item-${item[i].id_item}">
                     <div class="bcl-item-body">
                         <img src=${data[i].img_url_item}>
                     </div>
@@ -290,7 +290,7 @@
             dataType: "json",
             success: function (data) {
                 console.log(data);
-                $(this).closest('.bcl-item').remove();
+                $('#loja-item-'+idItem+'').closest('.bcl-item').remove();
                 $('.item-box').append('<button class="item-box-item" id="item-box-item-'+id+'" onclick="adicionarItem('+id+')"></button>')
                 console.log('zap')
             },

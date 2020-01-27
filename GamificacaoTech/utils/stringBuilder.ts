@@ -149,7 +149,7 @@ export = class StringBuilder {
     public static storeItemSpiller(item: Item[]): string {
         let res: string = ""
         for(let i = 0; i < item.length; i++){
-            res+= `<li class="bcl-item">
+            res+= `<li class="bcl-item" id="loja-item-${item[i].id_item}">
             <div class="bcl-item-body">
                 <img src=${item[i].img_url_item}>
             </div>
