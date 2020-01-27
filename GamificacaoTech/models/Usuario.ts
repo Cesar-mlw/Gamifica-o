@@ -1,5 +1,6 @@
 ﻿import Sql = require("../infra/sql");
 import GeradorHash = require("../utils/geradorHash");
+import ItemUsuario = require("./ItemUsuario");
 
 export = class Usuario {
   public ra_usuario: number;
@@ -153,18 +154,19 @@ export = class Usuario {
     return res;
   }
 
-  public static async buyObject(price: number, id: number): Promise<string> {
+  public static async buyObject(price: number, ra: number): Promise<string> {
     let res: string;
-    let user: Usuario = await this.read(id);
+    let user: Usuario = await this.read(ra);
     if(user.moedas_usuario <= price) 
       res = "Saldo Insuficiente"
     
     else{
       await Sql.conectar(async (sql: Sql) => {
-        await sql.query("UPDATE usuario SET moedas_usuario = (moedas_usuario - ?) where ra_usuario = ?", [price, id]);
+        await sql.query("UPDATE usuario SET moedas_usuario = (moedas_usuario - ?) where ra_usuario = ?", [price, ra]);
         if (!sql.linhasAfetadas) res = "Usuario não existe";
       });
     }
+
 
     return res
   }
