@@ -146,7 +146,7 @@ export = class StringBuilder {
             else{
                 res+= '<div class="estante-body-bottom"><div class="estante-row">'
                 for(let j = 0; j < 3; j++){
-                    if(miss.includes(all[counter])){
+                    if(all.includes(miss[counter])){
                         res+= '<div class="estante-item missing-achievement" id="achievement-'+counter+'"></div>'
                         counter++
                     }
