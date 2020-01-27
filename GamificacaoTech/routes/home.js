@@ -17,16 +17,15 @@ router.get('/', wrap(async (req, res) => {
         books.push(StringBuilder.bookSpiller(points[i]['pontos'], points[i]['id']));
     }
     let allAchievements = await Achievement.list();
-    let missingAchievements = await AchievementUsuario.readMissingAchievements(11710372);
-    console.log(allAchievements);
-    console.log(missingAchievements);
+    let missingAchievements = await AchievementUsuario.readMissingAchievements(11710370);
     let achieveHTML = StringBuilder.shelfSpiller(allAchievements, missingAchievements);
     let achievePreviewHTML = StringBuilder.shelfPreviewSpiller(allAchievements, missingAchievements);
     let notPlacedItemsJson = await ItemUsuario.readNotPlacedItems(11710371);
     let notPlacedItems = StringBuilder.itemBoxSpiller(await ItemUsuario.readNotPlacedItems(11710371));
     let placedItemsJson = await ItemUsuario.readPlacedItems(11710371);
     let placedItems = StringBuilder.placedItemSpiller(await ItemUsuario.readPlacedItems(11710371));
-    console.log(StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370)));
+    let storeItems = StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370));
+    //console.log(StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370)))
     // Book pile string builder
     res.render('home', { titulo: 'Gamificação TECH',
         books: books,
@@ -35,7 +34,8 @@ router.get('/', wrap(async (req, res) => {
         notPlacedItemsJson: JSON.stringify(notPlacedItemsJson),
         notPlacedItems: notPlacedItems,
         placedItems: placedItems,
-        placedItemsJson: JSON.stringify(placedItemsJson) });
+        placedItemsJson: JSON.stringify(placedItemsJson),
+        storeItems: storeItems });
     //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 }));
 router.get('/pc', wrap(async (req, res) => {
