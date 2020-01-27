@@ -123,14 +123,14 @@ module.exports = class Usuario {
         });
         return res;
     }
-    static async buyObject(price, id) {
+    static async buyObject(price, ra) {
         let res;
-        let user = await this.read(id);
+        let user = await this.read(ra);
         if (user.moedas_usuario <= price)
             res = "Saldo Insuficiente";
         else {
             await Sql.conectar(async (sql) => {
-                await sql.query("UPDATE usuario SET moedas_usuario = (moedas_usuario - ?) where ra_usuario = ?", [price, id]);
+                await sql.query("UPDATE usuario SET moedas_usuario = (moedas_usuario - ?) where ra_usuario = ?", [price, ra]);
                 if (!sql.linhasAfetadas)
                     res = "Usuario não existe";
             });

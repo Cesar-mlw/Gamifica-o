@@ -85,6 +85,8 @@ router.post("/login", wrap(async (req: express.Request, res: express.Response) =
     }
 }))
 
+
+
 router.get("/logout", wrap(async (req: express.Request, res: express.Response) => {
     res.clearCookie("logged")
     res.redirect("/")
