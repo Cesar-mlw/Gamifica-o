@@ -28,7 +28,6 @@ module.exports = class StringBuilder {
     static shelfPreviewSpiller(all, miss) {
         let res = "";
         let p = Math.ceil(all.length / 3);
-        let counter = 0;
         for (let i = 0; i < p; i++) {
             if (p - 1 == i) {
                 let v = (i * 3) - all.length;
@@ -38,13 +37,11 @@ module.exports = class StringBuilder {
                     v = 0;
                 res += '<div class="estante-row-preview">';
                 for (let j = 0; j < 3 - v; j++) {
-                    if (miss.includes(all[counter])) {
+                    if (this.contains(miss, all[i].id_achievement)) {
                         res += '<div class="estante-item-preview missing-achievement"></div>';
-                        counter++;
                     }
                     else {
-                        res += '<div class="estante-item-preview" id="preview-achievement-' + counter + '"></div>';
-                        counter++;
+                        res += '<div class="estante-item-preview" id="preview-achievement-' + i + '"></div>';
                     }
                 }
                 res += '</div>';
@@ -52,13 +49,11 @@ module.exports = class StringBuilder {
             else if (i == 0) {
                 res += '<div class="estante-row-preview">';
                 for (let j = 0; j < 3; j++) {
-                    if (miss.includes(all[counter])) {
-                        res += '<div class="estante-item-preview missing-achievement" id="preview-achievement-' + counter + '"></div>';
-                        counter++;
+                    if (this.contains(miss, all[i].id_achievement)) {
+                        res += '<div class="estante-item-preview missing-achievement" id="preview-achievement-' + i + '"></div>';
                     }
                     else {
-                        res += '<div class="estante-item-preview" id="preview-achievement-' + counter + '"></div>';
-                        counter++;
+                        res += '<div class="estante-item-preview" id="preview-achievement-' + i + '"></div>';
                     }
                 }
                 res += '</div>';
@@ -66,13 +61,11 @@ module.exports = class StringBuilder {
             else {
                 res += '<div class="estante-row-preview">';
                 for (let j = 0; j < 3; j++) {
-                    if (miss.includes(all[counter])) {
-                        res += '<div class="estante-item-preview missing-achievement" id="preview-achievement-' + counter + '"></div>';
-                        counter++;
+                    if (this.contains(miss, all[i].id_achievement)) {
+                        res += '<div class="estante-item-preview missing-achievement" id="preview-achievement-' + i + '"></div>';
                     }
                     else {
-                        res += '<div class="estante-item-preview" id="preview-achievement-' + counter + '"></div>';
-                        counter++;
+                        res += '<div class="estante-item-preview" id="preview-achievement-' + i + '"></div>';
                     }
                 }
                 res += '</div>';
@@ -97,7 +90,6 @@ module.exports = class StringBuilder {
     static shelfSpiller(all, miss) {
         let res = "";
         let p = Math.ceil(all.length / 3);
-        let counter = 0;
         for (let i = 0; i < p; i++) {
             if (p - 1 == i) {
                 let v = (i * 3) - all.length;
@@ -107,14 +99,11 @@ module.exports = class StringBuilder {
                     v = 0;
                 res += '<div class="estante-body-bottom"><div class="estante-row">';
                 for (let j = 0; j < 3 - v; j++) {
-                    console.log(all.includes(miss[counter]));
-                    if (miss.includes(all[counter])) {
-                        res += '<div class="estante-item missing-achievement" id="achievement-' + counter + '"></div>';
-                        counter++;
+                    if (this.contains(miss, all[i].id_achievement)) {
+                        res += '<div class="estante-item missing-achievement" id="achievement-' + i + '"></div>';
                     }
                     else {
-                        res += '<div class="estante-item" id="achievement-' + counter + '"></div>';
-                        counter++;
+                        res += '<div class="estante-item" id="achievement-' + i + '"></div>';
                     }
                 }
                 res += '</div></div>';
@@ -122,13 +111,11 @@ module.exports = class StringBuilder {
             else if (i == 0) {
                 res += '<div class="estante-body-top"><div class="estante-row">';
                 for (let j = 0; j < 3; j++) {
-                    if (miss.includes(all[counter])) {
-                        res += '<div class="estante-item missing-achievement" id="achievement-' + counter + '"></div>';
-                        counter++;
+                    if (this.contains(miss, all[i].id_achievement)) {
+                        res += '<div class="estante-item missing-achievement" id="achievement-' + i + '"></div>';
                     }
                     else {
-                        res += '<div class="estante-item" id="achievement-' + counter + '"></div>';
-                        counter++;
+                        res += '<div class="estante-item" id="achievement-' + i + '"></div>';
                     }
                 }
                 res += '</div></div>';
@@ -136,13 +123,11 @@ module.exports = class StringBuilder {
             else {
                 res += '<div class="estante-body-bottom"><div class="estante-row">';
                 for (let j = 0; j < 3; j++) {
-                    if (miss.includes(all[counter])) {
-                        res += '<div class="estante-item missing-achievement" id="achievement-' + counter + '"></div>';
-                        counter++;
+                    if (this.contains(miss, all[i].id_achievement)) {
+                        res += '<div class="estante-item missing-achievement" id="achievement-' + i + '"></div>';
                     }
                     else {
-                        res += '<div class="estante-item" id="achievement-' + counter + '"></div>';
-                        counter++;
+                        res += '<div class="estante-item" id="achievement-' + i + '"></div>';
                     }
                 }
                 res += '</div></div>';
@@ -165,6 +150,14 @@ module.exports = class StringBuilder {
         </li>`;
         }
         return res;
+    }
+    static contains(array, item) {
+        let resp = false;
+        for (let i = 0; i < array.length; i++) {
+            if (array[i].id_achievement == item)
+                resp = true;
+        }
+        return resp;
     }
 };
 //# sourceMappingURL=stringBuilder.js.map

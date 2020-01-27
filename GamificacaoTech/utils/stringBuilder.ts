@@ -37,7 +37,6 @@ export = class StringBuilder {
     public static shelfPreviewSpiller(all: Achievement[], miss: Achievement[]): string{
         let res = ""
         let p = Math.ceil(all.length / 3)
-        let counter = 0
         for(let i = 0; i < p; i++){
             if(p - 1 == i){
                 let v = (i*3) - all.length
@@ -45,13 +44,11 @@ export = class StringBuilder {
                 if(v % 3 == 0) v = 0
                 res += '<div class="estante-row-preview">'
                 for(let j = 0; j < 3 - v; j++){
-                    if(this.contains(miss, all[counter].id_achievement)){
+                    if(this.contains(miss, all[i].id_achievement)){
                         res+= '<div class="estante-item-preview missing-achievement"></div>'
-                        counter++
                     }
                     else{
-                        res+= '<div class="estante-item-preview" id="preview-achievement-'+counter+'"></div>'
-                        counter++
+                        res+= '<div class="estante-item-preview" id="preview-achievement-'+i+'"></div>'
                     }
                     
                 }
@@ -60,13 +57,11 @@ export = class StringBuilder {
             else if(i == 0){
                 res += '<div class="estante-row-preview">'
                 for(let j = 0; j < 3; j++){
-                    if(miss.includes(all[counter])){
-                        res+= '<div class="estante-item-preview missing-achievement" id="preview-achievement-'+counter+'"></div>'
-                        counter++
+                    if(this.contains(miss, all[i].id_achievement)){
+                        res+= '<div class="estante-item-preview missing-achievement" id="preview-achievement-'+i+'"></div>'
                     }
                     else{
-                        res+= '<div class="estante-item-preview" id="preview-achievement-'+counter+'"></div>'
-                        counter++
+                        res+= '<div class="estante-item-preview" id="preview-achievement-'+i+'"></div>'
                     }
                 }
                 res += '</div>'
@@ -74,13 +69,11 @@ export = class StringBuilder {
             else{
                 res+= '<div class="estante-row-preview">'
                 for(let j = 0; j < 3; j++){
-                    if(miss.includes(all[counter])){
-                        res+= '<div class="estante-item-preview missing-achievement" id="preview-achievement-'+counter+'"></div>'
-                        counter++
+                    if(this.contains(miss, all[i].id_achievement)){
+                        res+= '<div class="estante-item-preview missing-achievement" id="preview-achievement-'+i+'"></div>'
                     }
                     else{
-                        res+= '<div class="estante-item-preview" id="preview-achievement-'+counter+'"></div>'
-                        counter++
+                        res+= '<div class="estante-item-preview" id="preview-achievement-'+i+'"></div>'
                     }
                 }
                 res += '</div>'
@@ -108,7 +101,6 @@ export = class StringBuilder {
     public static shelfSpiller(all: Achievement[], miss: Achievement[]): string{
         let res = ""
         let p = Math.ceil(all.length / 3)
-        let counter = 0
         for(let i = 0; i < p; i++){
             if(p - 1 == i){ 
                 let v = (i*3) - all.length
@@ -116,13 +108,11 @@ export = class StringBuilder {
                 if(v % 3 == 0) v = 0
                 res += '<div class="estante-body-bottom"><div class="estante-row">'
                 for(let j = 0; j < 3 - v; j++){
-                    if(this.contains(miss, all[counter].id_achievement)){
-                        res+= '<div class="estante-item missing-achievement" id="achievement-'+counter+'"></div>'
-                        counter++
+                    if(this.contains(miss, all[i].id_achievement)){
+                        res+= '<div class="estante-item missing-achievement" id="achievement-'+i+'"></div>'
                     }
                     else{
-                        res+= '<div class="estante-item" id="achievement-'+counter+'"></div>'
-                        counter++
+                        res+= '<div class="estante-item" id="achievement-'+i+'"></div>'
                     }
                     
                 }
@@ -131,13 +121,11 @@ export = class StringBuilder {
             else if(i == 0){
                 res += '<div class="estante-body-top"><div class="estante-row">'
                 for(let j = 0; j < 3; j++){
-                    if(miss.includes(all[counter])){
-                        res+= '<div class="estante-item missing-achievement" id="achievement-'+counter+'"></div>'
-                        counter++
+                    if(this.contains(miss, all[i].id_achievement)){
+                        res+= '<div class="estante-item missing-achievement" id="achievement-'+i+'"></div>'
                     }
                     else{
-                        res+= '<div class="estante-item" id="achievement-'+counter+'"></div>'
-                        counter++
+                        res+= '<div class="estante-item" id="achievement-'+i+'"></div>'
                     }
                 }
                 res += '</div></div>'
@@ -145,13 +133,11 @@ export = class StringBuilder {
             else{
                 res+= '<div class="estante-body-bottom"><div class="estante-row">'
                 for(let j = 0; j < 3; j++){
-                    if(miss.includes(all[counter])){
-                        res+= '<div class="estante-item missing-achievement" id="achievement-'+counter+'"></div>'
-                        counter++
+                    if(this.contains(miss, all[i].id_achievement)){
+                        res+= '<div class="estante-item missing-achievement" id="achievement-'+i+'"></div>'
                     }
                     else{
-                        res+= '<div class="estante-item" id="achievement-'+counter+'"></div>'
-                        counter++
+                        res+= '<div class="estante-item" id="achievement-'+i+'"></div>'
                     }
                 }
                 res += '</div></div>'
