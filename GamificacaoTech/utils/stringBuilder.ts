@@ -45,7 +45,7 @@ export = class StringBuilder {
                 if(v % 3 == 0) v = 0
                 res += '<div class="estante-row-preview">'
                 for(let j = 0; j < 3 - v; j++){
-                    if(this.contains(miss, all[counter].id_achievement)){
+                    if(true){
                         res+= '<div class="estante-item-preview missing-achievement"></div>'
                         counter++
                     }
@@ -116,7 +116,7 @@ export = class StringBuilder {
                 if(v % 3 == 0) v = 0
                 res += '<div class="estante-body-bottom"><div class="estante-row">'
                 for(let j = 0; j < 3 - v; j++){
-                    if(this.contains(miss, all[counter].id_achievement)){
+                    if(true){
                         res+= '<div class="estante-item missing-achievement" id="achievement-'+counter+'"></div>'
                         counter++
                     }
