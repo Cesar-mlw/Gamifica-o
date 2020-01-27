@@ -18,13 +18,15 @@ router.get('/', wrap(async (req, res) => {
     }
     let allAchievements = await Achievement.list();
     let missingAchievements = await AchievementUsuario.readMissingAchievements(11710372);
+    console.log(allAchievements);
+    console.log(missingAchievements);
     let achieveHTML = StringBuilder.shelfSpiller(allAchievements, missingAchievements);
     let achievePreviewHTML = StringBuilder.shelfPreviewSpiller(allAchievements, missingAchievements);
     let notPlacedItemsJson = await ItemUsuario.readNotPlacedItems(11710371);
     let notPlacedItems = StringBuilder.itemBoxSpiller(await ItemUsuario.readNotPlacedItems(11710371));
     let placedItemsJson = await ItemUsuario.readPlacedItems(11710371);
     let placedItems = StringBuilder.placedItemSpiller(await ItemUsuario.readPlacedItems(11710371));
-    console.log(StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370)));
+    //console.log(StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370)))
     // Book pile string builder
     res.render('home', { titulo: 'Gamificação TECH',
         books: books,
