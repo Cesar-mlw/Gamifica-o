@@ -1,6 +1,9 @@
 ﻿import Sql = require("../infra/sql");
 import Usuario = require("./Usuario");
 import TipoProjetoCount = require("./TipoProjetoCount");
+import ProjectTypeAchievement = require("./ProjectTypeAchievement");
+import Achievement = require("./Achievement");
+import AchievementUsuario = require("./AchievementUsuario");
 
 export = class Projeto {
   public id_projeto: number;
@@ -127,4 +130,43 @@ export = class Projeto {
 
     return res;
   }
+
+  public static async readProjectTypeAmmount(ra: number): Promise<ProjectTypeAchievement[]> {
+    let lista: ProjectTypeAchievement[];
+
+    await Sql.conectar(async (sql: Sql) => {
+      lista = await sql.query("select t.nome_tipo_projeto as `type_name`, count(p.id_tipo_projeto) as `ammount` from projeto p, tipo_projeto t  where ra_usuario = ? AND t.id_tipo_projeto = p.id_tipo_projeto group by p.id_tipo_projeto", [ra]) as ProjectTypeAchievement[];
+    });
+
+    return lista
+  }
+
+
+  public static async checkForAchievements(ra: number): Promise<ProjectTypeAchievement[]> {
+    let lista: ProjectTypeAchievement[] = await this.readProjectTypeAmmount(ra);
+    let missingAchievements: number[] = await AchievementUsuario.readMissingAchievementsId(ra);
+
+    await Sql.conectar(async (sql: Sql) => {
+      lista = await sql.query("select p.id_tipo_projeto as `type_id`, t.nome_tipo_projeto as `type_name`, count(p.id_tipo_projeto) as `ammount` from projeto p, tipo_projeto t  where ra_usuario = ? AND t.id_tipo_projeto = p.id_tipo_projeto group by p.id_tipo_projeto", [ra]) as ProjectTypeAchievement[];
+    });
+
+    for(let i = 0; i < lista.length; i++){
+      if(lista[i].ammount >= 5){
+        if(lista[i].ammount >= 10){
+
+        }
+        else{
+          
+        }
+      }
+      else {
+
+      }
+    }
+
+    return lista
+  }
+
+  
+
 };

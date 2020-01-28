@@ -15,8 +15,6 @@ export = class AchievementUsuario {
             resp = "ID do achievement não pode ser nulo\n"
         if(a.ra_usuario == null)
             resp += "RA do usuário não pode ser nulo"
-        if(a.dt_achievement == null)
-            resp += "data do achievement não pode ser nulo"
         return resp
     }
 
@@ -35,7 +33,7 @@ export = class AchievementUsuario {
 
         await Sql.conectar(async (sql: Sql) => {
             try {
-                await sql.query("insert into achievement_usuario (id_achievement, ra_usuario, dt_achievement) values (?, ?, ?)", [a.id_achievement, a.ra_usuario, a.dt_achievement])
+                await sql.query("insert into achievement_usuario (id_achievement, ra_usuario, dt_achievement) values (?, ?, NOW())", [a.id_achievement, a.ra_usuario])
             } catch (e) {
                 if (e.code && e.code === "ER_DUP_ENTRY")
                     res = `já está em uso`
@@ -72,6 +70,16 @@ export = class AchievementUsuario {
         
         await Sql.conectar(async (sql: Sql) => {
             lista = await sql.query("select a.id_achievement, a.id_area, a.nome_achievement, a.descricao_achievement, a.criterio_achievement, a.id_tipo_projeto_achievement from achievement a where a.id_achievement not in (SELECT id_achievement FROM achievement_usuario u where u.ra_usuario = ?)", [ra])
+        })
+
+        return lista
+    }
+
+    public static async readMissingAchievementsId(ra: number): Promise<number[]>{
+        let lista: number[] = null
+        
+        await Sql.conectar(async (sql: Sql) => {
+            lista = await sql.query("select a.id_achievement from achievement a where a.id_achievement not in (SELECT id_achievement FROM achievement_usuario u where u.ra_usuario = ?)", [ra])
         })
 
         return lista

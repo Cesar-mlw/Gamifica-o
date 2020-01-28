@@ -12,7 +12,7 @@ const router = express.Router();
 
 //import usuario
 router.get('/', wrap(async (req: express.Request, res: express.Response) => {//Declaração de rota
-    let points = await Usuario.readUserPoints(11710371)
+    let points = await Usuario.readUserPoints(11710370)
     let books = []
     for(let i = 0; i < points.length; i++){
         books.push(StringBuilder.bookSpiller(points[i]['pontos'], points[i]['id']))
@@ -21,10 +21,10 @@ router.get('/', wrap(async (req: express.Request, res: express.Response) => {//D
     let missingAchievements = await AchievementUsuario.readMissingAchievements(11710370)
     let achieveHTML = StringBuilder.shelfSpiller(allAchievements, missingAchievements)
     let achievePreviewHTML = StringBuilder.shelfPreviewSpiller(allAchievements, missingAchievements)
-    let notPlacedItemsJson = await ItemUsuario.readNotPlacedItems(11710371)
-    let notPlacedItems = StringBuilder.itemBoxSpiller(await ItemUsuario.readNotPlacedItems(11710371))
-    let placedItemsJson = await ItemUsuario.readPlacedItems(11710371)
-    let placedItems = StringBuilder.placedItemSpiller(await ItemUsuario.readPlacedItems(11710371))
+    let notPlacedItemsJson = await ItemUsuario.readNotPlacedItems(11710370)
+    let notPlacedItems = StringBuilder.itemBoxSpiller(await ItemUsuario.readNotPlacedItems(11710370))
+    let placedItemsJson = await ItemUsuario.readPlacedItems(11710370)
+    let placedItems = StringBuilder.placedItemSpiller(await ItemUsuario.readPlacedItems(11710370))
     // console.log(StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370)))
     // Book pile string builder
     res.render('home', { titulo: 'Gamificação TECH', 
