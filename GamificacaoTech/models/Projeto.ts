@@ -43,9 +43,7 @@ export = class Projeto {
 
   public static async create(p: Projeto): Promise<string> {
     let res: string;
-    console.log(p);
     if ((res = Projeto.validate(p))) return res;
-    console.log(p)
     await Sql.conectar(async (sql: Sql) => {
       try {
         await sql.query(
@@ -142,29 +140,26 @@ export = class Projeto {
   }
 
 
-  public static async checkForAchievements(ra: number): Promise<ProjectTypeAchievement[]> {
-    let lista: ProjectTypeAchievement[] = await this.readProjectTypeAmmount(ra);
-    let missingAchievements: number[] = await AchievementUsuario.readMissingAchievementsId(ra);
-
+  public static async checkForAchievements(ra: number, id: number): Promise<Achievement[]> {
+    let achieved: Achievement[] = null;
     await Sql.conectar(async (sql: Sql) => {
-      lista = await sql.query("select p.id_tipo_projeto as `type_id`, t.nome_tipo_projeto as `type_name`, count(p.id_tipo_projeto) as `ammount` from projeto p, tipo_projeto t  where ra_usuario = ? AND t.id_tipo_projeto = p.id_tipo_projeto group by p.id_tipo_projeto", [ra]) as ProjectTypeAchievement[];
+      achieved = await sql.query(`select * from achievement a 
+      where not exists (select a.id_achievement from achievement_usuario u, achievement a 
+                where ra_usuario = ? 
+                        and a.id_tipo_projeto_achievement = ? 
+                        and a.id_achievement = u.id_achievement
+                        and (select count(*) from projeto where ra_usuario = ? AND id_tipo_projeto = ?) = a.criterio_achievement) 
+      and  id_tipo_projeto_achievement = ?
+      and (select count(*) from projeto where ra_usuario = ? AND id_tipo_projeto = ?) = a.criterio_achievement`, [ra, id, ra, id, id, ra, id]) as Achievement[];
     });
-
-    for(let i = 0; i < lista.length; i++){
-      if(lista[i].ammount >= 5){
-        if(lista[i].ammount >= 10){
-
-        }
-        else{
-          
-        }
-      }
-      else {
-
+    if(achieved.length > 0){
+      
+      let e = await AchievementUsuario.create(ra, achieved[0].id_achievement)
+      if(e){
+        throw(e)
       }
     }
-
-    return lista
+    return achieved
   }
 
   

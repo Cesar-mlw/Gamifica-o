@@ -1,22 +1,26 @@
 ﻿import express = require("express")
 import wrap = require("express-async-error-wrapper");
 import Projeto = require("../../models/Projeto");
+import Achievement = require("../../models/Achievement");
 
 const router = express.Router()
 
 
 router.post("/create", wrap(async (req: express.Request, res: express.Response) => {
     let p = req.body as Projeto
-    console.log(p)
     let erro = await Projeto.create(p)
-    console.log(req.body)
-
+    let achievement = await Projeto.checkForAchievements(p.ra_usuario, p.id_tipo_projeto)
     if (erro) {
         res.statusCode = 400
         res.json(erro)
     }
     else {
-        res.json("Projeto criado")
+        if(achievement.length > 0){
+            res.json(achievement)
+        }
+        else{
+            res.json("Projeto criado")
+        }
     }
 
 }))
@@ -46,6 +50,7 @@ router.post("/read", wrap(async (req: express.Request, res: express.Response) =>
     let p = await Projeto.read(ra)
     res.json(p)
 }))
+
 
 router.post("/readTipoProjetoCount", wrap(async (req: express.Request, res: express.Response) => {
     let ra = req.body.ra
