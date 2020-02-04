@@ -41,7 +41,7 @@ INSERT INTO tipo_habilidade (nome_tipo_habilidade) VALUES ("Experiência Profiss
 -- USUARIO TABLE
 
 INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, dt_entrada_usuario, senha_usuario, isAdmin, moedas_usuario) VALUES (11710370, 1, "Cesar Moura Leite Westphal", "cesarmlwestphal@acad.espm.br", "2017/02/01", "Heeloo", FALSE, 0);
-INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, dt_entrada_usuario, senha_usuario, isAdmin, moedas_usuario) VALUES (11710370, 1, "Flávio Marques Azevedo", "fmarques@acad.espm.br", "2018/02/01", "Heeloo", TRUE, 80.5);
+INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, dt_entrada_usuario, senha_usuario, isAdmin, moedas_usuario) VALUES (11710371, 1, "Flávio Marques Azevedo", "fmarques@acad.espm.br", "2018/02/01", "Heeloo", TRUE, 80.5);
 INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, dt_entrada_usuario, senha_usuario, isAdmin, moedas_usuario) VALUES (11710372, 1, "Carlos Rafael", "crafael@acad.espm.br", "2017/06/01", "Heeloo", TRUE, 32);
 
 -- ITEM_USUARIO TABLE

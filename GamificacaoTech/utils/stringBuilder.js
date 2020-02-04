@@ -160,7 +160,7 @@ module.exports = class StringBuilder {
                 let terminoDate = projects[i].dt_termino_projeto;
                 let terminoDateString = String(terminoDate.getDate()).padStart(2, '0') + "/" + String(terminoDate.getMonth() + 1).padStart(2, '0') + "/" + terminoDate.getFullYear();
             }
-            res += `<li class="port-item">
+            res += `<li class="port-item" data-id="${projects[i].id_projeto}">
             <div class="port-item-upper">
                 <div class="port-submit-date">${startingDateString}</div>
                 <span class="speech-bubble-tri"></span>
@@ -177,7 +177,7 @@ module.exports = class StringBuilder {
                 </div>
             </div>
             <div class="port-item-edit-addon">
-                <button class="port-item-edit-button" onclick="editarPortItem()">Edit Project</button>
+                <button class="port-item-edit-button" onclick="editarPortItem(${projects[i].id_projeto})">Edit Project</button>
             </div>
         </li>`;
         }
