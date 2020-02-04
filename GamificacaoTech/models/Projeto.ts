@@ -101,14 +101,16 @@ export = class Projeto {
 
     await Sql.conectar(async (sql: Sql) => {
       await sql.query(
-        "update projeto set id_tipo_projeto = ?, nome_projeto = ?, id_area = ?, descricao_projeto = ?, exibir_projeto = ? where ra_usuario = ?",
+        "update projeto set id_tipo_projeto = ?, nome_projeto = ?, id_area = ?, descricao_projeto = ?, exibir_projeto = ? where ra_usuario = ? and id_projeto = ?",
         [
           p.id_tipo_projeto,
           p.nome_projeto,
           p.id_area,
           p.descricao_projeto,
+          p.exibir_projeto,
           p.ra_usuario,
-          p.exibir_projeto
+          p.id_projeto
+          
         ]
       );
       if (!sql.linhasAfetadas)
