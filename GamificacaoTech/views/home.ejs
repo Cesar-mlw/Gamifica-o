@@ -303,7 +303,54 @@
     function editarPortItem(){
         $('.browser-content-overlay').addClass('browser-content-overlay--after');
         $('.port-item-edit-modal').addClass('port-item-edit-modal--after');
-        // $('.os-window').css("overflow", "hidden");
+        
+    }
+
+    function closePortItem(){
+        $('.browser-content-overlay').removeClass('browser-content-overlay--after');
+        $('.port-item-edit-modal').removeClass('port-item-edit-modal--after');
+    }
+
+    function savePortItem(){
+        let url = "/api/projeto/update"
+        let form = {
+            id_item_usuario: itemClicado.id_item_usuario,
+            cellx: 0,
+            celly: 0
+        }
+        $.ajax({
+            method: "post",
+            url: url,
+            data: form,
+            dataType: "json",
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        })
+    }
+
+    function deletePortItem(){
+        let url = "/api/projeto/delete"
+        let form = {
+            idProjeto: itemClicado.id_item_usuario,
+            cellx: 0,
+            celly: 0
+        }
+        $.ajax({
+            method: "post",
+            url: url,
+            data: form,
+            dataType: "json",
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        })
     }
 
     function editMode(){
