@@ -175,7 +175,7 @@ export = class StringBuilder {
                 let terminoDate: Date = projects[i].dt_termino_projeto
                 let terminoDateString: String = String(terminoDate.getDate()).padStart(2, '0') + "/" + String(terminoDate.getMonth() + 1).padStart(2, '0') + "/" + terminoDate.getFullYear();
             }
-            res += `<li class="port-item">
+            res += `<li class="port-item" data-id="${projects[i].id_projeto}">
             <div class="port-item-upper">
                 <div class="port-submit-date">${startingDateString}</div>
                 <span class="speech-bubble-tri"></span>
