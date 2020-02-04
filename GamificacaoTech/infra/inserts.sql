@@ -41,15 +41,15 @@ INSERT INTO tipo_habilidade (nome_tipo_habilidade) VALUES ("Experiência Profiss
 -- USUARIO TABLE
 
 INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, dt_entrada_usuario, senha_usuario, isAdmin, moedas_usuario) VALUES (11710370, 1, "Cesar Moura Leite Westphal", "cesarmlwestphal@acad.espm.br", "2017/02/01", "Heeloo", FALSE, 0);
-INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, dt_entrada_usuario, senha_usuario, isAdmin, moedas_usuario) VALUES (11710371, 1, "Flávio Marques Azevedo", "fmarques@acad.espm.br", "2018/02/01", "Heeloo", TRUE, 80.5);
+INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, dt_entrada_usuario, senha_usuario, isAdmin, moedas_usuario) VALUES (11710370, 1, "Flávio Marques Azevedo", "fmarques@acad.espm.br", "2018/02/01", "Heeloo", TRUE, 80.5);
 INSERT INTO usuario(ra_usuario, id_curso, nome_usuario, email_usuario, dt_entrada_usuario, senha_usuario, isAdmin, moedas_usuario) VALUES (11710372, 1, "Carlos Rafael", "crafael@acad.espm.br", "2017/06/01", "Heeloo", TRUE, 32);
 
 -- ITEM_USUARIO TABLE
 -- Usuário de RA = 11710372 não possui itens
 INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710370, 1, "2018/02/01", 0, 0, 2, 3, FALSE);
-INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710371, 2, "2019/05/15", 0, 0, 2, 3, FALSE);
-INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710371, 3, "2018/08/15", 0, 0, 2, 3, FALSE);
-INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710371, 4, "2018/08/15", 0, 0, 2, 2, TRUE);
+INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710370, 2, "2019/05/15", 0, 0, 2, 3, FALSE);
+INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710370, 3, "2018/08/15", 0, 0, 2, 3, FALSE);
+INSERT INTO item_usuario(ra_usuario, id_item, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (11710370, 4, "2018/08/15", 0, 0, 2, 2, TRUE);
 
 -- ACHIEVEMENT TABLE
 
@@ -61,13 +61,13 @@ INSERT INTO achievement (nome_achievement, criterio_achievement,descricao_achiev
 -- ACHIEVEMENT_USUARIO TABLE
 -- Usuário de RA = 11710372 não possui achievements
 INSERT INTO achievement_usuario (id_achievement, ra_usuario, dt_achievement, destaque_achievement) VALUES (1, 11710370, "2017/09/15", 0);    
-INSERT INTO achievement_usuario (id_achievement, ra_usuario, dt_achievement, destaque_achievement) VALUES (1, 11710371, "2018/07/15", 0);    
-INSERT INTO achievement_usuario (id_achievement, ra_usuario, dt_achievement, destaque_achievement) VALUES (2, 11710371, "2019/02/15", 0);
+INSERT INTO achievement_usuario (id_achievement, ra_usuario, dt_achievement, destaque_achievement) VALUES (1, 11710370, "2018/07/15", 0);    
+INSERT INTO achievement_usuario (id_achievement, ra_usuario, dt_achievement, destaque_achievement) VALUES (2, 11710370, "2019/02/15", 0);
 
 -- HABILIDADE TABLE
 -- Usuário de RA = 11710372 não possui habildades
 INSERT INTO habilidade (nome_habilidade, ra_usuario, id_tipo_habilidade) VALUES ("Javascript", 11710370, 3);
-INSERT INTO habilidade (nome_habilidade, ra_usuario, id_tipo_habilidade) VALUES ("R", 11710371, 3);
+INSERT INTO habilidade (nome_habilidade, ra_usuario, id_tipo_habilidade) VALUES ("R", 11710370, 3);
 INSERT INTO habilidade (nome_habilidade, ra_usuario, id_tipo_habilidade) VALUES ("Python", 11710370, 3);
 
 -- PROJETO TABLE

@@ -255,7 +255,7 @@
                 console.log(data);
                 let res = ""
                 for(let i = 0; i < data.length; i++){
-                    res+= `<li class="bcl-item" id="loja-item-${datd[i].id_item}">
+                    res+= `<li class="bcl-item" id="loja-item-${data[i].id_item}">
                     <div class="bcl-item-body">
                         <img src=${data[i].img_url_item}>
                     </div>
@@ -298,6 +298,12 @@
                 console.log(e)
             }
         })
+    }
+
+    function editarPortItem(){
+        $('.browser-content-overlay').addClass('browser-content-overlay--after');
+        $('.port-item-edit-modal').addClass('port-item-edit-modal--after');
+        // $('.os-window').css("overflow", "hidden");
     }
 
     function editMode(){
@@ -399,7 +405,6 @@
     }
     
     $(document).ready(function(){
-
         $("#account-header-button").click(function(){
              $(".account-modal-wrapper").fadeToggle(200);
         });
