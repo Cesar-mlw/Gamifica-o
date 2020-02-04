@@ -60,8 +60,11 @@ router.get('/formTest', wrap(async (req: express.Request, res: express.Response)
 
 router.get('/portifolio', wrap(async (req: express.Request, res: express.Response) => {
     let projetos = await Projeto.read(11710370)
+    let projetosHTML = StringBuilder.projectSpiller(await Projeto.read(11710370))
+    console.log(projetosHTML);
     res.render('portifolio', { layout:'layoutVazio',
-                            projetos: projetos})//renderizar a tela
+                                projetos: projetos,
+                                projetosHTML: projetosHTML})//renderizar a tela
 }));
 
 router.get('/curriculo', wrap(async (req: express.Request, res: express.Response) => {

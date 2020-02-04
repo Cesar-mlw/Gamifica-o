@@ -151,6 +151,28 @@ module.exports = class StringBuilder {
         }
         return res;
     }
+    static projectSpiller(projects) {
+        let res = "";
+        for (let i = 0; i < projects.length; i++) {
+            let startingDate = projects[i].dt_comeco_projeto;
+            let startingDateString = String(startingDate.getDate()).padStart(2, '0') + "/" + String(startingDate.getMonth() + 1).padStart(2, '0') + "/" + startingDate.getFullYear();
+            if (projects[i].dt_termino_projeto != null) {
+                let terminoDate = projects[i].dt_termino_projeto;
+                let terminoDateString = String(terminoDate.getDate()).padStart(2, '0') + "/" + String(terminoDate.getMonth() + 1).padStart(2, '0') + "/" + terminoDate.getFullYear();
+            }
+            res += `<li class="bcl-item" data-id=${projects[i].id_projeto}>
+            <div class="bcl-item-body">
+                <img src="../public/images/post-4.jpg" alt="">
+                <button class="mdc-icon-button material-icons" style="position: absolute;right: 5px;top: 5px;">edit</button>
+            </div>
+            <div class="bcl-item-header">
+                <div class="bcl-title">${projects[i].nome_projeto}</div>
+                <div class="bcl-date">${startingDateString}</div>
+            </div>
+        </li>`;
+        }
+        return res;
+    }
     static contains(array, item) {
         let resp = false;
         for (let i = 0; i < array.length; i++) {

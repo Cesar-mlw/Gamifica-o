@@ -14,7 +14,8 @@ export = class Projeto {
   public terminado_projeto: boolean;
   public nome_projeto: string;
   public descricao_projeto: string;
-  public dt_termino_projeto: string;
+  public dt_termino_projeto: Date;
+  public exibir_projeto: boolean
 
   public static validate(p: Projeto): string {
     let resp: string;
@@ -34,7 +35,7 @@ export = class Projeto {
 
     await Sql.conectar(async (sql: Sql) => {
       lista = (await sql.query(
-        "select p.nome_projeto, p.descricao_projeto, p.terminado_projeto, p.dt_comeco_projeto, p.ra_usuario, p.id_tipo_projeto, t.nome_tipo_projeto, t.pontos_tipo_projeto, a.nome_area, p.id_area, dt_termino_projeto from projeto p, tipo_projeto t, area a where t.id_tipo_projeto = p.id_tipo_projeto and a.id_area = p.id_area"
+        "select p.nome_projeto, p.descricao_projeto, p.terminado_projeto, p.dt_comeco_projeto, p.ra_usuario, p.id_tipo_projeto, t.nome_tipo_projeto, t.pontos_tipo_projeto, a.nome_area, p.id_area, dt_termino_projeto, p.exibir_projeto from projeto p, tipo_projeto t, area a where t.id_tipo_projeto = p.id_tipo_projeto and a.id_area = p.id_area"
       )) as Projeto[];
     });
 
@@ -47,7 +48,7 @@ export = class Projeto {
     await Sql.conectar(async (sql: Sql) => {
       try {
         await sql.query(
-          "insert into projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) values (?, ?, ?, ?, ?, ?, ?, ?)",
+          "insert into projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto, exibir_projeto) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
           [
             p.id_tipo_projeto,
             p.ra_usuario,
@@ -56,7 +57,8 @@ export = class Projeto {
             p.terminado_projeto,
             p.nome_projeto,
             p.descricao_projeto,
-            p.dt_termino_projeto
+            p.dt_termino_projeto,
+            p.exibir_projeto
           ]
         );
       } catch (e) {
@@ -69,17 +71,17 @@ export = class Projeto {
     return res;
   }
 
-  public static async read(ra: number): Promise<Projeto> {
+  public static async read(ra: number): Promise<Projeto[]> {
     let lista: Projeto[] = null;
 
     await Sql.conectar(async (sql: Sql) => {
       lista = (await sql.query(
-        "select p.nome_projeto, p.descricao_projeto, p.terminado_projeto, p.dt_comeco_projeto, p.ra_usuario, p.id_tipo_projeto, t.nome_tipo_projeto, t.pontos_tipo_projeto, a.nome_area, p.id_area, p.dt_termino_projeto from projeto p, tipo_projeto t, area a where t.id_tipo_projeto = p.id_tipo_projeto and a.id_area = p.id_area and p.ra_usuario = ?",
+        "select p.nome_projeto, p.descricao_projeto, p.terminado_projeto, p.dt_comeco_projeto, p.ra_usuario, p.id_tipo_projeto, t.nome_tipo_projeto, t.pontos_tipo_projeto, a.nome_area, p.id_area, p.dt_termino_projeto, p.exibir_projeto from projeto p, tipo_projeto t, area a where t.id_tipo_projeto = p.id_tipo_projeto and a.id_area = p.id_area and p.ra_usuario = ?",
         [ra]
       )) as Projeto[];
     });
 
-    return (lista && lista[0]) || null;
+    return lista
   }
 
   public static async readTipoProjetoCounts(ra: number): Promise<TipoProjetoCount[]> {
@@ -99,16 +101,14 @@ export = class Projeto {
 
     await Sql.conectar(async (sql: Sql) => {
       await sql.query(
-        "update projeto set id_tipo_projeto = ?, nome_projeto = ?, id_area = ?, dt_termino_projeto = ?, descricao_projeto = ?, dt_comeco_projeto = ?, terminado_projeto = ? where ra_usuario = ?",
+        "update projeto set id_tipo_projeto = ?, nome_projeto = ?, id_area = ?, descricao_projeto = ?, exibir_projeto = ? where ra_usuario = ?",
         [
           p.id_tipo_projeto,
           p.nome_projeto,
           p.id_area,
-          p.dt_termino_projeto,
           p.descricao_projeto,
-          p.dt_comeco_projeto,
-          p.terminado_projeto,
-          p.ra_usuario
+          p.ra_usuario,
+          p.exibir_projeto
         ]
       );
       if (!sql.linhasAfetadas)
