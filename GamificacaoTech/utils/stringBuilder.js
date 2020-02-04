@@ -153,6 +153,7 @@ module.exports = class StringBuilder {
     }
     static projectSpiller(projects) {
         let res = "";
+        console.log(projects);
         for (let i = 0; i < projects.length; i++) {
             let startingDate = projects[i].dt_comeco_projeto;
             let startingDateString = String(startingDate.getDate()).padStart(2, '0') + "/" + String(startingDate.getMonth() + 1).padStart(2, '0') + "/" + startingDate.getFullYear();
