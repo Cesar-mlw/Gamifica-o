@@ -13,7 +13,7 @@
           display:none;
       }
     
-      #check:checked ~ #datepicker2{
+      #check-concluido:checked ~ #datepicker2{
           display:block;
       }
 </style>
@@ -53,12 +53,12 @@
                     <form class="port-item-edit-modal-content" id="port-item-edit-form" action="">
                         <input id="port-item-id" type="number" value="" hidden>
                         <span class="port-item-edit-upper">
-                            <input class="port-input" maxlength="150" type="text" placeholder="Nome do Projeto" required>
-                            <textarea class="port-input" maxlength="250" placeholder="Descrição do Projeto" rows="3" style="resize: none;" required></textarea>
+                            <input id="project-name" class="port-input" maxlength="150" type="text" placeholder="Nome do Projeto" required>
+                            <textarea id="project-desc" class="port-input" maxlength="250" placeholder="Descrição do Projeto" rows="3" style="resize: none;" required></textarea>
                             <span class="tooltip-holder" style="position: relative; display: flex; justify-content: center;">
                                 <span class="tooltip-helper" style="position: relative;">
                                     <span class="select-label material-icons">more</span>
-                                    <select class="port-select" name="" id="" placeholder="Área do Projeto" required>
+                                    <select class="port-select" name="" id="project-area" placeholder="Área do Projeto" required>
                                         <option disabled="" selected="" hidden="">Área do Projeto</option>
                                         <%-listaArea%>
                                     </select>
@@ -67,14 +67,14 @@
                             <span class="tooltip-holder" style="position: relative; display: flex; justify-content: center;">
                                 <span class="tooltip-helper" style="position: relative;">
                                     <span class="select-label material-icons">more</span>
-                                    <select class="port-select" name="" id="" placeholder="Área do Projeto" required>
+                                    <select class="port-select" name="" id="project-type" placeholder="Área do Projeto" required>
                                         <option disabled selected hidden>Tipo de projeto</option>
                                         <%-listaTipoProjeto%>
                                     </select>
                                 </span>
                             </span>
                             <input type="text" class="port-input" placeholder="Data de Início do Projeto" name="" id="datepicker" required>
-                            <input id="check" class="css-checkbox" type="checkbox" name="check" value="check">
+                            <input id="check-concluido" class="css-checkbox" type="checkbox" name="check" value="check">
                             <label for="check" class="css-label">Projeto Concluído</label>
                             <input type="text" class="port-input" placeholder="Data de Conclusão do Projeto" name="" id="datepicker2">
                         </span>

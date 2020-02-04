@@ -303,7 +303,7 @@
     function editarPortItem(idProjeto){
         $('.browser-content-overlay').addClass('browser-content-overlay--after');
         $('.port-item-edit-modal').addClass('port-item-edit-modal--after');
-        $('#port-item-id').attr('value', ''+idProjeto+'');
+        $('#port-item-id').attr('value', idProjeto);
     }
 
     function closePortItem(){
@@ -312,11 +312,26 @@
     }
 
     function savePortItem(){
+        var areaProjeto = $('#project-area').val();
+        var tipoProjeto = $('#project-type').val();
+        var nomeProjeto = $('#project-name').val();
+        var descProjeto = $('#project-desc').val();
+        var conclProjeto = $('#check-concluido').val();
+        var inicioProjeto = $('#datepicker').val();
+        var fimProjeto = $('#datepicker2').val();
+        var idProjeto = $('#port-item-id').val();
+
         let url = "/api/projeto/update"
         let form = {
-            id_item_usuario: itemClicado.id_item_usuario,
-            cellx: 0,
-            celly: 0
+            ra_usuario: 11710370,
+            id_projeto: idProjeto,
+            id_tipo_projeto: tipoProjeto,
+            nome_projeto: nomeProjeto,
+            id_area: areaProjeto,
+            dt_termino_projeto: fimProjeto,
+            descricao_projeto: descProjeto,
+            dt_comeco_projeto: inicioProjeto,
+            terminado_projeto: conclProjeto
         }
         $.ajax({
             method: "post",
@@ -333,11 +348,11 @@
     }
 
     function deletePortItem(){
+        var idProjeto = $('#port-item-id').val();
+
         let url = "/api/projeto/delete"
         let form = {
-            idProjeto: itemClicado.id_item_usuario,
-            cellx: 0,
-            celly: 0
+            id_projeto: idProjeto
         }
         $.ajax({
             method: "post",
