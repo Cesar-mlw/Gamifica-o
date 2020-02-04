@@ -160,16 +160,40 @@ module.exports = class StringBuilder {
                 let terminoDate = projects[i].dt_termino_projeto;
                 let terminoDateString = String(terminoDate.getDate()).padStart(2, '0') + "/" + String(terminoDate.getMonth() + 1).padStart(2, '0') + "/" + terminoDate.getFullYear();
             }
-            res += `<li class="bcl-item" data-id=${projects[i].id_projeto}>
-            <div class="bcl-item-body">
-                <img src="../public/images/post-4.jpg" alt="">
-                <button class="mdc-icon-button material-icons" style="position: absolute;right: 5px;top: 5px;">edit</button>
+            res += `<li class="port-item">
+            <div class="port-item-upper">
+                <div class="port-submit-date">${startingDateString}</div>
+                <span class="speech-bubble-tri"></span>
             </div>
-            <div class="bcl-item-header">
-                <div class="bcl-title">${projects[i].nome_projeto}</div>
-                <div class="bcl-date">${startingDateString}</div>
+            <div class="port-item-lower">
+                <div class="port-item-header">
+                    <img  class="port-item-pic" src="https://cdn.glitch.com/project-avatar/92d725da-5ec6-467d-959f-79cf20b8b93c.png?2016-12-15T20:01:33.811Z" alt="">
+                    <div class="port-item-title">${projects[i].nome_projeto}</div>
+                </div>
+                <div class="port-item-desc">
+                    <div class="port-desc-text">
+                        ${projects[i].descricao_projeto}
+                    </div>
+                </div>
+            </div>
+            <div class="port-item-edit-addon">
+                <button class="port-item-edit-button" onclick="editarPortItem()">Edit Project</button>
             </div>
         </li>`;
+        }
+        return res;
+    }
+    static areaSpiller(areas) {
+        let res = "";
+        for (let i = 0; i < areas.length; i++) {
+            res += `<option value="${areas[i].id_area}">${areas[i].nome_area}</option>`;
+        }
+        return res;
+    }
+    static tipoProjetoSpiller(tipoProjetos) {
+        let res = "";
+        for (let i = 0; i < tipoProjetos.length; i++) {
+            res += `<option value="${tipoProjetos[i].id_tipo_projeto}">${tipoProjetos[i].nome_tipo_projeto}</option>`;
         }
         return res;
     }
