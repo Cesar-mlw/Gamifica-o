@@ -300,10 +300,10 @@
         })
     }
 
-    function editarPortItem(){
+    function editarPortItem(idProjeto){
         $('.browser-content-overlay').addClass('browser-content-overlay--after');
         $('.port-item-edit-modal').addClass('port-item-edit-modal--after');
-        
+        $('#port-item-id').attr('value', ''+idProjeto+'');
     }
 
     function closePortItem(){

@@ -193,7 +193,7 @@ export = class StringBuilder {
                 </div>
             </div>
             <div class="port-item-edit-addon">
-                <button class="port-item-edit-button" onclick="editarPortItem()">Edit Project</button>
+                <button class="port-item-edit-button" onclick="editarPortItem(${projects[i].id_projeto})">Edit Project</button>
             </div>
         </li>`
         }
