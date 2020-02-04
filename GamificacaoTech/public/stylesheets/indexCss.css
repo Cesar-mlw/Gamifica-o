@@ -962,8 +962,9 @@ opacity: 1;
 
 .port-item-edit-modal--after{
     display: block;
-    top: 40%;
+    top: 20%;
     min-width: 85%;
+    max-width: 85%;
     left: 7.5%;
 }
 
@@ -1579,6 +1580,7 @@ opacity: 1;
     }
 
     .port-item-edit-modal--after{
+        top: 25%;
         left: 26%;
         min-width: 50%;
     }

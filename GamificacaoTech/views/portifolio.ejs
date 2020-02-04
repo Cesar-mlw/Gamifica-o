@@ -1,3 +1,22 @@
+<style>
+    label.css-label {
+        background-image: url(http://www.csscheckbox.com/checkboxes/u/csscheckbox_f8d40671eec752c2a075981314745ffa.png);
+        background-position: 0 0;
+        background-size: 12px;
+    }
+
+    input[type=checkbox].css-checkbox:checked + label.css-label {
+        background-position: 0 -12px;
+    }
+
+    #datepicker2 {
+          display:none;
+      }
+    
+      #check:checked ~ #datepicker2{
+          display:block;
+      }
+</style>
 <span class="window-title">Portfólio</span>
 
 <div class="browser-window">
@@ -49,14 +68,15 @@
                 </div>
                 <span class="browser-content-overlay"></span>
                 <div class="port-item-edit-modal">
+                    <button style="content: "\2715";" ></button>
                     <form class="port-item-edit-modal-content" action="">
                         <span class="port-item-edit-upper">
-                            <input class="port-input" type="text" placeholder="Nome do Projeto">
-                            <textarea class="port-input" placeholder="Descrição do Projeto" rows="3" style="resize: none;"></textarea>
+                            <input class="port-input" maxlength="150" type="text" placeholder="Nome do Projeto" required>
+                            <textarea class="port-input" maxlength="250" placeholder="Descrição do Projeto" rows="3" style="resize: none;" required></textarea>
                             <span class="tooltip-holder" style="position: relative; display: flex; justify-content: center;">
                                 <span class="tooltip-helper" style="position: relative;">
                                     <span class="select-label material-icons">more</span>
-                                    <select class="port-select" name="" id="" placeholder="Área do Projeto">
+                                    <select class="port-select" name="" id="" placeholder="Área do Projeto" required>
                                         <option disabled="" selected="" hidden="">Área do Projeto</option>
                                         <option value="1">Games</option>
                                         <option value="2">BI</option>
@@ -68,7 +88,7 @@
                             <span class="tooltip-holder" style="position: relative; display: flex; justify-content: center;">
                                 <span class="tooltip-helper" style="position: relative;">
                                     <span class="select-label material-icons">more</span>
-                                    <select class="port-select" name="" id="" placeholder="Área do Projeto">
+                                    <select class="port-select" name="" id="" placeholder="Área do Projeto" required>
                                         <option disabled selected hidden>Tipo de projeto</option>
                                         <option value="1">NAEC</option>
                                         <option value="2">Matéria 36H</option>
@@ -79,6 +99,10 @@
                                     </select>
                                 </span>
                             </span>
+                            <input type="text" class="port-input" placeholder="Data de Início do Projeto" name="" id="datepicker" required>
+                            <input id="check" class="css-checkbox" type="checkbox" name="check" value="check">
+                            <label for="check" class="css-label">Projeto Concluído</label>
+                            <input type="text" class="port-input" placeholder="Data de Conclusão do Projeto" name="" id="datepicker2">
                         </span>
                         <span class="port-item-edit-lower">
                             <button class="port-item-edit-button" onclick="savePortItem()">Save Project</button>
@@ -89,7 +113,65 @@
             </div>
         </div>
     </div>
-
 </div>
+
+<script>
+    $(document).ready(function(){
+        var brDate = {
+            previousMonth : 'Mês Anterior',
+            nextMonth     : 'Mês Seguinte',
+            months        : ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','dezembro'],
+            weekdays      : ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+            weekdaysShort : ['Dom','Seg','Ter','Qua','Qui','Sex','Sab']
+        };
+
+        var picker = new Pikaday({
+            field: document.getElementById('datepicker'),
+            maxDate: new Date(),
+            onSelect: function() {
+                picker2.setMinDate(this.getDate());
+            },
+            i18n: brDate,
+            format: 'D/M/YYYY',
+            toString(date, format) {
+                const day = date.getDate();
+                const month = date.getMonth() + 1;
+                const year = date.getFullYear();
+                return `${day}/${month}/${year}`;
+            },
+            parse(dateString, format) {
+                const parts = dateString.split('/');
+                const day = parseInt(parts[0], 10);
+                const month = parseInt(parts[1], 10) - 1;
+                const year = parseInt(parts[2], 10);
+                return new Date(year, month, day);
+            }
+        });
+
+        var picker2 = new Pikaday({
+            field: document.getElementById('datepicker2'),
+            maxDate: new Date(),
+            onSelect: function() {
+                picker.setMaxDate(this.getDate());
+            },
+            i18n: brDate,
+            format: 'D/M/YYYY',
+            toString(date, format) {
+                const day = date.getDate();
+                const month = date.getMonth() + 1;
+                const year = date.getFullYear();
+                return `${day}/${month}/${year}`;
+            },
+            parse(dateString, format) {
+                const parts = dateString.split('/');
+                const day = parseInt(parts[0], 10);
+                const month = parseInt(parts[1], 10) - 1;
+                const year = parseInt(parts[2], 10);
+                return new Date(year, month, day);
+            }
+        });
+
+    });
+</script>
 
 
