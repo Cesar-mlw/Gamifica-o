@@ -4,6 +4,9 @@ import ItemUsuario = require("../models/ItemUsuario")
 import ItemItemUsuario = require("../models/ItemItemUsuarioJoin")
 import Item = require("../models/Item")
 import { CLIENT_RENEG_LIMIT } from "tls"
+import Projeto = require("../models/Projeto")
+import Area = require("../models/Area")
+import TipoProjeto = require("../models/TipoProjeto")
 
 
 export = class StringBuilder {
@@ -159,6 +162,59 @@ export = class StringBuilder {
                 <div class="item-price">${item[i].preco_item}</div>
             </div>
         </li>`
+        }
+
+        return res
+    }
+    public static projectSpiller(projects: Projeto[]): string {
+        let res: string = ""
+        for(let i = 0; i < projects.length; i++){
+            let startingDate: Date = projects[i].dt_comeco_projeto
+            let startingDateString: String = String(startingDate.getDate()).padStart(2, '0') + "/" + String(startingDate.getMonth() + 1).padStart(2, '0') + "/" + startingDate.getFullYear();
+            if(projects[i].dt_termino_projeto != null){
+                let terminoDate: Date = projects[i].dt_termino_projeto
+                let terminoDateString: String = String(terminoDate.getDate()).padStart(2, '0') + "/" + String(terminoDate.getMonth() + 1).padStart(2, '0') + "/" + terminoDate.getFullYear();
+            }
+            res += `<li class="port-item">
+            <div class="port-item-upper">
+                <div class="port-submit-date">${startingDateString}</div>
+                <span class="speech-bubble-tri"></span>
+            </div>
+            <div class="port-item-lower">
+                <div class="port-item-header">
+                    <img  class="port-item-pic" src="https://cdn.glitch.com/project-avatar/92d725da-5ec6-467d-959f-79cf20b8b93c.png?2016-12-15T20:01:33.811Z" alt="">
+                    <div class="port-item-title">${projects[i].nome_projeto}</div>
+                </div>
+                <div class="port-item-desc">
+                    <div class="port-desc-text">
+                        ${projects[i].descricao_projeto}
+                    </div>
+                </div>
+            </div>
+            <div class="port-item-edit-addon">
+                <button class="port-item-edit-button" onclick="editarPortItem()">Edit Project</button>
+            </div>
+        </li>`
+        }
+
+        return res
+    }
+
+    public static areaSpiller(areas: Area[]): string {
+        let res: string = ""
+
+        for(let i = 0; i < areas.length; i++){
+            res += `<option value="${areas[i].id_area}">${areas[i].nome_area}</option>`
+        }
+
+        return res
+    }
+
+    public static tipoProjetoSpiller(tipoProjetos: TipoProjeto[]): string {
+        let res: string = ""
+
+        for(let i = 0; i < tipoProjetos.length; i++){
+            res += `<option value="${tipoProjetos[i].id_tipo_projeto}">${tipoProjetos[i].nome_tipo_projeto}</option>`
         }
 
         return res

@@ -8,6 +8,8 @@ import Habilidade = require('../models/Habilidade');
 import AchievementUsuario = require('../models/AchievementUsuario');
 import Achievement = require('../models/Achievement');
 import ItemUsuario = require('../models/ItemUsuario');
+import Area = require('../models/Area');
+import TipoProjeto = require('../models/TipoProjeto');
 const router = express.Router();
 
 //import usuario
@@ -60,8 +62,16 @@ router.get('/formTest', wrap(async (req: express.Request, res: express.Response)
 
 router.get('/portifolio', wrap(async (req: express.Request, res: express.Response) => {
     let projetos = await Projeto.read(11710370)
+    let projetosHTML = StringBuilder.projectSpiller(await Projeto.read(11710370))
+    let numeroDeProjetos = projetos.length
+    let listaArea = StringBuilder.areaSpiller(await Area.list())
+    let listaTipoProjeto = StringBuilder.tipoProjetoSpiller(await TipoProjeto.list())
     res.render('portifolio', { layout:'layoutVazio',
-                            projetos: projetos})//renderizar a tela
+                                projetos: projetos,
+                                projetosHTML: projetosHTML,
+                                numeroDeProjetos: numeroDeProjetos,
+                                listaArea: listaArea,
+                                listaTipoProjeto: listaTipoProjeto})//renderizar a tela
 }));
 
 router.get('/curriculo', wrap(async (req: express.Request, res: express.Response) => {

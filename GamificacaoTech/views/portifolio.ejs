@@ -40,30 +40,11 @@
                                 <svg style="margin-left: 5px; margin-top: 2px; width: 1.4em;" viewBox="0 0 64 64" aria-hidden="true" class="icon__SVGBase-hq0ah8-1 cTDquo styles__arrow___MMHMr"><polygon points="64,32 48,48 48,36 0,36 0,28 48,28 48,16" transform="translate(32,32) rotate(0) translate(-32,-32)" fill="currentColor"></polygon></svg>
                             </span>
                             <span>Veja aqui seus projetos catalogados✨</span>
-                            <h4>87 Projetos</h4>
+                            <h4><%-numeroDeProjetos%></h4>
                         </div>
                     </div>
                     <ul class="browser-content-list port-list">
-                        <li class="port-item">
-                            <div class="port-item-upper">
-                                <div class="port-submit-date">October 07, 2019</div>
-                                <span class="speech-bubble-tri"></span>
-                            </div>
-                            <div class="port-item-lower">
-                                <div class="port-item-header">
-                                    <img  class="port-item-pic" src="https://cdn.glitch.com/project-avatar/92d725da-5ec6-467d-959f-79cf20b8b93c.png?2016-12-15T20:01:33.811Z" alt="">
-                                    <div class="port-item-title">Projeto de Games 1</div>
-                                </div>
-                                <div class="port-item-desc">
-                                    <div class="port-desc-text">
-                                        Este é um teste de descrição para o projeto e afins whatever
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="port-item-edit-addon">
-                                <button class="port-item-edit-button" onclick="editarPortItem()">Edit Project</button>
-                            </div>
-                        </li>
+                        <%-projetosHTML%>
                     </ul>
                 </div>
                 <span class="browser-content-overlay"></span>
@@ -78,10 +59,7 @@
                                     <span class="select-label material-icons">more</span>
                                     <select class="port-select" name="" id="" placeholder="Área do Projeto" required>
                                         <option disabled="" selected="" hidden="">Área do Projeto</option>
-                                        <option value="1">Games</option>
-                                        <option value="2">BI</option>
-                                        <option value="3">Dev</option>
-                                        <option value="4">Inovação</option>
+                                        <%-listaArea%>
                                     </select>
                                 </span>
                             </span>
@@ -90,12 +68,7 @@
                                     <span class="select-label material-icons">more</span>
                                     <select class="port-select" name="" id="" placeholder="Área do Projeto" required>
                                         <option disabled selected hidden>Tipo de projeto</option>
-                                        <option value="1">NAEC</option>
-                                        <option value="2">Matéria 36H</option>
-                                        <option value="3">Matéria 72H</option>
-                                        <option value="4">Palestras</option>
-                                        <option value="5">PIC</option>
-                                        <option value="6">Conclusão Semestral</option>
+                                        <%-listaTipoProjeto%>
                                     </select>
                                 </span>
                             </span>

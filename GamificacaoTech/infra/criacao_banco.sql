@@ -299,6 +299,7 @@ CREATE TABLE IF NOT EXISTS `idtech`.`Projeto` (
   `nome_projeto` VARCHAR(150) NOT NULL,
   `descricao_projeto` VARCHAR(250) NOT NULL,
   `dt_termino_projeto` DATE NULL DEFAULT NULL,
+  `exibir_projeto` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_projeto`),
   INDEX `Projeto_fk0` (`id_tipo_projeto` ASC) VISIBLE,
   INDEX `Projeto_fk1` (`ra_usuario` ASC) VISIBLE,

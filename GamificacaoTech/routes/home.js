@@ -8,6 +8,8 @@ const Habilidade = require("../models/Habilidade");
 const AchievementUsuario = require("../models/AchievementUsuario");
 const Achievement = require("../models/Achievement");
 const ItemUsuario = require("../models/ItemUsuario");
+const Area = require("../models/Area");
+const TipoProjeto = require("../models/TipoProjeto");
 const router = express.Router();
 //import usuario
 router.get('/', wrap(async (req, res) => {
@@ -53,8 +55,16 @@ router.get('/formTest', wrap(async (req, res) => {
 }));
 router.get('/portifolio', wrap(async (req, res) => {
     let projetos = await Projeto.read(11710370);
+    let projetosHTML = StringBuilder.projectSpiller(await Projeto.read(11710370));
+    let numeroDeProjetos = projetos.length;
+    let listaArea = StringBuilder.areaSpiller(await Area.list());
+    let listaTipoProjeto = StringBuilder.tipoProjetoSpiller(await TipoProjeto.list());
     res.render('portifolio', { layout: 'layoutVazio',
-        projetos: projetos }); //renderizar a tela
+        projetos: projetos,
+        projetosHTML: projetosHTML,
+        numeroDeProjetos: numeroDeProjetos,
+        listaArea: listaArea,
+        listaTipoProjeto: listaTipoProjeto }); //renderizar a tela
 }));
 router.get('/curriculo', wrap(async (req, res) => {
     let habs = await Habilidade.read(11710370);

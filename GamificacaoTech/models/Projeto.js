@@ -20,7 +20,7 @@ module.exports = class Projeto {
     static async list() {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = (await sql.query("select p.nome_projeto, p.descricao_projeto, p.terminado_projeto, p.dt_comeco_projeto, p.ra_usuario, p.id_tipo_projeto, t.nome_tipo_projeto, t.pontos_tipo_projeto, a.nome_area, p.id_area, dt_termino_projeto from projeto p, tipo_projeto t, area a where t.id_tipo_projeto = p.id_tipo_projeto and a.id_area = p.id_area"));
+            lista = (await sql.query("select p.nome_projeto, p.descricao_projeto, p.terminado_projeto, p.dt_comeco_projeto, p.ra_usuario, p.id_tipo_projeto, t.nome_tipo_projeto, t.pontos_tipo_projeto, a.nome_area, p.id_area, dt_termino_projeto, p.exibir_projeto from projeto p, tipo_projeto t, area a where t.id_tipo_projeto = p.id_tipo_projeto and a.id_area = p.id_area"));
         });
         return lista;
     }
@@ -30,7 +30,7 @@ module.exports = class Projeto {
             return res;
         await Sql.conectar(async (sql) => {
             try {
-                await sql.query("insert into projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) values (?, ?, ?, ?, ?, ?, ?, ?)", [
+                await sql.query("insert into projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto, exibir_projeto) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", [
                     p.id_tipo_projeto,
                     p.ra_usuario,
                     p.id_area,
@@ -38,7 +38,8 @@ module.exports = class Projeto {
                     p.terminado_projeto,
                     p.nome_projeto,
                     p.descricao_projeto,
-                    p.dt_termino_projeto
+                    p.dt_termino_projeto,
+                    p.exibir_projeto
                 ]);
             }
             catch (e) {
@@ -54,9 +55,9 @@ module.exports = class Projeto {
     static async read(ra) {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = (await sql.query("select p.nome_projeto, p.descricao_projeto, p.terminado_projeto, p.dt_comeco_projeto, p.ra_usuario, p.id_tipo_projeto, t.nome_tipo_projeto, t.pontos_tipo_projeto, a.nome_area, p.id_area, p.dt_termino_projeto from projeto p, tipo_projeto t, area a where t.id_tipo_projeto = p.id_tipo_projeto and a.id_area = p.id_area and p.ra_usuario = ?", [ra]));
+            lista = (await sql.query("select p.nome_projeto, p.descricao_projeto, p.terminado_projeto, p.dt_comeco_projeto, p.ra_usuario, p.id_tipo_projeto, t.nome_tipo_projeto, t.pontos_tipo_projeto, a.nome_area, p.id_area, p.dt_termino_projeto, p.exibir_projeto from projeto p, tipo_projeto t, area a where t.id_tipo_projeto = p.id_tipo_projeto and a.id_area = p.id_area and p.ra_usuario = ?", [ra]));
         });
-        return (lista && lista[0]) || null;
+        return lista;
     }
     static async readTipoProjetoCounts(ra) {
         let res;
@@ -68,15 +69,13 @@ module.exports = class Projeto {
     static async update(p) {
         let res;
         await Sql.conectar(async (sql) => {
-            await sql.query("update projeto set id_tipo_projeto = ?, nome_projeto = ?, id_area = ?, dt_termino_projeto = ?, descricao_projeto = ?, dt_comeco_projeto = ?, terminado_projeto = ? where ra_usuario = ?", [
+            await sql.query("update projeto set id_tipo_projeto = ?, nome_projeto = ?, id_area = ?, descricao_projeto = ?, exibir_projeto = ? where ra_usuario = ?", [
                 p.id_tipo_projeto,
                 p.nome_projeto,
                 p.id_area,
-                p.dt_termino_projeto,
                 p.descricao_projeto,
-                p.dt_comeco_projeto,
-                p.terminado_projeto,
-                p.ra_usuario
+                p.ra_usuario,
+                p.exibir_projeto
             ]);
             if (!sql.linhasAfetadas)
                 res = "Usuário não possui projetos registrados em seu nome";
