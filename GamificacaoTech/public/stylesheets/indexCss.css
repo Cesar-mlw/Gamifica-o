@@ -934,15 +934,397 @@ opacity: 1;
 }
 
 .browser-content-main{
+    background: #fff;
+    position: relative;
+}
 
+.browser-content-overlay{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: black;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.browser-content-overlay--after{
+    opacity: 0.7;
+    z-index: 11;
+}
+
+.port-item-edit-modal{
+    position: fixed;
+    display: none;
+    z-index: 11;
+}
+
+.port-item-edit-modal--after{
+    display: block;
+    top: 40%;
+    min-width: 85%;
+    left: 7.5%;
+}
+
+.port-item-edit-modal-content{
+    display: flex;
+    flex-direction: column;
+}
+
+.port-item-edit-upper{
+    background: #fff;
+    padding: 16px 16px 8px 16px;
+    border-radius: 5px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.port-item-edit-lower{
+    background: #f5f5f5;
+    padding: .5rem 1rem;
+    border-radius: 0 0 5px 5px;
+    display: flex;
+    justify-content: space-between;
+    /* border-top: 1px solid #c3c3c3; */
+}
+
+.port-content{
+    z-index: 10;
+    position: relative;
 }
 
 .browser-content-list{
     display: flex;
     list-style-type: none;
     flex-wrap: wrap;
-    margin: 15px;
+    margin: 16px 32px;
     justify-content: space-evenly;
+}
+
+.port-header{
+    height: 62px;
+    margin-bottom: 20px;
+}
+
+.port-banner{
+    height: 170px;
+    padding: 20px;
+    padding-bottom: 0;
+    /* background-color: #9ce0fc; */
+    border-radius: 5px;
+    display: flex;
+    background-color: rgb(155, 255, 181);
+    background-image: url(https://cdn.glitch.com/b065beeb-4c71-4a9c-a8aa-4548e266471f%2Fuser-pattern.svg);
+}
+
+.port-banner-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.port-banner-icon{
+    margin: auto 15px auto 0;
+}
+
+.port-list{
+    margin: 0px;
+}
+
+.port-item{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    max-width: 40%;
+    min-width: 250px;
+}
+
+.port-item-upper{
+    display: flex;
+    position: relative;
+}
+
+.port-item-lower{
+    background: #e5e5e5;
+    padding: 16px 16px 8px 16px;
+    min-height: 130px;
+    border-radius: 5px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    position: relative;
+    cursor: pointer;
+}
+
+.port-submit-date{
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.speech-bubble-tri{
+    position: absolute;
+    bottom: 0;
+    left: 15px;
+    width: 0; 
+    height: 0; 
+    border-top: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #E5E5E5;
+}
+
+.port-item-header{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+}
+
+.port-item-pic{
+    width: 52px;
+    height: 52px;
+    border-radius: 5px;
+    object-fit: scale-down;
+}
+
+.port-item-title{
+    background-color: #fff;
+    border-color: #222;
+    border-radius: 5px;
+    border: 2px solid;
+    box-sizing: border-box;
+    margin-left: 8px;
+    font-weight: 600;
+    line-height: 1;
+    color: #222;
+   font-size: 16px;
+    white-space: normal;
+    padding: 0.375em 0.5em 0.1875em;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: sans-serif;
+    margin-top: 3px;
+}
+
+.port-item-lower:hover .port-item-title{
+    box-shadow: 2px 2px;
+}
+
+.port-item-desc{
+    margin-top: 8px;
+}
+
+.port-desc-text{
+    font-size: 14px;
+    font-family: sans-serif;
+}
+
+/* styles for '...' */ 
+.port-desc-text {
+    /* hide text if it more than N lines  */
+    overflow: hidden;
+    /* for set '...' in absolute position */
+    position: relative; 
+    /* use this value to count block height */
+    line-height: 1.2em;
+    /* max-height = line-height (1.2) * lines max number (3) */
+    max-height: 2.4em; 
+    /* fix problem when last visible word doesn't adjoin right side  */
+    text-align: justify;  
+    /* place for '...' */
+    /* margin-right: -1em; */
+    padding-right: 1em;
+  }
+  /* create the ... */
+  .port-desc-text:before {
+    /* points in the end */
+    content: '...';
+    /* absolute position */
+    position: absolute;
+    /* set position to right bottom corner of block */
+    right: 0;
+    bottom: 0;
+  }
+  /* hide ... if we have text, which is less than or equal to max lines */
+  .port-desc-text:after {
+    /* points in the end */
+    content: '';
+    /* absolute position */
+    position: absolute;
+    /* set position to right bottom corner of text */
+    right: 0;
+    /* set width and height */
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    /* bg color = bg color under block */
+    background: #e5e5e5
+  }
+
+.port-item-edit-addon{
+    background: #f5f5f5;
+    padding: .5rem 1rem;
+    border-radius: 0 0 5px 5px;
+}
+
+.port-input{
+    position: relative;
+    background-color: transparent;
+    padding: 0;
+    padding-bottom: 2px;
+    line-height: 17px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #c3c3c3;
+    color: #222;
+    cursor: text;
+    /* margin: 0 20%; */
+}
+
+.port-input::placeholder{
+    color: rgb(116, 116, 116);
+}
+
+.select-label{
+    position: absolute;
+    left:10px; 
+    top: 5px;
+}
+
+.port-select{
+    border: none;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 4px;
+    padding-left: 5px;
+    padding-right: 5px;
+    white-space: nowrap;
+    height: 34px;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding-left: 38px;
+}
+
+.port-select:hover{
+    background-color: #eaeaea;
+}
+
+.tooltip-holder::before{
+    background: rgba(0,0,0,0.85);
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 6px 8px;
+    color: #fff;
+    content: "Escolha uma opção";
+    margin-top: 5px;
+    white-space: pre;
+    word-wrap: break-word;
+    line-height: 1.2;
+    border: none;
+    box-sizing: inherit;
+    display: inline-block;
+    font-style: normal;
+    font-weight: normal;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    transform: translateX(50%);
+    right: 50%;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: none;
+    text-transform: none;
+    top: 100%;
+    transition: opacity .2s step-start 100ms;
+    visibility: hidden;
+    z-index: 12;
+}
+
+.tooltip-holder:hover::before{
+    visibility: visible;
+    opacity: 1;
+}
+
+.tooltip-holder::after{
+    border: none;
+    box-sizing: inherit;
+    display: inline-block;
+    font-style: normal;
+    font-weight: normal;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    transform: translateX(50%);
+    right: 50%;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: none;
+    text-transform: none;
+    top: 100%;
+    transition: opacity .2s step-start 100ms;
+    visibility: hidden;
+    z-index: 12;
+    border: 5px solid transparent;
+    border-bottom-color: rgba(0,0,0,0.85);
+    content: '';
+    margin-top: -5px;
+}
+
+.tooltip-holder:hover::after{
+    visibility: visible;
+    opacity: 1;
+}
+
+.port-item-edit-button{
+    border-color: #636363;
+    border-radius: 5px;
+    border: 1px solid;
+    box-sizing: border-box;
+    margin-left: 8px;
+    font-weight: 600;
+    line-height: 1;
+    color: #636363;
+    font-size: 14px;
+    white-space: normal;
+    padding: 0.375em 0.5em 0.1875em;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: sans-serif;
+    margin-top: 3px;
+    outline: none;
+    background-color: #fff;
+}
+
+.port-item-edit-button:hover{
+    background-color: #f5f5f5;
+}
+
+.port-item-delete-button{
+    display: inline-block;
+    border: 2px solid;
+    border-radius: 5px;
+    font-weight: 600;
+    line-height: 1;
+    position: relative;
+    white-space: nowrap;
+    color: rgb(34, 34, 34);
+    background-color: rgb(131, 255, 205);
+    box-shadow: 4px 4px 0 #222;
+    margin-right: 4px;
+    padding: 0.375em 0.5em 0.1875em;
+}
+
+.port-item-delete-button:hover{
+    box-shadow: 2px 2px 0 #222;
+}
+
+.port-item-edit-upper > *{
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .bcl-item{
@@ -965,6 +1347,7 @@ opacity: 1;
     color: black;
     font-weight: 600;
     font-size: 18px;
+    text-align: center;
 }
 
 .bcl-date{
@@ -1144,7 +1527,6 @@ opacity: 1;
     padding: 4px;
     background: #232f3e;
     margin-top: auto;
-    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1194,6 +1576,11 @@ opacity: 1;
 @media only screen and (min-width: 901px) {
     .header-nav{
         display:flex;
+    }
+
+    .port-item-edit-modal--after{
+        left: 26%;
+        min-width: 50%;
     }
 
     #hamburger{

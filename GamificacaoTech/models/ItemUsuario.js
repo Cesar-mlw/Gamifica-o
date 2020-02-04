@@ -62,7 +62,7 @@ module.exports = class ItemUsuario {
     static async readImageStyle(ra) {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = await sql.query("SELECT u.width, u.height, i.img_url_item FROM item_usuario u, item i WHERE u.ra_usuario = 11710371 AND u.positioned_item = false and u.id_item = i.id_item;", [ra]);
+            lista = await sql.query("SELECT u.width, u.height, i.img_url_item FROM item_usuario u, item i WHERE u.ra_usuario = 11710370 AND u.positioned_item = false and u.id_item = i.id_item;", [ra]);
         });
         return lista;
     }
