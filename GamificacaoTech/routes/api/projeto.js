@@ -5,15 +5,19 @@ const Projeto = require("../../models/Projeto");
 const router = express.Router();
 router.post("/create", wrap(async (req, res) => {
     let p = req.body;
-    console.log(p);
     let erro = await Projeto.create(p);
-    console.log(req.body);
+    let achievement = await Projeto.checkForAchievements(p.ra_usuario, p.id_tipo_projeto);
     if (erro) {
         res.statusCode = 400;
         res.json(erro);
     }
     else {
-        res.json("Projeto criado");
+        if (achievement.length > 0) {
+            res.json(achievement);
+        }
+        else {
+            res.json("Projeto criado");
+        }
     }
 }));
 router.get("/list", wrap(async (req, res) => {

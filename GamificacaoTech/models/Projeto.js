@@ -1,6 +1,7 @@
 "use strict";
 const Sql = require("../infra/sql");
 const Usuario = require("./Usuario");
+const AchievementUsuario = require("./AchievementUsuario");
 module.exports = class Projeto {
     static validate(p) {
         let resp;
@@ -25,10 +26,8 @@ module.exports = class Projeto {
     }
     static async create(p) {
         let res;
-        console.log(p);
         if ((res = Projeto.validate(p)))
             return res;
-        console.log(p);
         await Sql.conectar(async (sql) => {
             try {
                 await sql.query("insert into projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto) values (?, ?, ?, ?, ?, ?, ?, ?)", [
@@ -92,6 +91,33 @@ module.exports = class Projeto {
                 res = false;
         });
         return res;
+    }
+    static async readProjectTypeAmmount(ra) {
+        let lista;
+        await Sql.conectar(async (sql) => {
+            lista = await sql.query("select t.nome_tipo_projeto as `type_name`, count(p.id_tipo_projeto) as `ammount` from projeto p, tipo_projeto t  where ra_usuario = ? AND t.id_tipo_projeto = p.id_tipo_projeto group by p.id_tipo_projeto", [ra]);
+        });
+        return lista;
+    }
+    static async checkForAchievements(ra, id) {
+        let achieved = null;
+        await Sql.conectar(async (sql) => {
+            achieved = await sql.query(`select * from achievement a 
+      where not exists (select a.id_achievement from achievement_usuario u, achievement a 
+                where ra_usuario = ? 
+                        and a.id_tipo_projeto_achievement = ? 
+                        and a.id_achievement = u.id_achievement
+                        and (select count(*) from projeto where ra_usuario = ? AND id_tipo_projeto = ?) = a.criterio_achievement) 
+      and  id_tipo_projeto_achievement = ?
+      and (select count(*) from projeto where ra_usuario = ? AND id_tipo_projeto = ?) = a.criterio_achievement`, [ra, id, ra, id, id, ra, id]);
+        });
+        if (achieved.length > 0) {
+            let e = await AchievementUsuario.create(ra, achieved[0].id_achievement);
+            if (e) {
+                throw (e);
+            }
+        }
+        return achieved;
     }
 };
 //# sourceMappingURL=Projeto.js.map

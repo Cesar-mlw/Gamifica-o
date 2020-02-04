@@ -7,8 +7,6 @@ module.exports = class AchievementUsuario {
             resp = "ID do achievement não pode ser nulo\n";
         if (a.ra_usuario == null)
             resp += "RA do usuário não pode ser nulo";
-        if (a.dt_achievement == null)
-            resp += "data do achievement não pode ser nulo";
         return resp;
     }
     static async list() {
@@ -18,11 +16,11 @@ module.exports = class AchievementUsuario {
         });
         return lista;
     }
-    static async create(a) {
+    static async create(ra, id) {
         let res;
         await Sql.conectar(async (sql) => {
             try {
-                await sql.query("insert into achievement_usuario (id_achievement, ra_usuario, dt_achievement) values (?, ?, ?)", [a.id_achievement, a.ra_usuario, a.dt_achievement]);
+                await sql.query("insert into achievement_usuario (id_achievement, ra_usuario, dt_achievement, destaque_achievement) values (?, ?, NOW(), 0)", [id, ra]);
             }
             catch (e) {
                 if (e.code && e.code === "ER_DUP_ENTRY")

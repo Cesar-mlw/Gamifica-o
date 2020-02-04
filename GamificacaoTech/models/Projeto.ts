@@ -1,6 +1,9 @@
 ﻿import Sql = require("../infra/sql");
 import Usuario = require("./Usuario");
 import TipoProjetoCount = require("./TipoProjetoCount");
+import ProjectTypeAchievement = require("./ProjectTypeAchievement");
+import Achievement = require("./Achievement");
+import AchievementUsuario = require("./AchievementUsuario");
 
 export = class Projeto {
   public id_projeto: number;
@@ -40,9 +43,7 @@ export = class Projeto {
 
   public static async create(p: Projeto): Promise<string> {
     let res: string;
-    console.log(p);
     if ((res = Projeto.validate(p))) return res;
-    console.log(p)
     await Sql.conectar(async (sql: Sql) => {
       try {
         await sql.query(
@@ -127,4 +128,40 @@ export = class Projeto {
 
     return res;
   }
+
+  public static async readProjectTypeAmmount(ra: number): Promise<ProjectTypeAchievement[]> {
+    let lista: ProjectTypeAchievement[];
+
+    await Sql.conectar(async (sql: Sql) => {
+      lista = await sql.query("select t.nome_tipo_projeto as `type_name`, count(p.id_tipo_projeto) as `ammount` from projeto p, tipo_projeto t  where ra_usuario = ? AND t.id_tipo_projeto = p.id_tipo_projeto group by p.id_tipo_projeto", [ra]) as ProjectTypeAchievement[];
+    });
+
+    return lista
+  }
+
+
+  public static async checkForAchievements(ra: number, id: number): Promise<Achievement[]> {
+    let achieved: Achievement[] = null;
+    await Sql.conectar(async (sql: Sql) => {
+      achieved = await sql.query(`select * from achievement a 
+      where not exists (select a.id_achievement from achievement_usuario u, achievement a 
+                where ra_usuario = ? 
+                        and a.id_tipo_projeto_achievement = ? 
+                        and a.id_achievement = u.id_achievement
+                        and (select count(*) from projeto where ra_usuario = ? AND id_tipo_projeto = ?) = a.criterio_achievement) 
+      and  id_tipo_projeto_achievement = ?
+      and (select count(*) from projeto where ra_usuario = ? AND id_tipo_projeto = ?) = a.criterio_achievement`, [ra, id, ra, id, id, ra, id]) as Achievement[];
+    });
+    if(achieved.length > 0){
+      
+      let e = await AchievementUsuario.create(ra, achieved[0].id_achievement)
+      if(e){
+        throw(e)
+      }
+    }
+    return achieved
+  }
+
+  
+
 };

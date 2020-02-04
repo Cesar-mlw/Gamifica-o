@@ -68,6 +68,7 @@ router.get("/list", wrap(async (req: express.Request, res: express.Response) => 
     res.json(lista)
 }))
 
+
 //efetuar o Login
 
 router.post("/login", wrap(async (req: express.Request, res: express.Response) => {
