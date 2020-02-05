@@ -50,7 +50,7 @@
                 <span class="browser-content-overlay"></span>
                 <div class="port-item-edit-modal">
                     <button class="port-item-edit-close" onclick="closePortItem()"></button>
-                    <form class="port-item-edit-modal-content" id="port-item-edit-form" action="">
+                    <div class="port-item-edit-modal-content" id="port-item-edit-form">
                         <input id="port-item-id" type="number" value="" hidden>
                         <span class="port-item-edit-upper">
                             <input id="project-name" class="port-input" maxlength="150" type="text" placeholder="Nome do Projeto" required>
@@ -74,15 +74,17 @@
                                 </span>
                             </span>
                             <input type="text" class="port-input" placeholder="Data de Início do Projeto" name="" id="datepicker" required>
-                            <input id="check-concluido" class="css-checkbox" type="checkbox" name="check" value="check">
-                            <label for="check" class="css-label">Projeto Concluído</label>
+                            <input id="check-concluido" class="css-checkbox" type="checkbox" name="check" value="1">
+                            <label for="check-concluido" class="css-label">Projeto Concluído</label>
                             <input type="text" class="port-input" placeholder="Data de Conclusão do Projeto" name="" id="datepicker2">
+                            <input id="check-exibir" class="css-checkbox" type="checkbox" name="check2" value="1">
+                            <label for="check-exibir" class="css-label">Exibir no Portfólio</label>
                         </span>
                         <span class="port-item-edit-lower">
                             <button class="port-item-edit-button" onclick="savePortItem()">Save Project</button>
                             <button class="port-item-delete-button" onclick="deletePortItem()">Delete Project</button>
                         </span>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

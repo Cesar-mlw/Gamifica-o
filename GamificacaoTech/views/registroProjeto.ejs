@@ -26,17 +26,17 @@
         <form id="formPortifolio" class="formulario">
             <div class="os-window-field-group os-window-field-subgroup">
                 <span class="os-subgroup-title">Informações</span>
-                <input style="margin-top: -15px;" type="text" class="os-window-field" placeholder="Nome do projeto" id="nome_projeto" name="">
-                <textarea class="os-window-field" placeholder="Descrição do Projeto" id="descricao_projeto" rows="3" style="resize: none;"></textarea>
+                <input style="margin-top: -15px;" type="text" class="os-window-field" placeholder="Nome do projeto" id="nome_projeto" name="" required>
+                <textarea class="os-window-field" placeholder="Descrição do Projeto" id="descricao_projeto" rows="3" style="resize: none;" required></textarea>
             </div>
-            <select style="margin: 10px;" class="custom-select" id="area_projeto">
+            <select style="margin: 10px;" class="custom-select" id="area_projeto" required>
                 <option disabled selected hidden>Área do Projeto</option>
                 <option value="1">Games</option>
                 <option value="2">BI</option>
                 <option value="3">Dev</option>
                 <option value="4">Inovação</option>
             </select>
-            <select style="margin: 10px;" class="custom-select" id="tipo_projeto">
+            <select style="margin: 10px;" class="custom-select" id="tipo_projeto" required>
                 <option disabled selected hidden>Tipo de projeto</option>
                 <option value="1">NAEC</option>
                 <option value="2">Matéria 36H</option>
@@ -47,7 +47,7 @@
             </select>
             <div class="os-window-field-group os-window-field-subgroup" id="datas-subgroup">
                 <span class="os-subgroup-title">Datas</span>
-                <input type="text" class="os-window-field" placeholder="Data de Início do Projeto" name="" id="datepicker">
+                <input type="text" class="os-window-field" placeholder="Data de Início do Projeto" name="" id="datepicker" required>
                 <input id="check" class="css-checkbox" type="checkbox" name="check" value="check">
                 <label for="check" class="css-label">Projeto Concluído</label>
                 <input type="text" class="os-window-field" placeholder="Data de Conclusão do Projeto" name="" id="datepicker2">
@@ -196,7 +196,6 @@
     }
 
     function portEnviar() {
-
         let nome_projeto= document.getElementById("nome_projeto").value;
         let id_area = document.getElementById("area_projeto");
         let id_area_value = parseInt(id_area.options[id_area.selectedIndex].value);
