@@ -130,7 +130,7 @@ export = class ItemUsuario {
         let res: boolean = true
 
         Sql.conectar(async (sql: Sql) => {
-            await sql.query("UPDATE item_usuario SET cellx_item = NULL, celly_item = NULL, positioned_item = false where id_item_usuario = ?", [id_item_usuario])
+            await sql.query("UPDATE item_usuario SET cellx_item = NULL, celly_item = NULL, positioned_item = 0 where id_item_usuario = ?", [id_item_usuario])
             if(!sql.linhasAfetadas)
                 res = false
         })

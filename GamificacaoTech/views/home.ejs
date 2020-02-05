@@ -304,6 +304,24 @@
         $('.browser-content-overlay').addClass('browser-content-overlay--after');
         $('.port-item-edit-modal').addClass('port-item-edit-modal--after');
         $('#port-item-id').attr('value', idProjeto);
+        let url = "/api/projeto/read"
+        let form = {
+            ra_usuario = 11710370 //HARD CODE
+        }
+        let listaProjetos = null
+        $.ajax({
+            method: "post",
+            url: url,
+            data: form,
+            dataType: "json",
+            success: function (data) {
+                listaProjetos = data
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        })
+        
     }
 
     function closePortItem(){
@@ -336,7 +354,6 @@
             terminado_projeto: conclProjeto,
             exibir_projeto: exibirProjeto
         }
-        console.log(form)
         $.ajax({
             method: "post",
             url: url,

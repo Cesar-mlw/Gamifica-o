@@ -72,13 +72,14 @@ router.get("/list", wrap(async (req: express.Request, res: express.Response) => 
 //efetuar o Login
 
 router.post("/login", wrap(async (req: express.Request, res: express.Response) => {
-    let ra = parseInt(req.body.ra)
-    let senha = req.body.senha
+    let ra = parseInt(req.body.ra_usuario)
+    let senha = req.body.senha_usuario
 
     let resp = await Usuario.efetuarLogin(ra, senha)
 
     if (resp) {
         res.cookie("logged", true)
+        res.cookie("ra_usuario", req.body.ra_usuario)
         res.json(true)
     }
     else {
@@ -90,6 +91,7 @@ router.post("/login", wrap(async (req: express.Request, res: express.Response) =
 
 router.get("/logout", wrap(async (req: express.Request, res: express.Response) => {
     res.clearCookie("logged")
+    res.clearCookie("ra_usuario")
     res.redirect("/")
 }))
 

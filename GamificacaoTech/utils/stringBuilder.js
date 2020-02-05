@@ -199,6 +199,13 @@ module.exports = class StringBuilder {
         }
         return res;
     }
+    static tipoHabilidadeSpiller(tipoHabilidade) {
+        let res = "";
+        for (let i = 0; i < tipoHabilidade.length; i++) {
+            res += `<option value="${tipoHabilidade[i].id_tipo_habilidade}">${tipoHabilidade[i].nome_tipo_habilidade}</option>`;
+        }
+        return res;
+    }
     static contains(array, item) {
         let resp = false;
         for (let i = 0; i < array.length; i++) {

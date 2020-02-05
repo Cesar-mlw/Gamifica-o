@@ -31,19 +31,11 @@
             </div>
             <select style="margin: 10px;" class="custom-select" id="area_projeto" required>
                 <option disabled selected hidden>Área do Projeto</option>
-                <option value="1">Games</option>
-                <option value="2">BI</option>
-                <option value="3">Dev</option>
-                <option value="4">Inovação</option>
+                <%-listaArea%>
             </select>
             <select style="margin: 10px;" class="custom-select" id="tipo_projeto" required>
                 <option disabled selected hidden>Tipo de projeto</option>
-                <option value="1">NAEC</option>
-                <option value="2">Matéria 36H</option>
-                <option value="3">Matéria 72H</option>
-                <option value="4">Palestras</option>
-                <option value="5">PIC</option>
-                <option value="6">Conclusão Semestral</option>
+                <%-listaTipoProjeto%>
             </select>
             <div class="os-window-field-group os-window-field-subgroup" id="datas-subgroup">
                 <span class="os-subgroup-title">Datas</span>
@@ -67,12 +59,7 @@
                 <input style="margin-top: -15px;" type="text" class="os-window-field" placeholder="Nome da Habilidade" id="nome_habilidade" name="">
                 <select style="margin: 10px;" class="custom-select" id="tipo_habilidade">
                     <option disabled selected hidden>Tipo de Habilidade</option>
-                    <option value="1">Idioma</option>
-                    <option value="2">Linguagem</option>
-                    <option value="3">Metodologia</option>
-                    <option value="4">Ferramenta</option>
-                    <option value="5">Educação</option>
-                    <option value="6">Experiência Profissional</option>
+                    <%-listaTipoHabilidade%>
                 </select>
             </div>
             <span class="os-button-complement" style="margin-top: 15px;"><button type="submit" class="os-button" onclick="currEnviar()">Enviar</button></span>

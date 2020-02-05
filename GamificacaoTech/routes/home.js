@@ -10,6 +10,7 @@ const Achievement = require("../models/Achievement");
 const ItemUsuario = require("../models/ItemUsuario");
 const Area = require("../models/Area");
 const TipoProjeto = require("../models/TipoProjeto");
+const TipoHabilidade = require("../models/TipoHabilidade");
 const router = express.Router();
 //import usuario
 router.get('/', wrap(async (req, res) => {
@@ -75,7 +76,13 @@ router.get('/testeAjax', wrap(async (req, res) => {
     res.render('testeAjax', { layout: 'layoutVazio' }); //renderizar a tela
 }));
 router.get('/registroProjeto', wrap(async (req, res) => {
-    res.render('registroProjeto', { layout: 'layoutVazio' }); //renderizar a tela
+    let listaArea = StringBuilder.areaSpiller(await Area.list());
+    let listaTipoProjeto = StringBuilder.tipoProjetoSpiller(await TipoProjeto.list());
+    let listaTipoHabilidade = StringBuilder.tipoHabilidadeSpiller(await TipoHabilidade.list());
+    res.render('registroProjeto', { layout: 'layoutVazio',
+        listaArea: listaArea,
+        listaTipoProjeto: listaTipoProjeto,
+        listaTipoHabilidade: listaTipoHabilidade }); //renderizar a tela
 }));
 router.get('/loja', wrap(async (req, res) => {
     let storeItems = StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370));
