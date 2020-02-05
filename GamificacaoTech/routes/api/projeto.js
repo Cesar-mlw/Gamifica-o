@@ -5,6 +5,7 @@ const Projeto = require("../../models/Projeto");
 const router = express.Router();
 router.post("/create", wrap(async (req, res) => {
     let p = req.body;
+    console.log(p);
     let erro = await Projeto.create(p);
     let achievement = await Projeto.checkForAchievements(p.ra_usuario, p.id_tipo_projeto);
     if (erro) {

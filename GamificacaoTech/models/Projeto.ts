@@ -101,13 +101,16 @@ export = class Projeto {
 
     await Sql.conectar(async (sql: Sql) => {
       await sql.query(
-        "update projeto set id_tipo_projeto = ?, nome_projeto = ?, id_area = ?, descricao_projeto = ?, exibir_projeto = ? where ra_usuario = ? and id_projeto = ?",
+        "update projeto set id_tipo_projeto = ?, nome_projeto = ?, id_area = ?, descricao_projeto = ?, exibir_projeto = ?, dt_comeco_projeto = ?, dt_termino_projeto = ?, terminado_projeto = ? where ra_usuario = ? and id_projeto = ?",
         [
           p.id_tipo_projeto,
           p.nome_projeto,
           p.id_area,
           p.descricao_projeto,
           p.exibir_projeto,
+          p.dt_comeco_projeto,
+          p.dt_termino_projeto,
+          p.terminado_projeto,
           p.ra_usuario,
           p.id_projeto
           

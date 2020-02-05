@@ -316,10 +316,11 @@
         var tipoProjeto = $('#project-type').val();
         var nomeProjeto = $('#project-name').val();
         var descProjeto = $('#project-desc').val();
-        var conclProjeto = $('#check-concluido').val();
-        var inicioProjeto = $('#datepicker').val();
-        var fimProjeto = $('#datepicker2').val();
+        var conclProjeto = $('#check-concluido').prop("checked") ? 1 : 0;
+        var inicioProjeto = new Date($('#datepicker').val()).toISOString().substr(0, 10);
+        var fimProjeto = $('#datepicker2').val() == "" ? "0000-00-00" : "0000-00-00";
         var idProjeto = $('#port-item-id').val();
+        var exibirProjeto = $('#check-exibir').prop("checked") ? 1 : 0;
 
         let url = "/api/projeto/update"
         let form = {
@@ -331,15 +332,18 @@
             dt_termino_projeto: fimProjeto,
             descricao_projeto: descProjeto,
             dt_comeco_projeto: inicioProjeto,
-            terminado_projeto: conclProjeto
+            terminado_projeto: conclProjeto,
+            exibir_projeto: exibirProjeto
         }
+        console.log(form)
         $.ajax({
             method: "post",
             url: url,
             data: form,
             dataType: "json",
             success: function (data) {
-                console.log(data)
+                console.log(data);
+                loadContent('/portifolio');
             },
             error: function (e) {
                 console.log(e)

@@ -8,6 +8,7 @@ const router = express.Router()
 
 router.post("/create", wrap(async (req: express.Request, res: express.Response) => {
     let p = req.body as Projeto
+    console.log(p)
     let erro = await Projeto.create(p)
     let achievement = await Projeto.checkForAchievements(p.ra_usuario, p.id_tipo_projeto)
     if (erro) {
