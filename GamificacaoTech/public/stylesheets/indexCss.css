@@ -1107,6 +1107,7 @@ opacity: 1;
     cursor: pointer;
     font-family: sans-serif;
     margin-top: 3px;
+    word-break: break-word;
 }
 
 .port-item-lower:hover .port-item-title{
@@ -1120,6 +1121,7 @@ opacity: 1;
 .port-desc-text{
     font-size: 14px;
     font-family: sans-serif;
+    word-break: break-all;
 }
 
 /* styles for '...' */ 
