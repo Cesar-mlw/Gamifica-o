@@ -306,7 +306,7 @@
         $('#port-item-id').attr('value', idProjeto);
         let url = "/api/projeto/read"
         let form = {
-            ra_usuario = 11710370 //HARD CODE
+            ra_usuario: 11710370 //HARD CODE
         }
         let listaProjetos = null
         $.ajax({
@@ -321,7 +321,7 @@
                 console.log(e)
             }
         })
-        
+
     }
 
     function closePortItem(){
@@ -337,7 +337,9 @@
         var conclProjeto = $('#check-concluido').prop("checked") ? 1 : 0;
         var inicioProjeto = new Date($('#datepicker').val()).toISOString().substr(0, 10);
         console.log(inicioProjeto);
+        console.log(new Date($('#datepicker2').val()));
         var fimProjeto = $('#datepicker2').val() == "" ? "1970-01-01" : new Date($('#datepicker2').val()).toISOString().substr(0, 10);
+        
         var idProjeto = $('#port-item-id').val();
         var exibirProjeto = $('#check-exibir').prop("checked") ? 1 : 0;
 
