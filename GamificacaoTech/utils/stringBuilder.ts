@@ -7,6 +7,7 @@ import { CLIENT_RENEG_LIMIT } from "tls"
 import Projeto = require("../models/Projeto")
 import Area = require("../models/Area")
 import TipoProjeto = require("../models/TipoProjeto")
+import TipoHabilidade = require("../models/TipoHabilidade")
 
 
 export = class StringBuilder {
@@ -217,6 +218,16 @@ export = class StringBuilder {
 
         for(let i = 0; i < tipoProjetos.length; i++){
             res += `<option value="${tipoProjetos[i].id_tipo_projeto}">${tipoProjetos[i].nome_tipo_projeto}</option>`
+        }
+
+        return res
+    }
+    
+    public static tipoHabilidadeSpiller(tipoHabilidade: TipoHabilidade[]): string {
+        let res: string = ""
+
+        for(let i = 0; i < tipoHabilidade.length; i++){
+            res += `<option value="${tipoHabilidade[i].id_tipo_habilidade}">${tipoHabilidade[i].nome_tipo_habilidade}</option>`
         }
 
         return res
