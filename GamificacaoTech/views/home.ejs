@@ -306,7 +306,7 @@
         $('#port-item-id').attr('value', idProjeto);
         let url = "/api/projeto/read"
         let form = {
-            ra_usuario: 11710370 //HARD CODE
+            ra_usuario : 11710370 //HARD CODE
         }
         let listaProjetos = null
         $.ajax({
@@ -335,11 +335,11 @@
         var nomeProjeto = $('#project-name').val();
         var descProjeto = $('#project-desc').val();
         var conclProjeto = $('#check-concluido').prop("checked") ? 1 : 0;
-        var inicioProjeto = new Date($('#datepicker').val()).toISOString().substr(0, 10);
+        var splitDate = $('#datepicker').val().split("/");
+        var inicioProjeto = new Date(splitDate[2],splitDate[1] - 1, splitDate[0]).toISOString().substr(0, 10);
         console.log(inicioProjeto);
-        console.log(new Date($('#datepicker2').val()));
-        var fimProjeto = $('#datepicker2').val() == "" ? "1970-01-01" : new Date($('#datepicker2').val()).toISOString().substr(0, 10);
-        
+        var splitDate2 = $('#datepicker2').val().split("/");
+        var fimProjeto = $('#datepicker2').val() == "" ? "Null" : new Date(splitDate2[2],splitDate2[1] - 1, splitDate2[0]).toISOString().substr(0, 10);
         var idProjeto = $('#port-item-id').val();
         var exibirProjeto = $('#check-exibir').prop("checked") ? 1 : 0;
 
@@ -418,14 +418,17 @@
         $('.room-save').remove();
         $('#item-store-area').css('bottom',-45);
         window.objdragEditing = false;
+        
     }
+    
+    var placedItems = <%-placedItemsJson%>;
+    var notPlacedItems = <%-notPlacedItemsJson%>;
 
     function adicionarItem(x){
-        var itemInfo = <%-notPlacedItemsJson%>;
         var itemClicado;
-        for(let i = 0; i < itemInfo.length; i++){
-            if(itemInfo[i].id_item_usuario == x){
-                itemClicado = itemInfo[i];
+        for(let i = 0; i < notPlacedItemsJson.length; i++){
+            if(notPlacedItemsJson[i].id_item_usuario == x){
+                itemClicado = notPlacedItemsJson[i];
             }
         }
         var div = $(`<div class="objdrag room-object" id="item-${itemClicado.id_item_usuario}" data-id="${itemClicado.id_item_usuario}" style="position:absolute;background:url(${itemClicado.img_url_item}); width:${(itemClicado.width)*80}px; height:${(itemClicado.height)*80}px"></div>`)[0];

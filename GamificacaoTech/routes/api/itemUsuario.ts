@@ -128,12 +128,11 @@ router.post("/placeObject", wrap(async (req: express.Request, res: express.Respo
 router.post("/removeObject", wrap(async (req: express.Request, res: express.Response) => {
     let id_item_usuario = req.body.id_item_usuario
     let erro = await ItemUsuario.removeObject(id_item_usuario)
-    if (!erro) {
-        res.json("O usuário não possui o item")
+    if(erro == null){
+        res.json("Erro")
     }
-
-    else {
-        res.json("Item Retirado!")
+    else{
+        res.json(erro)
     }
 }))
 
