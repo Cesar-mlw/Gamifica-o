@@ -420,13 +420,15 @@
         window.objdragEditing = false;
         
     }
+    
+    var placedItems = <%-placedItemsJson%>;
+    var notPlacedItems = <%-notPlacedItemsJson%>;
 
     function adicionarItem(x){
-        var itemInfo = <%-notPlacedItemsJson%>;
         var itemClicado;
-        for(let i = 0; i < itemInfo.length; i++){
-            if(itemInfo[i].id_item_usuario == x){
-                itemClicado = itemInfo[i];
+        for(let i = 0; i < notPlacedItemsJson.length; i++){
+            if(notPlacedItemsJson[i].id_item_usuario == x){
+                itemClicado = notPlacedItemsJson[i];
             }
         }
         var div = $(`<div class="objdrag room-object" id="item-${itemClicado.id_item_usuario}" data-id="${itemClicado.id_item_usuario}" style="position:absolute;background:url(${itemClicado.img_url_item}); width:${(itemClicado.width)*80}px; height:${(itemClicado.height)*80}px"></div>`)[0];
