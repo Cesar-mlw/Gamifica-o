@@ -238,6 +238,8 @@
 
 <%- contentFor("scripts")%>
 <script type="text/javascript">
+    var placedItems = <%-placedItemsJson%>;
+    var notPlacedItems = <%-notPlacedItemsJson%>;
     function filterLoja(ele){
         idArea = ele.getAttribute('data-id');
 
@@ -421,8 +423,7 @@
         
     }
     
-    var placedItems = <%-placedItemsJson%>;
-    var notPlacedItems = <%-notPlacedItemsJson%>;
+   
 
     function adicionarItem(x){
         var itemClicado;

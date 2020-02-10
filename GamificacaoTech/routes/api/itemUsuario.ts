@@ -10,7 +10,7 @@ const router = express.Router()
 router.post("/create", wrap(async (req: express.Request, res: express.Response) => {
     let p = req.body as ItemUsuario
     let item = await Item.read(p.id_item) as Item
-    if (Item === null) {
+    if (item === null) {
         res.statusCode = 400
         res.json("Item não existe")
     }
@@ -27,7 +27,8 @@ router.post("/create", wrap(async (req: express.Request, res: express.Response) 
                 res.json(resp)
             }
             else{
-                res.json("Item Usuario criado")
+                let lastInserted = await ItemUsuario.readLastInserted();
+                res.json(lastInserted)
             }
         }
     }
