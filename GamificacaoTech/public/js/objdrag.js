@@ -2,6 +2,7 @@
 
 window.objdragEditing = false;
 
+
 $(function () {
     var grid = 80;
     var isdown = false, handlerInstalled = false;
@@ -88,6 +89,7 @@ $(function () {
                         $('#item-'+el.getAttribute("data-id")+'').remove();
 
                         $('.item-box').append('<button class="item-box-item" id="item-box-item-'+el.getAttribute("data-id")+'" onclick="adicionarItem('+el.getAttribute("data-id")+')"></button>')
+                        removePlacedItem(el.getAttribute("data-id"))
                     },
                     error: function (e) {
                         console.log(e)

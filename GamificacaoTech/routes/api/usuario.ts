@@ -78,8 +78,8 @@ router.post("/login", wrap(async (req: express.Request, res: express.Response) =
     let resp = await Usuario.efetuarLogin(ra, senha)
 
     if (resp) {
-        res.cookie("logged", true)
-        res.cookie("ra_usuario", req.body.ra_usuario)
+        res.cookie("logged", true, {expires: new Date(Date.now() + 90000)})
+        res.cookie("ra_usuario", req.body.ra_usuario, {expires: new Date(Date.now() + 90000)})
         res.json(true)
     }
     else {
@@ -92,7 +92,7 @@ router.post("/login", wrap(async (req: express.Request, res: express.Response) =
 router.get("/logout", wrap(async (req: express.Request, res: express.Response) => {
     res.clearCookie("logged")
     res.clearCookie("ra_usuario")
-    res.redirect("/")
+    res.redirect("/login")
 }))
 
 
