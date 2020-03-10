@@ -34,21 +34,21 @@ module.exports = class AchievementUsuario {
     static async readFromUserID(ra) {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = await sql.query("select u.id_achievement_usuario, u.ra_usuario, u.dt_achievement, a.id_achievement, a.nome_achievement, a.descricao_achievement, a.criterio_achievement, r.nome_area from achievement a, achievement_usuario u, area r where ra_usuario = ? and a.id_achievement = u.id_achievement and a.id_area = r.id_area", [ra]);
+            lista = await sql.query("select u.id_achievement_usuario, u.ra_usuario, u.dt_achievement, a.id_achievement, a.nome_achievement, a.descricao_achievement, a.criterio_achievement, r.nome_area, a.id_tipo_projeto_achievement, t.nome_tipo_projeto from achievement a, achievement_usuario u, tipo_projeto t, area r where ra_usuario = ? and a.id_achievement = u.id_achievement and a.id_area = r.id_area and t.id_tipo_projeto = a.id_tipo_projeto_achievement", [ra]);
         });
         return lista;
     }
     static async read(id) {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = await sql.query("select u.id_achievement_usuario, u.ra_usuario, u.dt_achievement, a.id_achievement, a.nome_achievement, a.descricao_achievement, r.nome_area from achievement a, achievement_usuario u, area r where id_achievement_usuario = ? and a.id_achievement = u.id_achievement and a.id_area = r.id_area", [id]);
+            lista = await sql.query("select u.id_achievement_usuario, u.ra_usuario, u.dt_achievement, a.id_achievement, a.nome_achievement, a.descricao_achievement, r.nome_area, a.id_tipo_projeto_achievement, t.nome_tipo_projeto from achievement a, achievement_usuario u, area r, tipo_projeto t where id_achievement_usuario = ? and a.id_achievement = u.id_achievement and a.id_area = r.id_area and t.id_tipo_projeto = a.id_tipo_projeto_achievement", [id]);
         });
         return lista;
     }
     static async readMissingAchievements(ra) {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = await sql.query("select a.id_achievement, a.id_area, a.nome_achievement, a.descricao_achievement, a.criterio_achievement, a.id_tipo_projeto_achievement from achievement a where a.id_achievement not in (SELECT id_achievement FROM achievement_usuario u where u.ra_usuario = ?)", [ra]);
+            lista = await sql.query("select a.id_achievement, a.id_area, a.nome_achievement, a.descricao_achievement, a.criterio_achievement, a.id_tipo_projeto_achievement, t.nome_tipo_projeto from achievement a, tipo_projeto t where a.id_achievement not in (SELECT id_achievement FROM achievement_usuario u where u.ra_usuario = ?) and t.id_tipo_projeto = a.id_tipo_projeto_achievement", [ra]);
         });
         return lista;
     }

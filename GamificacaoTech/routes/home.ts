@@ -11,14 +11,16 @@ import ItemUsuario = require('../models/ItemUsuario');
 import Area = require('../models/Area');
 import TipoProjeto = require('../models/TipoProjeto');
 import TipoHabilidade = require('../models/TipoHabilidade');
+import { CLIENT_RENEG_WINDOW } from 'tls';
 const router = express.Router();
 
 //import usuario
-router.get('/', wrap(async (req: express.Request, res: express.Response) => {//Declaração de rota
+router.get('/', wrap(async (req: express.Request, res: express.Response) => {
     if(req.cookies.ra_usuario == undefined || req.cookies.logged == undefined){
         res.redirect("/login")
     }
     else{
+        console.log(req.cookies.ra_usuario);
         let points = await Usuario.readUserPoints(11710370)
         let books = []
         for(let i = 0; i < points.length; i++){
@@ -42,35 +44,55 @@ router.get('/', wrap(async (req: express.Request, res: express.Response) => {//D
                             notPlacedItems: notPlacedItems,
                             placedItems: placedItems,
                             placedItemsJson: JSON.stringify(placedItemsJson)});
-                            //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+                            
 }}));
 
-router.get('/login', wrap(async (req: express.Request, res: express.Response) => {//Declaração de rota
-    res.render('loginRegistro', { titulo: 'Gamificação TECH'}); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+router.get('/login', wrap(async (req: express.Request, res: express.Response) => {
+    
+    res.render('loginRegistro', { titulo: 'Gamificação TECH'}); 
     
 }));
 
-router.get('/pc', wrap(async (req: express.Request, res: express.Response) => {//Declaração de rota
-    res.render('pc', { titulo: 'Gamificação TECH'}); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+router.get('/pc', wrap(async (req: express.Request, res: express.Response) => {
+    if(req.cookies.ra_usuario == undefined && req.cookies.looged == undefined){
+        res.redirect("/login")
+    }
+    else{
+        res.render('pc', { titulo: 'Gamificação TECH' }); 
+    }
+    
 }));
 
-router.get('/login', wrap(async (req: express.Request, res: express.Response) => {//Declaração de rota
-    res.render('loginRegistro', { titulo: 'Gamificação TECH'}); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+router.get('/login', wrap(async (req: express.Request, res: express.Response) => {
+    res.render('loginRegistro', { titulo: 'Gamificação TECH'}); 
 }));
 
-router.get('/feed', wrap(async (req: express.Request, res: express.Response) => {//Declaração de rota
-    res.render('feed', { titulo: 'Gamificação TECH'}); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+router.get('/feed', wrap(async (req: express.Request, res: express.Response) => {
+    if(req.cookies.ra_usuario == undefined && req.cookies.looged == undefined){
+        res.redirect("/login")
+    }
+    else{
+        res.render('feed', { titulo: 'Gamificação TECH'}); 
+    }
+    
 }));
 
-router.get('/achieve', wrap(async (req: express.Request, res: express.Response) => {//Declaração de rota
-    res.render('achieve', { titulo: 'Gamificação TECH'}); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+router.get('/achieve', wrap(async (req: express.Request, res: express.Response) => {
+    if(req.cookies.ra_usuario == undefined && req.cookies.looged == undefined){
+        res.redirect("/login")
+    }
+    else{
+        res.render('achieve', { titulo: 'Gamificação TECH'}); 
+    }
 }));
 
 router.get('/formTest', wrap(async (req: express.Request, res: express.Response) => {
+    
     res.render('formTest', { titulo: "Gamificação" })//renderizar a tela
 }));
 
 router.get('/portifolio', wrap(async (req: express.Request, res: express.Response) => {
+
     let projetos = await Projeto.read(11710370)
     let projetosHTML = StringBuilder.projectSpiller(await Projeto.read(11710370))
     let numeroDeProjetos = projetos.length
@@ -105,6 +127,7 @@ router.get('/registroProjeto', wrap(async (req: express.Request, res: express.Re
 }));
 
 router.get('/loja', wrap(async (req: express.Request, res: express.Response) => {
+
     let storeItems = StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370))
     res.render('loja', { 
         layout:'layoutVazio',

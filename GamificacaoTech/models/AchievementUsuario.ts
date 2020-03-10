@@ -1,5 +1,6 @@
 ﻿import Sql = require("../infra/sql")
 import Achievement = require("./Achievement");
+import AchievementUsuarioTipoProjetoJoin = require("./AchievementUsuarioTipoProjetoJoint");
 
 export = class AchievementUsuario {
 
@@ -45,31 +46,31 @@ export = class AchievementUsuario {
         return res
     }
 
-    public static async readFromUserID(ra: number): Promise<AchievementUsuario[]> {
-        let lista: AchievementUsuario[] = null
+    public static async readFromUserID(ra: number): Promise<AchievementUsuarioTipoProjetoJoin[]> {
+        let lista: AchievementUsuarioTipoProjetoJoin[] = null
 
         await Sql.conectar(async (sql: Sql) => {
-            lista = await sql.query("select u.id_achievement_usuario, u.ra_usuario, u.dt_achievement, a.id_achievement, a.nome_achievement, a.descricao_achievement, a.criterio_achievement, r.nome_area from achievement a, achievement_usuario u, area r where ra_usuario = ? and a.id_achievement = u.id_achievement and a.id_area = r.id_area", [ra]) as AchievementUsuario[]
+            lista = await sql.query("select u.id_achievement_usuario, u.ra_usuario, u.dt_achievement, a.id_achievement, a.nome_achievement, a.descricao_achievement, a.criterio_achievement, r.nome_area, a.id_tipo_projeto_achievement, t.nome_tipo_projeto from achievement a, achievement_usuario u, tipo_projeto t, area r where ra_usuario = ? and a.id_achievement = u.id_achievement and a.id_area = r.id_area and t.id_tipo_projeto = a.id_tipo_projeto_achievement", [ra]) as AchievementUsuarioTipoProjetoJoin[]
         })
 
         return lista
     }
     
-    public static async read(id: number): Promise<AchievementUsuario[]> {
-        let lista: AchievementUsuario[] = null
+    public static async read(id: number): Promise<AchievementUsuarioTipoProjetoJoin[]> {
+        let lista: AchievementUsuarioTipoProjetoJoin[] = null
 
         await Sql.conectar(async (sql: Sql) => {
-            lista = await sql.query("select u.id_achievement_usuario, u.ra_usuario, u.dt_achievement, a.id_achievement, a.nome_achievement, a.descricao_achievement, r.nome_area from achievement a, achievement_usuario u, area r where id_achievement_usuario = ? and a.id_achievement = u.id_achievement and a.id_area = r.id_area", [id]) as AchievementUsuario[]
+            lista = await sql.query("select u.id_achievement_usuario, u.ra_usuario, u.dt_achievement, a.id_achievement, a.nome_achievement, a.descricao_achievement, r.nome_area, a.id_tipo_projeto_achievement, t.nome_tipo_projeto from achievement a, achievement_usuario u, area r, tipo_projeto t where id_achievement_usuario = ? and a.id_achievement = u.id_achievement and a.id_area = r.id_area and t.id_tipo_projeto = a.id_tipo_projeto_achievement", [id]) as AchievementUsuarioTipoProjetoJoin[]
         })
 
         return lista
     }
     
-    public static async readMissingAchievements(ra: number): Promise<Achievement[]>{
-        let lista: Achievement[] = null
+    public static async readMissingAchievements(ra: number): Promise<AchievementUsuarioTipoProjetoJoin[]>{
+        let lista: AchievementUsuarioTipoProjetoJoin[] = null
         
         await Sql.conectar(async (sql: Sql) => {
-            lista = await sql.query("select a.id_achievement, a.id_area, a.nome_achievement, a.descricao_achievement, a.criterio_achievement, a.id_tipo_projeto_achievement from achievement a where a.id_achievement not in (SELECT id_achievement FROM achievement_usuario u where u.ra_usuario = ?)", [ra])
+            lista = await sql.query("select a.id_achievement, a.id_area, a.nome_achievement, a.descricao_achievement, a.criterio_achievement, a.id_tipo_projeto_achievement, t.nome_tipo_projeto from achievement a, tipo_projeto t where a.id_achievement not in (SELECT id_achievement FROM achievement_usuario u where u.ra_usuario = ?) and t.id_tipo_projeto = a.id_tipo_projeto_achievement", [ra]) as AchievementUsuarioTipoProjetoJoin[]
         })
 
         return lista
@@ -77,11 +78,11 @@ export = class AchievementUsuario {
 
 
 
-    public static async readFeaturedAchievements(ra: number): Promise<AchievementUsuario[]>{
-        let lista: AchievementUsuario[] = null
+    public static async readFeaturedAchievements(ra: number): Promise<AchievementUsuarioTipoProjetoJoin[]>{
+        let lista: AchievementUsuarioTipoProjetoJoin[] = null
         
         await Sql.conectar(async (sql: Sql) => {
-            lista = await sql.query("select u.id_achievement_usuario, u.ra_usuario, u.dt_achievement, a.id_achievement, a.nome_achievement, a.descricao_achievement, r.nome_area from achievement a, achievement_usuario u, area r where ra_usuario = ? and destaque_achievement = 1 and a.id_achievement = u.id_achievement and a.id_area = r.id_area", [ra])
+            lista = await sql.query("select u.id_achievement_usuario, u.ra_usuario, u.dt_achievement, a.id_achievement, a.nome_achievement, a.descricao_achievement, r.nome_area from achievement a, achievement_usuario u, area r where ra_usuario = ? and destaque_achievement = 1 and a.id_achievement = u.id_achievement and a.id_area = r.id_area", [ra]) as AchievementUsuarioTipoProjetoJoin[]
         })
 
         return lista

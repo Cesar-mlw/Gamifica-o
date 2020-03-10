@@ -18,6 +18,7 @@ router.get('/', wrap(async (req, res) => {
         res.redirect("/login");
     }
     else {
+        console.log(req.cookies.ra_usuario);
         let points = await Usuario.readUserPoints(11710370);
         let books = [];
         for (let i = 0; i < points.length; i++) {
@@ -41,23 +42,37 @@ router.get('/', wrap(async (req, res) => {
             notPlacedItems: notPlacedItems,
             placedItems: placedItems,
             placedItemsJson: JSON.stringify(placedItemsJson) });
-        //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
     }
 }));
 router.get('/login', wrap(async (req, res) => {
-    res.render('loginRegistro', { titulo: 'Gamificação TECH' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+    res.render('loginRegistro', { titulo: 'Gamificação TECH' });
 }));
 router.get('/pc', wrap(async (req, res) => {
-    res.render('pc', { titulo: 'Gamificação TECH' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+    if (req.cookies.ra_usuario == undefined && req.cookies.looged == undefined) {
+        res.redirect("/login");
+    }
+    else {
+        res.render('pc', { titulo: 'Gamificação TECH' });
+    }
 }));
 router.get('/login', wrap(async (req, res) => {
-    res.render('loginRegistro', { titulo: 'Gamificação TECH' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+    res.render('loginRegistro', { titulo: 'Gamificação TECH' });
 }));
 router.get('/feed', wrap(async (req, res) => {
-    res.render('feed', { titulo: 'Gamificação TECH' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+    if (req.cookies.ra_usuario == undefined && req.cookies.looged == undefined) {
+        res.redirect("/login");
+    }
+    else {
+        res.render('feed', { titulo: 'Gamificação TECH' });
+    }
 }));
 router.get('/achieve', wrap(async (req, res) => {
-    res.render('achieve', { titulo: 'Gamificação TECH' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+    if (req.cookies.ra_usuario == undefined && req.cookies.looged == undefined) {
+        res.redirect("/login");
+    }
+    else {
+        res.render('achieve', { titulo: 'Gamificação TECH' });
+    }
 }));
 router.get('/formTest', wrap(async (req, res) => {
     res.render('formTest', { titulo: "Gamificação" }); //renderizar a tela
