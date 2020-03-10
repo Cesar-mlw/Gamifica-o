@@ -59,7 +59,7 @@ router.get('/login', wrap(async (req, res) => {
     res.render('login', { titulo: 'Gamificação TECH',
         layout: 'layoutLogin' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 }));
-router.get('/registro', wrap(async (req, res) => {
+router.post('/registro', wrap(async (req, res) => {
     res.render('registro', { titulo: 'Gamificação TECH',
         layout: 'layoutLogin' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 }));
