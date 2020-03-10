@@ -233,13 +233,6 @@ export = class StringBuilder {
         return res
     }
 
-
-
-
-
-
-
-
     private static contains(array: Achievement[], item: number): boolean {
         let resp = false;
 
