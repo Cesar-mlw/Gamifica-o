@@ -18,19 +18,18 @@ router.get('/', wrap(async (req, res) => {
         res.redirect("/login");
     }
     else {
-        console.log(req.cookies.ra_usuario);
-        let points = await Usuario.readUserPoints(11710370);
+        let points = await Usuario.readUserPoints(req.cookies.ra_usuario);
         let books = [];
         for (let i = 0; i < points.length; i++) {
             books.push(StringBuilder.bookSpiller(points[i]['pontos'], points[i]['id']));
         }
         let allAchievements = await Achievement.listJoin();
-        let missingAchievements = await AchievementUsuario.readMissingAchievements(11710370);
+        let missingAchievements = await AchievementUsuario.readMissingAchievements(req.cookies.ra_usuario);
         let achieveHTML = StringBuilder.shelfSpiller(allAchievements, missingAchievements);
         let achievePreviewHTML = StringBuilder.shelfPreviewSpiller(allAchievements, missingAchievements);
-        let notPlacedItemsJson = await ItemUsuario.readNotPlacedItems(11710370);
-        let notPlacedItems = StringBuilder.itemBoxSpiller(await ItemUsuario.readNotPlacedItems(11710370));
-        let placedItemsJson = await ItemUsuario.readPlacedItems(11710370);
+        let notPlacedItemsJson = await ItemUsuario.readNotPlacedItems(req.cookies.ra_usuario);
+        let notPlacedItems = StringBuilder.itemBoxSpiller(await ItemUsuario.readNotPlacedItems(req.cookies.ra_usuario));
+        let placedItemsJson = await ItemUsuario.readPlacedItems(req.cookies.ra_usuario);
         let placedItems = StringBuilder.placedItemSpiller(placedItemsJson);
         // console.log(StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370)))
         // Book pile string builder
@@ -79,8 +78,8 @@ router.post('/formTest', wrap(async (req, res) => {
     res.render('formTest', { titulo: "Gamificação" }); //renderizar a tela
 }));
 router.post('/portifolio', wrap(async (req, res) => {
-    let projetos = await Projeto.read(11710370);
-    let projetosHTML = StringBuilder.projectSpiller(await Projeto.read(11710370));
+    let projetos = await Projeto.read(req.cookies.ra_usuario);
+    let projetosHTML = StringBuilder.projectSpiller(await Projeto.read(req.cookies.ra_usuario));
     let numeroDeProjetos = projetos.length;
     let listaArea = StringBuilder.areaSpiller(await Area.list());
     let listaTipoProjeto = StringBuilder.tipoProjetoSpiller(await TipoProjeto.list());
@@ -109,7 +108,7 @@ router.post('/registroProjeto', wrap(async (req, res) => {
         listaTipoHabilidade: listaTipoHabilidade }); //renderizar a tela
 }));
 router.post('/loja', wrap(async (req, res) => {
-    let storeItems = StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370));
+    let storeItems = StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(req.cookies.ra_usuario));
     res.render('loja', {
         layout: 'layoutVazio',
         storeItems: storeItems
