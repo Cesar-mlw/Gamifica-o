@@ -1,46 +1,48 @@
-﻿<div id="paper" class="paper">
-    <img  src="images/logo.png" style="width: 15vw; height: 15vh; margin-left: 6vw;">
-        <label class="emailForm" for="raInput">RA</label>
-        <input class="emailFormInput" type="text" id="raInput"/>
-        <label class="senhaForm" for="senhaInput">Senha </label>
-        <input class="senhaFormInput" type="text" id="senhaInput"/>
-
-        <input type="button" style="text-align: center; color: aliceblue;" value="Logar" class="loginSubmit" onclick="clickLogin()"/>
+<div class="login-form-wrapper">
+    <form>
+        <label for="login">Login</label>
+        <input type="number" id="ra_usuario_login"/>
+        <label for="password"></label>
+        <input type="password" id="senha_usuario_login"/>
+        <input type="button" value="Login" onclick="login()"/>
+    </form>
+</div>
+<div>
+    <input type="button" value="Log Out" onclick="logout()">
 </div>
 
-
-
-<%- contentFor("scripts") %>
-<script type="text/javascript">
-    function clickLogin() {
-        let ra = document.getElementById("raInput").value
-        let senha = document.getElementById("senhaInput").value
-        if (ra != '' && senha != '') {
-            const form = {
-                ra: ra,
-                senha: senha
+<%- contentFor("scripts")%>
+<script>
+    function login(){
+        let ra_usuario = document.getElementById("ra_usuario_login").value
+        let senha_usuario = document.getElementById("senha_usuario_login").value
+        let form = {
+            ra_usuario: ra_usuario,
+            senha_usuario: senha_usuario
+        }
+        $.ajax({
+            method: "post",
+            url: "http://localhost:3000/api/usuario/login",
+            data: form,
+            dataType: "json",
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (e) {
+                console.log(e)
             }
-            $.ajax({
-                url: "http://localhost:3000/api/usuario/efetuarLogin",
-                method: "post",
-                data: JSON.stringify(form),
-                contentType: "application/json",
-                success: function (data) {
-                    if (data) {
-                        window.location.replace("/admin/home")
-                    }
-                    else {
-                        alert("RA ou senha errados")
-                    }
-                },
-                error: function (error) {
-
-                }
-            })
-        }
-        else {
-            alert("Preencha os campos!!")
-        }
+        })
     }
-    
+    function logout() {
+        $.ajax({
+            method: "get",
+            url: "http://localhost:3000/api/usuario/logout",
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        })
+    }
 </script>

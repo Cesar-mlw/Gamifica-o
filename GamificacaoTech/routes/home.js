@@ -26,7 +26,7 @@ router.get('/', wrap(async (req, res) => {
     let notPlacedItemsJson = await ItemUsuario.readNotPlacedItems(11710370);
     let notPlacedItems = StringBuilder.itemBoxSpiller(await ItemUsuario.readNotPlacedItems(11710370));
     let placedItemsJson = await ItemUsuario.readPlacedItems(11710370);
-    let placedItems = StringBuilder.placedItemSpiller(await ItemUsuario.readPlacedItems(11710370));
+    let placedItems = StringBuilder.placedItemSpiller(placedItemsJson);
     // console.log(StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370)))
     // Book pile string builder
     res.render('home', { titulo: 'Gamificação TECH',
@@ -43,7 +43,12 @@ router.get('/pc', wrap(async (req, res) => {
     res.render('pc', { titulo: 'Gamificação TECH' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 }));
 router.get('/login', wrap(async (req, res) => {
-    res.render('loginRegistro', { titulo: 'Gamificação TECH' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+    res.render('login', { titulo: 'Gamificação TECH',
+        layout: 'layoutLogin' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+}));
+router.get('/registro', wrap(async (req, res) => {
+    res.render('registro', { titulo: 'Gamificação TECH',
+        layout: 'layoutLogin' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 }));
 router.get('/feed', wrap(async (req, res) => {
     res.render('feed', { titulo: 'Gamificação TECH' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
