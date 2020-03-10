@@ -22,6 +22,13 @@ module.exports = class Achievement {
         });
         return lista;
     }
+    static async listJoin() {
+        let lista = null;
+        await Sql.conectar(async (sql) => {
+            lista = await sql.query("SELECT a.id_achievement, a.id_area, a.nome_achievement, a.descricao_achievement, a.criterio_achievement, a.id_tipo_projeto_achievement FROM achievement a");
+        });
+        return lista;
+    }
     static async create(a) {
         let res;
         if ((res = Achievement.validate(a)))

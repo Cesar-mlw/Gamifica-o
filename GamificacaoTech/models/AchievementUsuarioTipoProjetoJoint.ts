@@ -6,6 +6,7 @@ export = class AchievementUsuarioTipoProjetoJoin {
 
     public id_achievement: number;
     public id_area: number;
+    public nome_area: string;
     public nome_achievement: string;
     public descricao_achievement: string;
     public criterio_achievement: number;
