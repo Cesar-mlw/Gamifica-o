@@ -437,6 +437,11 @@ opacity: 1;
     background: red;
 }
 
+.achievement-desc{
+    position: absolute;
+    display: none;
+}
+
 .estante-row-preview{
     display: flex;
     flex-direction: row;

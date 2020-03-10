@@ -100,10 +100,10 @@ module.exports = class StringBuilder {
                 res += '<div class="estante-body-bottom"><div class="estante-row">';
                 for (let j = 0; j < 3 - v; j++) {
                     if (this.contains(miss, all[i].id_achievement)) {
-                        res += '<div class="estante-item missing-achievement" id="achievement-' + i + '"></div>';
+                        res += '<div class="estante-item missing-achievement" id="achievement-' + i + '"><div class="achievement-desc"><div class="achievement-title">???</div><div class="achievement-text">???</div><div class="achievement-subject">' + all[i].nome_area + '</div><div class="achievement-criteria">Conseguido por: Registrar <span class="criteria-number">' + all[i].criterio_achievement + '</span> <span class="criteria-tipo">' + all[i].nome_tipo_projeto + '</span></div></div></div>';
                     }
                     else {
-                        res += '<div class="estante-item" id="achievement-' + i + '"></div>';
+                        res += '<div class="estante-item" id="achievement-' + i + '"><div class="achievement-desc"><div class="achievement-title">' + all[i].nome_achievement + '</div><div class="achievement-text">' + all[i].descricao_achievement + '</div><div class="achievement-subject">' + all[i].nome_area + '</div><div class="achievement-criteria">Conseguido por: Registrar <span class="criteria-number">' + all[i].criterio_achievement + '</span> <span class="criteria-tipo">' + all[i].nome_tipo_projeto + '</span></div></div></div>';
                     }
                 }
                 res += '</div></div>';
@@ -112,10 +112,10 @@ module.exports = class StringBuilder {
                 res += '<div class="estante-body-top"><div class="estante-row">';
                 for (let j = 0; j < 3; j++) {
                     if (this.contains(miss, all[i].id_achievement)) {
-                        res += '<div class="estante-item missing-achievement" id="achievement-' + i + '"></div>';
+                        res += '<div class="estante-item missing-achievement" id="achievement-' + i + '"><div class="achievement-desc"><div class="achievement-title">???</div><div class="achievement-text">???</div><div class="achievement-subject">' + all[i].nome_area + '</div><div class="achievement-criteria">Conseguido por: Registrar <span class="criteria-number">' + all[i].criterio_achievement + '</span> <span class="criteria-tipo">' + all[i].nome_tipo_projeto + '</span></div></div></div>';
                     }
                     else {
-                        res += '<div class="estante-item" id="achievement-' + i + '"></div>';
+                        res += '<div class="estante-item" id="achievement-' + i + '"><div class="achievement-desc"><div class="achievement-title">' + all[i].nome_achievement + '</div><div class="achievement-text">' + all[i].descricao_achievement + '</div><div class="achievement-subject">' + all[i].nome_area + '</div><div class="achievement-criteria">Conseguido por: Registrar <span class="criteria-number">' + all[i].criterio_achievement + '</span> <span class="criteria-tipo">' + all[i].nome_tipo_projeto + '</span></div></div></div>';
                     }
                 }
                 res += '</div></div>';
@@ -124,10 +124,10 @@ module.exports = class StringBuilder {
                 res += '<div class="estante-body-bottom"><div class="estante-row">';
                 for (let j = 0; j < 3; j++) {
                     if (this.contains(miss, all[i].id_achievement)) {
-                        res += '<div class="estante-item missing-achievement" id="achievement-' + i + '"></div>';
+                        res += '<div class="estante-item missing-achievement" id="achievement-' + i + '"><div class="achievement-desc"><div class="achievement-title">???</div><div class="achievement-text">???</div><div class="achievement-subject">' + all[i].nome_area + '</div><div class="achievement-criteria">Conseguido por: Registrar <span class="criteria-number">' + all[i].criterio_achievement + '</span> <span class="criteria-tipo">' + all[i].nome_tipo_projeto + '</span></div></div></div>';
                     }
                     else {
-                        res += '<div class="estante-item" id="achievement-' + i + '"></div>';
+                        res += '<div class="estante-item" id="achievement-' + i + '"><div class="achievement-desc"><div class="achievement-title">' + all[i].nome_achievement + '</div><div class="achievement-text">' + all[i].descricao_achievement + '</div><div class="achievement-subject">' + all[i].nome_area + '</div><div class="achievement-criteria">Conseguido por: Registrar <span class="criteria-number">' + all[i].criterio_achievement + '</span> <span class="criteria-tipo">' + all[i].nome_tipo_projeto + '</span></div></div></div>';
                     }
                 }
                 res += '</div></div>';
