@@ -103,7 +103,7 @@ router.get('/curriculo', wrap(async (req, res) => {
 router.get('/testeAjax', wrap(async (req, res) => {
     res.render('testeAjax', { layout: 'layoutVazio' }); //renderizar a tela
 }));
-router.get('/registroProjeto', wrap(async (req, res) => {
+router.post('/registroProjeto', wrap(async (req, res) => {
     let listaArea = StringBuilder.areaSpiller(await Area.list());
     let listaTipoProjeto = StringBuilder.tipoProjetoSpiller(await TipoProjeto.list());
     let listaTipoHabilidade = StringBuilder.tipoHabilidadeSpiller(await TipoHabilidade.list());
