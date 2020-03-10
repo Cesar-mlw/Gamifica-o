@@ -1,6 +1,7 @@
 ﻿import Sql = require("../infra/sql")
 import ItemItemUsuarioJoin = require("./ItemItemUsuarioJoin");
 import Item = require("./Item")
+import ItemUsuarioId = require("./ItemUsuarioId");
 
 
 export = class ItemUsuario {
@@ -48,6 +49,16 @@ export = class ItemUsuario {
                 else
                     throw e
             }
+        })
+
+        return res
+    }
+
+    public static async readLastInserted(): Promise<ItemUsuarioId[]> {
+        let res: ItemUsuarioId[];
+
+        await Sql.conectar(async (sql: Sql) => {
+            res = await sql.query("SELECT last_inserted_id()") as ItemUsuarioId[]
         })
 
         return res

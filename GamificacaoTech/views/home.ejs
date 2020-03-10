@@ -234,6 +234,8 @@
 
 <%- contentFor("scripts")%>
 <script type="text/javascript">
+    var placedItems = <%-placedItemsJson%>;
+    var notPlacedItems = <%-notPlacedItemsJson%>;
     function filterLoja(ele){
         idArea = ele.getAttribute('data-id');
 
@@ -288,11 +290,30 @@
                 console.log(data);
                 $('#loja-item-'+idItem+'').closest('.bcl-item').remove();
                 $('.item-box').append('<button class="item-box-item" id="item-box-item-'+id+'" onclick="adicionarItem('+id+')"></button>')
-                
+                notPlacedItems = returnNotPlacedItems(11710370)
             },
             error: function (e) {
                 console.log(e)
             }
+        })
+    }
+
+    function returnNotPlacedItems(ra){
+        let url = "/api/itemUsuario/readNotPlacedItems"
+        let form = {
+            ra: ra
+        }
+        $.ajax({
+            method: "post",
+            url: url,
+            data: form,
+            dataType: "json",
+            success: function (data) {
+                return data
+            },
+            error: function (e) {
+                console.log(e);
+            },
         })
     }
 
@@ -317,7 +338,7 @@
                 console.log(e)
             }
         })
-        
+
     }
 
     function closePortItem(){
@@ -417,14 +438,13 @@
         
     }
     
-    var placedItems = <%-placedItemsJson%>;
-    var notPlacedItems = <%-notPlacedItemsJson%>;
+   
 
     function adicionarItem(x){
         var itemClicado;
-        for(let i = 0; i < notPlacedItemsJson.length; i++){
-            if(notPlacedItemsJson[i].id_item_usuario == x){
-                itemClicado = notPlacedItemsJson[i];
+        for(let i = 0; i < notPlacedItems.length; i++){
+            if(notPlacedItems[i].id_item_usuario == x){
+                itemClicado = notPlacedItems[i];
             }
         }
         var div = $(`<div class="objdrag room-object" id="item-${itemClicado.id_item_usuario}" data-id="${itemClicado.id_item_usuario}" style="position:absolute;background:url(${itemClicado.img_url_item}); width:${(itemClicado.width)*80}px; height:${(itemClicado.height)*80}px"></div>`)[0];
@@ -450,11 +470,40 @@
             dataType: "json",
             success: function (data) {
                 console.log(data)
+                insertPlacedItem(itemClicado.id_item_usuario)
             },
             error: function (e) {
                 console.log(e)
             }
         })
+    }
+    function removePlacedItem(itemId) {
+        for(let i = 0; i < placedItems.length; i++) {
+            if(placedItems[i].id_item_usuario == itemId){
+                let placedIt = placedItems[i]
+                placedItems.splice(i, 1)
+                notPlacedItems.push(placedIt)
+            }
+        }
+        console.log("Placed Items :");
+        console.log(placedItems);
+        console.log("Not Placed Items :");
+        console.log(notPlacedItems);
+        console.log("Remove");
+    }
+
+    function insertPlacedItem(itemId) {
+        for(let i = 0; i < notPlacedItems.length; i++){
+            if(notPlacedItems[i].id_item_usuario == itemId){
+                let notPlaced = notPlacedItems[i]
+                notPlacedItems.splice(i, 1)
+                placedItems.push(notPlaced)
+            }
+        }
+        console.log("Placed Items :");
+        console.log(placedItems);
+        console.log("Not Placed Items :");
+        console.log(notPlacedItems);
     }
 
     function registroRedirect() {

@@ -14,30 +14,38 @@ const TipoHabilidade = require("../models/TipoHabilidade");
 const router = express.Router();
 //import usuario
 router.get('/', wrap(async (req, res) => {
-    let points = await Usuario.readUserPoints(11710370);
-    let books = [];
-    for (let i = 0; i < points.length; i++) {
-        books.push(StringBuilder.bookSpiller(points[i]['pontos'], points[i]['id']));
+    if (req.cookies.ra_usuario == undefined || req.cookies.logged == undefined) {
+        res.redirect("/login");
     }
-    let allAchievements = await Achievement.list();
-    let missingAchievements = await AchievementUsuario.readMissingAchievements(11710370);
-    let achieveHTML = StringBuilder.shelfSpiller(allAchievements, missingAchievements);
-    let achievePreviewHTML = StringBuilder.shelfPreviewSpiller(allAchievements, missingAchievements);
-    let notPlacedItemsJson = await ItemUsuario.readNotPlacedItems(11710370);
-    let notPlacedItems = StringBuilder.itemBoxSpiller(await ItemUsuario.readNotPlacedItems(11710370));
-    let placedItemsJson = await ItemUsuario.readPlacedItems(11710370);
-    let placedItems = StringBuilder.placedItemSpiller(placedItemsJson);
-    // console.log(StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370)))
-    // Book pile string builder
-    res.render('home', { titulo: 'Gamificação TECH',
-        books: books,
-        achieveHTML: achieveHTML,
-        achievePreviewHTML: achievePreviewHTML,
-        notPlacedItemsJson: JSON.stringify(notPlacedItemsJson),
-        notPlacedItems: notPlacedItems,
-        placedItems: placedItems,
-        placedItemsJson: JSON.stringify(placedItemsJson) });
-    //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+    else {
+        let points = await Usuario.readUserPoints(11710370);
+        let books = [];
+        for (let i = 0; i < points.length; i++) {
+            books.push(StringBuilder.bookSpiller(points[i]['pontos'], points[i]['id']));
+        }
+        let allAchievements = await Achievement.list();
+        let missingAchievements = await AchievementUsuario.readMissingAchievements(11710370);
+        let achieveHTML = StringBuilder.shelfSpiller(allAchievements, missingAchievements);
+        let achievePreviewHTML = StringBuilder.shelfPreviewSpiller(allAchievements, missingAchievements);
+        let notPlacedItemsJson = await ItemUsuario.readNotPlacedItems(11710370);
+        let notPlacedItems = StringBuilder.itemBoxSpiller(await ItemUsuario.readNotPlacedItems(11710370));
+        let placedItemsJson = await ItemUsuario.readPlacedItems(11710370);
+        let placedItems = StringBuilder.placedItemSpiller(placedItemsJson);
+        // console.log(StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370)))
+        // Book pile string builder
+        res.render('home', { titulo: 'Gamificação TECH',
+            books: books,
+            achieveHTML: achieveHTML,
+            achievePreviewHTML: achievePreviewHTML,
+            notPlacedItemsJson: JSON.stringify(notPlacedItemsJson),
+            notPlacedItems: notPlacedItems,
+            placedItems: placedItems,
+            placedItemsJson: JSON.stringify(placedItemsJson) });
+        //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+    }
+}));
+router.get('/login', wrap(async (req, res) => {
+    res.render('loginRegistro', { titulo: 'Gamificação TECH' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 }));
 router.get('/pc', wrap(async (req, res) => {
     res.render('pc', { titulo: 'Gamificação TECH' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})

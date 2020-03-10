@@ -31,6 +31,13 @@ module.exports = class ItemUsuario {
         });
         return res;
     }
+    static async readLastInserted() {
+        let res;
+        await Sql.conectar(async (sql) => {
+            res = await sql.query("SELECT last_inserted_id()");
+        });
+        return res;
+    }
     static async read(ra) {
         let lista = null;
         await Sql.conectar(async (sql) => {
