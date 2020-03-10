@@ -53,7 +53,7 @@ router.get('/login', wrap(async (req: express.Request, res: express.Response) =>
     
 }));
 
-router.get('/pc', wrap(async (req: express.Request, res: express.Response) => {
+router.post('/pc', wrap(async (req: express.Request, res: express.Response) => {
     if(req.cookies.ra_usuario == undefined && req.cookies.looged == undefined){
         res.redirect("/login")
     }
@@ -63,17 +63,12 @@ router.get('/pc', wrap(async (req: express.Request, res: express.Response) => {
     
 }));
 
-router.get('/login', wrap(async (req: express.Request, res: express.Response) => {//Declaração de rota
-    res.render('login', { titulo: 'Gamificação TECH',
-                                  layout:'layoutLogin'}); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
-}));
-
 router.post('/registro', wrap(async (req: express.Request, res: express.Response) => {//Declaração de rota
     res.render('registro', { titulo: 'Gamificação TECH',
                                   layout:'layoutLogin'}); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 }));
 
-router.get('/feed', wrap(async (req: express.Request, res: express.Response) => {
+router.post('/feed', wrap(async (req: express.Request, res: express.Response) => {
     if(req.cookies.ra_usuario == undefined && req.cookies.looged == undefined){
         res.redirect("/login")
     }
@@ -83,7 +78,7 @@ router.get('/feed', wrap(async (req: express.Request, res: express.Response) => 
     
 }));
 
-router.get('/achieve', wrap(async (req: express.Request, res: express.Response) => {
+router.post('/achieve', wrap(async (req: express.Request, res: express.Response) => {
     if(req.cookies.ra_usuario == undefined && req.cookies.looged == undefined){
         res.redirect("/login")
     }
@@ -92,12 +87,12 @@ router.get('/achieve', wrap(async (req: express.Request, res: express.Response) 
     }
 }));
 
-router.get('/formTest', wrap(async (req: express.Request, res: express.Response) => {
+router.post('/formTest', wrap(async (req: express.Request, res: express.Response) => {
     
     res.render('formTest', { titulo: "Gamificação" })//renderizar a tela
 }));
 
-router.get('/portifolio', wrap(async (req: express.Request, res: express.Response) => {
+router.post('/portifolio', wrap(async (req: express.Request, res: express.Response) => {
 
     let projetos = await Projeto.read(11710370)
     let projetosHTML = StringBuilder.projectSpiller(await Projeto.read(11710370))
@@ -112,13 +107,13 @@ router.get('/portifolio', wrap(async (req: express.Request, res: express.Respons
                                 listaTipoProjeto: listaTipoProjeto})//renderizar a tela
 }));
 
-router.get('/curriculo', wrap(async (req: express.Request, res: express.Response) => {
+router.post('/curriculo', wrap(async (req: express.Request, res: express.Response) => {
     let habs = await Habilidade.read(11710370)
     res.render('curriculo', { layout:'layoutVazio',
                             habilidades: habs})//renderizar a tela
 }));
 
-router.get('/testeAjax', wrap(async (req: express.Request, res: express.Response) => {
+router.post('/testeAjax', wrap(async (req: express.Request, res: express.Response) => {
     res.render('testeAjax', { layout:'layoutVazio'})//renderizar a tela
 }));
 
@@ -132,7 +127,7 @@ router.post('/registroProjeto', wrap(async (req: express.Request, res: express.R
                                     listaTipoHabilidade: listaTipoHabilidade})//renderizar a tela
 }));
 
-router.get('/loja', wrap(async (req: express.Request, res: express.Response) => {
+router.post('/loja', wrap(async (req: express.Request, res: express.Response) => {
 
     let storeItems = StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370))
     res.render('loja', { 

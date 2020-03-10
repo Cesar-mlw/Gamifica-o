@@ -47,7 +47,7 @@ router.get('/', wrap(async (req, res) => {
 router.get('/login', wrap(async (req, res) => {
     res.render('loginRegistro', { titulo: 'Gamificação TECH' });
 }));
-router.get('/pc', wrap(async (req, res) => {
+router.post('/pc', wrap(async (req, res) => {
     if (req.cookies.ra_usuario == undefined && req.cookies.looged == undefined) {
         res.redirect("/login");
     }
@@ -55,15 +55,11 @@ router.get('/pc', wrap(async (req, res) => {
         res.render('pc', { titulo: 'Gamificação TECH' });
     }
 }));
-router.get('/login', wrap(async (req, res) => {
-    res.render('login', { titulo: 'Gamificação TECH',
-        layout: 'layoutLogin' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
-}));
 router.post('/registro', wrap(async (req, res) => {
     res.render('registro', { titulo: 'Gamificação TECH',
         layout: 'layoutLogin' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 }));
-router.get('/feed', wrap(async (req, res) => {
+router.post('/feed', wrap(async (req, res) => {
     if (req.cookies.ra_usuario == undefined && req.cookies.looged == undefined) {
         res.redirect("/login");
     }
@@ -71,7 +67,7 @@ router.get('/feed', wrap(async (req, res) => {
         res.render('feed', { titulo: 'Gamificação TECH' });
     }
 }));
-router.get('/achieve', wrap(async (req, res) => {
+router.post('/achieve', wrap(async (req, res) => {
     if (req.cookies.ra_usuario == undefined && req.cookies.looged == undefined) {
         res.redirect("/login");
     }
@@ -79,10 +75,10 @@ router.get('/achieve', wrap(async (req, res) => {
         res.render('achieve', { titulo: 'Gamificação TECH' });
     }
 }));
-router.get('/formTest', wrap(async (req, res) => {
+router.post('/formTest', wrap(async (req, res) => {
     res.render('formTest', { titulo: "Gamificação" }); //renderizar a tela
 }));
-router.get('/portifolio', wrap(async (req, res) => {
+router.post('/portifolio', wrap(async (req, res) => {
     let projetos = await Projeto.read(11710370);
     let projetosHTML = StringBuilder.projectSpiller(await Projeto.read(11710370));
     let numeroDeProjetos = projetos.length;
@@ -95,12 +91,12 @@ router.get('/portifolio', wrap(async (req, res) => {
         listaArea: listaArea,
         listaTipoProjeto: listaTipoProjeto }); //renderizar a tela
 }));
-router.get('/curriculo', wrap(async (req, res) => {
+router.post('/curriculo', wrap(async (req, res) => {
     let habs = await Habilidade.read(11710370);
     res.render('curriculo', { layout: 'layoutVazio',
         habilidades: habs }); //renderizar a tela
 }));
-router.get('/testeAjax', wrap(async (req, res) => {
+router.post('/testeAjax', wrap(async (req, res) => {
     res.render('testeAjax', { layout: 'layoutVazio' }); //renderizar a tela
 }));
 router.post('/registroProjeto', wrap(async (req, res) => {
@@ -112,7 +108,7 @@ router.post('/registroProjeto', wrap(async (req, res) => {
         listaTipoProjeto: listaTipoProjeto,
         listaTipoHabilidade: listaTipoHabilidade }); //renderizar a tela
 }));
-router.get('/loja', wrap(async (req, res) => {
+router.post('/loja', wrap(async (req, res) => {
     let storeItems = StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370));
     res.render('loja', {
         layout: 'layoutVazio',
