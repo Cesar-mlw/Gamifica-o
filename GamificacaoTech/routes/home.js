@@ -56,7 +56,12 @@ router.get('/pc', wrap(async (req, res) => {
     }
 }));
 router.get('/login', wrap(async (req, res) => {
-    res.render('loginRegistro', { titulo: 'Gamificação TECH' });
+    res.render('login', { titulo: 'Gamificação TECH',
+        layout: 'layoutLogin' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+}));
+router.get('/registro', wrap(async (req, res) => {
+    res.render('registro', { titulo: 'Gamificação TECH',
+        layout: 'layoutLogin' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 }));
 router.get('/feed', wrap(async (req, res) => {
     if (req.cookies.ra_usuario == undefined && req.cookies.looged == undefined) {

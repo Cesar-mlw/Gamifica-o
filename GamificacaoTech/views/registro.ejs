@@ -1,16 +1,3 @@
-<div class="login-form-wrapper">
-    <form>
-        <label for="login">Login</label>
-        <input type="number" id="ra_usuario_login"/>
-        <label for="password"></label>
-        <input type="password" id="senha_usuario_login"/>
-        <input type="button" value="Login" onclick="login()"/>
-    </form>
-</div>
-<div>
-    <input type="button" value="Log Out" onclick="logout()">
-</div>
-
 <div class="register-form-wrapper">
     <form>
         <label for="ra_usuario">RA</label>
@@ -41,39 +28,6 @@
 
 <%- contentFor("scripts")%>
 <script>
-    function login(){
-        let ra_usuario = document.getElementById("ra_usuario_login").value
-        let senha_usuario = document.getElementById("senha_usuario_login").value
-        let form = {
-            ra_usuario: ra_usuario,
-            senha_usuario: senha_usuario
-        }
-        $.ajax({
-            method: "post",
-            url: "http://localhost:3000/api/usuario/login",
-            data: form,
-            dataType: "json",
-            success: function (data) {
-                console.log(data)
-            },
-            error: function (e) {
-                console.log(e)
-            }
-        })
-    }
-    function logout() {
-        $.ajax({
-            method: "get",
-            url: "http://localhost:3000/api/usuario/logout",
-            success: function (data) {
-                console.log(data)
-            },
-            error: function (e) {
-                console.log(e)
-            }
-        })
-    }
-
     function register(){
         let isAdmin = 0
         if(document.getElementById("idAdmin").checked) isAdmin = 1
@@ -93,6 +47,18 @@
             url: "http://localhost:3000/api/usuario/create",
             data: form,
             dataType: "json",
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        })
+    }
+    function logout() {
+        $.ajax({
+            method: "get",
+            url: "http://localhost:3000/api/usuario/logout",
             success: function (data) {
                 console.log(data)
             },
