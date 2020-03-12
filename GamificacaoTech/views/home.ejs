@@ -238,11 +238,11 @@
     var notPlacedItems = <%-notPlacedItemsJson%>;
     function filterLoja(ele){
         idArea = ele.getAttribute('data-id');
-
+        getCookie("ra_usuario")
         let url = "/api/itemUsuario/readMissingItemsSpecific"
         let form = {
             idArea: idArea,
-            ra: 11710370
+            ra: getCookie("ra_usuario")
         }
         $.ajax({
             method: "post",
@@ -280,7 +280,7 @@
         let url = "/api/itemUsuario/create"
         let form = {
             id_item: idItem,
-            ra_usuario: document.cookie.match('(^|;) ?' + ra_usuario + '=([^;]*)(;|$)');
+            ra_usuario: getCookie("ra_usuario")
         }
         $.ajax({
             method: "post",
@@ -291,7 +291,7 @@
                 console.log(data);
                 $('#loja-item-'+idItem+'').closest('.bcl-item').remove();
                 $('.item-box').append('<button class="item-box-item" id="item-box-item-'+id+'" onclick="adicionarItem('+id+')"></button>')
-                notPlacedItems = returnNotPlacedItems(11710370)
+                notPlacedItems = returnNotPlacedItems(getCookie("ra_usuario"))
             },
             error: function (e) {
                 console.log(e)
@@ -324,7 +324,7 @@
         $('#port-item-id').attr('value', idProjeto);
         let url = "/api/projeto/read"
         let form = {
-            ra_usuario : 11710370 //HARD CODE
+            ra_usuario : getCookie("ra_usuario")
         }
         let listaProjetos = null
         $.ajax({
@@ -363,7 +363,7 @@
 
         let url = "/api/projeto/update"
         let form = {
-            ra_usuario: 11710370,
+            ra_usuario: getCookie("ra_usuario"),
             id_projeto: idProjeto,
             id_tipo_projeto: tipoProjeto,
             nome_projeto: nomeProjeto,
@@ -389,13 +389,14 @@
         })
     }
 
-    function deletePortItem(){
-        var idProjeto = $('#port-item-id').val();
+    function deletePortItem(idProjeto){
+        
 
         let url = "/api/projeto/delete"
         let form = {
-            id_projeto: idProjeto
+            idProjeto: idProjeto
         }
+        console.log(form);
         $.ajax({
             method: "post",
             url: url,
@@ -442,7 +443,7 @@
     function getCookie(name) {
     // Split cookie string and get all individual name=value pairs in an array
     var cookieArr = document.cookie.split(";");
-    
+    console.log(cookieArr);
     // Loop through the array elements
     for(var i = 0; i < cookieArr.length; i++) {
         var cookiePair = cookieArr[i].split("=");
@@ -505,11 +506,7 @@
                 notPlacedItems.push(placedIt)
             }
         }
-        console.log("Placed Items :");
-        console.log(placedItems);
-        console.log("Not Placed Items :");
-        console.log(notPlacedItems);
-        console.log("Remove");
+        
     }
 
     function insertPlacedItem(itemId) {
@@ -520,10 +517,7 @@
                 placedItems.push(notPlaced)
             }
         }
-        console.log("Placed Items :");
-        console.log(placedItems);
-        console.log("Not Placed Items :");
-        console.log(notPlacedItems);
+      
     }
 
     function registroRedirect() {

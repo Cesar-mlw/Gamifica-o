@@ -81,8 +81,10 @@
                             <label for="check-exibir" class="css-label">Exibir no Portfólio</label>
                         </span>
                         <span class="port-item-edit-lower">
-                            <button class="port-item-edit-button" onclick="savePortItem()">Save Project</button>
-                            <button class="port-item-delete-button" onclick="deletePortItem()">Delete Project</button>
+                            <form class="port-item-edit-formTag">
+                                <button class="port-item-edit-button" onclick="savePortItem()">Save Project</button>
+                                <button class="port-item-delete-button" onclick="deletePortItem($('#port-item-id').val())" type="submit">Delete Project</button>
+                            </form>
                         </span>
                     </div>
                 </div>

@@ -31,7 +31,6 @@ router.get('/', wrap(async (req, res) => {
         let notPlacedItems = StringBuilder.itemBoxSpiller(await ItemUsuario.readNotPlacedItems(req.cookies.ra_usuario));
         let placedItemsJson = await ItemUsuario.readPlacedItems(req.cookies.ra_usuario);
         let placedItems = StringBuilder.placedItemSpiller(placedItemsJson);
-        // console.log(StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370)))
         // Book pile string builder
         res.render('home', { titulo: 'Gamificação TECH',
             books: books,
@@ -91,7 +90,7 @@ router.post('/portifolio', wrap(async (req, res) => {
         listaTipoProjeto: listaTipoProjeto }); //renderizar a tela
 }));
 router.post('/curriculo', wrap(async (req, res) => {
-    let habs = await Habilidade.read(11710370);
+    let habs = await Habilidade.read(req.cookies.ra_usuario);
     res.render('curriculo', { layout: 'layoutVazio',
         habilidades: habs }); //renderizar a tela
 }));

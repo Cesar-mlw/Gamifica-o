@@ -21,6 +21,12 @@ button{
     cursor: pointer;
 }
 
+.port-item-edit-formTag{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
 html, body {
     margin: 0;
     color: #5f6368;
