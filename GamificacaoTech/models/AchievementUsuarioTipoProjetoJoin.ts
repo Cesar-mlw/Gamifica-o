@@ -1,7 +1,5 @@
 import Sql = require("../infra/sql")
 
-
-
 export = class AchievementUsuarioTipoProjetoJoin {
 
     public id_achievement: number;
@@ -12,7 +10,4 @@ export = class AchievementUsuarioTipoProjetoJoin {
     public criterio_achievement: number;
     public id_tipo_projeto_achievement: number;
     public nome_tipo_projeto: string;
-    
-
-
 }

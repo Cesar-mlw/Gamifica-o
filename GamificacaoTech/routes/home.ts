@@ -27,6 +27,7 @@ router.get('/', wrap(async (req: express.Request, res: express.Response) => {
             books.push(StringBuilder.bookSpiller(points[i]['pontos'], points[i]['id']))
         }
         let allAchievements = await Achievement.listJoin()
+        console.log(allAchievements);
         let missingAchievements = await AchievementUsuario.readMissingAchievements(11710370)
         let achieveHTML = StringBuilder.shelfSpiller(allAchievements, missingAchievements)
         let achievePreviewHTML = StringBuilder.shelfPreviewSpiller(allAchievements, missingAchievements)
@@ -97,7 +98,7 @@ router.get('/formTest', wrap(async (req: express.Request, res: express.Response)
     res.render('formTest', { titulo: "Gamificação" })//renderizar a tela
 }));
 
-router.get('/portifolio', wrap(async (req: express.Request, res: express.Response) => {
+router.post('/portifolio', wrap(async (req: express.Request, res: express.Response) => {
 
     let projetos = await Projeto.read(11710370)
     let projetosHTML = StringBuilder.projectSpiller(await Projeto.read(11710370))
@@ -132,8 +133,7 @@ router.post('/registroProjeto', wrap(async (req: express.Request, res: express.R
                                     listaTipoHabilidade: listaTipoHabilidade})//renderizar a tela
 }));
 
-router.get('/loja', wrap(async (req: express.Request, res: express.Response) => {
-
+router.post('/loja', wrap(async (req: express.Request, res: express.Response) => {
     let storeItems = StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370))
     res.render('loja', { 
         layout:'layoutVazio',
