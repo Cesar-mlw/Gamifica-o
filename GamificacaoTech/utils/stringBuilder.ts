@@ -16,11 +16,11 @@ export = class StringBuilder {
         let n2 = 0
         let n3 = 0
 
-        n3 = Math.floor(p/1550)
+        n3 = Math.floor(p/1550) // Nível 3
         p -= 1550*n3
-        n2 = Math.floor(p/450)
+        n2 = Math.floor(p/450) // Nível 2 
         p -= 450*n2
-        n1 = Math.floor(p/150)
+        n1 = Math.floor(p/150) // Nível 1
         p -= 150*n1
         console.log("Pontos:"+p+" Área:"+id);
         let respString = '<div class="book-pile" id="pile-'+id+'"><div class="pile-xp"><div class="pile-title">AREA '+id+'</div><div class="pile-level">Level '+Math.floor(p/150)+'</div><div class="pile-progress-wrapper"><div class="progress-circle"></div><div class="progress-number">'+p+' / <b>'+Math.ceil(p/150)*150+'</b></div></div></div><div class="book-group-1">'

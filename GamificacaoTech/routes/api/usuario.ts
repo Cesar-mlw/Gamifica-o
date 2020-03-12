@@ -1,6 +1,7 @@
 ﻿import express = require("express")
 import wrap = require("express-async-error-wrapper");
 import Usuario = require("../../models/Usuario");
+import { CLIENT_RENEG_WINDOW } from "tls";
 const router = express.Router()
 
 router.post("/create", wrap(async (req: express.Request, res: express.Response) => {
@@ -77,7 +78,7 @@ router.post("/login", wrap(async (req: express.Request, res: express.Response) =
 
     let resp = await Usuario.efetuarLogin(ra, senha)
 
-    if (resp) {
+    if (resp) {        
         res.cookie("logged", true, {expires: new Date(Date.now() + 90000)})
         res.cookie("ra_usuario", req.body.ra_usuario, {expires: new Date(Date.now() + 90000)})
         res.json(true)
@@ -97,3 +98,5 @@ router.get("/logout", wrap(async (req: express.Request, res: express.Response) =
 
 
 export = router;
+
+

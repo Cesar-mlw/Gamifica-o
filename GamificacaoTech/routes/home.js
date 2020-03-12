@@ -18,22 +18,19 @@ router.get('/', wrap(async (req, res) => {
         res.redirect("/login");
     }
     else {
-        console.log(req.cookies.ra_usuario);
-        let points = await Usuario.readUserPoints(11710370);
+        let points = await Usuario.readUserPoints(req.cookies.ra_usuario);
         let books = [];
         for (let i = 0; i < points.length; i++) {
             books.push(StringBuilder.bookSpiller(points[i]['pontos'], points[i]['id']));
         }
         let allAchievements = await Achievement.listJoin();
-        console.log(allAchievements);
-        let missingAchievements = await AchievementUsuario.readMissingAchievements(11710370);
+        let missingAchievements = await AchievementUsuario.readMissingAchievements(req.cookies.ra_usuario);
         let achieveHTML = StringBuilder.shelfSpiller(allAchievements, missingAchievements);
         let achievePreviewHTML = StringBuilder.shelfPreviewSpiller(allAchievements, missingAchievements);
-        let notPlacedItemsJson = await ItemUsuario.readNotPlacedItems(11710370);
-        let notPlacedItems = StringBuilder.itemBoxSpiller(await ItemUsuario.readNotPlacedItems(11710370));
-        let placedItemsJson = await ItemUsuario.readPlacedItems(11710370);
+        let notPlacedItemsJson = await ItemUsuario.readNotPlacedItems(req.cookies.ra_usuario);
+        let notPlacedItems = StringBuilder.itemBoxSpiller(await ItemUsuario.readNotPlacedItems(req.cookies.ra_usuario));
+        let placedItemsJson = await ItemUsuario.readPlacedItems(req.cookies.ra_usuario);
         let placedItems = StringBuilder.placedItemSpiller(placedItemsJson);
-        // console.log(StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370)))
         // Book pile string builder
         res.render('home', { titulo: 'Gamificação TECH',
             books: books,
@@ -48,7 +45,7 @@ router.get('/', wrap(async (req, res) => {
 router.get('/login', wrap(async (req, res) => {
     res.render('loginRegistro', { titulo: 'Gamificação TECH' });
 }));
-router.get('/pc', wrap(async (req, res) => {
+router.post('/pc', wrap(async (req, res) => {
     if (req.cookies.ra_usuario == undefined && req.cookies.looged == undefined) {
         res.redirect("/login");
     }
@@ -56,15 +53,11 @@ router.get('/pc', wrap(async (req, res) => {
         res.render('pc', { titulo: 'Gamificação TECH' });
     }
 }));
-router.get('/login', wrap(async (req, res) => {
-    res.render('login', { titulo: 'Gamificação TECH',
-        layout: 'layoutLogin' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
-}));
 router.post('/registro', wrap(async (req, res) => {
     res.render('registro', { titulo: 'Gamificação TECH',
         layout: 'layoutLogin' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 }));
-router.get('/feed', wrap(async (req, res) => {
+router.post('/feed', wrap(async (req, res) => {
     if (req.cookies.ra_usuario == undefined && req.cookies.looged == undefined) {
         res.redirect("/login");
     }
@@ -72,7 +65,7 @@ router.get('/feed', wrap(async (req, res) => {
         res.render('feed', { titulo: 'Gamificação TECH' });
     }
 }));
-router.get('/achieve', wrap(async (req, res) => {
+router.post('/achieve', wrap(async (req, res) => {
     if (req.cookies.ra_usuario == undefined && req.cookies.looged == undefined) {
         res.redirect("/login");
     }
@@ -80,12 +73,12 @@ router.get('/achieve', wrap(async (req, res) => {
         res.render('achieve', { titulo: 'Gamificação TECH' });
     }
 }));
-router.get('/formTest', wrap(async (req, res) => {
+router.post('/formTest', wrap(async (req, res) => {
     res.render('formTest', { titulo: "Gamificação" }); //renderizar a tela
 }));
 router.post('/portifolio', wrap(async (req, res) => {
-    let projetos = await Projeto.read(11710370);
-    let projetosHTML = StringBuilder.projectSpiller(await Projeto.read(11710370));
+    let projetos = await Projeto.read(req.cookies.ra_usuario);
+    let projetosHTML = StringBuilder.projectSpiller(await Projeto.read(req.cookies.ra_usuario));
     let numeroDeProjetos = projetos.length;
     let listaArea = StringBuilder.areaSpiller(await Area.list());
     let listaTipoProjeto = StringBuilder.tipoProjetoSpiller(await TipoProjeto.list());
@@ -96,12 +89,12 @@ router.post('/portifolio', wrap(async (req, res) => {
         listaArea: listaArea,
         listaTipoProjeto: listaTipoProjeto }); //renderizar a tela
 }));
-router.get('/curriculo', wrap(async (req, res) => {
-    let habs = await Habilidade.read(11710370);
+router.post('/curriculo', wrap(async (req, res) => {
+    let habs = await Habilidade.read(req.cookies.ra_usuario);
     res.render('curriculo', { layout: 'layoutVazio',
         habilidades: habs }); //renderizar a tela
 }));
-router.get('/testeAjax', wrap(async (req, res) => {
+router.post('/testeAjax', wrap(async (req, res) => {
     res.render('testeAjax', { layout: 'layoutVazio' }); //renderizar a tela
 }));
 router.post('/registroProjeto', wrap(async (req, res) => {
@@ -114,7 +107,7 @@ router.post('/registroProjeto', wrap(async (req, res) => {
         listaTipoHabilidade: listaTipoHabilidade }); //renderizar a tela
 }));
 router.post('/loja', wrap(async (req, res) => {
-    let storeItems = StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(11710370));
+    let storeItems = StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(req.cookies.ra_usuario));
     res.render('loja', {
         layout: 'layoutVazio',
         storeItems: storeItems
