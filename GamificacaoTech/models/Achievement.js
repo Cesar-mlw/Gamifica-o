@@ -25,7 +25,7 @@ module.exports = class Achievement {
     static async listJoin() {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = await sql.query("SELECT a.id_achievement, a.id_area, a.nome_achievement, a.descricao_achievement, a.criterio_achievement, a.id_tipo_projeto_achievement FROM achievement a");
+            lista = await sql.query("SELECT a.id_achievement, a.id_area, a.nome_achievement, a.descricao_achievement, a.criterio_achievement, a.id_tipo_projeto_achievement, r.nome_area, t.nome_tipo_projeto FROM achievement a, area r, tipo_projeto t where r.id_area = a.id_area and t.id_tipo_projeto = a.id_tipo_projeto_achievement");
         });
         return lista;
     }

@@ -446,6 +446,52 @@ opacity: 1;
 .achievement-desc{
     position: absolute;
     display: none;
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0.85);
+    flex-direction: column;
+    width: 250px;
+    transform: translate3d(-32%, -25%, 0);
+    padding: 16px 16px 8px 16px;
+    min-height: 130px;
+    border-radius: 5px;
+    color: white;
+    z-index: 1;
+    text-align: center;
+}
+
+.achievement-desc .achievement-title, .achievement-desc .achievement-text{
+    margin-bottom: 8px;
+}
+
+.estante-item:hover .achievement-desc{
+    display: flex;
+}
+
+.achievement-title{
+    color: #e2e2e2;
+    font-size: 18px;
+}
+
+.achievement-text{
+    font-size: 0.8em;
+    color: #ded8c6;
+}
+
+.achievement-subject{
+    color: #91D3E2;
+}
+
+.achievement-criteria{
+    font-size: 14px;
+    color: #a2a2a2;;
+}
+
+.criteria-number{
+    color: #91D3E2;
+}
+
+.criteria-tipo{
+    color: #e2e2e2;
 }
 
 .estante-row-preview{
@@ -1690,4 +1736,42 @@ opacity: 1;
     .item-box{
         justify-content: center;
     }
+}
+
+.pile-xp{
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    min-width: 100%;
+    min-height: 150px;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    bottom: 50%;
+    border-radius: 8px;
+}
+
+.books-wrapper-gui .book-pile:hover .pile-xp{
+    display: flex;
+}
+
+.pile-title{
+
+}
+
+.pile-level{
+    
+}
+
+.pile-progress-wrapper{
+
+}
+
+.progress-circle{
+
+}
+
+.progress-number{
+
 }

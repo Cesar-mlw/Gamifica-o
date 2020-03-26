@@ -1,6 +1,6 @@
 ﻿import Sql = require("../infra/sql")
 import Achievement = require("./Achievement");
-import AchievementUsuarioTipoProjetoJoin = require("./AchievementUsuarioTipoProjetoJoint");
+import AchievementUsuarioTipoProjetoJoin = require("./AchievementUsuarioTipoProjetoJoin");
 
 export = class AchievementUsuario {
 
