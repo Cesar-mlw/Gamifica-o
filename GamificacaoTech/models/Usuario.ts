@@ -82,7 +82,7 @@ export = class Usuario {
     let lista: number[]= null
 
     await Sql.conectar(async (sql: Sql) => {
-        lista = await sql.query("select p.id_area as 'id', a.nome_area as 'nome', sum(t.pontos_tipo_projeto) as 'pontos' from projeto p, tipo_projeto t, area a where p.id_tipo_projeto = t.id_tipo_projeto and p.id_area = a.id_area and ra_usuario = ? group by p.id_area order by p.id_area", [ra]) as number[]
+        lista = await sql.query("select p.id_area, a.nome_area, sum(t.pontos_tipo_projeto) as 'pontos' from projeto p, tipo_projeto t, area a where p.id_tipo_projeto = t.id_tipo_projeto and p.id_area = a.id_area and ra_usuario = ? group by p.id_area order by p.id_area", [ra]) as number[]
     })
 
     return lista

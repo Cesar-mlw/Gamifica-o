@@ -95,6 +95,7 @@
 
 <script>
     $(document).ready(function(){
+        var projetos = <%-projetos%>;
         var brDate = {
             previousMonth : 'Mês Anterior',
             nextMonth     : 'Mês Seguinte',
@@ -148,6 +149,8 @@
                 return new Date(year, month, day);
             }
         });
+
+        
 
     });
 </script>

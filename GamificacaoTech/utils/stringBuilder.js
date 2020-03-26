@@ -4,11 +4,11 @@ module.exports = class StringBuilder {
         let n1 = 0;
         let n2 = 0;
         let n3 = 0;
-        n3 = Math.floor(p / 1550);
+        n3 = Math.floor(p / 1550); // Nível 3
         p -= 1550 * n3;
-        n2 = Math.floor(p / 450);
+        n2 = Math.floor(p / 450); // Nível 2 
         p -= 450 * n2;
-        n1 = Math.floor(p / 150);
+        n1 = Math.floor(p / 150); // Nível 1
         p -= 150 * n1;
         let respString = '<div class="book-pile" id="pile-' + id + '"><div class="book-group-1">';
         for (let i = 0; i < n1; i++) {
