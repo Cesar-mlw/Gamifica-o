@@ -345,8 +345,18 @@
                 $('#project-desc').value = listaProjetos[i].descricao_projeto
                 $('#project-area').selected = listaProjetos[i].id_area
                 $('#project-type').selected = listaProjetos[i].id_tipo_projeto
-                $('#datepicker').value = listaProjetos[i].dt_comeco_projeto
-                $("#datepicker2").value = listaProjetos[i].dt_termino_projeto
+                // let dt_comeco = new Date(listaProjetos[i].dt_comeco_projeto)
+                // const day = dt_comeco.getDate();
+                // const month = dt_comeco.getMonth() + 1;
+                // const year = dt_comeco.getFullYear();
+                // dt_comeco =  `${day}/${month}/${year}`;
+                // $('#datepicker').value = dt_comeco
+                // let dt_termino = new Date(listaProjetos[i].dt_termino_projeto)
+                // const day = dt_termino.getDate();
+                // const month = dt_termino.getMonth() + 1;
+                // const year = dt_termino.getFullYear();
+                // dt_termino =  `${day}/${month}/${year}`;
+                // $("#datepicker2").value = dt_termino
                 // TERMINAR INSERÇÃO DOS DADOS DA EDIÇÃO
             }
         }

@@ -30,17 +30,31 @@ module.exports = class Projeto {
             return res;
         await Sql.conectar(async (sql) => {
             try {
-                await sql.query("insert into projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto, exibir_projeto) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", [
-                    p.id_tipo_projeto,
-                    p.ra_usuario,
-                    p.id_area,
-                    p.dt_comeco_projeto,
-                    p.terminado_projeto,
-                    p.nome_projeto,
-                    p.descricao_projeto,
-                    p.dt_termino_projeto,
-                    p.exibir_projeto
-                ]);
+                if (p.terminado_projeto) {
+                    await sql.query("insert into projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto, exibir_projeto) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", [
+                        p.id_tipo_projeto,
+                        p.ra_usuario,
+                        p.id_area,
+                        p.dt_comeco_projeto,
+                        p.terminado_projeto,
+                        p.nome_projeto,
+                        p.descricao_projeto,
+                        p.dt_termino_projeto,
+                        p.exibir_projeto
+                    ]);
+                }
+                else {
+                    await sql.query("insert into projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, exibir_projeto) values (?, ?, ?, ?, ?, ?, ?, ?)", [
+                        p.id_tipo_projeto,
+                        p.ra_usuario,
+                        p.id_area,
+                        p.dt_comeco_projeto,
+                        p.terminado_projeto,
+                        p.nome_projeto,
+                        p.descricao_projeto,
+                        p.exibir_projeto
+                    ]);
+                }
             }
             catch (e) {
                 if (e.code && e.code === "ER_DUP_ENTRY")
