@@ -65,7 +65,7 @@ module.exports = class Usuario {
     static async readUserPoints(ra) {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = await sql.query("select p.id_area as 'id', a.nome_area as 'nome', sum(t.pontos_tipo_projeto) as 'pontos' from projeto p, tipo_projeto t, area a where p.id_tipo_projeto = t.id_tipo_projeto and p.id_area = a.id_area and ra_usuario = ? group by p.id_area order by p.id_area", [ra]);
+            lista = await sql.query("select p.id_area, a.nome_area, sum(t.pontos_tipo_projeto) as 'pontos' from projeto p, tipo_projeto t, area a where p.id_tipo_projeto = t.id_tipo_projeto and p.id_area = a.id_area and ra_usuario = ? group by p.id_area order by p.id_area", [ra]);
         });
         return lista;
     }
