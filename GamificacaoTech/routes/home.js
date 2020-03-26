@@ -21,7 +21,7 @@ router.get('/', wrap(async (req, res) => {
         let points = await Usuario.readUserPoints(req.cookies.ra_usuario);
         let books = [];
         for (let i = 0; i < points.length; i++) {
-            books.push(StringBuilder.bookSpiller(points[i]['pontos'], points[i]['id']));
+            books.push(StringBuilder.bookSpiller(points[i]['pontos'], points[i]['nome_area'], points[i]['id_area']));
         }
         let allAchievements = await Achievement.listJoin();
         let missingAchievements = await AchievementUsuario.readMissingAchievements(req.cookies.ra_usuario);

@@ -1,6 +1,6 @@
 "use strict";
 module.exports = class StringBuilder {
-    static bookSpiller(p, id) {
+    static bookSpiller(p, nome, id) {
         let n1 = 0;
         let n2 = 0;
         let n3 = 0;
@@ -11,7 +11,7 @@ module.exports = class StringBuilder {
         p -= 450 * n2;
         n1 = Math.floor(p / 150); // Nível 1 = 1 Nivel
         p -= 150 * n1;
-        let respString = '<div class="book-pile" id="pile-' + id + '"><div class="pile-xp"><div class="pile-title">AREA ' + id + '</div><div class="pile-level">Level ' + Math.floor(pontos / 150) + '</div><div class="pile-progress-wrapper"><div class="progress-circle"></div><div class="progress-number">' + pontos + ' / <b>' + (Math.ceil(pontos / 150 + 1) * 150) + '</b></div></div></div><div class="book-group-1">';
+        let respString = '<div class="book-pile" id="pile-' + id + '"><div class="pile-xp"><div class="pile-title">' + nome + '</div><div class="pile-level">Level ' + Math.floor(pontos / 150) + '</div><div class="pile-progress-wrapper"><div class="progress-circle"></div><div class="progress-number">' + pontos + ' / <b>' + (Math.ceil(pontos / 150 + 1) * 150) + '</b></div></div></div><div class="book-group-1">';
         for (let i = 0; i < n1; i++) {
             respString += '<div class="book"></div>';
         }
@@ -138,17 +138,22 @@ module.exports = class StringBuilder {
     }
     static storeItemSpiller(item) {
         let res = "";
-        for (let i = 0; i < item.length; i++) {
-            res += `<li class="bcl-item" id="loja-item-${item[i].id_item}">
-            <div class="bcl-item-body">
-                <img src=${item[i].img_url_item}>
-            </div>
-            <div class="bcl-item-header">
-                <div class="bcl-title">Item ${item[i].id_item}</div>
-                <button class="mdc-icon-button material-icons" onclick="buyItem(${item[i].id_item})">monetization_on</button>
-                <div class="item-price">${item[i].preco_item}</div>
-            </div>
-        </li>`;
+        if (item.length == 0) {
+            res += `<div>Sei lá meu irmão</div>`;
+        }
+        else {
+            for (let i = 0; i < item.length; i++) {
+                res += `<li class="bcl-item" id="loja-item-${item[i].id_item}">
+                <div class="bcl-item-body">
+                    <img src=${item[i].img_url_item}>
+                </div>
+                <div class="bcl-item-header">
+                    <div class="bcl-title">Item ${item[i].id_item}</div>
+                    <button class="mdc-icon-button material-icons" onclick="buyItem(${item[i].id_item})">monetization_on</button>
+                    <div class="item-price">${item[i].preco_item}</div>
+                </div>
+            </li>`;
+            }
         }
         return res;
     }
