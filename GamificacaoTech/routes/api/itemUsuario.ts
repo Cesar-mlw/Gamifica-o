@@ -22,14 +22,7 @@ router.post("/create", wrap(async (req: express.Request, res: express.Response) 
         }
         else {
             let resp = await ItemUsuario.create(p)
-            if(resp){
-                res.statusCode = 400
-                res.json(resp)
-            }
-            else{
-                let lastInserted = await ItemUsuario.readLastInserted();
-                res.json(lastInserted)
-            }
+            res.json(resp)
         }
     }
 
