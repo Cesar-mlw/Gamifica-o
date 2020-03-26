@@ -152,17 +152,22 @@ export = class StringBuilder {
 
     public static storeItemSpiller(item: Item[]): string {
         let res: string = ""
-        for(let i = 0; i < item.length; i++){
-            res+= `<li class="bcl-item" id="loja-item-${item[i].id_item}">
-            <div class="bcl-item-body">
-                <img src=${item[i].img_url_item}>
-            </div>
-            <div class="bcl-item-header">
-                <div class="bcl-title">Item ${item[i].id_item}</div>
-                <button class="mdc-icon-button material-icons" onclick="buyItem(${item[i].id_item})">monetization_on</button>
-                <div class="item-price">${item[i].preco_item}</div>
-            </div>
-        </li>`
+        if (item.length == 0){
+            res+= `<div>Sei lá meu irmão</div>`
+        }
+        else{
+            for(let i = 0; i < item.length; i++){
+                res+= `<li class="bcl-item" id="loja-item-${item[i].id_item}">
+                <div class="bcl-item-body">
+                    <img src=${item[i].img_url_item}>
+                </div>
+                <div class="bcl-item-header">
+                    <div class="bcl-title">Item ${item[i].id_item}</div>
+                    <button class="mdc-icon-button material-icons" onclick="buyItem(${item[i].id_item})">monetization_on</button>
+                    <div class="item-price">${item[i].preco_item}</div>
+                </div>
+            </li>`
+            }
         }
 
         return res
