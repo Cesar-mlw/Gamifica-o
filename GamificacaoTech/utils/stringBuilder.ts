@@ -11,7 +11,7 @@ import TipoHabilidade = require("../models/TipoHabilidade")
 
 
 export = class StringBuilder {
-    public static bookSpiller(p: number, id: number): string{
+    public static bookSpiller(p: number, id: number): string{// p = Pontos em uma determinada área || id = ID da área em questao
         let n1 = 0
         let n2 = 0
         let n3 = 0

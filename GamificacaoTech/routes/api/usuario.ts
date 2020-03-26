@@ -80,7 +80,7 @@ router.post("/login", wrap(async (req: express.Request, res: express.Response) =
 
     if (resp) {        
         res.cookie("logged", true, {expires: false})
-        res.cookie("ra_usuario", req.body.ra_usuario, {expires: new Date(Date.now() + 90000)})
+        res.cookie("ra_usuario", req.body.ra_usuario, {expires: false})
         res.json(true)
     }
     else {

@@ -339,6 +339,18 @@
                 console.log(e)
             }
         })
+        for(let i = 0; i < listaProjetos.length; i++){
+            if(listaProjetos[i].id_projeto == idProjeto){
+                $('#project-name').value = listaProjetos[i].nome_projeto
+                $('#project-desc').value = listaProjetos[i].descricao_projeto
+                $('#project-area').selected = listaProjetos[i].id_area
+                $('#project-type').selected = listaProjetos[i].id_tipo_projeto
+                $('#datepicker').value = listaProjetos[i].dt_comeco_projeto
+                $("#datepicker2").value = listaProjetos[i].dt_termino_projeto
+                // TERMINAR INSERÇÃO DOS DADOS DA EDIÇÃO
+            }
+        }
+        
 
     }
 
