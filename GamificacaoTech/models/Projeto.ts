@@ -44,6 +44,7 @@ export = class Projeto {
 
   public static async create(p: Projeto): Promise<string> {
     let res: string;
+    console.log(p.terminado_projeto);
     if ((res = Projeto.validate(p))) return res;
     await Sql.conectar(async (sql: Sql) => {
       try {

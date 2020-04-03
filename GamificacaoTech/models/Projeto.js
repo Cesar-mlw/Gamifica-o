@@ -38,6 +38,7 @@ module.exports = class Projeto {
     static create(p) {
         return __awaiter(this, void 0, void 0, function* () {
             let res;
+            console.log(p.terminado_projeto);
             if ((res = Projeto.validate(p)))
                 return res;
             yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
