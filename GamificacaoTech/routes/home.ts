@@ -46,8 +46,12 @@ router.get('/', wrap(async (req: express.Request, res: express.Response) => {
 }}));
 
 router.get('/login', wrap(async (req: express.Request, res: express.Response) => {
-    
-    res.render('loginRegistro', { titulo: 'Gamificação TECH'}); 
+    if(req.cookies.ra_usuario != undefined && req.cookies.logged != undefined){
+        res.redirect("/")
+    }
+    else{
+        res.render('loginRegistro', { titulo: 'Gamificação TECH'}); 
+    }
     
 }));
 

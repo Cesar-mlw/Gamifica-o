@@ -1,12 +1,21 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 const express = require("express");
 const wrap = require("express-async-error-wrapper");
 const AchievementUsuario = require("../../models/AchievementUsuario");
 const router = express.Router();
-router.post("/create", wrap(async (req, res) => {
+router.post("/create", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let ra = req.body.ra;
     let id = req.body.id_achievement;
-    let erro = await AchievementUsuario.create(ra, id);
+    let erro = yield AchievementUsuario.create(ra, id);
     if (erro) {
         res.statusCode = 400;
         res.json(erro);
@@ -14,50 +23,50 @@ router.post("/create", wrap(async (req, res) => {
     else {
         res.json("Achievement do usuário criado");
     }
-}));
-router.get("/list", wrap(async (req, res) => {
-    let lista = await AchievementUsuario.list();
+})));
+router.get("/list", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let lista = yield AchievementUsuario.list();
     res.json(lista);
-}));
-router.post("/delete", wrap(async (req, res) => {
+})));
+router.post("/delete", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let idAchievementUsuario = req.body.idAchievementUsuario;
-    let a = await AchievementUsuario.delete(idAchievementUsuario);
+    let a = yield AchievementUsuario.delete(idAchievementUsuario);
     if (a == false) {
         res.json("O usuário não possui esse achievement");
     }
     else {
         res.json("Achievement do usuário deletado");
     }
-}));
-router.post("/read", wrap(async (req, res) => {
+})));
+router.post("/read", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let idAchievementUsuario = req.body.idAchievementUsuario;
-    let a = await AchievementUsuario.read(idAchievementUsuario);
+    let a = yield AchievementUsuario.read(idAchievementUsuario);
     res.json(a);
-}));
-router.post("/readFromUserID", wrap(async (req, res) => {
+})));
+router.post("/readFromUserID", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let ra = req.body.ra;
-    let a = await AchievementUsuario.readFromUserID(ra);
+    let a = yield AchievementUsuario.readFromUserID(ra);
     res.json(a);
-}));
-router.post("/readMissingAchievements", wrap(async (req, res) => {
+})));
+router.post("/readMissingAchievements", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let ra = req.body.ra;
-    let a = await AchievementUsuario.readMissingAchievements(ra);
+    let a = yield AchievementUsuario.readMissingAchievements(ra);
     res.json(a);
-}));
-router.post("/readFeaturedAchievements", wrap(async (req, res) => {
+})));
+router.post("/readFeaturedAchievements", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let ra = req.body.ra;
-    let a = await AchievementUsuario.readFeaturedAchievements(ra);
+    let a = yield AchievementUsuario.readFeaturedAchievements(ra);
     res.json(a);
-}));
-router.post("/update", wrap(async (req, res) => {
+})));
+router.post("/update", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let a = req.body;
-    let erro = await AchievementUsuario.update(a);
+    let erro = yield AchievementUsuario.update(a);
     if (erro) {
         res.json("O usuário não possui esse Achievement");
     }
     else {
         res.json("Achievement do usuário alterado");
     }
-}));
+})));
 module.exports = router;
 //# sourceMappingURL=achievementUsuario.js.map

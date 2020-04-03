@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var _a;
 const fs = require("fs");
 const moment = require("moment");
@@ -49,157 +58,169 @@ module.exports = (_a = class FS {
                 nome.indexOf("\\") >= 0 ||
                 nome.indexOf("/") >= 0) ? null : nome);
         }
-        static async criarDiretorio(caminhoRelativo) {
-            caminhoRelativo = FS.ajustarCaminhoRelativo(caminhoRelativo, true);
-            return new Promise((resolve, reject) => {
-                try {
-                    fs.mkdir(path.join(FS.appPath, caminhoRelativo), 0o777, (err) => {
-                        if (err)
-                            reject(err);
-                        else
-                            resolve();
-                    });
-                }
-                catch (e) {
-                    reject(e);
-                }
+        static criarDiretorio(caminhoRelativo) {
+            return __awaiter(this, void 0, void 0, function* () {
+                caminhoRelativo = FS.ajustarCaminhoRelativo(caminhoRelativo, true);
+                return new Promise((resolve, reject) => {
+                    try {
+                        fs.mkdir(path.join(FS.appPath, caminhoRelativo), 0o777, (err) => {
+                            if (err)
+                                reject(err);
+                            else
+                                resolve();
+                        });
+                    }
+                    catch (e) {
+                        reject(e);
+                    }
+                });
             });
         }
-        static async listarDiretorio(caminhoRelativo) {
-            caminhoRelativo = FS.ajustarCaminhoRelativo(caminhoRelativo, true);
-            return new Promise((resolve, reject) => {
-                try {
-                    let dir = path.join(FS.appPath, caminhoRelativo);
-                    fs.readdir(dir, (err, files) => {
-                        if (err) {
-                            reject(err);
-                            return;
-                        }
-                        if (!files || !files.length) {
-                            resolve([]);
-                            return;
-                        }
-                        let arquivos = new Array();
-                        function processarProximo(i) {
-                            try {
-                                if (i >= files.length) {
-                                    resolve(arquivos);
-                                    return;
-                                }
-                                fs.stat(path.join(dir, files[i]), (err, stats) => {
-                                    if (err) {
-                                        reject(err);
+        static listarDiretorio(caminhoRelativo) {
+            return __awaiter(this, void 0, void 0, function* () {
+                caminhoRelativo = FS.ajustarCaminhoRelativo(caminhoRelativo, true);
+                return new Promise((resolve, reject) => {
+                    try {
+                        let dir = path.join(FS.appPath, caminhoRelativo);
+                        fs.readdir(dir, (err, files) => {
+                            if (err) {
+                                reject(err);
+                                return;
+                            }
+                            if (!files || !files.length) {
+                                resolve([]);
+                                return;
+                            }
+                            let arquivos = new Array();
+                            function processarProximo(i) {
+                                try {
+                                    if (i >= files.length) {
+                                        resolve(arquivos);
                                         return;
                                     }
-                                    if (!stats.isDirectory()) {
-                                        let a = new Arquivo();
-                                        a.nome = files[i];
-                                        a.tamanho = stats.size;
-                                        a.modificacaoMs = stats.mtimeMs;
-                                        // http://momentjs.com/docs/#/displaying/
-                                        a.modificacao = moment(stats.mtime).locale("pt-br").format("DD/MM/YYYY HH:mm");
-                                        arquivos.push(a);
-                                    }
-                                    processarProximo(i + 1);
-                                });
-                            }
-                            catch (e) {
-                                reject(e);
-                            }
-                        }
-                        processarProximo(0);
-                    });
-                }
-                catch (e) {
-                    reject(e);
-                }
-            });
-        }
-        static async excluirArquivosEDiretorio(caminhoRelativo) {
-            caminhoRelativo = FS.ajustarCaminhoRelativo(caminhoRelativo, true);
-            return new Promise((resolve, reject) => {
-                try {
-                    let dir = path.join(FS.appPath, caminhoRelativo);
-                    fs.readdir(dir, (err, files) => {
-                        if (err) {
-                            reject(err);
-                            return;
-                        }
-                        function excluirProximo(i) {
-                            try {
-                                if (!files || i >= files.length) {
-                                    fs.rmdir(dir, (err) => {
-                                        if (err)
+                                    fs.stat(path.join(dir, files[i]), (err, stats) => {
+                                        if (err) {
                                             reject(err);
-                                        else
-                                            resolve();
+                                            return;
+                                        }
+                                        if (!stats.isDirectory()) {
+                                            let a = new Arquivo();
+                                            a.nome = files[i];
+                                            a.tamanho = stats.size;
+                                            a.modificacaoMs = stats.mtimeMs;
+                                            // http://momentjs.com/docs/#/displaying/
+                                            a.modificacao = moment(stats.mtime).locale("pt-br").format("DD/MM/YYYY HH:mm");
+                                            arquivos.push(a);
+                                        }
+                                        processarProximo(i + 1);
                                     });
-                                    return;
                                 }
-                                fs.unlink(path.join(dir, files[i]), (err) => {
-                                    if (err) {
-                                        reject(err);
+                                catch (e) {
+                                    reject(e);
+                                }
+                            }
+                            processarProximo(0);
+                        });
+                    }
+                    catch (e) {
+                        reject(e);
+                    }
+                });
+            });
+        }
+        static excluirArquivosEDiretorio(caminhoRelativo) {
+            return __awaiter(this, void 0, void 0, function* () {
+                caminhoRelativo = FS.ajustarCaminhoRelativo(caminhoRelativo, true);
+                return new Promise((resolve, reject) => {
+                    try {
+                        let dir = path.join(FS.appPath, caminhoRelativo);
+                        fs.readdir(dir, (err, files) => {
+                            if (err) {
+                                reject(err);
+                                return;
+                            }
+                            function excluirProximo(i) {
+                                try {
+                                    if (!files || i >= files.length) {
+                                        fs.rmdir(dir, (err) => {
+                                            if (err)
+                                                reject(err);
+                                            else
+                                                resolve();
+                                        });
                                         return;
                                     }
-                                    excluirProximo(i + 1);
-                                });
+                                    fs.unlink(path.join(dir, files[i]), (err) => {
+                                        if (err) {
+                                            reject(err);
+                                            return;
+                                        }
+                                        excluirProximo(i + 1);
+                                    });
+                                }
+                                catch (e) {
+                                    reject(e);
+                                }
                             }
-                            catch (e) {
-                                reject(e);
-                            }
-                        }
-                        excluirProximo(0);
-                    });
-                }
-                catch (e) {
-                    reject(e);
-                }
+                            excluirProximo(0);
+                        });
+                    }
+                    catch (e) {
+                        reject(e);
+                    }
+                });
             });
         }
-        static async renomearArquivo(caminhoRelativoAtual, caminhoRelativoNovo) {
-            caminhoRelativoAtual = FS.ajustarCaminhoRelativo(caminhoRelativoAtual, true);
-            caminhoRelativoNovo = FS.ajustarCaminhoRelativo(caminhoRelativoNovo, true);
-            return new Promise((resolve, reject) => {
-                try {
-                    fs.rename(path.join(FS.appPath, caminhoRelativoAtual), path.join(FS.appPath, caminhoRelativoNovo), (err) => {
-                        if (err)
-                            reject(err);
-                        else
-                            resolve();
-                    });
-                }
-                catch (e) {
-                    reject(e);
-                }
+        static renomearArquivo(caminhoRelativoAtual, caminhoRelativoNovo) {
+            return __awaiter(this, void 0, void 0, function* () {
+                caminhoRelativoAtual = FS.ajustarCaminhoRelativo(caminhoRelativoAtual, true);
+                caminhoRelativoNovo = FS.ajustarCaminhoRelativo(caminhoRelativoNovo, true);
+                return new Promise((resolve, reject) => {
+                    try {
+                        fs.rename(path.join(FS.appPath, caminhoRelativoAtual), path.join(FS.appPath, caminhoRelativoNovo), (err) => {
+                            if (err)
+                                reject(err);
+                            else
+                                resolve();
+                        });
+                    }
+                    catch (e) {
+                        reject(e);
+                    }
+                });
             });
         }
-        static async excluirArquivo(caminhoRelativo) {
-            caminhoRelativo = FS.ajustarCaminhoRelativo(caminhoRelativo, true);
-            return new Promise((resolve, reject) => {
-                try {
-                    fs.unlink(path.join(FS.appPath, caminhoRelativo), (err) => {
-                        if (err)
-                            reject(err);
-                        else
-                            resolve();
-                    });
-                }
-                catch (e) {
-                    reject(e);
-                }
+        static excluirArquivo(caminhoRelativo) {
+            return __awaiter(this, void 0, void 0, function* () {
+                caminhoRelativo = FS.ajustarCaminhoRelativo(caminhoRelativo, true);
+                return new Promise((resolve, reject) => {
+                    try {
+                        fs.unlink(path.join(FS.appPath, caminhoRelativo), (err) => {
+                            if (err)
+                                reject(err);
+                            else
+                                resolve();
+                        });
+                    }
+                    catch (e) {
+                        reject(e);
+                    }
+                });
             });
         }
-        static async existeArquivo(caminhoRelativo) {
-            caminhoRelativo = FS.ajustarCaminhoRelativo(caminhoRelativo, true);
-            return new Promise((resolve, reject) => {
-                try {
-                    fs.exists(path.join(FS.appPath, caminhoRelativo), (exists) => {
-                        resolve(exists);
-                    });
-                }
-                catch (e) {
-                    reject(e);
-                }
+        static existeArquivo(caminhoRelativo) {
+            return __awaiter(this, void 0, void 0, function* () {
+                caminhoRelativo = FS.ajustarCaminhoRelativo(caminhoRelativo, true);
+                return new Promise((resolve, reject) => {
+                    try {
+                        fs.exists(path.join(FS.appPath, caminhoRelativo), (exists) => {
+                            resolve(exists);
+                        });
+                    }
+                    catch (e) {
+                        reject(e);
+                    }
+                });
             });
         }
     },

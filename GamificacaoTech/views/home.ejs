@@ -326,37 +326,42 @@
         let form = {
             ra_usuario : getCookie("ra_usuario")
         }
-        let listaProjetos = null
+        var editListaProjetos = []
         $.ajax({
             method: "post",
             url: url,
+            async: false,
             data: form,
             dataType: "json",
             success: function (data) {
-                listaProjetos = data
+                editListaProjetos = data
             },
             error: function (e) {
                 console.log(e)
             }
         })
-        for(let i = 0; i < listaProjetos.length; i++){
-            if(listaProjetos[i].id_projeto == idProjeto){
-                $('#project-name').value = listaProjetos[i].nome_projeto
-                $('#project-desc').value = listaProjetos[i].descricao_projeto
-                $('#project-area').selected = listaProjetos[i].id_area
-                $('#project-type').selected = listaProjetos[i].id_tipo_projeto
-                // let dt_comeco = new Date(listaProjetos[i].dt_comeco_projeto)
-                // const day = dt_comeco.getDate();
-                // const month = dt_comeco.getMonth() + 1;
-                // const year = dt_comeco.getFullYear();
-                // dt_comeco =  `${day}/${month}/${year}`;
-                // $('#datepicker').value = dt_comeco
-                // let dt_termino = new Date(listaProjetos[i].dt_termino_projeto)
-                // const day = dt_termino.getDate();
-                // const month = dt_termino.getMonth() + 1;
-                // const year = dt_termino.getFullYear();
-                // dt_termino =  `${day}/${month}/${year}`;
-                // $("#datepicker2").value = dt_termino
+        console.log(editListaProjetos[0]);
+        for(let i = 0; i < editListaProjetos.length; i++){
+            if(editListaProjetos[i].id_projeto == idProjeto){
+                $('#project-name').val(editListaProjetos[i].nome_projeto)
+                $('#project-desc').val(editListaProjetos[i].descricao_projeto) 
+                $('#project-area').val(editListaProjetos[i].id_area) 
+                $('#project-type').val(editListaProjetos[i].id_tipo_projeto)
+                let dt_comeco = new Date(editListaProjetos[i].dt_comeco_projeto)
+                const day = dt_comeco.getDate();
+                const month = dt_comeco.getMonth() + 1;
+                const year = dt_comeco.getFullYear();
+                dt_comeco =  `${day}/${month}/${year}`;
+                $('#datepicker').val(dt_comeco)
+                if(editListaProjetos[i].terminado_projeto){
+                    let dt_termino = new Date(listaProjetos[i].dt_termino_projeto)
+                    const day = dt_termino.getDate();
+                    const month = dt_termino.getMonth() + 1;
+                    const year = dt_termino.getFullYear();
+                    dt_termino =  `${day}/${month}/${year}`;
+                    $("#datepicker2").val(dt_termino)
+                    $("#check").val(true)
+                }
                 // TERMINAR INSERÇÃO DOS DADOS DA EDIÇÃO
             }
         }

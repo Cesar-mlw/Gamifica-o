@@ -63,7 +63,7 @@
                     <%-listaTipoHabilidade%>
                 </select>
             </div>
-            <span class="os-button-complement" style="margin-top: 15px;"><button type="submit" class="os-button" onclick="currEnviar()">Enviar</button></span>
+            <span class="os-button-complement" style="margin-top: 15px;"><button type="submit" class="os-button" onclick="currEnviar(); location.replace('/')">Enviar</button></span>
 
         </div>
     </form>
@@ -211,9 +211,9 @@
         let descricao_projeto = document.getElementById("descricao_projeto").value;
         let dt_comeco_projeto = new Date(String(document.getElementById("datepicker").value));
         dt_comeco_projeto = dt_comeco_projeto.toISOString().substr(0, 10)
-        let dt_termino_projeto = document.getElementById("datepicker2").value == "" ? "1970-01-01" : new Date(document.getElementById("datepicker2").value).toISOString().substr(0, 10);
-        let terminado_projeto = document.getElementById("check").checked ? 1 : 0;
-        let exibir_projeto = document.getElementById("check2").checked ? 1 : 0
+        let dt_termino_projeto = document.getElementById("datepicker2").value == "" ? null : new Date(document.getElementById("datepicker2").value).toISOString().substr(0, 10);
+        let terminado_projeto = document.getElementById("check").checked ? true : false;
+        let exibir_projeto = document.getElementById("check2").checked ? true : false
 
 
         const form = {
