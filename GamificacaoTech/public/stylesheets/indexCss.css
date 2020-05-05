@@ -597,6 +597,7 @@ opacity: 1;
 .book-pile{
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .book-group-1{
@@ -1774,4 +1775,19 @@ opacity: 1;
 
 .progress-number{
 
+}
+
+.auth-form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.auth-form input{
+    margin: 15px 0;
+}
+
+#item-5{
+    background-size: 170px;
 }

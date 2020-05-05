@@ -46,8 +46,7 @@ router.get('/', wrap(async (req: express.Request, res: express.Response) => {
 }}));
 
 router.get('/login', wrap(async (req: express.Request, res: express.Response) => {
-    
-    res.render('loginRegistro', { titulo: 'Gamificação TECH'}); 
+    res.render('loginRegistro', { titulo: 'Gamificação TECH', layout:'layoutLogin'}); 
     
 }));
 
@@ -59,11 +58,6 @@ router.post('/pc', wrap(async (req: express.Request, res: express.Response) => {
         res.render('pc', { titulo: 'Gamificação TECH' }); 
     }
     
-}));
-
-router.post('/registro', wrap(async (req: express.Request, res: express.Response) => {//Declaração de rota
-    res.render('registro', { titulo: 'Gamificação TECH',
-                                  layout:'layoutLogin'}); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 }));
 
 router.post('/feed', wrap(async (req: express.Request, res: express.Response) => {

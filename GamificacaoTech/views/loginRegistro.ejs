@@ -1,46 +1,69 @@
-<div class="login-form-wrapper">
-    <form>
-        <label for="login">Login</label>
-        <input type="number" id="ra_usuario_login"/>
-        <label for="password"></label>
-        <input type="password" id="senha_usuario_login"/>
-        <input type="button" value="Login" onclick="login()"/>
-    </form>
-</div>
-<div>
-    <input type="button" value="Log Out" onclick="logout()">
+<div class="overlay"></div>
+
+<div class="door-wrapper">
+    <div class="door-frame">
+        <div class="door">
+            <div class="knob"></div>
+        </div>
+        <div class="door-hole"></div>
+    </div>
 </div>
 
-<div class="register-form-wrapper">
-    <form>
-        <label for="ra_usuario">RA</label>
-        <input id="ra_usuario" type="number"/>
-        <label for="nome_usuario">Nome do Usuario</label>
-        <input id="nome_usuario" type="text"/>
-        <label for="email_usuario">E-mail do Usuário</label>
-        <input id="email_usuario" type="email"/>
-        <label for="dt_entrada_usuario">Data de entrada</label>
-        <input id="dt_entrada_usuario" type="text">
-        <label for="senha_usuario">Senha do Usuario</label>
-        <input id="senha_usuario" type="password">
-        <label for="idAdmin">é admin?</label>
-        <input id="idAdmin" type="checkbox">
-        <label for="curso">Qual o curso</label>
-        <select id="curso">
-            <option value="1">TECH</option>
-            <option value="2">Publicidade e Propaganda</option>
-            <option value="3">Ciências Sociais</option>
-            <option value="4">Design</option>
-        </select>
-        <input type="button" value="Register" onclick="register()">
-    </form>
-</div>
-<div>
-    <input type="button" value="Log Out" onclick="logout()">
+<div class="forms-container">
+    <div class="login-form-wrapper">
+        <form class="auth-form">
+            <label for="login">Login</label>
+            <input type="number" id="ra_usuario_login"/>
+            <label for="password">Senha</label>
+            <input type="password" id="senha_usuario_login"/>
+            <input type="button" value="Login" onclick="login()"/>
+        </form>
+    </div>
+    
+    <div class="register-form-wrapper" style="">
+        <form class="auth-form">
+            <label for="ra_usuario">RA</label>
+            <input id="ra_usuario" type="number"/>
+            <label for="nome_usuario">Nome do Usuario</label>
+            <input id="nome_usuario" type="text"/>
+            <label for="email_usuario">E-mail do Usuário</label>
+            <input id="email_usuario" type="email"/>
+            <label for="dt_entrada_usuario">Data de entrada</label>
+            <input id="dt_entrada_usuario" type="text">
+            <label for="senha_usuario">Senha do Usuario</label>
+            <input id="senha_usuario" type="password">
+            <label for="idAdmin">é admin?</label>
+            <input id="idAdmin" type="checkbox">
+            <label for="curso">Qual o curso</label>
+            <select id="curso">
+                <option value="1">TECH</option>
+                <option value="2">Publicidade e Propaganda</option>
+                <option value="3">Ciências Sociais</option>
+                <option value="4">Design</option>
+            </select>
+            <input type="button" value="Register" onclick="register()">
+        </form>
+    </div>
 </div>
 
 <%- contentFor("scripts")%>
 <script>
+    var element = document.querySelector(".door");
+    var elementParent = document.querySelector(".door-frame");
+    var overlay = document.querySelector(".overlay");
+    var forms = document.querySelector(".forms-container");
+
+    function toggleDoor() {
+        forms.classList.toggle("formsOpen");
+        setTimeout(function(){
+            element.classList.toggle("doorOpen");
+            setTimeout(function(){
+                elementParent.classList.toggle("doorFrameOpen");
+                overlay.classList.toggle("overlayOpen");
+            }, 600)
+        }, 500)
+    }
+
     function login(){
         let ra_usuario = document.getElementById("ra_usuario_login").value
         let senha_usuario = document.getElementById("senha_usuario_login").value
@@ -54,7 +77,13 @@
             data: form,
             dataType: "json",
             success: function (data) {
-                if(data) window.location.href = "/"
+                    if(data){
+                        toggleDoor();
+                        setTimeout(function(){
+                            window.location.href = "/"
+                        }, 1850)
+                    } 
+
             },
             error: function (e) {
                 console.log(e)
