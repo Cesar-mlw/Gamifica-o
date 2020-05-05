@@ -1,10 +1,9 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -22,7 +21,7 @@ const TipoProjeto = require("../models/TipoProjeto");
 const TipoHabilidade = require("../models/TipoHabilidade");
 const router = express.Router();
 //import usuario
-router.get('/', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/', wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
     if (req.cookies.ra_usuario == undefined || req.cookies.logged == undefined) {
         res.redirect("/login");
     }
@@ -51,7 +50,7 @@ router.get('/', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* (
             placedItemsJson: JSON.stringify(placedItemsJson) });
     }
 })));
-router.get('/login', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/login', wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
     if (req.cookies.ra_usuario != undefined && req.cookies.logged != undefined) {
         res.redirect("/");
     }
@@ -59,7 +58,7 @@ router.get('/login', wrap((req, res) => __awaiter(void 0, void 0, void 0, functi
         res.render('loginRegistro', { titulo: 'Gamificação TECH' });
     }
 })));
-router.post('/pc', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/pc', wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
     if (req.cookies.ra_usuario == undefined && req.cookies.looged == undefined) {
         res.redirect("/login");
     }
@@ -67,7 +66,7 @@ router.post('/pc', wrap((req, res) => __awaiter(void 0, void 0, void 0, function
         res.render('pc', { titulo: 'Gamificação TECH' });
     }
 })));
-router.post('/feed', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/feed', wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
     if (req.cookies.ra_usuario == undefined && req.cookies.looged == undefined) {
         res.redirect("/login");
     }
@@ -75,7 +74,7 @@ router.post('/feed', wrap((req, res) => __awaiter(void 0, void 0, void 0, functi
         res.render('feed', { titulo: 'Gamificação TECH' });
     }
 })));
-router.post('/achieve', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/achieve', wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
     if (req.cookies.ra_usuario == undefined && req.cookies.looged == undefined) {
         res.redirect("/login");
     }
@@ -83,10 +82,10 @@ router.post('/achieve', wrap((req, res) => __awaiter(void 0, void 0, void 0, fun
         res.render('achieve', { titulo: 'Gamificação TECH' });
     }
 })));
-router.post('/formTest', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/formTest', wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
     res.render('formTest', { titulo: "Gamificação" }); //renderizar a tela
 })));
-router.post('/portifolio', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/portifolio', wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
     let projetos = yield Projeto.read(req.cookies.ra_usuario);
     let projetosHTML = StringBuilder.projectSpiller(yield Projeto.read(req.cookies.ra_usuario));
     let numeroDeProjetos = projetos.length;
@@ -99,15 +98,15 @@ router.post('/portifolio', wrap((req, res) => __awaiter(void 0, void 0, void 0, 
         listaArea: listaArea,
         listaTipoProjeto: listaTipoProjeto }); //renderizar a tela
 })));
-router.post('/curriculo', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/curriculo', wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
     let habs = yield Habilidade.read(req.cookies.ra_usuario);
     res.render('curriculo', { layout: 'layoutVazio',
         habilidades: habs }); //renderizar a tela
 })));
-router.post('/testeAjax', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/testeAjax', wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
     res.render('testeAjax', { layout: 'layoutVazio' }); //renderizar a tela
 })));
-router.post('/registroProjeto', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/registroProjeto', wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
     let listaArea = StringBuilder.areaSpiller(yield Area.list());
     let listaTipoProjeto = StringBuilder.tipoProjetoSpiller(yield TipoProjeto.list());
     let listaTipoHabilidade = StringBuilder.tipoHabilidadeSpiller(yield TipoHabilidade.list());
@@ -116,7 +115,7 @@ router.post('/registroProjeto', wrap((req, res) => __awaiter(void 0, void 0, voi
         listaTipoProjeto: listaTipoProjeto,
         listaTipoHabilidade: listaTipoHabilidade }); //renderizar a tela
 })));
-router.post('/loja', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/loja', wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
     let storeItems = StringBuilder.storeItemSpiller(yield ItemUsuario.readMissingItems(req.cookies.ra_usuario));
     res.render('loja', {
         layout: 'layoutVazio',
