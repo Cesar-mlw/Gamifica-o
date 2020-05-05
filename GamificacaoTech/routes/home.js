@@ -55,7 +55,8 @@ router.get('/login', wrap((req, res) => __awaiter(this, void 0, void 0, function
         res.redirect("/");
     }
     else {
-        res.render('loginRegistro', { titulo: 'Gamificação TECH' });
+        res.render('loginRegistro', { titulo: 'Gamificação TECH',
+            layout: 'layoutLogin' });
     }
 })));
 router.post('/pc', wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
