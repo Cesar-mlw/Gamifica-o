@@ -50,8 +50,7 @@ router.get('/login', wrap(async (req: express.Request, res: express.Response) =>
         res.redirect("/")
     }
     else{
-        res.render('loginRegistro', { titulo: 'Gamificação TECH',
-                                    layout:'layoutLogin'}); 
+        res.render('loginRegistro', { titulo: 'Gamificação TECH', layout: 'layoutLogin'}); 
     }
     
 }));
