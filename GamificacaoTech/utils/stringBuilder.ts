@@ -16,7 +16,7 @@ export = class StringBuilder {
         let n2 = 0
         let n3 = 0
         let pontos = p
-        n3 = Math.floor(p/1550) // Nível 3 = 9 Niveis
+        n3 = Math.floor(p/1350) // Nível 3 = 9 Niveis
         p -= 1350*n3
         n2 = Math.floor(p/450) // Nível 2 = 3 Niveis
         p -= 450*n2
