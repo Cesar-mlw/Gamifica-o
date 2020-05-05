@@ -44,11 +44,11 @@ export = class Projeto {
 
   public static async create(p: Projeto): Promise<string> {
     let res: string;
-    console.log(p.terminado_projeto);
+    
     if ((res = Projeto.validate(p))) return res;
     await Sql.conectar(async (sql: Sql) => {
       try {
-        if(p.terminado_projeto){
+        if(p.dt_termino_projeto == null){
          await sql.query(
            "insert into projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto, exibir_projeto) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
            [

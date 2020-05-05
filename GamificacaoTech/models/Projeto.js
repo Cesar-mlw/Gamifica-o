@@ -38,12 +38,11 @@ module.exports = class Projeto {
     static create(p) {
         return __awaiter(this, void 0, void 0, function* () {
             let res;
-            console.log(p.terminado_projeto);
             if ((res = Projeto.validate(p)))
                 return res;
             yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
                 try {
-                    if (p.terminado_projeto) {
+                    if (p.dt_termino_projeto == null) {
                         yield sql.query("insert into projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto, exibir_projeto) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", [
                             p.id_tipo_projeto,
                             p.ra_usuario,
