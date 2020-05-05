@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 const Sql = require("../infra/sql");
 module.exports = class Cidade {
     static validate(c) {
@@ -9,54 +18,64 @@ module.exports = class Cidade {
             resp = "ID do estado não pode ser nulo ";
         return resp;
     }
-    static async list() {
-        let lista = null;
-        await Sql.conectar(async (sql) => {
-            lista = await sql.query("SELECT c.id_cidade, c.nome_cidade, c.id_estado_cidade, e.nome_estado FROM cidade c, estado e WHERE c.id_estado_cidade = e.id_estado");
+    static list() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let lista = null;
+            yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
+                lista = (yield sql.query("SELECT c.id_cidade, c.nome_cidade, c.id_estado_cidade, e.nome_estado FROM cidade c, estado e WHERE c.id_estado_cidade = e.id_estado"));
+            }));
+            return lista;
         });
-        return lista;
     }
-    static async create(c) {
-        let res;
-        if ((res = Cidade.validate(c)))
-            throw res;
-        await Sql.conectar(async (sql) => {
-            try {
-                sql.query("INSERT INTO cidade (nome_cidade, id_estado_cidade) VALUES (?, ?)", [c.nome_cidade, c.id_estado_cidade]);
-            }
-            catch (e) {
-                if (e.code && e.code == "ER_DUP_ENTRY")
-                    res = `O ID ${c.id_cidade} já está em uso`;
-                else
-                    throw e;
-            }
+    static create(c) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let res;
+            if ((res = Cidade.validate(c)))
+                throw res;
+            yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
+                try {
+                    sql.query("INSERT INTO cidade (nome_cidade, id_estado_cidade) VALUES (?, ?)", [c.nome_cidade, c.id_estado_cidade]);
+                }
+                catch (e) {
+                    if (e.code && e.code == "ER_DUP_ENTRY")
+                        res = `O ID ${c.id_cidade} já está em uso`;
+                    else
+                        throw e;
+                }
+            }));
+            return res;
         });
-        return res;
     }
-    static async read(id) {
-        let lista = null;
-        await Sql.conectar(async (sql) => {
-            lista = await sql.query("SELECT c.id_cidade, c.nome_cidade, c.id_estado_cidade, e.nome_estado FROM cidade c, estado e WHERE id_cidade = ?", [id]);
+    static read(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let lista = null;
+            yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
+                lista = yield sql.query("SELECT c.id_cidade, c.nome_cidade, c.id_estado_cidade, e.nome_estado FROM cidade c, estado e WHERE id_cidade = ?", [id]);
+            }));
+            return ((lista && lista[0]) || null);
         });
-        return ((lista && lista[0]) || null);
     }
-    static async update(c) {
-        let res;
-        await Sql.conectar(async (sql) => {
-            await sql.query("UPDATE cidade SET nome_cidade = ?, id_estado_cidade = ? WHERE id_cidade = ?", [c.nome_cidade, c.id_estado_cidade, c.id_cidade]);
-            if (!sql.linhasAfetadas)
-                res = "Cidade não encontrada";
+    static update(c) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let res;
+            yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
+                yield sql.query("UPDATE cidade SET nome_cidade = ?, id_estado_cidade = ? WHERE id_cidade = ?", [c.nome_cidade, c.id_estado_cidade, c.id_cidade]);
+                if (!sql.linhasAfetadas)
+                    res = "Cidade não encontrada";
+            }));
+            return res;
         });
-        return res;
     }
-    static async delete(id_item) {
-        let res = true;
-        Sql.conectar(async (sql) => {
-            await sql.query("DELETE FROM cidade WHERE id_cidade = ?", [id_item]);
-            if (!sql.linhasAfetadas)
-                res = false;
+    static delete(id_item) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let res = true;
+            Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
+                yield sql.query("DELETE FROM cidade WHERE id_cidade = ?", [id_item]);
+                if (!sql.linhasAfetadas)
+                    res = false;
+            }));
+            return res;
         });
-        return res;
     }
 };
 //# sourceMappingURL=Cidade.js.map

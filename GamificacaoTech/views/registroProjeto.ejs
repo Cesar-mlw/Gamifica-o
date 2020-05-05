@@ -46,7 +46,7 @@
             </div>
             <input id="check2" class="css-checkbox" type="checkbox" name="check2" value="check">
             <label for="check2" class="css-label">Exibir no Portfólio</label>
-            <span class="os-button-complement" style="margin-top: 15px;"><button type="submit" class="os-button" onclick="portEnviar()">Enviar</button></span>
+            <span class="os-button-complement" style="margin-top: 15px;"><button type="button" class="os-button" onclick="portEnviar()">Enviar</button></span>
         </form>
     </div>
     
@@ -63,7 +63,7 @@
                     <%-listaTipoHabilidade%>
                 </select>
             </div>
-            <span class="os-button-complement" style="margin-top: 15px;"><button type="submit" class="os-button" onclick="currEnviar()">Enviar</button></span>
+            <span class="os-button-complement" style="margin-top: 15px;"><button type="button" class="os-button" onclick="currEnviar(); location.replace('/')">Enviar</button></span>
 
         </div>
     </form>
@@ -193,6 +193,7 @@
             dataType: "json",
             success: function (data) {
                 console.log(data)
+                
             },
             error: function (e) {
                 console.log(e)
@@ -209,11 +210,18 @@
         let id_tipo_projeto_value = parseInt(id_tipo_projeto.options[id_tipo_projeto.selectedIndex].value)
         let ra = getCookie("ra_usuario");
         let descricao_projeto = document.getElementById("descricao_projeto").value;
-        let dt_comeco_projeto = new Date(String(document.getElementById("datepicker").value));
-        dt_comeco_projeto = dt_comeco_projeto.toISOString().substr(0, 10)
-        let dt_termino_projeto = document.getElementById("datepicker2").value == "" ? "1970-01-01" : new Date(document.getElementById("datepicker2").value).toISOString().substr(0, 10);
-        let terminado_projeto = document.getElementById("check").checked ? 1 : 0;
-        let exibir_projeto = document.getElementById("check2").checked ? 1 : 0
+        let dt_comeco_projeto = document.getElementById("datepicker").value.split('/')
+        dt_comeco_projeto = dt_comeco_projeto[2] + '-' + dt_comeco_projeto[1] + '-' + dt_comeco_projeto[0]
+        console.log(dt_comeco_projeto);
+        let dt_termino_projeto = document.getElementById("datepicker2").value.split("/");
+        if(dt_termino_projeto[0] == ""){
+            dt_termino_projeto = dt_termino_projeto[2] + "-" + dt_termino_projeto[1] + "-" + dt_termino_projeto[0]
+        }
+        else{
+            dt_termino_projeto = null
+        } 
+        let terminado_projeto = document.getElementById("check").checked ? true : false;
+        let exibir_projeto = document.getElementById("check2").checked ? true : false
 
 
         const form = {
@@ -236,6 +244,7 @@
             dataType: "json",
             success: function (data) {
                 console.log(data)
+                location.reload()
             },
             error: function (e) {
                 console.log(e)

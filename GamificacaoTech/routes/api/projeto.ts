@@ -47,7 +47,7 @@ router.post("/delete", wrap(async (req: express.Request, res: express.Response) 
 
 
 router.post("/read", wrap(async (req: express.Request, res: express.Response) => {
-    let ra = req.body.ra
+    let ra = req.body.ra_usuario
     let p = await Projeto.read(ra)
     res.json(p)
 }))

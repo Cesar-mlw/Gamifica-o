@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 const Sql = require("../infra/sql");
 module.exports = class ItemUsuario {
     static validate(i) {
@@ -9,119 +18,147 @@ module.exports = class ItemUsuario {
             res = "O id do item não pode ser nulo\n";
         return res;
     }
-    static async list() {
-        let lista = null;
-        await Sql.conectar(async (sql) => {
-            lista = await sql.query("SELECT u.id_item_usuario, u.ra_usuario, u.id_item, u.dt_item, i.nome_item, i.img_url_item, u.cellx_item, u.celly_item, u.width, u.height FROM item_usuario u, item i WHERE u.id_item = i.id_item");
+    static list() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let lista = null;
+            yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
+                lista = (yield sql.query("SELECT u.id_item_usuario, u.ra_usuario, u.id_item, u.dt_item, i.nome_item, i.img_url_item, u.cellx_item, u.celly_item, u.width, u.height FROM item_usuario u, item i WHERE u.id_item = i.id_item"));
+            }));
+            return lista;
         });
-        return lista;
     }
-    static async create(i) {
-        let res;
-        await Sql.conectar(async (sql) => {
-            try {
-                await sql.query("INSERT INTO item_usuario (id_item, ra_usuario, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (?, ?, NOW(), 0, 0, 2, 2, 0)", [i.id_item, i.ra_usuario]);
-            }
-            catch (e) {
-                if (e.code && e.code === "ER_DUP_ENTRY")
-                    res = `O ID ${i.id_item_usuario} já está em uso`;
-                else
-                    throw e;
-            }
+    static create(i) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let res;
+            yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
+                try {
+                    yield sql.query("INSERT INTO item_usuario (id_item, ra_usuario, dt_item, cellx_item, celly_item, width, height, positioned_item) VALUES (?, ?, NOW(), 0, 0, 2, 2, 0)", [i.id_item, i.ra_usuario]);
+                }
+                catch (e) {
+                    if (e.code && e.code === "ER_DUP_ENTRY")
+                        res = `O ID ${i.id_item_usuario} já está em uso`;
+                    else
+                        throw e;
+                }
+            }));
+            return res;
         });
-        return res;
     }
-    static async readLastInserted() {
-        let res;
-        await Sql.conectar(async (sql) => {
-            res = await sql.query("SELECT last_inserted_id()");
+    static readLastInserted() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let res;
+            yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
+                res = (yield sql.query("SELECT last_inserted_id()"));
+            }));
+            return res;
         });
-        return res;
     }
-    static async read(ra) {
-        let lista = null;
-        await Sql.conectar(async (sql) => {
-            lista = await sql.query("select i.id_item, i.nome_item, i.img_url_item, u.dt_item, u.id_item_usuario, u.id_item, u.cellx_item, u.celly_item, u.width, u.height, u.positioned_item from item_usuario u, item i where ra_usuario = ? and u.id_item = i.id_item", [ra]);
+    static read(ra) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let lista = null;
+            yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
+                lista = (yield sql.query("select i.id_item, i.nome_item, i.img_url_item, u.dt_item, u.id_item_usuario, u.id_item, u.cellx_item, u.celly_item, u.width, u.height, u.positioned_item from item_usuario u, item i where ra_usuario = ? and u.id_item = i.id_item", [ra]));
+            }));
+            return lista;
         });
-        return lista;
     }
-    static async readPlacedItems(ra) {
-        let lista = null;
-        await Sql.conectar(async (sql) => {
-            lista = await sql.query("SELECT u.id_item_usuario, u.ra_usuario, u.id_item, u.cellx_item, u.celly_item, u.width, u.height, u.positioned_item, i.nome_item, i.img_url_item, i.preco_item FROM item_usuario u, item i WHERE u.ra_usuario = ? AND u.positioned_item = TRUE AND u.id_item = i.id_item", [ra]);
+    static readPlacedItems(ra) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let lista = null;
+            yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
+                lista = (yield sql.query("SELECT u.id_item_usuario, u.ra_usuario, u.id_item, u.cellx_item, u.celly_item, u.width, u.height, u.positioned_item, i.nome_item, i.img_url_item, i.preco_item FROM item_usuario u, item i WHERE u.ra_usuario = ? AND u.positioned_item = TRUE AND u.id_item = i.id_item", [ra]));
+            }));
+            return lista;
         });
-        return lista;
     }
-    static async readNotPlacedItems(ra) {
-        let lista = null;
-        await Sql.conectar(async (sql) => {
-            lista = await sql.query("SELECT u.id_item_usuario, u.ra_usuario, u.id_item, u.cellx_item, u.celly_item, u.width, u.height, u.positioned_item, i.nome_item, i.img_url_item, i.preco_item FROM item_usuario u, item i WHERE u.ra_usuario = ? AND u.positioned_item = FALSE AND u.id_item = i.id_item", [ra]);
+    static readNotPlacedItems(ra) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let lista = null;
+            yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
+                lista = (yield sql.query("SELECT u.id_item_usuario, u.ra_usuario, u.id_item, u.cellx_item, u.celly_item, u.width, u.height, u.positioned_item, i.nome_item, i.img_url_item, i.preco_item FROM item_usuario u, item i WHERE u.ra_usuario = ? AND u.positioned_item = FALSE AND u.id_item = i.id_item", [ra]));
+            }));
+            return lista;
         });
-        return lista;
     }
-    static async readOccupiedPlaces(ra) {
-        let lista = null;
-        await Sql.conectar(async (sql) => {
-            lista = await sql.query("SELECT cellx_item, celly_item FROM item_usuario u WHERE u.ra_usuario = ? AND u.positioned_item = true", [ra]);
+    static readOccupiedPlaces(ra) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let lista = null;
+            yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
+                lista = (yield sql.query("SELECT cellx_item, celly_item FROM item_usuario u WHERE u.ra_usuario = ? AND u.positioned_item = true", [ra]));
+            }));
+            return lista;
         });
-        return lista;
     }
-    static async readImageStyle(ra) {
-        let lista = null;
-        await Sql.conectar(async (sql) => {
-            lista = await sql.query("SELECT u.width, u.height, i.img_url_item FROM item_usuario u, item i WHERE u.ra_usuario = ? AND u.positioned_item = false and u.id_item = i.id_item;", [ra]);
+    static readImageStyle(ra) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let lista = null;
+            yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
+                lista = (yield sql.query("SELECT u.width, u.height, i.img_url_item FROM item_usuario u, item i WHERE u.ra_usuario = ? AND u.positioned_item = false and u.id_item = i.id_item;", [ra]));
+            }));
+            return lista;
         });
-        return lista;
     }
-    static async update(i) {
-        let res;
-        Sql.conectar(async (sql) => {
-            await sql.query("UPDATE item_usuario SET id_item = ?, dt_item = ?, width = ?, height = ? WHERE id_item_usuario = ?", [i.id_item, i.dt_item, i.width, i.height, i.id_item_usuario]);
-            if (!sql.linhasAfetadas)
-                res = "Usuário não possui esse item";
+    static update(i) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let res;
+            Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
+                yield sql.query("UPDATE item_usuario SET id_item = ?, dt_item = ?, width = ?, height = ? WHERE id_item_usuario = ?", [i.id_item, i.dt_item, i.width, i.height, i.id_item_usuario]);
+                if (!sql.linhasAfetadas)
+                    res = "Usuário não possui esse item";
+            }));
+            return res;
         });
-        return res;
     }
-    static async placeObject(id_item_usuario, cellx, celly) {
-        let res = true;
-        Sql.conectar(async (sql) => {
-            await sql.query("UPDATE item_usuario SET cellx_item = ?, celly_item = ?, positioned_item = true where id_item_usuario = ?", [cellx, celly, id_item_usuario]);
-            if (!sql.linhasAfetadas)
-                res = false;
+    static placeObject(id_item_usuario, cellx, celly) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let res = true;
+            Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
+                yield sql.query("UPDATE item_usuario SET cellx_item = ?, celly_item = ?, positioned_item = true where id_item_usuario = ?", [cellx, celly, id_item_usuario]);
+                if (!sql.linhasAfetadas)
+                    res = false;
+            }));
+            return res;
         });
-        return res;
     }
-    static async removeObject(id_item_usuario) {
-        let res = true;
-        Sql.conectar(async (sql) => {
-            await sql.query("UPDATE item_usuario SET cellx_item = NULL, celly_item = NULL, positioned_item = 0 where id_item_usuario = ?", [id_item_usuario]);
-            if (!sql.linhasAfetadas)
-                res = false;
+    static removeObject(id_item_usuario) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let res = true;
+            Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
+                yield sql.query("UPDATE item_usuario SET cellx_item = NULL, celly_item = NULL, positioned_item = 0 where id_item_usuario = ?", [id_item_usuario]);
+                if (!sql.linhasAfetadas)
+                    res = false;
+            }));
+            return res;
         });
-        return res;
     }
-    static async readMissingItems(ra) {
-        let lista = null;
-        await Sql.conectar(async (sql) => {
-            lista = await sql.query("select * from item a where a.id_item not in (SELECT id_item FROM item_usuario u where u.ra_usuario = ?)", [ra]);
+    static readMissingItems(ra) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let lista = null;
+            yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
+                lista = yield sql.query("select * from item a where a.id_item not in (SELECT id_item FROM item_usuario u where u.ra_usuario = ?)", [ra]);
+            }));
+            return lista;
         });
-        return lista;
     }
-    static async readMissingItemsSpecific(ra, id) {
-        let lista = null;
-        await Sql.conectar(async (sql) => {
-            lista = await sql.query("select * from item a where a.id_item not in (SELECT id_item FROM item_usuario u where u.ra_usuario = ?) AND id_area = ?;", [ra, id]);
+    static readMissingItemsSpecific(ra, id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let lista = null;
+            yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
+                lista = yield sql.query("select * from item a where a.id_item not in (SELECT id_item FROM item_usuario u where u.ra_usuario = ?) AND id_area = ?;", [ra, id]);
+            }));
+            return lista;
         });
-        return lista;
     }
-    static async delete(id) {
-        let res = true;
-        Sql.conectar(async (sql) => {
-            await sql.query("DELETE FROM item_usuario WHERE id_item_usuario = ?", [id]);
-            if (!sql.linhasAfetadas)
-                res = false;
+    static delete(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let res = true;
+            Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
+                yield sql.query("DELETE FROM item_usuario WHERE id_item_usuario = ?", [id]);
+                if (!sql.linhasAfetadas)
+                    res = false;
+            }));
+            return res;
         });
-        return res;
     }
 };
 //# sourceMappingURL=ItemUsuario.js.map
