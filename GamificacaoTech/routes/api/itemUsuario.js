@@ -29,6 +29,7 @@ router.post("/create", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
         }
         else {
             let resp = yield ItemUsuario.create(p);
+            console.log(resp);
             res.json(resp);
         }
     }

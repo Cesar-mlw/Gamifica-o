@@ -276,7 +276,7 @@
     
 
     function buyItem(id){
-        var Data = null;
+        var returnData = null;
         idItem = id;
         let url = "/api/itemUsuario/create"
         let form = {
@@ -289,13 +289,15 @@
             data: form,
             dataType: "json",
             success: function (data) {
-                Data = data;
+                console.log(data);
+                returnData = data;
             },
             error: function (e) {
                 console.log(e)
             }
         })
-        if (Data){
+        console.log(returnData);
+        if (returnData){
             $('#loja-item-'+idItem+'').closest('.bcl-item').remove();
             console.log($('#loja-item-'+idItem+'').closest('.bcl-item'));
             console.log('zap');
