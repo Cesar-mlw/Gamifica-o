@@ -1,3 +1,4 @@
+<script src="../public/lib/jquery/jquery-1.0.0.min.js"></script>
 <style>
     label.css-label {
         background-image: url(http://www.csscheckbox.com/checkboxes/u/csscheckbox_f8d40671eec752c2a075981314745ffa.png);
@@ -9,11 +10,11 @@
         background-position: 0 -12px;
     }
 
-    #datepicker2 {
+    #datepicker4 {
           display:none;
       }
     
-      #check-concluido:checked ~ #datepicker2{
+      #check-concluido:checked ~ #datepicker4{
           display:block;
       }
 </style>
@@ -73,10 +74,10 @@
                                     </select>
                                 </span>
                             </span>
-                            <input type="text" class="port-input" placeholder="Data de Início do Projeto" name="" id="datepicker" required autocomplete="off">
+                            <input type="text" class="port-input" placeholder="Data de Início do Projeto" name="" id="datepicker3" required>
                             <input id="check-concluido" class="css-checkbox" type="checkbox" name="check" value="1">
                             <label for="check-concluido" class="css-label">Projeto Concluído</label>
-                            <input type="text" class="port-input" placeholder="Data de Conclusão do Projeto" name="" id="datepicker2" autocomplete="off">
+                            <input type="text" class="port-input" placeholder="Data de Conclusão do Projeto" name="" id="datepicker4">
                             <input id="check-exibir" class="css-checkbox" type="checkbox" name="check2" value="1">
                             <label for="check-exibir" class="css-label">Exibir no Portfólio</label>
                         </span>
@@ -93,7 +94,7 @@
     </div>
 </div>
 
-<script>
+<script type="text/javascript">
     $(document).ready(function(){
         var projetos = <%-projetos%>;
         var brDate = {
@@ -104,11 +105,11 @@
             weekdaysShort : ['Dom','Seg','Ter','Qua','Qui','Sex','Sab']
         };
 
-        var picker = new Pikaday({
-            field: document.getElementById('datepicker'),
+        var picker3 = new Pikaday({
+            field: document.getElementById('datepicker3'),
             maxDate: new Date(),
             onSelect: function() {
-                picker2.setMinDate(this.getDate());
+                picker4.setMinDate(this.getDate());
             },
             i18n: brDate,
             format: 'D/M/YYYY',
@@ -127,11 +128,11 @@
             }
         });
 
-        var picker2 = new Pikaday({
-            field: document.getElementById('datepicker2'),
+        var picker4 = new Pikaday({
+            field: document.getElementById('datepicker4'),
             maxDate: new Date(),
             onSelect: function() {
-                picker.setMaxDate(this.getDate());
+                picker3.setMaxDate(this.getDate());
             },
             i18n: brDate,
             format: 'D/M/YYYY',
@@ -149,9 +150,6 @@
                 return new Date(year, month, day);
             }
         });
-
-        
-
     });
 </script>
 

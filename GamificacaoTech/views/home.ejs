@@ -336,13 +336,13 @@
             data: form,
             dataType: "json",
             success: function (data) {
-                editListaProjetos = data
+                editListaProjetos = data;
             },
             error: function (e) {
-                console.log(e)
+                console.log(e);
+                console.log('error');
             }
         })
-        console.log(editListaProjetos[0]);
         for(let i = 0; i < editListaProjetos.length; i++){
             if(editListaProjetos[i].id_projeto == idProjeto){
                 $('#project-name').val(editListaProjetos[i].nome_projeto)
@@ -354,15 +354,16 @@
                 const month = dt_comeco.getMonth() + 1;
                 const year = dt_comeco.getFullYear();
                 dt_comeco =  `${day}/${month}/${year}`;
-                $('#datepicker').val(dt_comeco)
+                $('#datepicker3').val(dt_comeco);
+                console.log(editListaProjetos);
                 if(editListaProjetos[i].terminado_projeto){
-                    let dt_termino = new Date(listaProjetos[i].dt_termino_projeto)
+                    let dt_termino = new Date(editlistaProjetos[i].dt_termino_projeto)
                     const day = dt_termino.getDate();
                     const month = dt_termino.getMonth() + 1;
                     const year = dt_termino.getFullYear();
                     dt_termino =  `${day}/${month}/${year}`;
-                    $("#datepicker2").val(dt_termino)
-                    $("#check").val(true)
+                    $("#datepicker4").val(dt_termino);
+                    $("#check").val(true);
                 }
                 // TERMINAR INSERÇÃO DOS DADOS DA EDIÇÃO
             }
@@ -382,11 +383,11 @@
         var nomeProjeto = $('#project-name').val();
         var descProjeto = $('#project-desc').val();
         var conclProjeto = $('#check-concluido').prop("checked") ? 1 : 0;
-        var splitDate = $('#datepicker').val().split("/");
+        var splitDate = $('#datepicker3').val().split("/");
         var inicioProjeto = new Date(splitDate[2],splitDate[1] - 1, splitDate[0]).toISOString().substr(0, 10);
         console.log(inicioProjeto);
-        var splitDate2 = $('#datepicker2').val().split("/");
-        var fimProjeto = $('#datepicker2').val() == "" ? "Null" : new Date(splitDate2[2],splitDate2[1] - 1, splitDate2[0]).toISOString().substr(0, 10);
+        var splitDate2 = $('#datepicker4').val().split("/");
+        var fimProjeto = $('#datepicker4').val() == "" ? "Null" : new Date(splitDate2[2],splitDate2[1] - 1, splitDate2[0]).toISOString().substr(0, 10);
         var idProjeto = $('#port-item-id').val();
         var exibirProjeto = $('#check-exibir').prop("checked") ? 1 : 0;
 
