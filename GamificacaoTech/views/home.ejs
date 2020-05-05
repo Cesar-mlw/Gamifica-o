@@ -342,7 +342,7 @@
                 console.log(e)
             }
         })
-        console.log(editListaProjetos[0]);
+        console.log(editListaProjetos[0].terminado_projeto);
         for(let i = 0; i < editListaProjetos.length; i++){
             if(editListaProjetos[i].id_projeto == idProjeto){
                 $('#project-name').val(editListaProjetos[i].nome_projeto)
@@ -355,14 +355,14 @@
                 const year = dt_comeco.getFullYear();
                 dt_comeco =  `${day}/${month}/${year}`;
                 $('#datepicker').val(dt_comeco)
-                if(editListaProjetos[i].terminado_projeto){
-                    let dt_termino = new Date(listaProjetos[i].dt_termino_projeto)
+                if(editListaProjetos[i].terminado_projeto == 1){
+                    let dt_termino = new Date(editListaProjetos[i].dt_termino_projeto)
                     const day = dt_termino.getDate();
                     const month = dt_termino.getMonth() + 1;
                     const year = dt_termino.getFullYear();
                     dt_termino =  `${day}/${month}/${year}`;
                     $("#datepicker2").val(dt_termino)
-                    $("#check").val(true)
+                    $("#check-concluido").prop('checked', true)
                 }
                 // TERMINAR INSERÇÃO DOS DADOS DA EDIÇÃO
             }

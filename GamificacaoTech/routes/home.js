@@ -67,10 +67,6 @@ router.post('/pc', wrap((req, res) => __awaiter(void 0, void 0, void 0, function
         res.render('pc', { titulo: 'Gamificação TECH' });
     }
 })));
-router.post('/registro', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.render('registro', { titulo: 'Gamificação TECH',
-        layout: 'layoutLogin' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
-})));
 router.post('/feed', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     if (req.cookies.ra_usuario == undefined && req.cookies.looged == undefined) {
         res.redirect("/login");

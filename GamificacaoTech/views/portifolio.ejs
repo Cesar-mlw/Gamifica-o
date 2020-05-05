@@ -82,7 +82,7 @@
                         </span>
                         <span class="port-item-edit-lower">
                             <form class="port-item-edit-formTag">
-                                <button class="port-item-edit-button" onclick="savePortItem()">Save Project</button>
+                                <button class="port-item-edit-button" onclick="savePortItem(); location.replace('/')">Save Project</button>
                                 <button class="port-item-delete-button" onclick="deletePortItem($('#port-item-id').val())" type="submit">Delete Project</button>
                             </form>
                         </span>
@@ -95,7 +95,6 @@
 
 <script>
     $(document).ready(function(){
-        var projetos = <%-projetos%>;
         var brDate = {
             previousMonth : 'Mês Anterior',
             nextMonth     : 'Mês Seguinte',
@@ -149,9 +148,6 @@
                 return new Date(year, month, day);
             }
         });
-
-        
-
     });
 </script>
 
