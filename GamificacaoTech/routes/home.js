@@ -23,7 +23,7 @@ const TipoHabilidade = require("../models/TipoHabilidade");
 const router = express.Router();
 //import usuario
 router.get('/', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    if ((req.cookies.ra_usuario == undefined || req.cookies.logged == undefined) || (yield Usuario.doesNotExist(req.cookies.ra_usuario))) {
+    if (yield Usuario.doesNotExist(req.cookies.ra_usuario)) {
         res.redirect("/login");
     }
     else {
@@ -52,8 +52,10 @@ router.get('/', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 })));
 router.get('/login', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    if (req.cookies.ra_usuario != undefined && req.cookies.logged != undefined) {
+    if (!(yield Usuario.doesNotExist(req.cookies.ra_usuario))) {
         res.redirect("/");
+        res.clearCookie("ra_usuario");
+        res.clearCookie("logged");
     }
     else {
         res.render('loginRegistro', { titulo: 'Gamificação TECH', layout: 'layoutLogin' });

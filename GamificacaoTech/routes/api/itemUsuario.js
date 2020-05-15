@@ -29,6 +29,10 @@ router.post("/create", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
         }
         else {
             let resp = yield ItemUsuario.create(p);
+            if (resp == undefined)
+                resp = "Item Comprado";
+            else
+                resp = "Item nao comprado";
             res.json(resp);
         }
     }

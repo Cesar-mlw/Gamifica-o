@@ -127,7 +127,7 @@
         console.log(form)
         $.ajax({
             method: "post",
-            url: "http://localhost:3000/api/projeto/create",
+            url: "/api/projeto/create",
             data: form,
             dataType: "json",
             success: function (data) {

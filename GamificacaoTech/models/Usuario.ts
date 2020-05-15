@@ -193,7 +193,8 @@ public static async readUserGeneralPoints(ra: number): Promise<number[]>{
 
   public static async doesNotExist(ra: number): Promise<boolean>{
     let res: boolean = false
-
+    let user = await this.read(ra)
+    if (user == null) res = true
     return res
   }
 

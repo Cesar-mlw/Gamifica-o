@@ -188,6 +188,9 @@ module.exports = class Usuario {
     static doesNotExist(ra) {
         return __awaiter(this, void 0, void 0, function* () {
             let res = false;
+            let user = yield this.read(ra);
+            if (user == null)
+                res = true;
             return res;
         });
     }

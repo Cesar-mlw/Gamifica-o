@@ -23,7 +23,7 @@
 
   function clickLogout() {
     $.ajax({
-      url: "http://localhost:3000/api/usuario/efetuarLogout",
+      url: "/api/usuario/efetuarLogout",
       method: "get",
       contentType: "application/json",
       success: function(data) {
