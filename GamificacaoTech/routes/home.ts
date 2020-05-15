@@ -16,7 +16,7 @@ const router = express.Router();
 
 //import usuario
 router.get('/', wrap(async (req: express.Request, res: express.Response) => {
-    if(req.cookies.ra_usuario == undefined || req.cookies.logged == undefined){
+    if((req.cookies.ra_usuario == undefined || req.cookies.logged == undefined) || await Usuario.doesNotExist(req.cookies.ra_usuario)){
         res.redirect("/login")
     }
     else{

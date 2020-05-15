@@ -236,6 +236,7 @@
 <script type="text/javascript">
     var placedItems = <%-placedItemsJson%>;
     var notPlacedItems = <%-notPlacedItemsJson%>;
+    debugger
     function filterLoja(ele){
         idArea = ele.getAttribute('data-id');
         getCookie("ra_usuario")
@@ -299,8 +300,6 @@
         console.log(returnData);
         if (returnData){
             $('#loja-item-'+idItem+'').closest('.bcl-item').remove();
-            console.log($('#loja-item-'+idItem+'').closest('.bcl-item'));
-            console.log('zap');
             $('.item-box').append('<button class="item-box-item" id="item-box-item-'+id+'" onclick="adicionarItem('+id+')"></button>')
             notPlacedItems = returnNotPlacedItems(getCookie("ra_usuario"));
             console.log(data);

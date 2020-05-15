@@ -22,6 +22,8 @@ router.post("/create", wrap(async (req: express.Request, res: express.Response) 
         }
         else {
             let resp = await ItemUsuario.create(p)
+            if(resp == undefined) resp = "Item Comprado"
+            else resp = "Item nao comprado"
             res.json(resp)
         }
     }

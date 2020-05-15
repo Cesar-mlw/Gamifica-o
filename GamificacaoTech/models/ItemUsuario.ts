@@ -50,7 +50,6 @@ export = class ItemUsuario {
                     throw e
             }
         })
-
         return res
     }
 

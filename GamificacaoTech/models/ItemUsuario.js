@@ -41,6 +41,7 @@ module.exports = class ItemUsuario {
                         throw e;
                 }
             }));
+            console.log(res);
             return res;
         });
     }

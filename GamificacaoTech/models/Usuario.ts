@@ -191,6 +191,12 @@ public static async readUserGeneralPoints(ra: number): Promise<number[]>{
     return res;
   }
 
+  public static async doesNotExist(ra: number): Promise<boolean>{
+    let res: boolean = false
+
+    return res
+  }
+
   public static async efetuarLogin(
     ra: number,
     senha: string
@@ -214,4 +220,6 @@ public static async readUserGeneralPoints(ra: number): Promise<number[]>{
 
     return res;
   }
+
+  
 };

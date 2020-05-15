@@ -23,7 +23,7 @@ const TipoHabilidade = require("../models/TipoHabilidade");
 const router = express.Router();
 //import usuario
 router.get('/', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    if (req.cookies.ra_usuario == undefined || req.cookies.logged == undefined) {
+    if ((req.cookies.ra_usuario == undefined || req.cookies.logged == undefined) || (yield Usuario.doesNotExist(req.cookies.ra_usuario))) {
         res.redirect("/login");
     }
     else {

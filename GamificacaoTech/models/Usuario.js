@@ -185,6 +185,12 @@ module.exports = class Usuario {
             return res;
         });
     }
+    static doesNotExist(ra) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let res = false;
+            return res;
+        });
+    }
     static efetuarLogin(ra, senha) {
         return __awaiter(this, void 0, void 0, function* () {
             //parametros a serem passados - ra: number / senha: string
