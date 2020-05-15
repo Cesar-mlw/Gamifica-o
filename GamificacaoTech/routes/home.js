@@ -105,6 +105,9 @@ router.post('/curriculo', wrap((req, res) => __awaiter(void 0, void 0, void 0, f
     res.render('curriculo', { layout: 'layoutVazio',
         habilidades: habs }); //renderizar a tela
 })));
+router.post('/info', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.render('info', { layout: 'layoutVazio' });
+})));
 router.post('/testeAjax', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.render('testeAjax', { layout: 'layoutVazio' }); //renderizar a tela
 })));

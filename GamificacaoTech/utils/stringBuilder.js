@@ -139,7 +139,7 @@ module.exports = class StringBuilder {
     static storeItemSpiller(item) {
         let res = "";
         if (item.length == 0) {
-            res += `<div>Sei lá meu irmão</div>`;
+            res += `<div>Nenhum item disponível!</div>`;
         }
         else {
             for (let i = 0; i < item.length; i++) {

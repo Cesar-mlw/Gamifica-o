@@ -96,7 +96,7 @@
                                 <i class="material-icons">assignment_ind</i>
                                 <span>Currículo</span>
                             </button>
-                            <button onclick="loadContent('/')" class="desktop-icon">
+                            <button onclick="loadContent('/info')" class="desktop-icon">
                                 <i class="material-icons">info</i>
                                 <span>Informações<br>da Faculdade</span>
                             </button>
@@ -236,7 +236,6 @@
 <script type="text/javascript">
     var placedItems = <%-placedItemsJson%>;
     var notPlacedItems = <%-notPlacedItemsJson%>;
-    debugger
     function filterLoja(ele){
         idArea = ele.getAttribute('data-id');
         getCookie("ra_usuario")
@@ -289,13 +288,9 @@
             data: form,
             dataType: "json",
             success: function (data) {
-                console.log(data);
                 $('#loja-item-'+idItem+'').closest('.bcl-item').remove();
-                console.log($('#loja-item-'+idItem+'').closest('.bcl-item'));
-                console.log('zap');
                 $('.item-box').append('<button class="item-box-item" id="item-box-item-'+id+'" onclick="adicionarItem('+id+')"></button>')
                 notPlacedItems = returnNotPlacedItems(getCookie("ra_usuario"));
-                console.log(data);
             },
             error: function (e) {
                 console.log(e)

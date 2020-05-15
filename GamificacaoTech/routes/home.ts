@@ -111,6 +111,10 @@ router.post('/curriculo', wrap(async (req: express.Request, res: express.Respons
                             habilidades: habs})//renderizar a tela
 }));
 
+router.post('/info', wrap(async (req: express.Request, res: express.Response) => {
+    res.render('info', { layout:'layoutVazio'})
+}));
+
 router.post('/testeAjax', wrap(async (req: express.Request, res: express.Response) => {
     res.render('testeAjax', { layout:'layoutVazio'})//renderizar a tela
 }));
