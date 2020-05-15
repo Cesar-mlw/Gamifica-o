@@ -88,6 +88,7 @@ router.post('/formTest', wrap((req, res) => __awaiter(void 0, void 0, void 0, fu
 })));
 router.post('/portifolio', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let projetos = yield Projeto.read(req.cookies.ra_usuario);
+    console.log(projetos);
     let projetosHTML = StringBuilder.projectSpiller(yield Projeto.read(req.cookies.ra_usuario));
     let numeroDeProjetos = projetos.length;
     let listaArea = StringBuilder.areaSpiller(yield Area.list());

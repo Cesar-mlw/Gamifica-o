@@ -276,8 +276,7 @@
     
 
     function buyItem(id){
-        var returnData = null;
-        idItem = id;
+        let idItem = id;
         let url = "/api/itemUsuario/create"
         let form = {
             id_item: idItem,
@@ -290,21 +289,17 @@
             dataType: "json",
             success: function (data) {
                 console.log(data);
-                returnData = data;
+                $('#loja-item-'+idItem+'').closest('.bcl-item').remove();
+                console.log($('#loja-item-'+idItem+'').closest('.bcl-item'));
+                console.log('zap');
+                $('.item-box').append('<button class="item-box-item" id="item-box-item-'+id+'" onclick="adicionarItem('+id+')"></button>')
+                notPlacedItems = returnNotPlacedItems(getCookie("ra_usuario"));
+                console.log(data);
             },
             error: function (e) {
                 console.log(e)
             }
         })
-        console.log(returnData);
-        if (returnData){
-            $('#loja-item-'+idItem+'').closest('.bcl-item').remove();
-            console.log($('#loja-item-'+idItem+'').closest('.bcl-item'));
-            console.log('zap');
-            $('.item-box').append('<button class="item-box-item" id="item-box-item-'+id+'" onclick="adicionarItem('+id+')"></button>')
-            notPlacedItems = returnNotPlacedItems(getCookie("ra_usuario"));
-            console.log(data);
-        }
     }
 
     function returnNotPlacedItems(ra){

@@ -92,6 +92,7 @@ router.post('/formTest', wrap(async (req: express.Request, res: express.Response
 router.post('/portifolio', wrap(async (req: express.Request, res: express.Response) => {
 
     let projetos = await Projeto.read(req.cookies.ra_usuario)
+    console.log(projetos);
     let projetosHTML = StringBuilder.projectSpiller(await Projeto.read(req.cookies.ra_usuario))
     let numeroDeProjetos = projetos.length
     let listaArea = StringBuilder.areaSpiller(await Area.list())
