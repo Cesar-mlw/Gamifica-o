@@ -36,6 +36,7 @@ app.use("/api/estado", require("./routes/api/estado"))
 app.use("/api/endereco", require("./routes/api/endereco"))
 app.use("/api/nacionalidade", require("./routes/api/nacionalidade"))
 app.use("/api/dadosCurriculo", require("./routes/api/dadosCurriculo"))
+app.use("/api/noticia", require("./routes/api/noticia"))
 
 // catch 404 and forward to error handler
 // catch 404 and forward to error handler

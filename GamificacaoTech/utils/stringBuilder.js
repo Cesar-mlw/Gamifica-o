@@ -220,5 +220,21 @@ module.exports = class StringBuilder {
         }
         return resp;
     }
+    static semesterPeriodSpiller() {
+        let today = new Date();
+        let currentMonth = today.getMonth() + 1;
+        let percSemester = null;
+        if (currentMonth > 7 && currentMonth < 12) {
+            let progressMonth = currentMonth - 8 + 1;
+            let percSemester = progressMonth / 5;
+            percSemester = parseFloat(percSemester.toFixed(2));
+        }
+        else if (currentMonth > 12 && currentMonth < 7) {
+            let progressMonth = currentMonth - 2 + 1;
+            let percSemester = progressMonth / 5;
+            percSemester = parseFloat(percSemester.toFixed(2));
+        }
+        return percSemester;
+    }
 };
 //# sourceMappingURL=stringBuilder.js.map

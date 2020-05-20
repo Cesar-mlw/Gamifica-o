@@ -11,11 +11,10 @@ router.post("/create", wrap(async (req: express.Request, res: express.Response) 
     console.log(req.body)
 
     if (erro) {
-        res.statusCode = 400
-        res.json(erro)
+        res.status(400).send({status: "error", message: erro})
     }
     else {
-        res.json("Item criado")
+        res.status(200).send({status: "success", message: `item ${p.id_item} created!`})
     }
 
 }))
@@ -31,11 +30,11 @@ router.post("/delete", wrap(async (req: express.Request, res: express.Response) 
     let p = await Item.delete(idItem) //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
     if (p == false) {
 
-        res.json("Item não encontrado")
+        res.status(404).send({status: "error", message: `User ${idItem} not found`})
     }
 
     else {
-        res.json("Item deletado")
+        res.status(200).send({status: "success", message: `User ${idItem} deleted!`})
     }
 }))
 
@@ -53,11 +52,11 @@ router.post("/update", wrap(async (req: express.Request, res: express.Response) 
 
     if (erro) {
 
-        res.json("Este item não existe")
+        res.status(404).send({status: "error", message: `User ${p.id_item} not found`})
     }
 
     else {
-        res.json("Item alterado!")
+        res.status(200).send({status: "success", message: `User ${p.id_item} altered!`})
     }
 
 

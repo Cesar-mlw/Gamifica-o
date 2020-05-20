@@ -16,11 +16,10 @@ router.post("/create", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let p = req.body;
     let erro = yield TipoHabilidade.create(p);
     if (erro) {
-        res.statusCode = 400;
-        res.json(erro);
+        res.status(400).send({ status: "error", message: erro });
     }
     else {
-        res.json("Tipo de habilidade Registrada");
+        res.status(200).send({ status: "success", message: `Tipo de habilidade ${p.id_tipo_habilidade} created` });
     }
 })));
 router.get("/list", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -31,10 +30,10 @@ router.post("/delete", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let idTipoHabilidade = req.body.idTipoHabilidade;
     let a = yield TipoHabilidade.delete(idTipoHabilidade);
     if (a == false) {
-        res.json("Tipo de habilidade não encontrada");
+        res.status(404).send({ status: "error", message: `Tipo de habilidade ${idTipoHabilidade} not found` });
     }
     else {
-        res.json("Tipo de habilidade deletada");
+        res.status(200).send({ status: "success", message: `Tipo de habilidade ${idTipoHabilidade} deleted` });
     }
 })));
 router.post("/read", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -46,10 +45,10 @@ router.post("/update", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let h = req.body;
     let erro = yield TipoHabilidade.update(h);
     if (erro) {
-        res.json("Tipo de habilidade inexistente");
+        res.status(404).send({ status: "error", message: `Tipo de habilidade ${h.id_tipo_habilidade} not found` });
     }
     else {
-        res.json("Tipo de habilidade alterado!");
+        res.status(200).send({ status: "success", message: `Tipo de habilidade ${h.id_tipo_habilidade} altered` });
     }
 })));
 module.exports = router;

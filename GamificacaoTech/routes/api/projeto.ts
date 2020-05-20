@@ -8,19 +8,17 @@ const router = express.Router()
 
 router.post("/create", wrap(async (req: express.Request, res: express.Response) => {
     let p = req.body as Projeto
-    console.log(p)
     let erro = await Projeto.create(p)
     let achievement = await Projeto.checkForAchievements(p.ra_usuario, p.id_tipo_projeto)
     if (erro) {
-        res.statusCode = 400
-        res.json(erro)
+        res.status(400).send({status: "error", message: erro})
     }
     else {
         if(achievement.length > 0){
-            res.json(achievement)
+            res.status(200).send(achievement)
         }
         else{
-            res.json("Projeto criado")
+            res.status(200).send({status: "success", message: `projeto ${p.id_projeto} created`})
         }
     }
 
@@ -37,11 +35,11 @@ router.post("/delete", wrap(async (req: express.Request, res: express.Response) 
     let p = await Projeto.delete(idProjeto) //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
     if (p == false) {
 
-        res.json("Projeto não encontrado")
+        res.status(404).send({status: "error", message: `projeto ${idProjeto} not found`})
     }
 
     else {
-        res.json("Projeto deletado")
+        res.status(200).send({status: "success", message: `projeto ${idProjeto} deleted`})
     }
 }))
 
@@ -65,12 +63,11 @@ router.post("/update", wrap(async (req: express.Request, res: express.Response) 
     console.log(erro)
 
     if (erro) {
-
-        res.json("Este projeto não existe")
+        res.status(404).send({status: "error", message: `projeto ${p.id_projeto} not found`})
     }
 
     else {
-        res.json("Projeto alterado!")
+        res.status(200).send({status: "success", message: `projeto ${p.id_projeto} altered`})
     }
 
 

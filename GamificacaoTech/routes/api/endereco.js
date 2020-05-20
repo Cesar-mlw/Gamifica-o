@@ -16,11 +16,10 @@ router.post("/create", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let p = req.body;
     let erro = yield Endereco.create(p);
     if (erro) {
-        res.statusCode = 400;
-        res.json(erro);
+        res.status(400).send({ status: "error", message: erro });
     }
     else {
-        res.json("Endereco criado");
+        res.status(200).send({ status: "success", message: `endereco ${p.id_endereco} created!` });
     }
 })));
 router.get("/list", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -31,10 +30,10 @@ router.post("/delete", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let idEndereco = req.body.idEndereco;
     let p = yield Endereco.delete(idEndereco); //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
     if (p == false) {
-        res.json("Endereco não encontrado");
+        res.status(404).send({ status: "error", message: `endereco ${idEndereco} not found` });
     }
     else {
-        res.json("Endereco deletado");
+        res.status(200).send({ status: "success", message: `endereco ${idEndereco} not found` });
     }
 })));
 router.post("/read", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -46,10 +45,10 @@ router.post("/update", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let p = req.body;
     let erro = yield Endereco.update(p);
     if (erro) {
-        res.json("Este Endereco não existe");
+        res.status(404).send({ status: "error", message: `endereco ${p.id_endereco} not found` });
     }
     else {
-        res.json("Endereco alterado!");
+        res.status(200).send({ status: "success", message: `endereco ${p.id_endereco} altered!` });
     }
 })));
 module.exports = router;

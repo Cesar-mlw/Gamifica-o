@@ -16,11 +16,10 @@ router.post("/create", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let p = req.body;
     let erro = yield Pais.create(p);
     if (erro) {
-        res.statusCode = 400;
-        res.json(erro);
+        res.status(400).send({ status: "error", message: erro });
     }
     else {
-        res.json("Pais criado");
+        res.status(200).send({ status: "success", message: `pais ${p.id_pais} created` });
     }
 })));
 router.get("/list", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -31,10 +30,10 @@ router.post("/delete", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let idPais = req.body.idPais;
     let p = yield Pais.delete(idPais); //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
     if (p == false) {
-        res.json("País não encontrado");
+        res.status(404).send({ status: "error", message: `pais ${idPais} not found` });
     }
     else {
-        res.json("País deletado");
+        res.status(200).send({ status: "success", message: `Tipo de projeto ${idPais} deleted` });
     }
 })));
 router.post("/read", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -46,10 +45,10 @@ router.post("/update", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let p = req.body;
     let erro = yield Pais.update(p);
     if (erro) {
-        res.json("Este País não existe");
+        res.status(404).send({ status: "error", message: `pais ${p.id_pais} not found` });
     }
     else {
-        res.json("País alterado!");
+        res.status(200).send({ status: "success", message: `Tipo de projeto ${p.id_pais} altered` });
     }
 })));
 module.exports = router;

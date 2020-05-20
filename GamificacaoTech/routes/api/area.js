@@ -16,11 +16,10 @@ router.post("/create", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let p = req.body;
     let erro = yield Area.create(p);
     if (erro) {
-        res.statusCode = 400;
-        res.json(erro);
+        res.status(400).send({ status: "error", message: erro });
     }
     else {
-        res.json("Area criada");
+        res.status(200).send({ status: "success", message: `area ${p.id_area} created!` });
     }
 })));
 router.get("/list", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -31,10 +30,10 @@ router.post("/delete", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let idArea = req.body.idArea;
     let p = yield Area.delete(idArea); //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
     if (p == false) {
-        res.json("Area não encontrada");
+        res.status(404).send({ status: "error", message: `area ${idArea} not found` });
     }
     else {
-        res.json("Area deletada");
+        res.status(200).send({ status: "success", message: `area ${idArea} deleted` });
     }
 })));
 router.post("/read", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -46,10 +45,10 @@ router.post("/update", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let p = req.body;
     let erro = yield Area.update(p);
     if (erro) {
-        res.json("Esta Area não existe");
+        res.status(404).send({ status: "error", message: `area ${p.id_area} not found` });
     }
     else {
-        res.json("Area alterada!");
+        res.status(200).send({ status: "success", message: `area ${p.id_area} altered!` });
     }
 })));
 module.exports = router;

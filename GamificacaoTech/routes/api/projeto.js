@@ -14,19 +14,17 @@ const Projeto = require("../../models/Projeto");
 const router = express.Router();
 router.post("/create", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let p = req.body;
-    console.log(p);
     let erro = yield Projeto.create(p);
     let achievement = yield Projeto.checkForAchievements(p.ra_usuario, p.id_tipo_projeto);
     if (erro) {
-        res.statusCode = 400;
-        res.json(erro);
+        res.status(400).send({ status: "error", message: erro });
     }
     else {
         if (achievement.length > 0) {
-            res.json(achievement);
+            res.status(200).send(achievement);
         }
         else {
-            res.json("Projeto criado");
+            res.status(200).send({ status: "success", message: `projeto ${p.id_projeto} created` });
         }
     }
 })));
@@ -38,10 +36,10 @@ router.post("/delete", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let idProjeto = req.body.idProjeto;
     let p = yield Projeto.delete(idProjeto); //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
     if (p == false) {
-        res.json("Projeto não encontrado");
+        res.status(404).send({ status: "error", message: `projeto ${idProjeto} not found` });
     }
     else {
-        res.json("Projeto deletado");
+        res.status(200).send({ status: "success", message: `projeto ${idProjeto} deleted` });
     }
 })));
 router.post("/read", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -59,10 +57,10 @@ router.post("/update", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let erro = yield Projeto.update(p);
     console.log(erro);
     if (erro) {
-        res.json("Este projeto não existe");
+        res.status(404).send({ status: "error", message: `projeto ${p.id_projeto} not found` });
     }
     else {
-        res.json("Projeto alterado!");
+        res.status(200).send({ status: "success", message: `projeto ${p.id_projeto} altered` });
     }
 })));
 module.exports = router;
