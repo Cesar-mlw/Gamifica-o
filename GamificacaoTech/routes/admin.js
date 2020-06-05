@@ -15,7 +15,7 @@ const router = express.Router();
 //import usuario
 router.get('/', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     //itens / pontos das áreas
-    res.render('login', { titulo: 'Area Logada' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+    res.render('adminPaige', { titulo: 'Area Logada', layout: 'layoutAdmin' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
 })));
 router.get('/home', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     //itens / pontos das áreas

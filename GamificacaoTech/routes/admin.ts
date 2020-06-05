@@ -9,7 +9,7 @@ const router = express.Router();
 //import usuario
 router.get('/', wrap(async (req: express.Request, res: express.Response) => {//Declaração de rota
     //itens / pontos das áreas
-    res.render('login', { titulo: 'Area Logada' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
+    res.render('adminPaige', { titulo: 'Area Logada', layout: 'layoutAdmin' }); //função para exibir layout para o usuário. res.resnder(/nome da rota/, {/variáveis que poderão ser consumidas pelo layout/})
     
     
 }));

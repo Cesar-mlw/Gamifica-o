@@ -1,32 +1,50 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title><%=((typeof titulo === "undefined" || !titulo) ? "Gamificação TECH" : (titulo + " - Gamificação TECH"))%></title>
 
     <%- include("cabecalho") %>
-    <link rel="stylesheet" href="/css/admin-1.0.19.css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link type="text/css" rel="stylesheet" href="../Public/stylesheets/adminCss.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/micromodal/dist/micromodal.min.js"></script>
+    <script src="../public/lib/jquery/jquery-1.0.0.min.js"></script>
 </head>
 <body>
 
-    <%- include("navbar") %>
-
-    <div id="page-wrapper" class="page-wrapper">
-        <div class="row" style="margin-top: -4vh;">
-			<div class="col-lg-12">
-				<h1 class="page-header"><%=((typeof titulo === "undefined" || !titulo) ? "Gamificação TECH" : titulo) %></h1>
-			</div>
-		</div>
-
-        <%- body %>
+    <div id="page-wrapper" class="wrapper">
+      <div class="fixed-top">
+        <div class="collapse" id="navbarToggleExternalContent">
+            <div class="bg-dark p-4">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0 navItems">
+                    <li class="nat-item active navItem">
+                        <a class="nav-link" href="#">Alunos <span class="sr-only">(current)</span> </a> 
+                    </li>
+                    <li class="nat-item active">
+                        <a class="nav-link" href="#">Bulletin Board</a> 
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <nav class="navbar navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </div>
+		<%- body %>
     </div>
 
-    <%- include("rodape") %>
-    <script type="text/javascript" src="/js/admin-1.0.3.js"></script>
 
+    <%- include("rodape") %>
     <%- defineContent("scripts") %>
 </body>
 </html>
