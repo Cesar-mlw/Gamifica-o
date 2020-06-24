@@ -1,6 +1,7 @@
 ﻿import Sql = require("../infra/sql");
 import GeradorHash = require("../utils/geradorHash");
 import ItemUsuario = require("./ItemUsuario");
+import { isString } from "util";
 
 export = class Usuario {
   public ra_usuario: number;
@@ -117,6 +118,14 @@ public static async readUserGeneralPoints(ra: number): Promise<number[]>{
       if (!sql.linhasAfetadas) res = "Usuário Inexistente";
     });
     return res;
+  }
+
+  public static async readUserCoins(id: number): Promise<number> {
+    let res: number[]
+      await Sql.conectar(async (sql: Sql) => {
+        res = await sql.query("SELECT moedas_usuario from USUARIO where ra_usuario = ?", [id])
+      })
+    return res[0]
   }
 
   //public static async checkForAchievements(ra: number): Promise<number[]>{

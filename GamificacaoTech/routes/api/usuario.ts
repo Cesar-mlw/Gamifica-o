@@ -39,6 +39,12 @@ router.post("/read", wrap(async (req: express.Request, res: express.Response) =>
     res.json(u)
 }))
 
+router.post("/readUserCoins", wrap(async (req: express.Request, res: express.Response) => {
+    let ra = req.body.ra
+    let u = await Usuario.readUserCoins(ra)
+    res.json(u)
+}))
+
 router.post("/readUserPoints", wrap(async (req: express.Request, res: express.Response) => {
     let ra = req.body.ra
     let p = await Usuario.readUserPoints(ra)
