@@ -46,10 +46,9 @@ router.get('/', wrap(async (req: express.Request, res: express.Response) => {
 }}));
 
 router.get('/login', wrap(async (req: express.Request, res: express.Response) => {
-    if(!await Usuario.doesNotExist(req.cookies.ra_usuario)){
+    if(!await Usuario.doesNotExist(req.cookies.ra_usuario) && req.cookies.ra_usuario != undefined && req.cookies.logged != undefined){
         res.redirect("/")
-        res.clearCookie("ra_usuario")
-        res.clearCookie("logged")
+
     }
     else{
         res.render('loginRegistro', { titulo: 'Gamificação TECH', layout: 'layoutLogin'}); 

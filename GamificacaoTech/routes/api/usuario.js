@@ -38,6 +38,11 @@ router.post("/read", wrap((req, res) => __awaiter(void 0, void 0, void 0, functi
     let u = yield Usuario.read(ra);
     res.json(u);
 })));
+router.post("/readUserCoins", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let ra = req.body.ra;
+    let u = yield Usuario.readUserCoins(ra);
+    res.json(u);
+})));
 router.post("/readUserPoints", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let ra = req.body.ra;
     let p = yield Usuario.readUserPoints(ra);
@@ -69,15 +74,17 @@ router.post("/login", wrap((req, res) => __awaiter(void 0, void 0, void 0, funct
     let ra = parseInt(req.body.ra_usuario);
     let senha = req.body.senha_usuario;
     let resp;
+    let user;
     if (isNaN(ra)) {
         res.status(401).send({ status: "error", message: "Only Numbers are accepted on this field" });
     }
     else {
         resp = yield Usuario.efetuarLogin(ra, senha);
+        user = yield Usuario.userIsAdmin(ra);
         if (resp) {
             res.cookie("logged", true, { expires: false });
             res.cookie("ra_usuario", req.body.ra_usuario, { expires: false });
-            res.status(200).send({ status: "success", message: `Welcome ${ra}` });
+            res.status(200).send({ status: "success", message: `Welcome ${ra}`, isAdmin: user });
         }
         else {
             res.status(401).send({ status: "error", message: `User not found for the RA ${ra}` });

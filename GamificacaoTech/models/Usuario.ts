@@ -213,7 +213,6 @@ public static async readUserGeneralPoints(ra: number): Promise<number[]>{
   ): Promise<boolean> {
     //parametros a serem passados - ra: number / senha: string
     let res: boolean = true;
-    console.log(ra + " " + senha);
     await Sql.conectar(async (sql: Sql) => {
       let hash = await sql.query(
         "select senha_usuario from usuario where ra_usuario = ?",
@@ -229,6 +228,16 @@ public static async readUserGeneralPoints(ra: number): Promise<number[]>{
     });
 
     return res;
+  }
+
+  public static async userIsAdmin(ra: number): Promise<boolean> {
+    let res: boolean = false
+    let user = null
+    await Sql.conectar(async (sql: Sql) => {
+      user = await sql.query("SELECT isAdmin FROM usuario WHERE ra_usuario = ?", [ra])
+    })
+    if(user[0].isAdmin == 0) return false
+    else return true
   }
 
   

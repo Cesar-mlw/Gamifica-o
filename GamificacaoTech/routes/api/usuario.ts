@@ -87,15 +87,17 @@ router.post("/login", wrap(async (req: express.Request, res: express.Response) =
     let ra = parseInt(req.body.ra_usuario)
     let senha = req.body.senha_usuario
     let resp
+    let user
     if (isNaN(ra)){
         res.status(401).send({status: "error", message: "Only Numbers are accepted on this field"})
     }
     else{
         resp = await Usuario.efetuarLogin(ra, senha)
+        user = await Usuario.userIsAdmin(ra)
         if (resp) {        
             res.cookie("logged", true, {expires: false})
             res.cookie("ra_usuario", req.body.ra_usuario, {expires: false})
-            res.status(200).send({status: "success", message: `Welcome ${ra}`})
+            res.status(200).send({status: "success", message: `Welcome ${ra}`, isAdmin: user})
         }
         else {
             res.status(401).send({status: "error", message: `User not found for the RA ${ra}`})

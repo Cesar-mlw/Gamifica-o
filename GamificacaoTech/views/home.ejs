@@ -291,6 +291,7 @@
                 $('#loja-item-'+idItem+'').closest('.bcl-item').remove();
                 $('.item-box').append('<button class="item-box-item" id="item-box-item-'+id+'" onclick="adicionarItem('+id+')"></button>')
                 notPlacedItems = returnNotPlacedItems(getCookie("ra_usuario"));
+                // Notficação de item comprado
             },
             error: function (e) {
                 console.log(e)
@@ -409,6 +410,7 @@
             success: function (data) {
                 console.log(data);
                 loadContent('/portifolio');
+                // Notificação de projeto alterado
             },
             error: function (e) {
                 console.log(e)
@@ -431,6 +433,7 @@
             dataType: "json",
             success: function (data) {
                 console.log(data)
+                // Notificação de projeto deletado
             },
             error: function (e) {
                 console.log(e)
@@ -518,6 +521,7 @@
             success: function (data) {
                 console.log(data)
                 insertPlacedItem(itemClicado.id_item_usuario)
+                // Notificação de item Colocado
             },
             error: function (e) {
                 console.log(e)
@@ -530,6 +534,7 @@
                 let placedIt = placedItems[i]
                 placedItems.splice(i, 1)
                 notPlacedItems.push(placedIt)
+                
             }
         }
         

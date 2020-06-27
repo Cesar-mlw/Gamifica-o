@@ -115,6 +115,15 @@ module.exports = class Usuario {
             return res;
         });
     }
+    static readUserCoins(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let res;
+            yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
+                res = yield sql.query("SELECT moedas_usuario from USUARIO where ra_usuario = ?", [id]);
+            }));
+            return res[0];
+        });
+    }
     //public static async checkForAchievements(ra: number): Promise<number[]>{
     // returns list of achievements ids that the user has acess to
     //}
@@ -198,7 +207,6 @@ module.exports = class Usuario {
         return __awaiter(this, void 0, void 0, function* () {
             //parametros a serem passados - ra: number / senha: string
             let res = true;
-            console.log(ra + " " + senha);
             yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
                 let hash = yield sql.query("select senha_usuario from usuario where ra_usuario = ?", [ra]);
                 if (hash.length == 0) {
@@ -209,6 +217,19 @@ module.exports = class Usuario {
                 }
             }));
             return res;
+        });
+    }
+    static userIsAdmin(ra) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let res = false;
+            let user = null;
+            yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
+                user = yield sql.query("SELECT isAdmin FROM usuario WHERE ra_usuario = ?", [ra]);
+            }));
+            if (user[0].isAdmin == 0)
+                return false;
+            else
+                return true;
         });
     }
 };

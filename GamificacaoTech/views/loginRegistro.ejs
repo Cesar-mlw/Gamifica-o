@@ -77,11 +77,20 @@
             data: form,
             dataType: "json",
             success: function (data) {
+                // Notificação de login
                     if(data){
-                        toggleDoor();
-                        setTimeout(function(){
-                            window.location.href = "/"
-                        }, 1850)
+                        if(data.isAdmin){
+                            toggleDoor();
+                            setTimeout(function(){
+                                window.location.href = "/admin/"
+                            }, 1850)
+                        }
+                        else{
+                            toggleDoor();
+                            setTimeout(function(){
+                                window.location.href = "/"
+                            }, 1850)
+                        }
                     } 
 
             },
@@ -124,6 +133,7 @@
             dataType: "json",
             success: function (data) {
                 console.log(data)
+                // Notificação de registro
             },
             error: function (e) {
                 console.log(e)

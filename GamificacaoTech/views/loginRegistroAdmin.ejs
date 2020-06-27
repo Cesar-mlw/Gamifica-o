@@ -1,0 +1,50 @@
+<div class="login-form-wrapper" >
+    <form class="auth-form">
+        <label for="login">Login</label>
+        <input type="number" id="ra_usuario_login"/>
+        <label for="password">Senha</label>
+        <input type="password" id="senha_usuario_login"/>
+        <input type="button" value="Login" onclick="login()"/>
+    </form>
+</div>
+
+
+<%- contentFor("scripts")%>
+<script>
+    function login(){
+        let ra_usuario = document.getElementById("ra_usuario_login").value
+        let senha_usuario = document.getElementById("senha_usuario_login").value
+        let form = {
+            ra_usuario: ra_usuario,
+            senha_usuario: senha_usuario
+        }
+        $.ajax({
+            method: "post",
+            url: "/api/usuario/login",
+            data: form,
+            dataType: "json",
+            success: function (data) {
+                    if(data){
+                        if(data.isAdmin){
+                            // Notificação de login
+                            setTimeout(function(){
+                            window.location.href = "/admin/"
+                            }, 1850)
+                        }
+                        else {
+                        // Notificação de login
+                        setTimeout(function(){
+                        window.location.href = "/"
+                        }, 1850)
+                    }
+                        
+                    } 
+                    
+
+            },
+            error: function (e) {
+                console.log(e.responseJSON)
+            }
+        })
+    }
+</script>
