@@ -17,11 +17,10 @@ router.post("/create", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let id = req.body.id_achievement;
     let erro = yield AchievementUsuario.create(ra, id);
     if (erro) {
-        res.statusCode = 400;
-        res.json(erro);
+        res.status(400).send({ status: "error", message: erro });
     }
     else {
-        res.json("Achievement do usuário criado");
+        res.status(200).send({ status: "success", message: `achievement usuario ${id} created!` });
     }
 })));
 router.get("/list", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -32,10 +31,10 @@ router.post("/delete", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let idAchievementUsuario = req.body.idAchievementUsuario;
     let a = yield AchievementUsuario.delete(idAchievementUsuario);
     if (a == false) {
-        res.json("O usuário não possui esse achievement");
+        res.status(404).send({ status: "error", message: `User does not have achievement ${idAchievementUsuario}` });
     }
     else {
-        res.json("Achievement do usuário deletado");
+        res.status(200).send({ status: "success", message: `achievement ${idAchievementUsuario} deleted` });
     }
 })));
 router.post("/read", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -62,10 +61,10 @@ router.post("/update", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let a = req.body;
     let erro = yield AchievementUsuario.update(a);
     if (erro) {
-        res.json("O usuário não possui esse Achievement");
+        res.status(404).send({ status: "error", message: `achievement usuario ${a.id_achievement_usuario} not found` });
     }
     else {
-        res.json("Achievement do usuário alterado");
+        res.status(200).send({ status: "success", message: `achievement usuario ${a.id_achievement_usuario} altered!` });
     }
 })));
 module.exports = router;

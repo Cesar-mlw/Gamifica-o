@@ -10,46 +10,51 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const express = require("express");
 const wrap = require("express-async-error-wrapper");
-const Curso = require("../../models/Curso");
+const Noticia = require("../../models/Noticia");
 const router = express.Router();
 router.post("/create", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let p = req.body;
-    let erro = yield Curso.create(p);
+    let erro = yield Noticia.create(p);
     if (erro) {
         res.status(400).send({ status: "error", message: erro });
     }
     else {
-        res.status(200).send({ status: "success", message: `curso ${p.id_curso} created!` });
+        res.status(200).send({ status: "success", message: `noticia ${p.id_noticia} created` });
     }
 })));
 router.get("/list", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let lista = yield Curso.list();
+    let lista = yield Noticia.list();
     res.json(lista);
 })));
 router.post("/delete", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let idCurso = req.body.idCurso;
-    let p = yield Curso.delete(idCurso); //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
+    let idNoticia = req.body.idNoticia;
+    let p = yield Noticia.delete(idNoticia); //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
     if (p == false) {
-        res.status(404).send({ status: "error", message: `curso ${idCurso} not found` });
+        res.status(404).send({ status: "error", message: `noticia ${idNoticia} not found` });
     }
     else {
-        res.status(200).send({ status: "success", message: `curso ${idCurso} deleted` });
+        res.status(200).send({ status: "success", message: `noticia ${idNoticia} deleted` });
     }
 })));
 router.post("/read", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let idCurso = req.body.idCurso;
-    let p = yield Curso.read(idCurso);
+    let idNoticia = req.body.idNoticia;
+    let p = yield Noticia.read(idNoticia);
+    res.json(p);
+})));
+router.post("/readFromUserID", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let ra = req.body.ra;
+    let p = yield Noticia.readFromUserId(ra);
     res.json(p);
 })));
 router.post("/update", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let p = req.body;
-    let erro = yield Curso.update(p);
+    let erro = yield Noticia.update(p);
     if (erro) {
-        res.status(404).send({ status: "error", message: `curso ${p.id_curso} not found` });
+        res.status(404).send({ status: "error", message: `noticia ${p.id_noticia} not found` });
     }
     else {
-        res.status(200).send({ status: "success", message: `curso ${p.id_curso} deleted` });
+        res.status(200).send({ status: "success", message: `noticia ${p.id_noticia} altered` });
     }
 })));
 module.exports = router;
-//# sourceMappingURL=curso.js.map
+//# sourceMappingURL=noticia.js.map

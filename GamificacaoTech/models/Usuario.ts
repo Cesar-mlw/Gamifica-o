@@ -1,6 +1,7 @@
 ﻿import Sql = require("../infra/sql");
 import GeradorHash = require("../utils/geradorHash");
 import ItemUsuario = require("./ItemUsuario");
+import { isString } from "util";
 
 export = class Usuario {
   public ra_usuario: number;
@@ -119,6 +120,14 @@ public static async readUserGeneralPoints(ra: number): Promise<number[]>{
     return res;
   }
 
+  public static async readUserCoins(id: number): Promise<number> {
+    let res: number[]
+      await Sql.conectar(async (sql: Sql) => {
+        res = await sql.query("SELECT moedas_usuario from USUARIO where ra_usuario = ?", [id])
+      })
+    return res[0]
+  }
+
   //public static async checkForAchievements(ra: number): Promise<number[]>{
     // returns list of achievements ids that the user has acess to
   //}
@@ -204,7 +213,6 @@ public static async readUserGeneralPoints(ra: number): Promise<number[]>{
   ): Promise<boolean> {
     //parametros a serem passados - ra: number / senha: string
     let res: boolean = true;
-    console.log(ra + " " + senha);
     await Sql.conectar(async (sql: Sql) => {
       let hash = await sql.query(
         "select senha_usuario from usuario where ra_usuario = ?",
@@ -220,6 +228,16 @@ public static async readUserGeneralPoints(ra: number): Promise<number[]>{
     });
 
     return res;
+  }
+
+  public static async userIsAdmin(ra: number): Promise<boolean> {
+    let res: boolean = false
+    let user = null
+    await Sql.conectar(async (sql: Sql) => {
+      user = await sql.query("SELECT isAdmin FROM usuario WHERE ra_usuario = ?", [ra])
+    })
+    if(user[0].isAdmin == 0) return false
+    else return true
   }
 
   

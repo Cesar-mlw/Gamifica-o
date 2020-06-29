@@ -18,14 +18,12 @@ router.post("/create", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let p = req.body;
     let item = yield Item.read(p.id_item);
     if (item === null) {
-        res.statusCode = 400;
-        res.json("Item não existe");
+        res.status(404).send({ status: "error", message: `item ${p.id_item} not found` });
     }
     else {
         let erro = yield Usuario.buyObject(item.preco_item, p.ra_usuario);
         if (erro) {
-            res.statusCode = 400;
-            res.json(erro);
+            res.status(400).send({ status: "error", message: erro });
         }
         else {
             let resp = yield ItemUsuario.create(p);
@@ -33,7 +31,7 @@ router.post("/create", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
                 resp = "Item Comprado";
             else
                 resp = "Item nao comprado";
-            res.json(resp);
+            res.status(200).send({ status: "success", message: resp });
         }
     }
 })));
@@ -45,10 +43,10 @@ router.post("/delete", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let idItemUsuario = req.body.idItemUsuario;
     let p = yield ItemUsuario.delete(idItemUsuario); //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
     if (p == false) {
-        res.json("Item do usuário não encontrado");
+        res.status(404).send({ status: "error", message: `item usuario ${idItemUsuario} not found` });
     }
     else {
-        res.json("Item do usuário deletado");
+        res.status(200).send({ status: "success", message: `item usuario ${idItemUsuario} deleted` });
     }
 })));
 router.post("/read", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -91,10 +89,10 @@ router.post("/update", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let p = req.body;
     let erro = yield ItemUsuario.update(p);
     if (erro) {
-        res.json("O usuário não possui o item");
+        res.status(404).send({ status: "error", message: `user does not have ${p.id_item}` });
     }
     else {
-        res.json("Item alterado!");
+        res.status(200).send({ status: "success", message: `item usuario ${p.id_item_usuario} altered` });
     }
 })));
 router.post("/placeObject", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -103,20 +101,20 @@ router.post("/placeObject", wrap((req, res) => __awaiter(void 0, void 0, void 0,
     let celly = req.body.celly;
     let erro = yield ItemUsuario.placeObject(id_item_usuario, cellx, celly);
     if (!erro) {
-        res.json("O usuário não possui o item");
+        res.status(404).send({ status: "error", message: `user does not have ${id_item_usuario}` });
     }
     else {
-        res.json("Item Colocado!");
+        res.status(200).send({ status: "success", message: `item ${id_item_usuario} placed` });
     }
 })));
 router.post("/removeObject", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let id_item_usuario = req.body.id_item_usuario;
     let erro = yield ItemUsuario.removeObject(id_item_usuario);
     if (erro == null) {
-        res.json("Erro");
+        res.status(200).send({ status: "success", message: `item ${id_item_usuario} removed` });
     }
     else {
-        res.json(erro);
+        res.status(400).send({ status: "error", message: erro });
     }
 })));
 module.exports = router;

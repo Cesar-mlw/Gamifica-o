@@ -11,20 +11,18 @@ router.post("/create", wrap(async (req: express.Request, res: express.Response) 
     let p = req.body as ItemUsuario
     let item = await Item.read(p.id_item) as Item
     if (item === null) {
-        res.statusCode = 400
-        res.json("Item não existe")
+        res.status(404).send({status: "error", message: `item ${p.id_item} not found`})
     }
     else {
         let erro = await Usuario.buyObject(item.preco_item, p.ra_usuario)
         if (erro) {
-            res.statusCode = 400
-            res.json(erro)
+            res.status(400).send({status: "error", message: erro})
         }
         else {
             let resp = await ItemUsuario.create(p)
             if(resp == undefined) resp = "Item Comprado"
             else resp = "Item nao comprado"
-            res.json(resp)
+            res.status(200).send({status: "success", message: resp})
         }
     }
 
@@ -42,11 +40,11 @@ router.post("/delete", wrap(async (req: express.Request, res: express.Response) 
     let p = await ItemUsuario.delete(idItemUsuario) //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
     if (p == false) {
 
-        res.json("Item do usuário não encontrado")
+        res.status(404).send({status: "error", message: `item usuario ${idItemUsuario} not found`})
     }
 
     else {
-        res.json("Item do usuário deletado")
+        res.status(200).send({status: "success", message: `item usuario ${idItemUsuario} deleted`})
     }
 }))
 
@@ -99,11 +97,11 @@ router.post("/update", wrap(async (req: express.Request, res: express.Response) 
     let erro = await ItemUsuario.update(p)
     if (erro) {
 
-        res.json("O usuário não possui o item")
+        res.status(404).send({status: "error", message: `user does not have ${p.id_item}`})
     }
 
     else {
-        res.json("Item alterado!")
+        res.status(200).send({status: "success", message: `item usuario ${p.id_item_usuario} altered`})
     }
 }))
 
@@ -113,11 +111,11 @@ router.post("/placeObject", wrap(async (req: express.Request, res: express.Respo
     let celly = req.body.celly
     let erro = await ItemUsuario.placeObject(id_item_usuario, cellx, celly)
     if (!erro) {
-        res.json("O usuário não possui o item")
+        res.status(404).send({status: "error", message: `user does not have ${id_item_usuario}`})
     }
 
     else {
-        res.json("Item Colocado!")
+        res.status(200).send({status: "success", message: `item ${id_item_usuario} placed`})
     }
 }))
 
@@ -125,10 +123,10 @@ router.post("/removeObject", wrap(async (req: express.Request, res: express.Resp
     let id_item_usuario = req.body.id_item_usuario
     let erro = await ItemUsuario.removeObject(id_item_usuario)
     if(erro == null){
-        res.json("Erro")
+        res.status(200).send({status: "success", message: `item ${id_item_usuario} removed`})
     }
     else{
-        res.json(erro)
+        res.status(400).send({status: "error", message: erro})
     }
 }))
 

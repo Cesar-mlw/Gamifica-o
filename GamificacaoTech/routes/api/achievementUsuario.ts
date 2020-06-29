@@ -10,11 +10,10 @@ router.post("/create", wrap(async (req: express.Request, res: express.Response) 
     let erro = await AchievementUsuario.create(ra, id)
 
     if (erro) {
-        res.statusCode = 400
-        res.json(erro)
+        res.status(400).send({status: "error", message: erro})
     }
     else {
-        res.json("Achievement do usuário criado")
+        res.status(200).send({status: "success", message: `achievement usuario ${id} created!`})
     }
 
 }))
@@ -30,11 +29,11 @@ router.post("/delete", wrap(async (req: express.Request, res: express.Response) 
     let a = await AchievementUsuario.delete(idAchievementUsuario)
     if (a == false) {
 
-        res.json("O usuário não possui esse achievement")
+        res.status(404).send({status: "error", message: `User does not have achievement ${idAchievementUsuario}`})
     }
 
     else {
-        res.json("Achievement do usuário deletado")
+        res.status(200).send({status: "success", message: `achievement ${idAchievementUsuario} deleted`})
     }
 }))
 
@@ -68,11 +67,11 @@ router.post("/update", wrap(async (req: express.Request, res: express.Response) 
 
     if (erro) {
 
-        res.json("O usuário não possui esse Achievement")
+        res.status(404).send({status: "error", message: `achievement usuario ${a.id_achievement_usuario} not found`})
     }
 
     else {
-        res.json("Achievement do usuário alterado")
+        res.status(200).send({status: "success", message: `achievement usuario ${a.id_achievement_usuario} altered!`})
     }
 
 

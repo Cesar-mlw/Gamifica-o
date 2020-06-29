@@ -11,11 +11,10 @@ router.post("/create", wrap(async (req: express.Request, res: express.Response) 
     let erro = await Curso.create(p)
 
     if (erro) {
-        res.statusCode = 400
-        res.json(erro)
+        res.status(400).send({status: "error", message: erro})
     }
     else {
-        res.json("Curso criado")
+        res.status(200).send({status: "success", message: `curso ${p.id_curso} created!`})
     }
 
 }))
@@ -31,11 +30,11 @@ router.post("/delete", wrap(async (req: express.Request, res: express.Response) 
     let p = await Curso.delete(idCurso) //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
     if (p == false) {
 
-        res.json("Curso não encontrado")
+        res.status(404).send({status: "error", message: `curso ${idCurso} not found`})
     }
 
     else {
-        res.json("Curso deletado")
+        res.status(200).send({status: "success", message: `curso ${idCurso} deleted`})
     }
 }))
 
@@ -52,11 +51,11 @@ router.post("/update", wrap(async (req: express.Request, res: express.Response) 
 
     if (erro) {
 
-        res.json("Este Curso não existe")
+        res.status(404).send({status: "error", message: `curso ${p.id_curso} not found`})
     }
 
     else {
-        res.json("Curso alterado!")
+        res.status(200).send({status: "success", message: `curso ${p.id_curso} deleted`})
     }
 
 

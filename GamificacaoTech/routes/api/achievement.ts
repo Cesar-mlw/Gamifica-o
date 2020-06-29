@@ -9,11 +9,10 @@ router.post("/create", wrap(async (req: express.Request, res: express.Response) 
     let erro = await Achievement.create(a)
 
     if (erro) {
-        res.statusCode = 400
-        res.json(erro)
+        res.status(400).send({status: "error", message: erro})
     }
     else {
-        res.json("Achievement criado")
+        res.status(200).send({status: "success", message: `achievement ${a.id_achievement} created!`})
     }
 
 }))
@@ -29,11 +28,11 @@ router.post("/delete", wrap(async (req: express.Request, res: express.Response) 
     let a = await Achievement.delete(idAchievement)
     if (a == false) {
 
-        res.json("Achievement não encontrado")
+        res.status(404).send({status: "error", message: `achievement ${idAchievement} not found`})
     }
 
     else {
-        res.json("Achievement deletado")
+        res.status(200).send({status: "success", message: `area ${idAchievement} deleted`})
     }
 }))
 
@@ -49,11 +48,11 @@ router.post("/update", wrap(async (req: express.Request, res: express.Response) 
 
     if (erro) {
 
-        res.json("Achievement inexistente")
+        res.status(404).send({status: "error", message: `area ${a.id_achievement} not found`})
     }
 
     else {
-        res.json("Achievement alterado!")
+        res.status(200).send({status: "success", message: `area ${a.id_achievement} altered!`})
     }
 
 

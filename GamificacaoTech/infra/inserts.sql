@@ -68,6 +68,9 @@ INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, te
 INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto, exibir_projeto) VALUES (2, 11710371, 1, "2019/08/01", false, "teste", "teste achievements", null, 0);
 INSERT INTO projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto, exibir_projeto) VALUES (4, 11710371, 1, "2019/08/01", false, "teste", "teste achievements", null, 0);
 
+INSERT INTO noticia (chamada_noticia, corpo_noticia, imagem_noticia_url, data_publicacao, ra_usuario) VALUES ("Teste", "testestestestestestesteste", "imagem_noticia_1.jpg", "2020/02/02", 11710370);
+INSERT INTO noticia (chamada_noticia, corpo_noticia, imagem_noticia_url, data_publicacao, ra_usuario) VALUES ("Teste", "testestestestestestesteste", "imagem_noticia_1.jpg", "2020/02/05", 11710370);
+
 
 
 

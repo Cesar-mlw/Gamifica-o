@@ -10,11 +10,10 @@ router.post("/create", wrap(async (req: express.Request, res: express.Response) 
     let erro = await Habilidade.create(p)
 
     if (erro) {
-        res.statusCode = 400
-        res.json(erro)
+        res.status(400).send({status: "error", message: erro})
     }
     else {
-        res.json("Habilidade Registrada")
+        res.status(200).send({status: "success", message: `habilidade ${p.id_habilidade} created!`})
     }
 
 }))
@@ -30,11 +29,11 @@ router.post("/delete", wrap(async (req: express.Request, res: express.Response) 
     let a = await Habilidade.delete(idHabilidade)
     if (a == false) {
 
-        res.json("Habilidade não encontrada")
+        res.status(404).send({status: "error", message: `Habilidade ${idHabilidade} not found`})
     }
 
     else {
-        res.json("Habilidade deletada")
+        res.status(200).send({status: "success", message: `Habilidade ${idHabilidade} deleted`})
     }
 }))
 
@@ -50,11 +49,11 @@ router.post("/update", wrap(async (req: express.Request, res: express.Response) 
 
     if (erro) {
 
-        res.json("Habilidade inexistente")
+        res.status(404).send({status: "error", message: `Habilidade ${h.id_habilidade} not found`})
     }
 
     else {
-        res.json("Habilidade alterada!")
+        res.status(200).send({status: "success", message: `Habilidade ${h.id_habilidade} altered!`})
     }
 
 

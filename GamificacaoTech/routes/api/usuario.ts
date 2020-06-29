@@ -9,11 +9,10 @@ router.post("/create", wrap(async (req: express.Request, res: express.Response) 
     let erro = await Usuario.create(u)
     
     if (erro) {
-        res.statusCode = 400
-        res.json(erro)
+        res.status(400).send({status: "error", message: erro})
     }
     else {
-        res.json("Usuário criado")
+        res.status(200).send({status: "success", message: `User ${u.ra_usuario} created!`})
     }
 }))
 
@@ -24,11 +23,11 @@ router.post("/update", wrap(async (req: express.Request, res: express.Response) 
 
     if (erro) {
 
-        res.json("Este usuário não existe")
+        res.status(404).send({status: "error", message: `User ${p.ra_usuario} not found`})
     }
 
     else {
-        res.json("Usuário alterado!")
+        res.status(200).send({status: "success", message: `User ${p.ra_usuario} altered!`})
     }
 
 
@@ -37,6 +36,12 @@ router.post("/update", wrap(async (req: express.Request, res: express.Response) 
 router.post("/read", wrap(async (req: express.Request, res: express.Response) => {
     let ra = req.body.ra
     let u = await Usuario.read(ra)
+    res.json(u)
+}))
+
+router.post("/readUserCoins", wrap(async (req: express.Request, res: express.Response) => {
+    let ra = req.body.ra
+    let u = await Usuario.readUserCoins(ra)
     res.json(u)
 }))
 
@@ -59,11 +64,11 @@ router.post("/delete", wrap(async (req: express.Request, res: express.Response) 
     let u = await Usuario.delete(ra)
     if (u == false) {
 
-        res.json("Usuário não encontrado")
+        res.status(404).send({status: "error", message: `User ${ra} not found`})
     }
 
     else {
-        res.json("Usuário deletado")
+        res.status(200).send({status: "success", message: `User ${ra} deleted`})
     }
 }))
 
@@ -81,16 +86,22 @@ router.get("/list", wrap(async (req: express.Request, res: express.Response) => 
 router.post("/login", wrap(async (req: express.Request, res: express.Response) => {
     let ra = parseInt(req.body.ra_usuario)
     let senha = req.body.senha_usuario
-
-    let resp = await Usuario.efetuarLogin(ra, senha)
-
-    if (resp) {        
-        res.cookie("logged", true, {expires: false})
-        res.cookie("ra_usuario", req.body.ra_usuario, {expires: false})
-        res.json(true)
+    let resp
+    let user
+    if (isNaN(ra)){
+        res.status(401).send({status: "error", message: "Only Numbers are accepted on this field"})
     }
-    else {
-        res.json(false)
+    else{
+        resp = await Usuario.efetuarLogin(ra, senha)
+        user = await Usuario.userIsAdmin(ra)
+        if (resp) {        
+            res.cookie("logged", true, {expires: false})
+            res.cookie("ra_usuario", req.body.ra_usuario, {expires: false})
+            res.status(200).send({status: "success", message: `Welcome ${ra}`, isAdmin: user})
+        }
+        else {
+            res.status(401).send({status: "error", message: `User not found for the RA ${ra}`})
+        }
     }
 }))
 

@@ -12,10 +12,10 @@ router.post("/create", wrap(async (req: express.Request, res: express.Response) 
 
     if (erro) {
         res.statusCode = 400
-        res.json(erro)
+        res.status(400).send({status: "error", message: erro})
     }
     else {
-        res.json("Tipo de projeto criado")
+        res.status(200).send({status: "success", message: `Tipo de projeto ${p.nome_tipo_projeto} created`})
     }
 
 }))
@@ -31,11 +31,11 @@ router.post("/delete", wrap(async (req: express.Request, res: express.Response) 
     let p = await TipoProjeto.delete(idTipoProjeto) //aqui coloco a variável como escreve no modelo Projeto ou como ta na tabela no workbench??
     if (p == false) {
 
-        res.json("Tipo de projeto não encontrado")
+        res.status(404).send({status: "error", message: `Tipo de projeto ${idTipoProjeto} not found`})
     }
 
     else {
-        res.json("Tipo de projeto deletado")
+        res.status(200).send({status: "success", message: `Tipo de projeto ${idTipoProjeto} deleted`})
     }
 }))
 
@@ -49,15 +49,14 @@ router.post("/read", wrap(async (req: express.Request, res: express.Response) =>
 router.post("/update", wrap(async (req: express.Request, res: express.Response) => {
     let p = req.body as TipoProjeto
     let erro = await TipoProjeto.update(p)
-    console.log(erro)
 
     if (erro) {
 
-        res.json("Este tipo de projeto não existe")
+        res.status(404).send({status: "error", message: `Tipo de projeto ${p.id_tipo_projeto} not found`})
     }
 
     else {
-        res.json("Tipo de projeto alterado!")
+        res.status(200).send({status: "success", message: `Tipo de projeto ${p.id_tipo_projeto} altered`})
     }
 
 

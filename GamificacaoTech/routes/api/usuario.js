@@ -16,11 +16,10 @@ router.post("/create", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let u = req.body;
     let erro = yield Usuario.create(u);
     if (erro) {
-        res.statusCode = 400;
-        res.json(erro);
+        res.status(400).send({ status: "error", message: erro });
     }
     else {
-        res.json("Usuário criado");
+        res.status(200).send({ status: "success", message: `User ${u.ra_usuario} created!` });
     }
 })));
 router.post("/update", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -28,15 +27,20 @@ router.post("/update", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let erro = yield Usuario.update(p);
     console.log(erro);
     if (erro) {
-        res.json("Este usuário não existe");
+        res.status(404).send({ status: "error", message: `User ${p.ra_usuario} not found` });
     }
     else {
-        res.json("Usuário alterado!");
+        res.status(200).send({ status: "success", message: `User ${p.ra_usuario} altered!` });
     }
 })));
 router.post("/read", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let ra = req.body.ra;
     let u = yield Usuario.read(ra);
+    res.json(u);
+})));
+router.post("/readUserCoins", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let ra = req.body.ra;
+    let u = yield Usuario.readUserCoins(ra);
     res.json(u);
 })));
 router.post("/readUserPoints", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -54,10 +58,10 @@ router.post("/delete", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     let ra = req.body.ra;
     let u = yield Usuario.delete(ra);
     if (u == false) {
-        res.json("Usuário não encontrado");
+        res.status(404).send({ status: "error", message: `User ${ra} not found` });
     }
     else {
-        res.json("Usuário deletado");
+        res.status(200).send({ status: "success", message: `User ${ra} deleted` });
     }
 })));
 //criar rota listar
@@ -69,14 +73,22 @@ router.get("/list", wrap((req, res) => __awaiter(void 0, void 0, void 0, functio
 router.post("/login", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let ra = parseInt(req.body.ra_usuario);
     let senha = req.body.senha_usuario;
-    let resp = yield Usuario.efetuarLogin(ra, senha);
-    if (resp) {
-        res.cookie("logged", true, { expires: false });
-        res.cookie("ra_usuario", req.body.ra_usuario, { expires: false });
-        res.json(true);
+    let resp;
+    let user;
+    if (isNaN(ra)) {
+        res.status(401).send({ status: "error", message: "Only Numbers are accepted on this field" });
     }
     else {
-        res.json(false);
+        resp = yield Usuario.efetuarLogin(ra, senha);
+        user = yield Usuario.userIsAdmin(ra);
+        if (resp) {
+            res.cookie("logged", true, { expires: false });
+            res.cookie("ra_usuario", req.body.ra_usuario, { expires: false });
+            res.status(200).send({ status: "success", message: `Welcome ${ra}`, isAdmin: user });
+        }
+        else {
+            res.status(401).send({ status: "error", message: `User not found for the RA ${ra}` });
+        }
     }
 })));
 router.get("/logout", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
