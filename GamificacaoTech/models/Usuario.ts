@@ -121,11 +121,11 @@ public static async readUserGeneralPoints(ra: number): Promise<number[]>{
   }
 
   public static async readUserCoins(id: number): Promise<number> {
-    let res: number[]
+    let res = null
       await Sql.conectar(async (sql: Sql) => {
         res = await sql.query("SELECT moedas_usuario from USUARIO where ra_usuario = ?", [id])
       })
-    return res[0]
+    return res[0].moedas_usuario
   }
 
   //public static async checkForAchievements(ra: number): Promise<number[]>{
