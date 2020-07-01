@@ -17,12 +17,6 @@ export = class StringBuilder {
         let n2 = 0
         let n3 = 0
         let pontos = p
-        // n3 = Math.floor(p/1350) // Nível 3 = 9 Niveis
-        // p -= 1350*n3
-        // n2 = Math.floor(p/450) // Nível 2 = 3 Niveis
-        // p -= 450*n2
-        // n1 = Math.floor(p/150) // Nível 1 = 1 Nivel
-        // p -= 150*n1
         let ctn = 0
         for(let i = 0; i < niveis.length; i++){
             if(p > niveis[i]){

@@ -48,11 +48,6 @@ router.post("/readUserPoints", wrap((req, res) => __awaiter(void 0, void 0, void
     let p = yield Usuario.readUserPoints(ra);
     res.json(p);
 })));
-router.post("/readUserGeneralPoints", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let ra = req.body.ra;
-    let p = yield Usuario.readUserGeneralPoints(ra);
-    res.json(p);
-})));
 //criar rota delete
 router.post("/delete", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let ra = req.body.ra;

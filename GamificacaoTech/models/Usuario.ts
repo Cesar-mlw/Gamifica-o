@@ -2,6 +2,8 @@
 import GeradorHash = require("../utils/geradorHash");
 import ItemUsuario = require("./ItemUsuario");
 import { isString } from "util";
+import UsuarioAdmin = require("./UsuarioAdmin");
+import AdminPoints = require("./AdminPoints");
 
 export = class Usuario {
   public ra_usuario: number;
@@ -30,11 +32,12 @@ export = class Usuario {
 
     await Sql.conectar(async (sql: Sql) => {
       lista = (await sql.query(
-        "SELECT u.ra_usuario, u.id_curso, u.nome_usuario, u.email_usuario, u.moedas_usuario, u.dt_entrada_usuario, u.senha_usuario, c.nome_curso FROM usuario u, curso c WHERE c.id_curso = u.id_curso"
+        "SELECT u.ra_usuario, u.id_curso, u.nome_usuario, u.email_usuario, u.moedas_usuario, u.dt_entrada_usuario, c.nome_curso FROM usuario u, curso c WHERE c.id_curso = u.id_curso"
       )) as Usuario[];
     });
     return lista;
   }
+
 
   public static async create(u: Usuario): Promise<string> {
     let res: string;
@@ -89,11 +92,11 @@ export = class Usuario {
     return lista
 }
 
-public static async readUserGeneralPoints(ra: number): Promise<number[]>{
-  let lista: number[] = null
+public static async readUserAdminPoints(ra: number): Promise<number[]>{
+  let lista: number[]= null
 
-  await Sql.conectar(async(sql: Sql) => {
-    lista = await sql.query("select p.ra_usuario, sum(t.pontos_tipo_projeto) as 'pontos' from projeto p, tipo_projeto t, area a where p.id_tipo_projeto = t.id_tipo_projeto and p.id_area = a.id_area and ra_usuario = ? group by p.ra_usuario", [ra]) as number[]
+  await Sql.conectar(async (sql: Sql) => {
+      lista = await sql.query("select p.id_area, a.nome_area, sum(t.pontos_tipo_projeto) as 'pontos' from projeto p, tipo_projeto t, area a where p.id_tipo_projeto = t.id_tipo_projeto and p.id_area = a.id_area and ra_usuario = ? group by p.id_area order by p.id_area", [ra]) as number[]
   })
 
   return lista

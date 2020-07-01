@@ -51,11 +51,6 @@ router.post("/readUserPoints", wrap(async (req: express.Request, res: express.Re
     res.json(p)
 }))
 
-router.post("/readUserGeneralPoints", wrap(async (req: express.Request, res: express.Response) => {
-    let ra = req.body.ra
-    let p = await Usuario.readUserGeneralPoints(ra)
-    res.json(p)
-}))
 
 //criar rota delete
 

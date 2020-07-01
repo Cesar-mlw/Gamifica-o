@@ -7,18 +7,22 @@
 
 <%- contentFor("scripts") %>
 <script type="text/javascript">
+
+
+  
+
   var tabelaAlunos = prepareDataTable("#tabelaAlunos", {
     order: [[0, "asc"]],
     deferRender: true,
     columns: [
       { title: "RA", "class": "col-min", data: "ra_usuario" },
       { title: "Nome", "class": "col-min", data: "nome_usuario" },
-      { title: "Semestre", "class": "col-min", data: "semestre_usuario" },
         {title: 'Pontos BI', "class":"col-min", data: 'pontos_bi'},
         {title: 'Pontos Games', "class":"col-min", data: 'pontos_games'},
         {title: 'Pontos DEV', "class":"col-min", data: 'pontos_dev'},
+        {title: 'Pontos Inovação', "class":"col-min", data: 'pontos_inov'}
     ],
-    data: <%-JSON.stringify(alu)%>
+    data: <%-JSON.stringify(aluPoints)%>
   });
 
   function clickLogout() {
