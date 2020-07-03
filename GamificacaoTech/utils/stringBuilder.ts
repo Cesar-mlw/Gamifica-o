@@ -28,10 +28,10 @@ export = class StringBuilder {
             }
         }
         let nivel = ctn
-        n3 = Math.floor(ctn/3)
-        ctn -= n3 * 3
-        n2 = Math.floor(ctn/2)
-        ctn -= n2 * 2
+        n3 = Math.floor(ctn/9)
+        ctn -= n3 * 9
+        n2 = Math.floor(ctn/3)
+        ctn -= n2 * 3
         n1 = ctn
         let respString = '<div class="book-pile" id="pile-'+id+'"><div class="pile-xp"><div class="pile-title">'+nome+'</div><div class="pile-level">Level '+nivel+'</div><div class="pile-progress-wrapper"><div class="progress-circle"></div><div class="progress-number">'+pontos+' / <b>'+(Math.ceil(pontos/150)*150)+'</b></div></div></div><div class="book-group-1">'
         for(let i = 0; i < n1; i++){
