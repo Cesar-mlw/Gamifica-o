@@ -52,7 +52,7 @@ router.get('/home', wrap((req, res) => __awaiter(void 0, void 0, void 0, functio
                 }
                 alunosPoints.push({
                     ra_usuario: alunos[i].ra_usuario,
-                    nome_usuario: alunos[i].ra_usuario,
+                    nome_usuario: alunos[i].nome_usuario,
                     pontos_bi: pontos_bi,
                     pontos_games: pontos_games,
                     pontos_dev: pontos_dev,
@@ -82,6 +82,14 @@ router.get('/login', wrap((req, res) => __awaiter(void 0, void 0, void 0, functi
     }
     else {
         res.render('loginRegistroAdmin', { titulo: 'Gamificação TECH', layout: 'layoutLogin' });
+    }
+})));
+router.get('/noticias', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!req.cookies.logged && !Usuario.userIsAdmin(req.cookies.ra_usuario)) {
+        res.redirect("/");
+    }
+    else {
+        res.render('noticias', { titulo: 'Gamificação TECH', layout: 'layoutAdmin' });
     }
 })));
 module.exports = router;

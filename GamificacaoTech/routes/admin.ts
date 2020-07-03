@@ -48,7 +48,7 @@ router.get('/home', wrap(async (req: express.Request, res: express.Response) => 
                 }
                 alunosPoints.push({
                     ra_usuario: alunos[i].ra_usuario,
-                    nome_usuario: alunos[i].ra_usuario,
+                    nome_usuario: alunos[i].nome_usuario,
                     pontos_bi: pontos_bi,
                     pontos_games: pontos_games,
                     pontos_dev: pontos_dev,
@@ -58,7 +58,7 @@ router.get('/home', wrap(async (req: express.Request, res: express.Response) => 
             else{
                 alunosPoints.push({
                     ra_usuario: alunos[i].ra_usuario,
-                    nome_usuario: alunos[i].ra_usuario,
+                    nome_usuario: alunos[i].nome_usuario,
                     pontos_bi: 0,
                     pontos_games: 0,
                     pontos_dev: 0,
@@ -82,6 +82,17 @@ router.get('/login', wrap(async (req: express.Request, res: express.Response) =>
     }
     else{
         res.render('loginRegistroAdmin', { titulo: 'Gamificação TECH', layout: 'layoutLogin'}); 
+    }
+    
+}));
+
+router.get('/noticias', wrap(async (req: express.Request, res: express.Response) => {
+    if(!req.cookies.logged && !Usuario.userIsAdmin(req.cookies.ra_usuario)){
+        res.redirect("/")
+
+    }
+    else{
+        res.render('noticias', { titulo: 'Gamificação TECH', layout: 'layoutAdmin'}); 
     }
     
 }));
