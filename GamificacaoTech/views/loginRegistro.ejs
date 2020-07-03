@@ -2,47 +2,55 @@
 
 <div class="door-wrapper">
     <div class="door-frame">
+        <div class="forms-container">
+            <div class="form-toggle-button" onclick="toggleForm()">
+                <div class="plaque-wrapper">
+                    <div class="plaque-container">
+                        <div class="plaque-login"></div>
+                        <div class="plaque-register" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="login-form-wrapper">
+                <form class="auth-form">
+                    <!-- <label for="login">RA</label> -->
+                    <input type="number" min="0" step="1" id="ra_usuario_login" placeholder="RA"/>
+                    <!-- <label for="password">Senha</label> -->
+                    <input type="password" id="senha_usuario_login" placeholder="Senha"/>
+                    <button type="button" onclick="login()">Fazer login</button>
+                </form>
+            </div>
+            
+            <div class="register-form-wrapper" style="display: none;">
+                <form class="auth-form">
+                    <!-- <label for="ra_usuario">RA</label> -->
+                    <input id="ra_usuario" type="number" placeholder="RA"/>
+                    <!-- <label for="nome_usuario">Nome do Usuario</label> -->
+                    <input id="nome_usuario" type="text" placeholder="Nome"/>
+                    <!-- <label for="email_usuario">E-mail do Usuário</label> -->
+                    <input id="email_usuario" type="email" placeholder="E-Mail"/>
+                    <!-- <label for="dt_entrada_usuario">Data de entrada</label> -->
+                    <input id="dt_entrada_usuario" type="text" placeholder="Data de Entrada">
+                    <!-- <label for="senha_usuario">Senha do Usuario</label> -->
+                    <input id="senha_usuario" type="password" placeholder="Senha">
+                    <label for="idAdmin">É Administrador?</label>
+                    <input id="idAdmin" type="checkbox">
+                    <!-- <label for="curso">Qual o curso</label> -->
+                    <select id="curso" >
+                        <option value="" disabled selected>Selecione seu curso</option>
+                        <option value="1">TECH</option>
+                        <option value="2">Publicidade e Propaganda</option>
+                        <option value="3">Ciências Sociais</option>
+                        <option value="4">Design</option>
+                    </select>
+                    <button type="button" onclick="register()">Registrar</button>
+                </form>
+            </div>
+        </div>
         <div class="door">
             <div class="knob"></div>
         </div>
         <div class="door-hole"></div>
-    </div>
-</div>
-
-<div class="forms-container">
-    <div class="login-form-wrapper">
-        <form class="auth-form">
-            <label for="login">Login</label>
-            <input type="number" min="0" step="1" id="ra_usuario_login"/>
-            <label for="password">Senha</label>
-            <input type="password" id="senha_usuario_login"/>
-            <input type="button" value="Login" onclick="login()"/>
-        </form>
-    </div>
-    
-    <div class="register-form-wrapper" style="">
-        <form class="auth-form">
-            <label for="ra_usuario">RA</label>
-            <input id="ra_usuario" type="number"/>
-            <label for="nome_usuario">Nome do Usuario</label>
-            <input id="nome_usuario" type="text"/>
-            <label for="email_usuario">E-mail do Usuário</label>
-            <input id="email_usuario" type="email"/>
-            <label for="dt_entrada_usuario">Data de entrada</label>
-            <input id="dt_entrada_usuario" type="text">
-            <label for="senha_usuario">Senha do Usuario</label>
-            <input id="senha_usuario" type="password">
-            <label for="idAdmin">é admin?</label>
-            <input id="idAdmin" type="checkbox">
-            <label for="curso">Qual o curso</label>
-            <select id="curso">
-                <option value="1">TECH</option>
-                <option value="2">Publicidade e Propaganda</option>
-                <option value="3">Ciências Sociais</option>
-                <option value="4">Design</option>
-            </select>
-            <input type="button" value="Register" onclick="register()">
-        </form>
     </div>
 </div>
 
@@ -52,6 +60,22 @@
     var elementParent = document.querySelector(".door-frame");
     var overlay = document.querySelector(".overlay");
     var forms = document.querySelector(".forms-container");
+    var activeForm = 'login';
+
+    function toggleForm(){
+        if(activeForm == 'login'){
+            $('.login-form-wrapper').fadeToggle(300);
+            $('.plaque-login').fadeToggle(300);
+            setTimeout(function(){$('.register-form-wrapper').fadeToggle(300);$('.plaque-register').fadeToggle(300);}, 320);
+            activeForm = 'register';
+        }
+        else if(activeForm == 'register'){
+            $('.register-form-wrapper').fadeToggle(300);
+            $('.plaque-register').fadeToggle(300);
+            setTimeout(function(){$('.login-form-wrapper').fadeToggle(300);$('.plaque-login').fadeToggle(300);}, 320);
+            activeForm = 'login';
+        }
+    }
 
     function toggleDoor() {
         forms.classList.toggle("formsOpen");

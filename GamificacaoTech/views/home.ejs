@@ -2,9 +2,9 @@
     <div class="header">
         <div class="header-left">
 
-            <button class="header-button" id="hamburger" type="button" onclick="showSidebar()">
+            <!-- <button class="header-button" id="hamburger" type="button" onclick="showSidebar()">
                 <i class="material-icons header-icon header-menu">menu</i>
-            </button>
+            </button> -->
             <div class="profile-wrapper">
             
             </div>
@@ -21,22 +21,23 @@
 </div>
 
 <!--SIDEBAR-->
-<div class="sidebar-wrapper" id="sidebar">
+<!-- <div class="sidebar-wrapper" id="sidebar">
     <div class="sidebar">
         <button onclick="closeOverlay()" data-micromodal-trigger="modal-1" class="nav-button">Registro</button>
         <button onclick="closeOverlay()" class="nav-button">Portfólio</button>
         <button onclick="closeOverlay()" class="nav-button">Currículo</button>
         <button onclick="closeOverlay()" class="nav-button">Loja</button>
     </div>
-</div>
+</div> -->
 
 <!--CONTENT-->
 
 <div class="content-wrapper dragscroll" id="content-wrapper">
     <div class="room-container">
-        <div id="item-store-area" class="item-store-area-wrapper"></div>
+        <div id="item-store-area" class="item-store-area-wrapper">ARRASTE AQUI PARA GUARDAR</div>
         <img src="../Public/images/background-floor.svg" class="room">
         <button class="room-box" onclick="editMode()"></button>
+        <button class="room-door" onclick="logout()"></button>
         <div class="grid-container">
             <div class="furniture">
                 <img src="../Public/images/desk.png" class="desk"></img>
@@ -51,7 +52,7 @@
                         <%}%>
                     </div>
                 </button>
-                <button class="furniture-button ignore-dragscroll board" onclick=""></button>
+                <button class="furniture-button ignore-dragscroll board" data-micromodal-trigger="modal-4" onclick=""></button>
             </div>
             <%-placedItems%>
         </div>
@@ -60,7 +61,12 @@
 
 <!--MODALS-->
 <div class="modal-storage">        
-    <div id="sidebar-overlay" onclick="closeOverlay()"></div>
+    <!-- <div id="sidebar-overlay" onclick="closeOverlay()"></div> -->
+    <div id="notification-box" class="">
+        <i class="material-icons positive">check_circle_outline</i>
+        <i class="material-icons error">error_outline</i>
+        <i class="material-icons-outlined information">info</i>
+    </div>
 
     <div id="item-box-gui" class="item-box-wrapper">
         <div class="item-box-button-container">
@@ -92,10 +98,10 @@
                                 <i class="material-icons">book</i>
                                 <span>Portfólio</span>
                             </button>
-                            <button onclick="loadContent('/curriculo')" class="desktop-icon">
+                            <!-- <button onclick="loadContent('/curriculo')" class="desktop-icon">
                                 <i class="material-icons">assignment_ind</i>
                                 <span>Currículo</span>
-                            </button>
+                            </button> -->
                             <button onclick="loadContent('/info')" class="desktop-icon">
                                 <i class="material-icons">info</i>
                                 <span>Informações<br>da Faculdade</span>
@@ -151,6 +157,35 @@
             </div>
         </div>
     </div>
+
+    <div class="modal micromodal-slide" id="modal-4" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal__container board-gui-wrapper" role="dialog" aria-modal="true" aria-labelledby="modal-4-title">
+                <header class="modal__header board-header">
+                    <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                </header>
+                <main class="modal__content board-body-wrapper dragscroll" id="modal-4-content">
+                    <div class="board-body">
+                        <div class="board-notice-wrapper">
+                            <!-- COLOCAR ISSO NO STRINGBUILDER -->
+                            <div class="board-notice">
+                                <div class="notice-overlay"></div>
+                                <h1>Título da Notícia</h1>
+                                <h4>26/09/2020</h4>
+                                <div class="notice-text">
+                                    <p>Texto da Notícia Aqui.
+                                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+                                </div>
+                            </div>
+                            <!-- COLOCAR ISSO NO STRINGBUILDER -->
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
 </div> 
 
 <script type="application/javascript">
@@ -161,6 +196,22 @@
     var ch = counter.canvas.height; //Return canvas height
     var diff;   // find the different between current value (no) and trageted value (100)
     var loadingContent = false;
+
+    function logout() {
+    $.ajax({
+      url: "/api/usuario/logout",
+      method: "get",
+      contentType: "application/json",
+      success: function(data) {
+        if (data) {
+          window.location.replace("/admin/home");
+        } else {
+          alert("RA ou senha errados");
+        }
+      },
+      error: function(error) {}
+    });
+  }
 
     function loadContent(url) {
         if (loadingContent)
@@ -218,8 +269,6 @@
         }
     })();
     function getScrollBarWidth () {
-        console.log(window.innerWidth);
-        console.log($('.room').width());
         if( $('.room').width() > window.innerWidth ){
             var $outer = $('<div>').css({visibility: 'hidden', width: 100, overflow: 'scroll'}).appendTo('body'),
             widthWithScroll = $('<div>').css({width: '100%'}).appendTo($outer).outerWidth();
@@ -410,9 +459,11 @@
             success: function (data) {
                 console.log(data);
                 loadContent('/portifolio');
+                notification('positive', "Projeto alterado com sucesso!")
                 // Notificação de projeto alterado
             },
             error: function (e) {
+                notification('error', "Erro ao alterar o projeto. Verifique os dados inseridos e tente novamente.")
                 console.log(e)
             }
         })
@@ -433,9 +484,11 @@
             dataType: "json",
             success: function (data) {
                 console.log(data)
+                notification('positive', "Projeto deletado com sucesso!")
                 // Notificação de projeto deletado
             },
             error: function (e) {
+                notification('error', "Erro ao deletar o projeto. Atualize a página e tente novamente.")
                 console.log(e)
             }
         })
@@ -520,10 +573,13 @@
             dataType: "json",
             success: function (data) {
                 console.log(data)
+                console.log($('#notification-box'))
                 insertPlacedItem(itemClicado.id_item_usuario)
+                notification("positive", "Item posicionado com sucesso!")
                 // Notificação de item Colocado
             },
             error: function (e) {
+                notification('error', "Erro ao posicionar o item. Verifique a posição e tente novamente.")
                 console.log(e)
             }
         })
@@ -581,6 +637,15 @@
         $("#sidebar-overlay").fadeOut(200);
         var sidebar = document.querySelector('.sidebar-wrapper');
             sidebar.classList.remove('sidebar-wrapper-after');
+    }
+
+    function notification(type, message) {
+        $('#notification-box').addClass(type+'-message');
+        $('#notification-box').attr("data-message", message);
+        $('#notification-box').css('opacity', '1');
+        setTimeout(
+            function(){$('#notification-box').css('opacity', '0')}, 2500
+        );
     }
     
     $(document).ready(function(){

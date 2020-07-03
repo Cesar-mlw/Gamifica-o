@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="1618.517px" height="685.837px" viewBox="0 0 1618.517 685.837" enable-background="new 0 0 1618.517 685.837"
 	 xml:space="preserve">
 <g id="Layer_20">
@@ -25,18 +25,18 @@
 <g id="Layer_14">
 	<polyline fill="#F4F1ED" points="0,1 54.833,84 54.917,427.104 0,567.104 	"/>
 </g>
-<g id="Layer_11">
-	<polyline fill="#CC955E" points="170.875,434 182,434.094 182,176 66,176 66,434.094 	"/>
-	<path fill="#CC955E" d="M76.875,434"/>
+<g id="Layer_11" display="none">
+	<polyline display="inline" fill="#CC955E" points="170.875,434 182,434.094 182,176 66,176 66,434.094 	"/>
+	<path display="inline" fill="#CC955E" d="M76.875,434"/>
 </g>
-<g id="Layer_12">
-	<polygon fill="#8C6B42" points="76.667,186.992 170.833,186.992 170.833,428.063 76.875,428.063 	"/>
+<g id="Layer_12" display="none">
+	<polygon display="inline" fill="#8C6B42" points="76.667,186.992 170.833,186.992 170.833,428.063 76.875,428.063 	"/>
 </g>
-<g id="Layer_13">
-	<circle fill="#D7D7D7" cx="156.5" cy="326.667" r="5.833"/>
+<g id="Layer_13" display="none">
+	<circle display="inline" fill="#D7D7D7" cx="156.5" cy="326.667" r="5.833"/>
 </g>
-<g id="Layer_10">
-	<rect x="76.875" y="428.063" fill="#F2DD77" width="94" height="5.938"/>
+<g id="Layer_10" display="none">
+	<rect x="76.875" y="428.063" display="inline" fill="#F2DD77" width="94" height="5.938"/>
 </g>
 <g id="Layer_4" display="none">
 	<polygon display="inline" fill="#846346" points="6.875,557.875 83.75,557.875 79.875,575.25 5.75,575.25 	"/>
@@ -55,7 +55,8 @@
 </g>
 <g id="Layer_7" display="none">
 	<path display="inline" fill="none" stroke="#000000" d="M54.5,617.891c0,2.615-2.189,4.734-4.891,4.734H31.516
-		c-2.701,0-4.891-2.119-4.891-4.734v-19.531c0-2.615,2.189-4.734,4.891-4.734h18.094c2.701,0,4.891,2.119,4.891,4.734V617.891z"/>
+		c-2.701,0-4.891-2.119-4.891-4.734V598.36c0-2.615,2.189-4.734,4.891-4.734H49.61c2.701,0,4.891,2.119,4.891,4.734L54.5,617.891
+		L54.5,617.891z"/>
 	<path display="inline" d="M48.813,601.625c0,0.587-0.476,1.063-1.063,1.063H33.125c-0.587,0-1.063-0.476-1.063-1.063l0,0
 		c0-0.587,0.476-1.063,1.063-1.063H47.75C48.337,600.563,48.813,601.038,48.813,601.625L48.813,601.625z"/>
 	<path display="inline" d="M49.25,608.125c0,0.725-0.587,1.313-1.313,1.313h-14.25c-0.725,0-1.313-0.588-1.313-1.313l0,0
@@ -69,11 +70,12 @@
 	<polygon fill="#D6B470" points="1540.578,560.141 1368.396,560.125 246.792,560.156 246.792,545.063 1538.047,545.078 	"/>
 	<polyline fill="#D8D0CA" points="1526.994,560.125 1618.517,687.667 1618.517,0 1523.463,0 	"/>
 </g>
-<g id="Layer_1">
-	<image overflow="visible" width="1367" height="641" xlink:href="background.png"  transform="matrix(1.0002 0 0 1.0002 0 0)">
+<g id="Layer_1_1_" display="none">
+	
+		<image display="inline" overflow="visible" enable-background="new    " width="1367" height="641" xlink:href="background.png"  transform="matrix(1.0002 0 0 1.0002 0 3.051758e-005)">
 	</image>
-	<path fill="#F4F1ED" d="M247.063,560.156"/>
-	<path fill="#F4F1ED" d="M247.063,560.156"/>
+	<path display="inline" fill="#F4F1ED" d="M247.063,560.156"/>
+	<path display="inline" fill="#F4F1ED" d="M247.063,560.156"/>
 </g>
 <g id="Layer_8" display="none">
 </g>

@@ -54,7 +54,9 @@ body{
 }
 
 .door-hole{
-    background: red;
+    background: url(../images/background-floor.svg);
+    background-size: 800%;
+    background-position: 1% 18%;
     margin: 25px;
     margin-bottom: 0;
     width: 100%;
@@ -74,16 +76,66 @@ body{
 
 .forms-container{
     position: absolute;
-    width: 100%;
+    width: calc(100% - 50px);
+    margin: 25px;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
     flex-direction: column;
-    z-index: 1;
+    z-index: 100;
     opacity: 1;
     transition: all 0.25s ease-in;
+}
+
+.form-toggle-button{
+    cursor: pointer;
+    position: absolute;
+    top: 105px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.plaque-wrapper{
+    display: flex;
+    width: 150px;
+    height: 94px;
+    background: #E52E4C;
+    border-radius: 18px;
+    -webkit-box-shadow: 0px 3px 5px -2px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0px 3px 5px -2px rgba(0,0,0,0.4);
+    box-shadow: 0px 3px 5px -2px rgba(0,0,0,0.4);
+}
+
+.plaque-container{
+    margin: 7px;
+    background: #fff;
+    border-radius: 15px;
+    width: 100%;
+}
+
+.plaque-login{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(../images/login_active.svg);
+    background-size: 55%;
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+.plaque-register{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(../images/register_active.svg);
+    background-size: 55%;
+    background-repeat: no-repeat;
+    background-position: 50%;
 }
 
 .login-form-wrapper{
@@ -96,10 +148,32 @@ body{
     align-items: center;
 }
 
+form button{
+    margin-top: 15px;
+}
+
 input{
     margin: 10px 0;
     padding: 6px 8px;
+    border-style: inset;
+    border-color: #CC955E;
+    background: white;
+    color: black;
+    outline: none;
 }
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: black;
+    opacity: 1; /* Firefox */
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: black;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: black;
+  }
 
 .register-form-wrapper{
     width: 100%;
@@ -112,6 +186,10 @@ input{
 }
 
 @media only screen and (min-width: 451px){
+    .register-form-wrapper{
+        margin-top: 160px;
+    }
+
     .door-wrapper{
         width: 100%;
         height: 100%;
