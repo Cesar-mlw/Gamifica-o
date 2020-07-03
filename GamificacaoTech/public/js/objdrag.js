@@ -11,7 +11,7 @@ $(function () {
     var initialCellX = 0, initialCellY = 0;
     var moveisFixos = [
         { cellX: 2, cellY: 5, cellW: 3, cellH: 3 },
-        { cellX: 2, cellY: 0, cellW: 4, cellH: 3 },
+        { cellX: 2, cellY: 0, cellW: 8, cellH: 3 },
         { cellX: 7, cellY: 5, cellW: 4, cellH: 3 },
         { cellX: 9, cellY: 3, cellW: 2, cellH: 2 },
         { cellX: 12, cellY: 2, cellW: 3, cellH: 2 }

@@ -35,12 +35,7 @@ export = class StringBuilder {
         n1 = ctn
         let respString = '<div class="book-pile" id="pile-'+id+'"><div class="pile-xp"><div class="pile-title">'+nome+'</div><div class="pile-level">Level '+nivel+'</div><div class="pile-progress-wrapper"><div class="progress-circle"></div><div class="progress-number">'+pontos+' / <b>'+(Math.ceil(pontos/150)*150)+'</b></div></div></div><div class="book-group-1">'
         for(let i = 0; i < n1; i++){
-            respString += `<div class="book">
-                            <div class="book-overlay">
-                                <p class="book-name">'+nome+'</p>
-                                <p class="book-edition">I</p>
-                            </div>
-                            <div class="book-color"></div></div>`
+            respString += '<div class="book"><div class="book-overlay"><p class="book-name">'+nome+'</p><p class="book-edition">I</p></div><div class="book-color"></div></div>'
         }
         respString += '</div><div class="book-group-2">'
         for(let i = 0; i < n2; i++){
