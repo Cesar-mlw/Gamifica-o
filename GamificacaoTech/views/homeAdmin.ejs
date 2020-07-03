@@ -1,16 +1,12 @@
-﻿<div>
+﻿<div style="margin: 0 20px; margin-top: 70px;">
   <h1>Alunos</h1>
   <div class="tabelaTop">
-    <table class="table table-striped table-hover" id="tabelaAlunos"></table>
+    <table class="table table-striped table-hover zap" id="tabelaAlunos"></table>
   </div>
 </div>
 
 <%- contentFor("scripts") %>
 <script type="text/javascript">
-
-
-  
-
   var tabelaAlunos = prepareDataTable("#tabelaAlunos", {
     order: [[0, "asc"]],
     deferRender: true,

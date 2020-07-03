@@ -24,6 +24,8 @@ router.get('/', wrap(async (req: express.Request, res: express.Response) => {
     }
     else{
         let points = await Usuario.readUserPoints(req.cookies.ra_usuario)
+        let coins = await Usuario.readUserCoins(req.cookies.ra_usuario)
+        let dadosUsuario = await Usuario.read(req.cookies.ra_usuario)
         let books = []
         for(let i = 0; i < points.length; i++){
             books.push(StringBuilder.bookSpiller(points[i]['pontos'], points[i]['nome_area'], points[i]['id_area']))
@@ -38,6 +40,8 @@ router.get('/', wrap(async (req: express.Request, res: express.Response) => {
         let placedItems = StringBuilder.placedItemSpiller(placedItemsJson)
         // Book pile string builder
         res.render('home', { titulo: 'Gamificação TECH', 
+                            coins: coins,
+                            dados: dadosUsuario,
                             books: books, 
                             achieveHTML: achieveHTML,
                             achievePreviewHTML: achievePreviewHTML,
@@ -136,7 +140,11 @@ router.post('/registroProjeto', wrap(async (req: express.Request, res: express.R
 router.post('/loja', wrap(async (req: express.Request, res: express.Response) => {
 
     let storeItems = StringBuilder.storeItemSpiller(await ItemUsuario.readMissingItems(req.cookies.ra_usuario))
+    let coins = await Usuario.readUserCoins(req.cookies.ra_usuario)
+    let dadosUsuario = await Usuario.read(req.cookies.ra_usuario)
     res.render('loja', { 
+        coins: coins,
+        nome: dadosUsuario.nome_usuario,
         layout:'layoutVazio',
         storeItems: storeItems});//renderizar a tela
 }));

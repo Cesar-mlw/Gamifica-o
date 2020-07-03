@@ -19,7 +19,7 @@
                         </div>
                         <div class="loja-header-info">
                             <div class="loja-header-bem-vindo">
-                                <span style="font-size: 12px; color:#ccc">Olá, [USER]</span s>
+                                <span style="font-size: 12px; color:#ccc">Olá, <%-nome%></span s>
                                 <span style="margin-top: -7px;font-size: 14px; color:white; font-weight:600">Seja bem vindo!</span>
                             </div>
                         </div>
@@ -35,6 +35,11 @@
                     </div>
                 </div>
                 <div class="loja-body-wrapper">
+                    <div class="loja-balance-wrapper">
+                        <div class="loja-balance-text">Balanço Atual</div>
+                        <div class="loja-coins-wrapper"><span>$</span><%-coins%>.00</div>
+                        <div class="loja-availible-text">Disponível</div>
+                    </div>
                     <ul class="browser-content-list" id="loja-item-list">
                         <%-storeItems%>
                     </ul>

@@ -1,23 +1,92 @@
-<span class="window-title">ESPM Blog</span>
+<span class="window-title">ESPM Blogspace</span>
 
-<div class="blog-header-wrapper">
-    <div class="blog-header">
-        <img src="https://www.espm.br/wp-content/uploads/2017/02/xlogo-branco-300x118.png.pagespeed.ic.UOkewfx4Uy.webp" class="blog-logo">
+<div class="blog-wrapper">
+    <div class="blog-header-wrapper">
+        <div class="blog-header">
+            <img src="../public/images/X.svg" class="blog-icon">
+        </div>
     </div>
-</div>
-
-<div class="blog-content-wrapper">
-    <div class="blog-content">
-        <ul class="blog-post-list">
-            <li class="blog-post">
-                <div class="blog-post-image">
-
-                </div>
-            </li>
-        </ul>
+    
+    <div class="blog-content-wrapper">
+        <div class="blog-content">
+            <ul class="blog-post-list">
+                <li class="blog-post-wrapper" id="post-1">
+                    <div class="blog-post-image-wrapper">
+                        <span class="blog-post-image-tag">Inovação</span>
+                        <img class="blog-post-image" width="100%" src="http://www.powerlab.espm.br/portal/wp-content/uploads/2019/06/Capa-Roboat.jpg">
+                    </div>
+                    <div class="blog-post-content">
+                        <h2 onclick="expandPost(1)" class="blog-post-title">Testing Fortnite Mobile on Android's performance: Can your device handle Fortnite?</h2>
+                        <div class="blog-post-text">Just as Epic Games promised would happen, the free-to-play battle royale game 'Fortnite' finally became availible last week. For the first 3 days of its release, the game has limited the. Just as Epic Games promised would happen, the free-to-play battle royale game 'Fortnite' finally became availible last week. For the first 3 days of its release, the game has limited the.</div>
+                        <div class="blog-post-button post-closed" onclick="togglePost(1)"></div>
+                        <div class="blog-post-footer">
+                            <div class="blog-post-footer-picture-wrapper"><img class="blog-post-footer-picture"></div> 
+                            <div class="blog-post-footer-name">Mishaal Rahman</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="blog-post-wrapper" id="post-2">
+                    <div class="blog-post-image-wrapper">
+                        <span class="blog-post-image-tag">Games</span>
+                        <img class="blog-post-image" width="100%" src="http://www.powerlab.espm.br/portal/wp-content/uploads/2019/06/Capa-Roboat.jpg">
+                    </div>
+                    <div class="blog-post-content">
+                        <h2 onclick="expandPost(2)" class="blog-post-title">Testing Fortnite Mobile on Android's performance: Can your device handle Fortnite?</h2>
+                        <div class="blog-post-text">Just as Epic Games promised would happen, the free-to-play battle royale game 'Fortnite' finally became availible last week. For the first 3 days of its release, the game has limited the...</div>
+                        <div class="blog-post-button post-closed" onclick="togglePost(2)"></div>
+                        <div class="blog-post-footer">
+                            <div class="blog-post-footer-picture-wrapper"><img class="blog-post-footer-picture"></div> 
+                            <div class="blog-post-footer-name">Cory Bryant</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="blog-post-wrapper" id="post-3">
+                    <div class="blog-post-image-wrapper">
+                        <span class="blog-post-image-tag">BI</span>
+                        <img class="blog-post-image" width="100%" src="http://www.powerlab.espm.br/portal/wp-content/uploads/2019/06/Capa-Roboat.jpg">
+                    </div>
+                    <div class="blog-post-content">
+                        <h2 onclick="expandPost(3)" class="blog-post-title">Testing Fortnite Mobile on Android's performance: Can your device handle Fortnite?</h2>
+                        <div class="blog-post-text">Just as Epic Games promised would happen, the free-to-play battle royale game 'Fortnite' finally became availible last week. For the first 3 days of its release, the game has limited the...</div>
+                        <div class="blog-post-button post-closed" onclick="togglePost(3)"></div>
+                        <div class="blog-post-footer">
+                            <div class="blog-post-footer-picture-wrapper"><img class="blog-post-footer-picture"></div> 
+                            <div class="blog-post-footer-name">Mishaal Rahman</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="blog-post-wrapper" id="post-4">
+                    <div class="blog-post-image-wrapper">
+                        <span class="blog-post-image-tag">Dev</span>
+                        <img class="blog-post-image" width="100%" src="http://www.powerlab.espm.br/portal/wp-content/uploads/2019/06/Capa-Roboat.jpg">
+                    </div>
+                    <div class="blog-post-content">
+                        <h2 onclick="expandPost(4)" class="blog-post-title">Testing Fortnite Mobile on Android's performance: Can your device handle Fortnite?</h2>
+                        <div class="blog-post-text">Just as Epic Games promised would happen, the free-to-play battle royale game 'Fortnite' finally became availible last week. For the first 3 days of its release, the game has limited the...</div>
+                        <div class="blog-post-button post-closed" onclick="togglePost(4)"></div>
+                        <div class="blog-post-footer">
+                            <div class="blog-post-footer-picture-wrapper"><img class="blog-post-footer-picture"></div> 
+                            <div class="blog-post-footer-name">Cory Bryant</div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 
 <script type="text/javascript">
+    function expandPost(number){
+        $('.blog-post-wrapper').removeClass('post-expanded');
+        $('#post-'+number).addClass('post-expanded');
+    }
 
+    function togglePost(number){
+        $('.blog-post-wrapper:not(#post-'+number+')').removeClass('post-expanded');
+        $('#post-'+number).toggleClass('post-expanded');
+    }
+
+    function minimizePost(number){
+        $('#post-'+number).removeClass('post-expanded');
+    }
 </script>

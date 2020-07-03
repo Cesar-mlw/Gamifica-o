@@ -1,8 +1,38 @@
+*{
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+.tabelaTop #tabelaAlunos_wrapper {
+    flex-direction: column;
+}
+
+.tabelaTop #tabelaAlunos_wrapper .row{
+    width: 100%;
+}
+
+.landing{
+    margin: 0 20px;
+    margin-top: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .navItems{
     display: flex;
     flex-direction: row;
 }
+
 .navItem{
     margin-left: 20px;
     margin-right: 20px;
+}
+
+.noticia-form{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    justify-content: center;
+    align-items: center;
 }

@@ -115,11 +115,11 @@ module.exports = class Usuario {
             return res;
         });
     }
-    static readUserCoins(id) {
+    static readUserCoins(ra) {
         return __awaiter(this, void 0, void 0, function* () {
             let res = null;
             yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
-                res = yield sql.query("SELECT moedas_usuario from USUARIO where ra_usuario = ?", [id]);
+                res = yield sql.query("SELECT moedas_usuario from USUARIO where ra_usuario = ?", [ra]);
             }));
             return res[0].moedas_usuario;
         });

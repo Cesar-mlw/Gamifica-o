@@ -31,6 +31,8 @@ router.get('/', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
     else {
         let points = yield Usuario.readUserPoints(req.cookies.ra_usuario);
+        let coins = yield Usuario.readUserCoins(req.cookies.ra_usuario);
+        let dadosUsuario = yield Usuario.read(req.cookies.ra_usuario);
         let books = [];
         for (let i = 0; i < points.length; i++) {
             books.push(StringBuilder.bookSpiller(points[i]['pontos'], points[i]['nome_area'], points[i]['id_area']));
@@ -45,6 +47,8 @@ router.get('/', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* (
         let placedItems = StringBuilder.placedItemSpiller(placedItemsJson);
         // Book pile string builder
         res.render('home', { titulo: 'Gamificação TECH',
+            coins: coins,
+            dados: dadosUsuario,
             books: books,
             achieveHTML: achieveHTML,
             achievePreviewHTML: achievePreviewHTML,
@@ -125,7 +129,11 @@ router.post('/registroProjeto', wrap((req, res) => __awaiter(void 0, void 0, voi
 })));
 router.post('/loja', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let storeItems = StringBuilder.storeItemSpiller(yield ItemUsuario.readMissingItems(req.cookies.ra_usuario));
+    let coins = yield Usuario.readUserCoins(req.cookies.ra_usuario);
+    let dadosUsuario = yield Usuario.read(req.cookies.ra_usuario);
     res.render('loja', {
+        coins: coins,
+        nome: dadosUsuario.nome_usuario,
         layout: 'layoutVazio',
         storeItems: storeItems
     }); //renderizar a tela
