@@ -12,6 +12,7 @@ import Area = require('../models/Area');
 import TipoProjeto = require('../models/TipoProjeto');
 import TipoHabilidade = require('../models/TipoHabilidade');
 import { CLIENT_RENEG_WINDOW } from 'tls';
+import Noticia = require('../models/Noticia');
 const router = express.Router();
 
 //import usuario
@@ -38,6 +39,7 @@ router.get('/', wrap(async (req: express.Request, res: express.Response) => {
         let notPlacedItems = StringBuilder.itemBoxSpiller(await ItemUsuario.readNotPlacedItems(req.cookies.ra_usuario))
         let placedItemsJson = await ItemUsuario.readPlacedItems(req.cookies.ra_usuario)
         let placedItems = StringBuilder.placedItemSpiller(placedItemsJson)
+        let newsHTML = StringBuilder.noticiaSpiller(await Noticia.readRecentNews())
         // Book pile string builder
         res.render('home', { titulo: 'Gamificação TECH', 
                             coins: coins,
@@ -48,7 +50,9 @@ router.get('/', wrap(async (req: express.Request, res: express.Response) => {
                             notPlacedItemsJson: JSON.stringify(notPlacedItemsJson),
                             notPlacedItems: notPlacedItems,
                             placedItems: placedItems,
-                            placedItemsJson: JSON.stringify(placedItemsJson)});
+                            placedItemsJson: JSON.stringify(placedItemsJson),
+                            news: newsHTML
+                        });
                             
 }}));
 

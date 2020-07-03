@@ -74,6 +74,18 @@ export = class Noticia {
         return lista
     }
 
+    public static async readRecentNews(): Promise<Noticia[]>{
+        let lista: Noticia[] = null;
+
+        await Sql.conectar(async (sql: Sql) => {
+            lista = await sql.query("SELECT chamada_noticia, corpo_noticia, data_publicacao FROM noticia WHERE data_publicacao <= CURDATE();") as Noticia[]
+        })
+
+        return lista
+    }
+
+
+
     public static async update(n: Noticia): Promise<string> { 
         let res: string
 

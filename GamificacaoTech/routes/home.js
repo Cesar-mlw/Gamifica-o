@@ -20,6 +20,7 @@ const ItemUsuario = require("../models/ItemUsuario");
 const Area = require("../models/Area");
 const TipoProjeto = require("../models/TipoProjeto");
 const TipoHabilidade = require("../models/TipoHabilidade");
+const Noticia = require("../models/Noticia");
 const router = express.Router();
 //import usuario
 router.get('/', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -45,6 +46,7 @@ router.get('/', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* (
         let notPlacedItems = StringBuilder.itemBoxSpiller(yield ItemUsuario.readNotPlacedItems(req.cookies.ra_usuario));
         let placedItemsJson = yield ItemUsuario.readPlacedItems(req.cookies.ra_usuario);
         let placedItems = StringBuilder.placedItemSpiller(placedItemsJson);
+        let newsHTML = StringBuilder.noticiaSpiller(yield Noticia.readRecentNews());
         // Book pile string builder
         res.render('home', { titulo: 'Gamificação TECH',
             coins: coins,
@@ -55,7 +57,9 @@ router.get('/', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* (
             notPlacedItemsJson: JSON.stringify(notPlacedItemsJson),
             notPlacedItems: notPlacedItems,
             placedItems: placedItems,
-            placedItemsJson: JSON.stringify(placedItemsJson) });
+            placedItemsJson: JSON.stringify(placedItemsJson),
+            news: newsHTML
+        });
     }
 })));
 router.get('/login', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {

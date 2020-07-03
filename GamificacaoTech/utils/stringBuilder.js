@@ -246,5 +246,25 @@ module.exports = class StringBuilder {
         }
         return percSemester;
     }
+    static noticiaSpiller(news) {
+        let res = "";
+        for (let i = 0; i < news.length; i++) {
+            let newsDate = news[i].data_publicacao;
+            let newsDateString = String(newsDate.getDate()).padStart(2, '0') + "/" + String(newsDate.getMonth() + 1).padStart(2, '0') + "/" + newsDate.getFullYear();
+            res += `
+                    <div class="board-notice">
+                        <div class="notice-overlay"></div>
+                            <h1>${news[i].chamada_noticia}</h1>
+                            <h4>${newsDateString}</h4>
+                            <div class="notice-text">
+                                <p>
+                                    ${news[i].corpo_noticia}
+                                </p>    
+                            </div>
+                        </div>
+                    `;
+        }
+        return res;
+    }
 };
 //# sourceMappingURL=stringBuilder.js.map
