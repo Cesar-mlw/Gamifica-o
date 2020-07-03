@@ -42,7 +42,7 @@ module.exports = class Projeto {
                 return res;
             yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
                 try {
-                    if (!p.terminado_projeto) {
+                    if (p.terminado_projeto) {
                         yield sql.query("insert into projeto (id_tipo_projeto, ra_usuario, id_area, dt_comeco_projeto, terminado_projeto, nome_projeto, descricao_projeto, dt_termino_projeto, exibir_projeto) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", [
                             p.id_tipo_projeto,
                             p.ra_usuario,
