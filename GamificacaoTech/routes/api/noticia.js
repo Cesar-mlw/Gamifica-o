@@ -15,16 +15,13 @@ const router = express.Router();
 router.post("/create", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let p = req.body;
     let erro = yield Noticia.create(p);
+    console.log(erro);
     if (erro) {
         res.status(400).send({ status: "error", message: erro });
     }
     else {
         res.status(200).send({ status: "success", message: `noticia ${p.id_noticia} created` });
     }
-})));
-router.get("/list", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let lista = yield Noticia.list();
-    res.json(lista);
 })));
 router.post("/delete", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let idNoticia = req.body.idNoticia;
@@ -55,6 +52,10 @@ router.post("/update", wrap((req, res) => __awaiter(void 0, void 0, void 0, func
     else {
         res.status(200).send({ status: "success", message: `noticia ${p.id_noticia} altered` });
     }
+})));
+router.get("/list", wrap((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let lista = yield Noticia.list();
+    res.json(lista);
 })));
 module.exports = router;
 //# sourceMappingURL=noticia.js.map

@@ -33,9 +33,10 @@ module.exports = class Noticia {
     }
     static create(n) {
         return __awaiter(this, void 0, void 0, function* () {
-            let res;
-            if ((res == Noticia.validate(n)))
-                throw res;
+            let res = Noticia.validate(n);
+            if (res) {
+                return res;
+            }
             yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
                 try {
                     sql.query("INSERT INTO noticia (chamada_noticia, corpo_noticia, data_publicacao, ra_usuario) VALUES (?, ?, ?, ?)", [

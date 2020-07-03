@@ -30,9 +30,11 @@ export = class Noticia {
     }
 
     public static async create(n: Noticia): Promise<string>{
-        let res: string
-        if((res == Noticia.validate(n)))
-            throw res
+        let res: string = Noticia.validate(n);
+        if (res) {
+            return res;
+        }
+        
         await Sql.conectar(async (sql: Sql) => {
             try { 
                 sql.query("INSERT INTO noticia (chamada_noticia, corpo_noticia, data_publicacao, ra_usuario) VALUES (?, ?, ?, ?)", [

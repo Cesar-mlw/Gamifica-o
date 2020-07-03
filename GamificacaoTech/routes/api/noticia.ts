@@ -10,6 +10,9 @@ const router = express.Router()
 router.post("/create", wrap(async (req: express.Request, res: express.Response) => {
     let p = req.body as Noticia
     let erro = await Noticia.create(p)
+
+    console.log(erro);
+    
     if (erro) {
         res.status(400).send({status: "error", message: erro})
     }
@@ -19,11 +22,6 @@ router.post("/create", wrap(async (req: express.Request, res: express.Response) 
 
 }))
 
-router.get("/list", wrap(async (req: express.Request, res: express.Response) => {
-    let lista = await Noticia.list()
-
-    res.json(lista)
-}))
 
 router.post("/delete", wrap(async (req: express.Request, res: express.Response) => {
     let idNoticia = req.body.idNoticia
@@ -65,7 +63,12 @@ router.post("/update", wrap(async (req: express.Request, res: express.Response) 
         res.status(200).send({status: "success", message: `noticia ${p.id_noticia} altered`})
     }
 
+}))
 
+router.get("/list", wrap(async (req: express.Request, res: express.Response) => {
+    let lista = await Noticia.list()
+
+    res.json(lista)
 }))
 
 export = router;
