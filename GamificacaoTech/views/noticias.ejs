@@ -1,12 +1,20 @@
-<div style="position: absolute; top: 69px; left: 40%; display: flex; flex-direction: column;">
-    <label for="chamada_noticia">Chamada</label>
-    <input type="text" id="chamada_noticia"/>
-    <label for="corpo_noticia">Corpo</label>
-    <textarea id="corpo_noticia" name="corpo" rows="4" cols="50"></textarea>
-    <label for="data_noticia">Data de publicacao</label>
-    <input type="datetime" id="data_noticia"/>
-    <button type="submit" value="submit" onclick="registerNotcia()">Submit</button>
-</div>
+<h1 style="margin: 0 20px; margin-top: 70px;">Criação de Notícias</h1>
+
+<form class="noticia-form">
+    <div class="form-group" style="width: 100%;">
+        <label for="chamada_noticia">Chamada</label>
+        <input type="text" class="form-control" id="chamada_noticia" placeholder="Digite o título">
+    </div>
+    <div class="form-group" style="width: 100%;">
+        <label for="corpo_noticia">Corpo</label>
+        <textarea class="form-control" id="corpo_noticia" name="corpo" rows="4" cols="50" placeholder="Digite o conteúdo"></textarea>
+    </div>
+    <div class="form-group" style="width: 100%;">
+        <label for="data_noticia">Data de publicacao</label>
+        <input class="form-control" type="datetime" id="data_noticia" placeholder="Data da notícia"/>
+    </div>
+    <button type="submit" class="btn btn-primary" onclick="registerNotcia()">Enviar</button>
+</form>
 
 
 <%- contentFor("scripts") %>

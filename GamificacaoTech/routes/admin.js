@@ -62,7 +62,7 @@ router.get('/home', wrap((req, res) => __awaiter(void 0, void 0, void 0, functio
             else {
                 alunosPoints.push({
                     ra_usuario: alunos[i].ra_usuario,
-                    nome_usuario: alunos[i].ra_usuario,
+                    nome_usuario: alunos[i].nome_usuario,
                     pontos_bi: 0,
                     pontos_games: 0,
                     pontos_dev: 0,
