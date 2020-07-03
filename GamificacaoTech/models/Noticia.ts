@@ -78,7 +78,7 @@ export = class Noticia {
         let lista: Noticia[] = null;
 
         await Sql.conectar(async (sql: Sql) => {
-            lista = await sql.query("SELECT chamada_noticia, corpo_noticia, data_publicacao FROM noticia WHERE data_publicacao <= CURDATE();") as Noticia[]
+            lista = await sql.query("SELECT chamada_noticia, corpo_noticia, data_publicacao FROM noticia WHERE data_publicacao <= CURDATE() order by data_publicacao;") as Noticia[]
         })
 
         return lista

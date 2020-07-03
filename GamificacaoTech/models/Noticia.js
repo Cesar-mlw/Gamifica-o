@@ -78,7 +78,7 @@ module.exports = class Noticia {
         return __awaiter(this, void 0, void 0, function* () {
             let lista = null;
             yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
-                lista = (yield sql.query("SELECT chamada_noticia, corpo_noticia, data_publicacao FROM noticia WHERE data_publicacao <= CURDATE();"));
+                lista = (yield sql.query("SELECT chamada_noticia, corpo_noticia, data_publicacao FROM noticia WHERE data_publicacao <= CURDATE() order by data_publicacao;"));
             }));
             return lista;
         });

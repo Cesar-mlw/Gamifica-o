@@ -212,13 +212,14 @@
         let dt_comeco_projeto = document.getElementById("datepicker").value.split('/')
         dt_comeco_projeto = dt_comeco_projeto[2] + '-' + dt_comeco_projeto[1] + '-' + dt_comeco_projeto[0]
         let dt_termino_projeto = document.getElementById("datepicker2").value.split("/");
-        if(dt_termino_projeto[0] != ""){
+        let terminado_projeto = document.getElementById("check").checked ? 1 : 0;
+        if(terminado_projeto == 1){
             dt_termino_projeto = dt_termino_projeto[2] + "-" + dt_termino_projeto[1] + "-" + dt_termino_projeto[0]
         }
         else{
             dt_termino_projeto = null
         } 
-        let terminado_projeto = document.getElementById("check").checked ? 1 : 0;
+        
         let exibir_projeto = document.getElementById("check2").checked ? 1 : 0;
 
 
