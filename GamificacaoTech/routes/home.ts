@@ -19,6 +19,9 @@ router.get('/', wrap(async (req: express.Request, res: express.Response) => {
     if(await Usuario.doesNotExist(req.cookies.ra_usuario)){
         res.redirect("/login")
     }
+    else if(await Usuario.userIsAdmin(req.cookies.ra_usuario)){
+        res.redirect("/admin/home")
+    }
     else{
         let points = await Usuario.readUserPoints(req.cookies.ra_usuario)
         let coins = await Usuario.readUserCoins(req.cookies.ra_usuario)

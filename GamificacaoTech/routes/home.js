@@ -26,6 +26,9 @@ router.get('/', wrap((req, res) => __awaiter(void 0, void 0, void 0, function* (
     if (yield Usuario.doesNotExist(req.cookies.ra_usuario)) {
         res.redirect("/login");
     }
+    else if (yield Usuario.userIsAdmin(req.cookies.ra_usuario)) {
+        res.redirect("/admin/home");
+    }
     else {
         let points = yield Usuario.readUserPoints(req.cookies.ra_usuario);
         let coins = yield Usuario.readUserCoins(req.cookies.ra_usuario);

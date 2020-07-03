@@ -16,8 +16,6 @@ module.exports = class Noticia {
             resp += "Chamada nao pode ser nula/";
         if (p.corpo_noticia == null)
             resp += "Corpo nao pode ser nulo/";
-        if (p.imagem_noticia_url == null)
-            resp += "Endereco da imagem nao pode ser nulo/";
         if (p.data_publicacao == null)
             resp += "Data nao pode ser nula/";
         if (p.ra_usuario == null)
@@ -28,7 +26,7 @@ module.exports = class Noticia {
         return __awaiter(this, void 0, void 0, function* () {
             let lista = null;
             yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
-                lista = yield sql.query("SELECT id_noticia, chamada_noticia, corpo_noticia, imagem_noticia_url, data_publicacao, ra_usuario from noticia order by data_publicacao");
+                lista = yield sql.query("SELECT id_noticia, chamada_noticia, corpo_noticia, data_publicacao, ra_usuario from noticia order by data_publicacao");
             }));
             return lista;
         });
@@ -40,10 +38,9 @@ module.exports = class Noticia {
                 throw res;
             yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
                 try {
-                    sql.query("INSERT INTO noticia (chamada_noticia, corpo_noticia, imagem_noticia_url, data_publicacao, ra_usuario) VALUES (?, ?, ?, ?, ?)", [
+                    sql.query("INSERT INTO noticia (chamada_noticia, corpo_noticia, data_publicacao, ra_usuario) VALUES (?, ?, ?, ?)", [
                         n.chamada_noticia,
                         n.corpo_noticia,
-                        n.imagem_noticia_url,
                         n.data_publicacao,
                         n.ra_usuario
                     ]);
@@ -62,7 +59,7 @@ module.exports = class Noticia {
         return __awaiter(this, void 0, void 0, function* () {
             let lista = null;
             yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
-                lista = yield sql.query("SELECT id_noticia, chamada_notica, corpo_noticia, imagem_noticia_url, data_publicacao, ra_usuario WHERE id_noticia = ?", [id]);
+                lista = yield sql.query("SELECT id_noticia, chamada_notica, corpo_noticia, data_publicacao, ra_usuario WHERE id_noticia = ?", [id]);
             }));
             return ((lista && lista[0]) || null);
         });
@@ -71,7 +68,7 @@ module.exports = class Noticia {
         return __awaiter(this, void 0, void 0, function* () {
             let lista = null;
             yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
-                lista = yield sql.query("SELECT id_noticia, chamada_notica, corpo_noticia, imagem_noticia_url, data_publicacao, ra_usuario WHERE ra_usuario = ?", [ra]);
+                lista = yield sql.query("SELECT id_noticia, chamada_notica, corpo_noticia, data_publicacao, ra_usuario WHERE ra_usuario = ?", [ra]);
             }));
             return lista;
         });
@@ -80,10 +77,9 @@ module.exports = class Noticia {
         return __awaiter(this, void 0, void 0, function* () {
             let res;
             yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
-                yield sql.query("UPDATE noticia SET chamada_noticia = ?, corpo_noticia = ?, imagem_noticia_url = ?, data_publicacao = ?, ra_usuario = ?", [
+                yield sql.query("UPDATE noticia SET chamada_noticia = ?, corpo_noticia = ?, data_publicacao = ?, ra_usuario = ?", [
                     n.chamada_noticia,
                     n.corpo_noticia,
-                    n.imagem_noticia_url,
                     n.data_publicacao,
                     n.ra_usuario
                 ]);

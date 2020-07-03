@@ -33,7 +33,7 @@ module.exports = class Usuario {
         return __awaiter(this, void 0, void 0, function* () {
             let lista = null;
             yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
-                lista = (yield sql.query("SELECT u.ra_usuario, u.id_curso, u.nome_usuario, u.email_usuario, u.moedas_usuario, u.dt_entrada_usuario, u.senha_usuario, c.nome_curso FROM usuario u, curso c WHERE c.id_curso = u.id_curso"));
+                lista = (yield sql.query("SELECT u.ra_usuario, u.id_curso, u.nome_usuario, u.email_usuario, u.moedas_usuario, u.dt_entrada_usuario, c.nome_curso FROM usuario u, curso c WHERE c.id_curso = u.id_curso"));
             }));
             return lista;
         });
@@ -86,11 +86,11 @@ module.exports = class Usuario {
             return lista;
         });
     }
-    static readUserGeneralPoints(ra) {
+    static readUserAdminPoints(ra) {
         return __awaiter(this, void 0, void 0, function* () {
             let lista = null;
             yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
-                lista = (yield sql.query("select p.ra_usuario, sum(t.pontos_tipo_projeto) as 'pontos' from projeto p, tipo_projeto t, area a where p.id_tipo_projeto = t.id_tipo_projeto and p.id_area = a.id_area and ra_usuario = ? group by p.ra_usuario", [ra]));
+                lista = (yield sql.query("select p.id_area, a.nome_area, sum(t.pontos_tipo_projeto) as 'pontos' from projeto p, tipo_projeto t, area a where p.id_tipo_projeto = t.id_tipo_projeto and p.id_area = a.id_area and ra_usuario = ? group by p.id_area order by p.id_area", [ra]));
             }));
             return lista;
         });

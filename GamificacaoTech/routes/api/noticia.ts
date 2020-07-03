@@ -3,13 +3,13 @@ import wrap = require("express-async-error-wrapper");
 import Noticia = require("../../models/Noticia");
 
 
+
 const router = express.Router()
 
 
 router.post("/create", wrap(async (req: express.Request, res: express.Response) => {
     let p = req.body as Noticia
     let erro = await Noticia.create(p)
-
     if (erro) {
         res.status(400).send({status: "error", message: erro})
     }
@@ -44,6 +44,7 @@ router.post("/read", wrap(async (req: express.Request, res: express.Response) =>
     let p = await Noticia.read(idNoticia)
     res.json(p)
 }))
+
 
 router.post("/readFromUserID", wrap(async (req: express.Request, res: express.Response) => {
     let ra = req.body.ra
